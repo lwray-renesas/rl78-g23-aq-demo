@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<QE>
+    <Segment id="Project">
+        <Setting id="SrcGeneratedPath" value="src/smc_gen"/>
+    </Segment>
+    <Segment id="Pin">
+        <Setting id="P137" value="P137"/>
+        <Setting id="P144" value="SO30"/>
+        <Setting id="P60" value="CCD04"/>
+        <Setting id="P63" value="SDAA1"/>
+        <Setting id="P62" value="SCLA1"/>
+        <Setting id="P40" value="TOOL0"/>
+        <Setting id="P12" value="TOOLTxD"/>
+        <Setting id="P11" value="TOOLRxD"/>
+        <Setting id="P03" value="P03"/>
+        <Setting id="P02" value="P02"/>
+        <Setting id="P17" value="TI02"/>
+        <Setting id="P140" value="P140"/>
+        <Setting id="P142" value="SCK30"/>
+    </Segment>
+    <Segment id="Device">
+        <Setting id="Series" value="RL78G2x"/>
+        <Setting id="Group" value="RL78G23"/>
+        <Setting id="Board" value="Custom User Board"/>
+        <Setting id="PartNo" value="R7F100GSNxFB"/>
+        <Setting id="PinCount" value="128"/>
+    </Segment>
+    <Segment id="Clock">
+        <Setting id="FSXL" value="32.768"/>
+        <Setting id="EVDD" value="2.7"/>
+        <Setting id="FMAIN" value="32000.0"/>
+        <Setting id="VDD" value="2.7"/>
+        <Setting id="FIL" value="32.768"/>
+        <Setting id="FIHP" value="32000.0"/>
+        <Setting id="FCLK" value="32000.0"/>
+    </Segment>
+    <Segment id="Component">
+        <Setting id="r_bsp" value=""/>
+        <Setting id="Config_RTC" value="CG"/>
+        <Setting id="Config_ITL000" value="CG"/>
+        <Setting id="r_hs300x" value=""/>
+        <Setting id="Config_IICA1" value="CG"/>
+        <Setting id="r_zmod4xxx" value=""/>
+        <Setting id="r_comms_i2c" value=""/>
+        <Setting id="Config_TAU0_0" value="CG"/>
+        <Setting id="Config_TAU0_1" value="CG"/>
+        <Setting id="Config_CSI30" value="CG"/>
+        <Setting id="Config_PORT" value="CG"/>
+        <Setting id="Config_TAU0_4" value="CG"/>
+        <Setting id="Config_TAU0_2" value="CG"/>
+        <Setting id="Config_TAU0_3" value="CG"/>
+    </Segment>
+</QE>
