@@ -24,6 +24,9 @@
 -I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\src\smc_gen\Config_ITL000"
 -I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\src\smc_gen\Config_RTC"
 -I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\src\smc_gen\Config_TAU0_3"
--I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\src\smc_gen\Config_TAU0_4" 
+-I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\src\smc_gen\Config_TAU0_4"
+-I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\src\smc_gen\r_ctsu"
+-I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\HardwareDebug\src\smc_gen\r_ctsu"
+-I "C:\Users\a5126135\Dev\wow\wow_demo_rltos\src\smc_gen\rm_touch" 
 -character_set=utf8
 -g

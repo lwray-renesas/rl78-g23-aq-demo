@@ -11,6 +11,24 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define HW_SET_EVENT(flags,event)	{flags |= event;}
+#define HW_EVENT_OCCURRED(flags,event)	( ((flags) & (event)) == event )
+
+/** @brief Enumerated type for hardware event flags*/
+typedef enum
+{
+	NO_EVENT				=	0x0000U,
+	BUTTON_CLICK 			=	0x0001U,
+	BUTTON_LONG_PRESS 		=	0x0002U,
+	ROTARY_COUNT_UPDATED 	=	0x0004U,
+	RTC_CONSTANT_PERIOD		=	0x0008U,
+	PROXIMITY_SCAN_COMPLETE	=	0x0010U,
+	ALL_HARDWARE_EVENTS		=	0x001FU,
+}hardware_event_t;
+
+/** Variable to store event flags*/
+extern volatile hardware_event_t hw_event_flags;
+
 /** @brief Initialises applications hardware - defaults the rotary to disabled*/
 void Hw_init(void);
 
@@ -24,12 +42,10 @@ void Hw_start_rotary(void);
 /** @brief Stops the ELCL module from providing a count source to the event counters*/
 void Hw_stop_rotary(void);
 
-/** @brief Checks if the button has been clicked since last check.
- * @return True if button has been clicked, false otherwise.*/
-bool Hw_button_clicked(void);
+/** @brief Enables the capacitive proximity detection circuit*/
+void Hw_enable_proximity_detection(void);
 
-/** @brief Checks if the button has been long pressed since last check.
- * @return True if button has been long pressed, false otherwise.*/
-bool Hw_button_long_pressed(void);
+/** @brief Disables the capacitive proximity detection circuit*/
+void Hw_disable_proximity_detection(void);
 
 #endif /* APP_HW_HW_H_ */

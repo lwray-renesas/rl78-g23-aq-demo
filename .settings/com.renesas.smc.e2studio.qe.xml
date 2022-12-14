@@ -8,12 +8,14 @@
         <Setting id="P144" value="SO30"/>
         <Setting id="P60" value="CCD04"/>
         <Setting id="P63" value="SDAA1"/>
+        <Setting id="P30" value="TSCAP"/>
         <Setting id="P62" value="SCLA1"/>
         <Setting id="P40" value="TOOL0"/>
         <Setting id="P12" value="TOOLTxD"/>
         <Setting id="P11" value="TOOLRxD"/>
         <Setting id="P03" value="P03"/>
         <Setting id="P02" value="P02"/>
+        <Setting id="P05" value="TS10"/>
         <Setting id="P17" value="TI02"/>
         <Setting id="P140" value="P140"/>
         <Setting id="P142" value="SCK30"/>
@@ -44,8 +46,10 @@
         <Setting id="r_comms_i2c" value=""/>
         <Setting id="Config_TAU0_0" value="CG"/>
         <Setting id="Config_TAU0_1" value="CG"/>
+        <Setting id="r_ctsu" value=""/>
         <Setting id="Config_CSI30" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>
+        <Setting id="rm_touch" value=""/>
         <Setting id="Config_TAU0_4" value="CG"/>
         <Setting id="Config_TAU0_2" value="CG"/>
         <Setting id="Config_TAU0_3" value="CG"/>

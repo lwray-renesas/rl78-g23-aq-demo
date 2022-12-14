@@ -10,14 +10,15 @@
 #include "rltos_mutex.h"
 
 /** @brief On successful locking of the mutex we can set the owner
- * @param[inout] mutex_to_set - pointer to mutex to work on.*/
-static void Set_mutex_owner(p_rltos_mutex_t mutex_to_set);
+ * @param[inout] mutex_to_set - pointer to mutex to work on.
+ * @param[in] owner - pointer to task which now owns the mutex.*/
+static void Set_mutex_owner(p_rltos_mutex_t mutex_to_set, const p_rltos_task_t owner);
 
 /** @brief On successful release of the mutex we can clear the owner
  * @param[inout] mutex_to_clear - pointer to mutex to work on.*/
 static void Clear_mutex_owner(p_rltos_mutex_t mutex_to_clear);
 
-void Rltos_mutex_create(p_rltos_mutex_t mutex_to_create, const rltos_flag_t is_recursive, const rltos_flag_t initial_state)
+void Rltos_mutex_create(p_rltos_mutex_t mutex_to_create, const rltos_flag_t is_recursive, const p_rltos_task_t initial_owner)
 {
     RLTOS_PREPARE_CRITICAL_SECTION();
 
@@ -28,10 +29,10 @@ void Rltos_mutex_create(p_rltos_mutex_t mutex_to_create, const rltos_flag_t is_r
     mutex_to_create->nesting_count = 0U;
     Task_list_init(&mutex_to_create->mutex_task_list);
     
-    if(RLTOS_TRUE == initial_state)
+    if(NULL != initial_owner)
     {
         /* Take the mutex in the current thread context - guaranteed successful on creation*/
-        Set_mutex_owner(mutex_to_create);
+        Set_mutex_owner(mutex_to_create, initial_owner);
     }
 
     RLTOS_EXIT_CRITICAL_SECTION();
@@ -49,7 +50,7 @@ rltos_err_t Rltos_mutex_lock(p_rltos_mutex_t mutex_to_lock, rltos_uint timeout)
     /* The mutex is not locked OR the mutex is recursive and the calling thread is the current owner*/
     if((RLTOS_FALSE == mutex_to_lock->state) || ((RLTOS_TRUE == mutex_to_lock->is_recursive) && (mutex_to_lock->p_current_owner == Task_get_current())))
     {
-    	Set_mutex_owner(mutex_to_lock); /* Set the owner i.e. lock the mutex*/
+    	Set_mutex_owner(mutex_to_lock, Task_get_current()); /* Set the owner i.e. lock the mutex*/
 
         RLTOS_EXIT_CRITICAL_SECTION();
     }
@@ -92,7 +93,7 @@ rltos_err_t Rltos_mutex_lock(p_rltos_mutex_t mutex_to_lock, rltos_uint timeout)
 
     		if(RLTOS_FALSE == mutex_to_lock->state)
     		{
-    	    	Set_mutex_owner(mutex_to_lock); /* Set the owner i.e. lock the mutex*/
+    	    	Set_mutex_owner(mutex_to_lock, Task_get_current()); /* Set the owner i.e. lock the mutex*/
 
     	    	/* If any other tasks are waiting for the mutex, set them to running here.*/
     	    	for(uint16_t i = 0U; i < mutex_to_lock->mutex_task_list.size; ++i)
@@ -150,10 +151,10 @@ rltos_err_t Rltos_mutex_release(p_rltos_mutex_t mutex_to_release)
 }
 /* END OF FUNCTION*/
 
-static void Set_mutex_owner(p_rltos_mutex_t mutex_to_set)
+static void Set_mutex_owner(p_rltos_mutex_t mutex_to_set, const p_rltos_task_t owner)
 {
     mutex_to_set->state = RLTOS_TRUE;
-    mutex_to_set->p_current_owner = Task_get_current();
+    mutex_to_set->p_current_owner = owner;
     
     if(RLTOS_TRUE == mutex_to_set->is_recursive)
     {

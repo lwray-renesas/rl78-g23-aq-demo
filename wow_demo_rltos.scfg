@@ -245,12 +245,14 @@
         <Item bank="0" id="TAU1_INTTM17" priority="3"/>
     </tool>
     <tool id="Pins" version="1.0.1.0">
+        <pinItem allocation="66" comments="" direction="None" id="TSCAP" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="29" comments="" direction="I" id="P137" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="3" comments="" direction="O" id="P140" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="122" comments="" direction="O" id="P03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="123" comments="" direction="O" id="P02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="40" comments="" direction="None" id="SDAA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="81" comments="" direction="None" id="TOOLRxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="55" comments="" direction="None" id="TS10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="75" comments="" direction="None" id="TI02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="37" comments="" direction="IO" id="CCD04" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="1" comments="" direction="None" id="SCK30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -1370,7 +1372,7 @@
                     <item id="fSXP" input="" vlaue="0"/>
                     <item id="ELCL" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="fITL3">
+                <option enabled="true" id="ClockSource" selection="fITL7">
                     <item id="fITL0" input="1" vlaue="0"/>
                     <item id="fITL1" input="2" vlaue="0"/>
                     <item id="fITL2" input="4" vlaue="0"/>
@@ -1381,7 +1383,7 @@
                     <item id="fITL7" input="128" vlaue="0"/>
                 </option>
                 <option enabled="true" id="IntervalValue" selection="intervalValueText">
-                    <item id="intervalValueText" input="50" vlaue="204"/>
+                    <item id="intervalValueText" input="100" vlaue="25"/>
                 </option>
                 <option enabled="true" id="IntervalUnit" selection="ms">
                     <item id="ms" input="" vlaue="0"/>
@@ -1389,11 +1391,11 @@
                     <item id="ns" input="" vlaue="0"/>
                     <item id="count" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ITLInterruptEnable" selection="enable">
+                <option enabled="true" id="ITLInterruptEnable" selection="disable">
                     <item id="enable" input="" vlaue="0"/>
                     <item id="disable" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="PriorityITL" selection="Level3">
+                <option enabled="false" id="PriorityITL" selection="Level3">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>
@@ -1518,7 +1520,7 @@
                     <item id="uncheck" input="" vlaue="0"/>
                     <item id="check" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="period" selection="per1m">
+                <option enabled="true" id="period" selection="per1s">
                     <item id="per05s" input="" vlaue="0"/>
                     <item id="per1s" input="" vlaue="0"/>
                     <item id="per1m" input="" vlaue="0"/>
@@ -1822,6 +1824,68 @@
                 </context>
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_ctsu">
+            <component description="Dependency : r_bsp version(s) 1.13&#10;The CTSU2L module is a CTSU2L driver for the Capacitive Sensing Unit. The CTSU2L module is configured assuming access via the Touch middleware layer, but can also be accessed from the user application." detailDescription="Capacitive Sensing Unit driver." display="r_ctsu" id="r_ctsu1.20" version="1.20">
+                <gridItem id="TSCAP" selectedIndex="1"/>
+                <gridItem id="TS00" selectedIndex="0"/>
+                <gridItem id="TS01" selectedIndex="0"/>
+                <gridItem id="TS02" selectedIndex="0"/>
+                <gridItem id="TS03" selectedIndex="0"/>
+                <gridItem id="TS04" selectedIndex="0"/>
+                <gridItem id="TS05" selectedIndex="0"/>
+                <gridItem id="TS06" selectedIndex="0"/>
+                <gridItem id="TS07" selectedIndex="0"/>
+                <gridItem id="TS08" selectedIndex="0"/>
+                <gridItem id="TS09" selectedIndex="0"/>
+                <gridItem id="TS10" selectedIndex="1"/>
+                <gridItem id="TS11" selectedIndex="0"/>
+                <gridItem id="TS12" selectedIndex="0"/>
+                <gridItem id="TS13" selectedIndex="0"/>
+                <gridItem id="TS14" selectedIndex="0"/>
+                <gridItem id="TS15" selectedIndex="0"/>
+                <gridItem id="TS16" selectedIndex="0"/>
+                <gridItem id="TS17" selectedIndex="0"/>
+                <gridItem id="TS18" selectedIndex="0"/>
+                <gridItem id="TS19" selectedIndex="0"/>
+                <gridItem id="TS20" selectedIndex="0"/>
+                <gridItem id="TS21" selectedIndex="0"/>
+                <gridItem id="TS22" selectedIndex="0"/>
+                <gridItem id="TS23" selectedIndex="0"/>
+                <gridItem id="TS24" selectedIndex="0"/>
+                <gridItem id="TS25" selectedIndex="0"/>
+                <gridItem id="TS26" selectedIndex="0"/>
+                <gridItem id="TS27" selectedIndex="0"/>
+                <gridItem id="TS28" selectedIndex="0"/>
+                <gridItem id="TS29" selectedIndex="0"/>
+                <gridItem id="TS30" selectedIndex="0"/>
+                <gridItem id="TS31" selectedIndex="0"/>
+                <gridItem id="TS32" selectedIndex="0"/>
+                <gridItem id="TS33" selectedIndex="0"/>
+                <gridItem id="TS34" selectedIndex="0"/>
+                <gridItem id="TS35" selectedIndex="0"/>
+                <gridItem id="CTSU_CFG_PARAM_CHECKING_ENABLE" selectedIndex="2"/>
+                <gridItem id="CTSU_CFG_DTC_SUPPORT_ENABLE" selectedIndex="1"/>
+                <gridItem id="CTSU_CFG_DTC_USE_SC" selectedIndex="0"/>
+                <gridItem id="CTSU_CFG_SMS_SUPPORT_ENABLE" selectedIndex="0"/>
+                <gridItem id="CTSU_CFG_SMS_TRANSFER_ADDRESS" selectedIndex="0xFF800"/>
+                <gridItem id="CTSU_CFG_SMS_CTSUWR_ADDRESS" selectedIndex="0xFFB00"/>
+                <gridItem id="CTSU_CFG_INTCTSUWR_PRIORITY_LEVEL" selectedIndex="2"/>
+                <gridItem id="CTSU_CFG_INTCTSURD_PRIORITY_LEVEL" selectedIndex="2"/>
+                <gridItem id="CTSU_CFG_INTCTSUFN_PRIORITY_LEVEL" selectedIndex="2"/>
+            </component>
+            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        </configuration>
+        <configuration inuse="true" name="rm_touch">
+            <component description="Dependency : r_bsp version(s) 1.13&#10;Dependency : r_ctsu version(s) 1.20&#10;The TOUCH Module is middleware that uses the CTSU2L module to provide capacitive touch detection. The TOUCH module assumes access from the user application is possible." detailDescription="Touch middleware." display="rm_touch" id="rm_touch1.20" version="1.20">
+                <gridItem id="TOUCH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="2"/>
+                <gridItem id="TOUCH_CFG_UART_MONITOR_SUPPORT" selectedIndex="0"/>
+                <gridItem id="TOUCH_CFG_UART_TUNING_SUPPORT" selectedIndex="0"/>
+                <gridItem id="TOUCH_CFG_UART_NUMBER" selectedIndex="0"/>
+            </component>
+            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
         </configuration>
     </tool>
     <tool id="System">

@@ -58,8 +58,8 @@ rltos_mutex_t sys_state_mutex;
  **********************************************************/
 /** GUI Event Flags*/
 rltos_events_t gui_events;
-/** Hardware Event Flags*/
-rltos_events_t hardware_events;
+/** GUI Return Signal Event Flags*/
+rltos_events_t gui_return_events;
 
 void main(void)
 {
@@ -75,13 +75,13 @@ void main(void)
 	Rltos_task_create(&event_thread, &event_task_stack[DEFAULT_TASK_STACK_SIZE-1U], Event_thread_main, true);
 
 	/* Create the mutex's*/
-	Rltos_mutex_create(&sensor_mutex, RLTOS_FALSE, RLTOS_FALSE);
-	Rltos_mutex_create(&alarm_sensor_mutex, RLTOS_FALSE, RLTOS_FALSE);
-	Rltos_mutex_create(&sys_state_mutex, RLTOS_FALSE, RLTOS_FALSE);
+	Rltos_mutex_create(&sensor_mutex, RLTOS_FALSE, NULL);
+	Rltos_mutex_create(&alarm_sensor_mutex, RLTOS_FALSE, NULL);
+	Rltos_mutex_create(&sys_state_mutex, RLTOS_FALSE, NULL);
 
 	/* Create the event's*/
 	Rltos_events_create(&gui_events, 0U);
-	Rltos_events_create(&hardware_events, 0U);
+	Rltos_events_create(&gui_return_events, 0U);
 
 	/* Enter rltos Kernel*/
 	Rltos_kernel_enter();

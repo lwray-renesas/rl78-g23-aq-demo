@@ -14,6 +14,18 @@
 #error "Must include rltos_task.h before including this file in any source file"
 #endif
 
+/** @brief Utility MACRO used to check if all events is set.
+ * @param[in] flags - variable containing flags.
+ * @param[in] events - the events for checking.
+ * @return true if the exact events are detected, false otherwise.*/
+#define EVENTS_EXACT_OCCURED(flags,events)	(((flags) & (events)) == events)
+
+/** @brief Utility MACRO used to check if any event is set.
+ * @param[in] flags - variable containing flags.
+ * @param[in] events - the events for checking.
+ * @return true if any events are detected, false otherwise.*/
+#define EVENTS_ANY_OCCURED(flags,events)	(((flags) & (events)) != 0U)
+
 /** @struct rltos_event_set_t
  * @brief Structure defining the an event set object.
  */

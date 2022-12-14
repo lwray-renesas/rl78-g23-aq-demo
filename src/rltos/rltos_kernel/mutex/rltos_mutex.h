@@ -33,8 +33,9 @@ typedef rltos_mutex_t * p_rltos_mutex_t;
  * @details Must be called from a thread if the desire is to have an initial owner.
  * @param[inout] mutex_to_create - pointer to mutex structure from which to create the mutex.
  * @param[in] is_recurrsive - flag indicating whether the mutex is recursive or not.
- * @param[in] initial_state - if the inisital state is true - the current task is set to own the mutex, otherwise it is created unlocked*/
-void Rltos_mutex_create(p_rltos_mutex_t mutex_to_create, const rltos_flag_t is_recursive, const rltos_flag_t initial_state);
+ * @param[in] initial_owner - pointer to initial task who owns the mutex.
+ * */
+void Rltos_mutex_create(p_rltos_mutex_t mutex_to_create, const rltos_flag_t is_recursive, const p_rltos_task_t initial_owner);
 
 /** @brief Try lock the mutex
  * @param[inout] mutex_to_lock - pointer to mutex to work on.
@@ -46,7 +47,8 @@ rltos_err_t Rltos_mutex_lock(p_rltos_mutex_t mutex_to_lock, rltos_uint timeout);
 /** @brief Try release the mutex
  * @param[inout] mutex_to_release - pointer to mutex to work on.
  * @return RLTOS_SUCCESS if successful
- * RLTOS_RELEASED if the mutex was not locked in the first place*/
+ * RLTOS_RELEASED if the mutex was not locked in the first place
+ * RLTOS_INVALID_CONTEXT if the mutex is being released from a thread which does not own it.*/
 rltos_err_t Rltos_mutex_release(p_rltos_mutex_t mutex_to_release);
 
 #endif /* RLTOS_MUTEX_H_ */

@@ -25,74 +25,80 @@ void Gui_thread_main(void)
 		/* Wait indefinitely for a GUI event*/
 		Rltos_events_get(&gui_events, ALL_GUI_EVENTS, &gui_rx_flags, RLTOS_TRUE, RLTOS_FALSE, RLTOS_UINT_MAX);
 
-		if(EVENT_OCCURED(gui_rx_flags, BACKGROUND_TEMP_HUMID))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_TEMP_HUMID))
 		{
 			Gfx_set_background_temp_humid();
 			App_get_sensor_data(&gui_sensor_data);
 			Gfx_write_temp_humid(&gui_sensor_data);
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, UPDATE_TEMP_HUMID))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_TEMP_HUMID))
 		{
 			App_get_sensor_data(&gui_sensor_data);
 			Gfx_write_temp_humid(&gui_sensor_data);
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, BACKGROUND_AIR_QUALITY))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_AIR_QUALITY))
 		{
 			Gfx_set_background_air_quality();
 			App_get_sensor_data(&gui_sensor_data);
 			Gfx_write_air_quality(&gui_sensor_data);
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, UPDATE_AIR_QUALITY))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_AIR_QUALITY))
 		{
 			App_get_sensor_data(&gui_sensor_data);
 			Gfx_write_air_quality(&gui_sensor_data);
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, BACKGROUND_UPDATE_ALARMS))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_UPDATE_ALARMS))
 		{
 			Gfx_set_background_alarm();
 			App_get_alarm_sensor_data(&gui_alarm_sensor_data);
 			Gfx_write_alarm(&gui_alarm_sensor_data);
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, UPDATE_ALARMS))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_ALARMS))
 		{
 			App_get_alarm_sensor_data(&gui_alarm_sensor_data);
 			Gfx_write_alarm(&gui_alarm_sensor_data);
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, WAKEUP))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, WAKEUP))
 		{
 			Gfx_display_on();
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, SLEEP))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, SLEEP))
 		{
 			Gfx_display_off();
+			Rltos_events_set(&gui_return_events, DISPLAY_ASLEEP);
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, BACKGROUND_LOW_BATTERY))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, REDUCED_BACKLIGHT))
 		{
 			Gfx_reduced_backlight();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_LOW_BATTERY))
+		{
 			Gfx_set_background_low_battery();
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, WRITE_BACKGROUND))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, WRITE_BACKGROUND))
 		{
 			Gfx_set_background_title();
 		}
 
-		if(EVENT_OCCURED(gui_rx_flags, REDUCED_BACKLIGHT))
-		{
-			Gfx_reduced_backlight();
-		}
-
-		if(EVENT_OCCURED(gui_rx_flags, NORMAL_BACKLIGHT))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, NORMAL_BACKLIGHT))
 		{
 			Gfx_normal_backlight();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKLIGHT_OFF))
+		{
+			Gfx_backlight_off();
+			Rltos_events_set(&gui_return_events, DISPLAY_BACKLIGHT_OFF);
 		}
 
 		Rltos_task_sleep(3U);

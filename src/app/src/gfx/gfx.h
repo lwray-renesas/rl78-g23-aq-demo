@@ -52,4 +52,7 @@ void Gfx_reduced_backlight(void);
 /** @brief set normal backlight*/
 void Gfx_normal_backlight(void);
 
+/** @brief set backlight off*/
+void Gfx_backlight_off(void);
+
 #endif /* APP_GFX_GFX_H_ */

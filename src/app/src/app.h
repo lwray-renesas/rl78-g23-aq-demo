@@ -14,10 +14,9 @@
 #include "rltos_task.h"
 #include "rltos_events.h"
 #include "rltos_mutex.h"
+#include "rltos_semaphore.h"
 
-#define EVENT_OCCURED(flags,event)	((flags & event) == event)
-
-/** Enumerate type for gui event flags*/
+/** @brief Enumerate type for gui event flags*/
 typedef enum
 {
 	BACKGROUND_TEMP_HUMID 		=	0x0001U,
@@ -32,38 +31,49 @@ typedef enum
 	WRITE_BACKGROUND			=	0x0200U,
 	REDUCED_BACKLIGHT			=	0x0400U,
 	NORMAL_BACKLIGHT			=	0x0800U,
-	ALL_GUI_EVENTS				=	0x0FFFU,
+	BACKLIGHT_OFF				=	0x1000U,
+	ALL_GUI_EVENTS				=	0x1FFFU,
 }gui_event_t;
 
-/** Enumerated type for hardware event flags*/
+/** @brief Enumerate type for gui return signal event flags*/
 typedef enum
 {
-	BUTTON_CLICK 			=	0x0001U,
-	BUTTON_LONG_PRESS 		=	0x0002U,
-	ROTARY_COUNT_UPDATED 	=	0x0004U,
-	CTSU_PROXIMITY 			=	0x0008U,
-	RTC_BATTERY 			=	0x0010U,
-	RTC_SENSOR 				=	0x0020U,
-	ALL_HARDWARE_EVENTS		=	0x003FU,
-}hardware_event_t;
+	DISPLAY_ASLEEP 				=	0x0001U,
+	DISPLAY_BACKLIGHT_OFF		=	0x0002U,
+	ALL_GUI_RETURN_EVENTS		=	0x0003U,
+}gui_return_event_t;
 
 /** Shared application events*/
 extern rltos_events_t gui_events;
-extern rltos_events_t hardware_events;
+extern rltos_events_t gui_return_events;
 
-/** @brief rtos friendly interface for intialising sensors*/
+/** @brief Interface for intialising sensors*/
 void App_init_sensors(void);
 
-/** @brief rtos friendly interface for invoking a sensor update*/
+/** @brief Interface for invoking a sensor update*/
 void App_read_sensors(void);
 
-/** @brief rtos friendly interface for reading the latest sensor data
+/** @brief Interface for reading the latest sensor data
  * @param[in,out] A pointer to the sensor data structure to be populated*/
 void App_get_sensor_data(sensor_data_t * const sense_data_arg);
 
-/** @brief rtos friendly interface for updating alarm values
+/** @brief Interface for updating alarm values
  * @param[in,out] A pointer to the sensor data structure to be populated*/
 void App_get_alarm_sensor_data(sensor_data_t * const sense_data_arg);
+
+/** @brief Interface for system power management.*/
+void App_power_management(void);
+
+/** @brief Signals user activity to application for use in power management*/
+void App_signal_activity(void);
+
+/** @brief returns the current hardware events and clears the internal event variable.
+ * @return hardware events variable copy.
+ */
+hardware_event_t App_get_hw_events(void);
+
+/** @brief Handles rotary encoder I/O in set alarm state*/
+void App_rotary_processing(void);
 
 /**********************************************************************
  * Hardware Event Handlers
@@ -74,13 +84,10 @@ void App_button_click_handler(void);
 /** @brief Event handler for button long press*/
 void App_button_long_press_handler(void);
 
-/** @brief Event handler for ctsu proximity*/
-void App_ctsu_proximity_handler(void);
+/** @brief Event handler for RTC constant period interrupt*/
+void App_rtc_handler(void);
 
-/** @brief Event handler for rtc battery*/
-void App_rtc_battery_handler(void);
-
-/** @brief Event handler for rtc sensor*/
-void App_rtc_sensor_handler(void);
+/** @brrief Event handler for proximity events*/
+void App_proximity_handler(void);
 
 #endif /* APP_APP_H_ */

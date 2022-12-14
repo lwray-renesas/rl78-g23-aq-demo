@@ -69,7 +69,8 @@ typedef enum
 	RLTOS_LOCKED, /**< Indicates a resource is currently locked*/
 	RLTOS_RELEASED, /**< Indicates a resource is currently released*/
 	RLTOS_INVALID_CONTEXT, /**< Indicates a function has been called in an invalid context*/
-	RLTOS_ALREADY_SET /**< Indicates a value is already set*/
+	RLTOS_ALREADY_SET, /**< Indicates a value is already set*/
+	RLTOS_MAXIMUM, /**< Indicates a value is at the maximum threshold*/
 }rltos_err_t;
 
 /** @brief Enters RLTOS kernel and starts scheduler timer. 

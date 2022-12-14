@@ -247,6 +247,12 @@ void Gfx_normal_backlight(void)
 }
 /* END OF FUNCTION*/
 
+void Gfx_backlight_off(void)
+{
+	CCS4 = 0x00U; /* Hi-Z backlight*/
+}
+/* END OF FUNCTION*/
+
 static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const uint8_t * const text_colour)
 {
 	static uint16_t str_nav = 0U; /* Variable used to navigate the strings*/

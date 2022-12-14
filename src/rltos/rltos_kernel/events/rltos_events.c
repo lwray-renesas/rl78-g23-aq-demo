@@ -51,9 +51,7 @@ rltos_err_t Rltos_events_set(p_rltos_events_t events_to_set, const rltos_uint fl
 rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_uint flags, rltos_uint * output_flags, const rltos_flag_t clear_flags, const rltos_flag_t all_flags, const rltos_uint timeout)
 {
 	rltos_err_t err = RLTOS_SUCCESS;
-
-	bool all_events_set = false;
-	bool any_events_set = false;
+	bool necessary_events_set = false;
 
 	RLTOS_PREPARE_CRITICAL_SECTION();
 
@@ -61,21 +59,10 @@ rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_uint fl
 
 	*output_flags = 0U;
 
-	all_events_set = (events_to_get->event_flags & flags) == flags;
-	any_events_set = (events_to_get->event_flags & flags) != 0U;
+	/* Check which event flags are necessary & are they set*/
+	necessary_events_set = all_flags ? EVENTS_EXACT_OCCURED(events_to_get->event_flags, flags) : EVENTS_ANY_OCCURED(events_to_get->event_flags, flags);
 
-	if(all_events_set && all_flags)
-	{
-		*output_flags = events_to_get->event_flags;
-
-		if(RLTOS_TRUE == clear_flags)
-		{
-			events_to_get->event_flags &= ~flags;
-		}
-
-		RLTOS_EXIT_CRITICAL_SECTION();
-	}
-	else if(any_events_set && !all_flags)
+	if(necessary_events_set)
 	{
 		*output_flags = events_to_get->event_flags;
 
@@ -88,8 +75,6 @@ rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_uint fl
 	}
 	else
 	{
-		bool necessary_events_set = false;
-
 		/* Two scenarios, with two possibilities each:
 		 * 1. Infinite wait
 		 * 		The events are not set & timeout is infinite.
@@ -115,14 +100,7 @@ rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_uint fl
 			RLTOS_ENTER_CRITICAL_SECTION();
 
 			/* Check which event flags are necessary & are they set*/
-			if(RLTOS_TRUE == all_flags)
-			{
-				necessary_events_set = (events_to_get->event_flags & flags) == flags;
-			}
-			else
-			{
-				necessary_events_set = (events_to_get->event_flags & flags) != 0U;
-			}
+			necessary_events_set = all_flags ? EVENTS_EXACT_OCCURED(events_to_get->event_flags, flags) : EVENTS_ANY_OCCURED(events_to_get->event_flags, flags);
 		}
 		while( (!necessary_events_set) && (RLTOS_UINT_MAX == timeout) );
 
