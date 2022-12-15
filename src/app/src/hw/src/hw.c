@@ -11,6 +11,9 @@
 #include "rltos_task.h"
 #include "qe_touch_config.h"
 
+/** @brief macro used to determine the number of consecutive battery readings before considering a battery low*/
+#define LOW_BATTERY_READ_COUNT	(5U)
+
 /** variable to store event flags*/
 volatile hardware_event_t hw_event_flags = NO_EVENT;
 /** counter defined here but manipulated by timer 00 & 05 modules*/
@@ -124,6 +127,32 @@ void Hw_disable_proximity_detection(void)
 	ITLIF = 0U;
 }
 /* END OF FUNCTION*/
+
+bool Hw_low_battery(void)
+{
+	uint8_t low_battery_count = 0U;
+	uint8_t read_count = 0U;
+
+	/* Perform X reads - only if every read is low battery, do we consider the battery to be low*/
+	while(read_count < LOW_BATTERY_READ_COUNT)
+	{
+		++read_count;
+
+		LVIIF = 0U;
+
+		R_Config_LVD1_Start();
+
+		low_battery_count = (LVIIF > 0U) ? (low_battery_count += 1U) : (0U);
+
+		R_Config_LVD1_Stop();
+
+		/* Reset the interrupt flags*/
+		DLVD1FCLR = 1U;
+		LVIIF = 0U;
+	}
+
+	return (low_battery_count == LOW_BATTERY_READ_COUNT);
+}
 
 static void Setup_elcl(void)
 {

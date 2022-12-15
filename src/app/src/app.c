@@ -40,8 +40,6 @@ typedef enum
 extern rltos_mutex_t sensor_mutex;
 /** Alarm Sensor Data Mutex*/
 extern rltos_mutex_t alarm_sensor_mutex;
-/** System state mutex*/
-extern rltos_mutex_t sys_state_mutex;
 
 /** Local sensor data structure*/
 static sensor_data_t sensor_data;
@@ -57,13 +55,6 @@ static bool activity_flag = false;
 static gui_event_t backlight_state = NORMAL_BACKLIGHT;
 /** flag indicating battery is low*/
 static bool low_battery_flag = false;
-
-/** @brief rtos friendly function to set the system state*/
-static void App_set_state(system_state_t const target_state);
-
-/** @brief rtos friendly function to get the current system state.
- * @return the current system state*/
-static system_state_t App_get_state(void);
 
 void App_init_sensors(void)
 {
@@ -104,9 +95,7 @@ void App_get_alarm_sensor_data(sensor_data_t * const sense_data_arg)
 
 void App_power_management(void)
 {
-	system_state_t l_sys_state = App_get_state();
-
-	if(LOW_POWER == l_sys_state)
+	if(LOW_POWER == sys_state)
 	{
 		STOP(); /* Enter low power mode*/
 	}
@@ -141,9 +130,7 @@ hardware_event_t App_get_hw_events(void)
 
 void App_rotary_processing(void)
 {
-	system_state_t l_sys_state = App_get_state();
-
-	if(SET_ALARM == l_sys_state)
+	if(SET_ALARM == sys_state)
 	{
 		int16_t l_rot_count = Hw_get_rotary_count();
 
@@ -222,40 +209,18 @@ void App_rotary_processing(void)
 }
 /* END OF FUNCTION*/
 
-static void App_set_state(system_state_t const target_state)
-{
-	Rltos_mutex_lock(&sys_state_mutex, RLTOS_UINT_MAX);
-	sys_state = target_state;
-	Rltos_mutex_release(&sys_state_mutex);
-}
-/* END OF FUNCTION*/
-
-static system_state_t App_get_state(void)
-{
-	system_state_t l_sys_state = TEMPERATURE_HUMIDITY;
-
-	Rltos_mutex_lock(&sys_state_mutex, RLTOS_UINT_MAX);
-	l_sys_state = sys_state;
-	Rltos_mutex_release(&sys_state_mutex);
-
-	return l_sys_state;
-}
-/* END OF FUNCTION*/
-
 /**********************************************************************
  * Hardware Event Handlers
  *********************************************************************/
 void App_button_click_handler(void)
 {
-	const system_state_t l_sys_state = App_get_state();
-
-	switch(l_sys_state)
+	switch(sys_state)
 	{
 	case TEMPERATURE_HUMIDITY:
 	{
 		App_signal_activity();
-		App_set_state(AIR_QUALITY);
-		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY);
+		sys_state = AIR_QUALITY;
+		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
 	}
 	break;
 
@@ -263,8 +228,8 @@ void App_button_click_handler(void)
 	case LOW_BATTERY:
 	{
 		App_signal_activity();
-		App_set_state(TEMPERATURE_HUMIDITY);
-		Rltos_events_set(&gui_events, BACKGROUND_TEMP_HUMID);
+		sys_state = TEMPERATURE_HUMIDITY;
+		Rltos_events_set(&gui_events, BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
 	}
 	break;
 
@@ -291,21 +256,19 @@ void App_button_click_handler(void)
 
 void App_button_long_press_handler(void)
 {
-	system_state_t l_sys_state = App_get_state();
-
-	if(AIR_QUALITY == l_sys_state)
+	if(AIR_QUALITY == sys_state)
 	{
 		App_signal_activity();
-		App_set_state(SET_ALARM);
+		sys_state = SET_ALARM;
 		Hw_start_rotary();
-		Rltos_events_set(&gui_events, BACKGROUND_UPDATE_ALARMS);
+		Rltos_events_set(&gui_events, BACKGROUND_UPDATE_ALARMS | UPDATE_ALARMS);
 	}
-	else if(SET_ALARM == l_sys_state)
+	else if(SET_ALARM == sys_state)
 	{
 		App_signal_activity();
-		App_set_state(AIR_QUALITY);
+		sys_state = AIR_QUALITY;
 		Hw_stop_rotary();
-		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY);
+		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
 	}
 	else
 	{
@@ -320,30 +283,26 @@ void App_rtc_handler(void)
 {
 	static uint16_t rtc_counter = 0U;
 	static uint16_t rtc_inactivity_counter = 0U;
-	system_state_t l_sys_state = LOW_POWER;
 
 	++rtc_counter;
-
-	l_sys_state = App_get_state();
 
 	/* Read the battery every 30 minutes*/
 	if((rtc_counter % RTC_BATTERY_TIMEOUT) == 0U)
 	{
-		/* TODO: Handle battery read & implement below on low battery reading!*/
-
-#if 0 /* if battery is low*/
-		/* Set the low battery flag to ensure on CTSU wakeups we present the low batttery screen*/
-		low_battery_flag = true;
-		/* Reduce the backlight for the application*/
-		backlight_state = REDUCED_BACKLIGHT;
-
-		/* If we are not currently in a low power state set the immediate system state to low battery & present the low battery screen*/
-		if(l_sys_state != LOW_POWER)
+		if( (!low_battery_flag) && (Hw_low_battery()))
 		{
-			App_set_state(LOW_BATTERY);
-			Rltos_events_set(&gui_events, BACKGROUND_LOW_BATTERY | backlight_state);
+			/* Set the low battery flag to ensure on CTSU wakeups we present the low batttery screen*/
+			low_battery_flag = true;
+			/* Reduce the backlight for the application*/
+			backlight_state = REDUCED_BACKLIGHT;
+
+			/* If we are not currently in a low power state set the immediate system state to low battery & present the low battery screen*/
+			if(LOW_POWER != sys_state)
+			{
+				sys_state = LOW_BATTERY;
+				Rltos_events_set(&gui_events, BACKGROUND_LOW_BATTERY | backlight_state);
+			}
 		}
-#endif
 	}
 
 	if((rtc_counter % RTC_SENSOR_TIMEOUT) == 0U)
@@ -351,12 +310,12 @@ void App_rtc_handler(void)
 		/* Sensor Read Processing*/
 		App_read_sensors();
 
-		if(TEMPERATURE_HUMIDITY == l_sys_state)
+		if(TEMPERATURE_HUMIDITY == sys_state)
 		{
 			Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
 		}
 
-		if(AIR_QUALITY == l_sys_state)
+		if(AIR_QUALITY == sys_state)
 		{
 			Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
 		}
@@ -365,9 +324,8 @@ void App_rtc_handler(void)
 	}
 
 	/* If not in the low power state - check for inactivity*/
-	if(LOW_POWER != l_sys_state)
+	if(LOW_POWER != sys_state)
 	{
-		/* If the system is inactive for at least one consecutive minute*/
 		if(!activity_flag)
 		{
 			++rtc_inactivity_counter;
@@ -376,7 +334,7 @@ void App_rtc_handler(void)
 				static rltos_uint l_disp_asleep_flag = 0U;
 
 				/* Transition application to low power state*/
-				App_set_state(LOW_POWER);
+				sys_state = LOW_POWER;
 
 				/* Ensure the rotary decoder is disabled to*/
 				Hw_stop_rotary();
@@ -405,6 +363,7 @@ void App_proximity_handler(void)
 	/* Immediately retrieve the CTSU data*/
 	fsp_err_t err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &proximity_status, NULL, NULL);
 
+	/* Allow failures for incomplete tuning - first few scans will inevitably be for offset compensation*/
 	if((err != FSP_SUCCESS) && (err != FSP_ERR_CTSU_INCOMPLETE_TUNING))
 	{
 		while(1){}
@@ -416,18 +375,18 @@ void App_proximity_handler(void)
 		proximity_status = 0ULL;
 		App_signal_activity();
 
-		if(LOW_POWER == App_get_state())
+		if(LOW_POWER == sys_state)
 		{
 			/* If we have detected a low battery during sleep - present low battery screen on wakeup otherwise temp & humidity*/
 			if(low_battery_flag)
 			{
-				App_set_state(LOW_BATTERY);
+				sys_state = LOW_BATTERY;
 				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_LOW_BATTERY);
 			}
 			else
 			{
-				App_set_state(TEMPERATURE_HUMIDITY);
-				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_TEMP_HUMID);
+				sys_state = TEMPERATURE_HUMIDITY;
+				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
 			}
 		}
 	}

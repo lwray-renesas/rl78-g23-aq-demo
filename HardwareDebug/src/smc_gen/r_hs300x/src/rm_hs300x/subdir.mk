@@ -5,15 +5,21 @@
 # Add inputs and outputs from these tool invocations to the build variables
 C_SRCS += \
 ../src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x.c \
-../src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_instance.c 
+../src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_common.c \
+../src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_instance.c \
+../src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_rl_driver.c 
 
 COMPILER_OBJS += \
 src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x.obj \
-src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_instance.obj 
+src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_common.obj \
+src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_instance.obj \
+src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_rl_driver.obj 
 
 C_DEPS += \
 src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x.d \
-src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_instance.d 
+src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_common.d \
+src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_instance.d \
+src/smc_gen/r_hs300x/src/rm_hs300x/rm_hs300x_rl_driver.d 
 
 # Each subdirectory must supply rules for building sources it contributes
 src/smc_gen/r_hs300x/src/rm_hs300x/%.obj: ../src/smc_gen/r_hs300x/src/rm_hs300x/%.c 

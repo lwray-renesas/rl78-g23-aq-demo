@@ -48,4 +48,8 @@ void Hw_enable_proximity_detection(void);
 /** @brief Disables the capacitive proximity detection circuit*/
 void Hw_disable_proximity_detection(void);
 
+/** @brief Returns true if low battery voltage is detected.
+ * @return true if battey voltage is low, false otherwise.*/
+bool Hw_low_battery(void);
+
 #endif /* APP_HW_HW_H_ */

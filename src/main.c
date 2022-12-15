@@ -50,8 +50,6 @@ extern void Event_thread_main(void);
 rltos_mutex_t sensor_mutex;
 /** Alarm Sensor Data Mutex*/
 rltos_mutex_t alarm_sensor_mutex;
-/** System State Mutex*/
-rltos_mutex_t sys_state_mutex;
 
 /***********************************************************
  * EVENT FLAG's
@@ -77,7 +75,6 @@ void main(void)
 	/* Create the mutex's*/
 	Rltos_mutex_create(&sensor_mutex, RLTOS_FALSE, NULL);
 	Rltos_mutex_create(&alarm_sensor_mutex, RLTOS_FALSE, NULL);
-	Rltos_mutex_create(&sys_state_mutex, RLTOS_FALSE, NULL);
 
 	/* Create the event's*/
 	Rltos_events_create(&gui_events, 0U);

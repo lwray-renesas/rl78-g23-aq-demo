@@ -28,8 +28,6 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_TEMP_HUMID))
 		{
 			Gfx_set_background_temp_humid();
-			App_get_sensor_data(&gui_sensor_data);
-			Gfx_write_temp_humid(&gui_sensor_data);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_TEMP_HUMID))
@@ -41,8 +39,6 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_AIR_QUALITY))
 		{
 			Gfx_set_background_air_quality();
-			App_get_sensor_data(&gui_sensor_data);
-			Gfx_write_air_quality(&gui_sensor_data);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_AIR_QUALITY))
@@ -54,8 +50,6 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_UPDATE_ALARMS))
 		{
 			Gfx_set_background_alarm();
-			App_get_alarm_sensor_data(&gui_alarm_sensor_data);
-			Gfx_write_alarm(&gui_alarm_sensor_data);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_ALARMS))

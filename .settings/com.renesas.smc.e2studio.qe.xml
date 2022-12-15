@@ -48,6 +48,7 @@
         <Setting id="Config_TAU0_1" value="CG"/>
         <Setting id="r_ctsu" value=""/>
         <Setting id="Config_CSI30" value="CG"/>
+        <Setting id="Config_LVD1" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>
         <Setting id="rm_touch" value=""/>
         <Setting id="Config_TAU0_4" value="CG"/>

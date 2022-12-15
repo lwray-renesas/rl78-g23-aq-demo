@@ -7,6 +7,8 @@ C_SRCS += \
 ../src/smc_gen/general/r_cg_iica_common.c \
 ../src/smc_gen/general/r_cg_itl_common.c \
 ../src/smc_gen/general/r_cg_itl_common_user.c \
+../src/smc_gen/general/r_cg_lvd_common.c \
+../src/smc_gen/general/r_cg_lvd_common_user.c \
 ../src/smc_gen/general/r_cg_rtc_common.c \
 ../src/smc_gen/general/r_cg_sau_common.c \
 ../src/smc_gen/general/r_cg_systeminit.c \
@@ -16,6 +18,8 @@ COMPILER_OBJS += \
 src/smc_gen/general/r_cg_iica_common.obj \
 src/smc_gen/general/r_cg_itl_common.obj \
 src/smc_gen/general/r_cg_itl_common_user.obj \
+src/smc_gen/general/r_cg_lvd_common.obj \
+src/smc_gen/general/r_cg_lvd_common_user.obj \
 src/smc_gen/general/r_cg_rtc_common.obj \
 src/smc_gen/general/r_cg_sau_common.obj \
 src/smc_gen/general/r_cg_systeminit.obj \
@@ -25,6 +29,8 @@ C_DEPS += \
 src/smc_gen/general/r_cg_iica_common.d \
 src/smc_gen/general/r_cg_itl_common.d \
 src/smc_gen/general/r_cg_itl_common_user.d \
+src/smc_gen/general/r_cg_lvd_common.d \
+src/smc_gen/general/r_cg_lvd_common_user.d \
 src/smc_gen/general/r_cg_rtc_common.d \
 src/smc_gen/general/r_cg_sau_common.d \
 src/smc_gen/general/r_cg_systeminit.d \

@@ -14,6 +14,7 @@ RM := rm -rf *.sni *.dbg *.lst *.lis *.lpp *.map *.x *.lbp *.h *.bls *.libelf *.
 -include src/smc_gen/Config_IICA1/subdir.mk
 -include src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/subdir.mk
 -include src/smc_gen/Config_TAU0_3/subdir.mk
+-include src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/subdir.mk
 -include qe_gen/subdir.mk
 -include src/app/src/hw/src/subdir.mk
 -include src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/subdir.mk
@@ -47,6 +48,7 @@ RM := rm -rf *.sni *.dbg *.lst *.lis *.lpp *.map *.x *.lbp *.h *.bls *.libelf *.
 -include src/smc_gen/Config_PORT/subdir.mk
 -include src/smc_gen/r_bsp/mcu/all/subdir.mk
 -include src/smc_gen/Config_TAU0_2/subdir.mk
+-include src/smc_gen/Config_LVD1/subdir.mk
 -include src/smc_gen/Config_RTC/subdir.mk
 -include src/app/src/sensor/src/subdir.mk
 -include src/rltos/rltos_kernel/core/task_scheduler/subdir.mk
@@ -184,6 +186,7 @@ endif
 	-rm -rf src/smc_gen/Config_IICA1/*.asm src/smc_gen/Config_IICA1/*.p src/smc_gen/Config_IICA1/*.pp src/smc_gen/Config_IICA1/*.src src/smc_gen/Config_IICA1/*.jmp src/smc_gen/Config_IICA1/*.lst src/smc_gen/Config_IICA1/*.prn src/smc_gen/Config_IICA1/*.i src/smc_gen/Config_IICA1/*.ud 
 	-rm -rf src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.asm src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.p src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.pp src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.src src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.jmp src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.lst src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.prn src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.i src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/oaq_2nd_gen/*.ud 
 	-rm -rf src/smc_gen/Config_TAU0_3/*.asm src/smc_gen/Config_TAU0_3/*.p src/smc_gen/Config_TAU0_3/*.pp src/smc_gen/Config_TAU0_3/*.src src/smc_gen/Config_TAU0_3/*.jmp src/smc_gen/Config_TAU0_3/*.lst src/smc_gen/Config_TAU0_3/*.prn src/smc_gen/Config_TAU0_3/*.i src/smc_gen/Config_TAU0_3/*.ud 
+	-rm -rf src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.asm src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.p src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.pp src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.src src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.jmp src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.lst src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.prn src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.i src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/raq/*.ud 
 	-rm -rf qe_gen/*.asm qe_gen/*.p qe_gen/*.pp qe_gen/*.src qe_gen/*.jmp qe_gen/*.lst qe_gen/*.prn qe_gen/*.i qe_gen/*.ud 
 	-rm -rf src/app/src/hw/src/*.asm src/app/src/hw/src/*.p src/app/src/hw/src/*.pp src/app/src/hw/src/*.src src/app/src/hw/src/*.jmp src/app/src/hw/src/*.lst src/app/src/hw/src/*.prn src/app/src/hw/src/*.i src/app/src/hw/src/*.ud 
 	-rm -rf src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.asm src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.p src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.pp src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.src src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.jmp src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.lst src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.prn src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.i src/smc_gen/r_zmod4xxx/src/rm_zmod4xxx/odor/*.ud 
@@ -217,6 +220,7 @@ endif
 	-rm -rf src/smc_gen/Config_PORT/*.asm src/smc_gen/Config_PORT/*.p src/smc_gen/Config_PORT/*.pp src/smc_gen/Config_PORT/*.src src/smc_gen/Config_PORT/*.jmp src/smc_gen/Config_PORT/*.lst src/smc_gen/Config_PORT/*.prn src/smc_gen/Config_PORT/*.i src/smc_gen/Config_PORT/*.ud 
 	-rm -rf src/smc_gen/r_bsp/mcu/all/*.asm src/smc_gen/r_bsp/mcu/all/*.p src/smc_gen/r_bsp/mcu/all/*.pp src/smc_gen/r_bsp/mcu/all/*.src src/smc_gen/r_bsp/mcu/all/*.jmp src/smc_gen/r_bsp/mcu/all/*.lst src/smc_gen/r_bsp/mcu/all/*.prn src/smc_gen/r_bsp/mcu/all/*.i src/smc_gen/r_bsp/mcu/all/*.ud 
 	-rm -rf src/smc_gen/Config_TAU0_2/*.asm src/smc_gen/Config_TAU0_2/*.p src/smc_gen/Config_TAU0_2/*.pp src/smc_gen/Config_TAU0_2/*.src src/smc_gen/Config_TAU0_2/*.jmp src/smc_gen/Config_TAU0_2/*.lst src/smc_gen/Config_TAU0_2/*.prn src/smc_gen/Config_TAU0_2/*.i src/smc_gen/Config_TAU0_2/*.ud 
+	-rm -rf src/smc_gen/Config_LVD1/*.asm src/smc_gen/Config_LVD1/*.p src/smc_gen/Config_LVD1/*.pp src/smc_gen/Config_LVD1/*.src src/smc_gen/Config_LVD1/*.jmp src/smc_gen/Config_LVD1/*.lst src/smc_gen/Config_LVD1/*.prn src/smc_gen/Config_LVD1/*.i src/smc_gen/Config_LVD1/*.ud 
 	-rm -rf src/smc_gen/Config_RTC/*.asm src/smc_gen/Config_RTC/*.p src/smc_gen/Config_RTC/*.pp src/smc_gen/Config_RTC/*.src src/smc_gen/Config_RTC/*.jmp src/smc_gen/Config_RTC/*.lst src/smc_gen/Config_RTC/*.prn src/smc_gen/Config_RTC/*.i src/smc_gen/Config_RTC/*.ud 
 	-rm -rf src/app/src/sensor/src/*.asm src/app/src/sensor/src/*.p src/app/src/sensor/src/*.pp src/app/src/sensor/src/*.src src/app/src/sensor/src/*.jmp src/app/src/sensor/src/*.lst src/app/src/sensor/src/*.prn src/app/src/sensor/src/*.i src/app/src/sensor/src/*.ud 
 	-rm -rf src/rltos/rltos_kernel/core/task_scheduler/*.asm src/rltos/rltos_kernel/core/task_scheduler/*.p src/rltos/rltos_kernel/core/task_scheduler/*.pp src/rltos/rltos_kernel/core/task_scheduler/*.src src/rltos/rltos_kernel/core/task_scheduler/*.jmp src/rltos/rltos_kernel/core/task_scheduler/*.lst src/rltos/rltos_kernel/core/task_scheduler/*.prn src/rltos/rltos_kernel/core/task_scheduler/*.i src/rltos/rltos_kernel/core/task_scheduler/*.ud 
