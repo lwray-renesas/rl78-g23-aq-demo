@@ -11,6 +11,15 @@
 #include <stdint.h>
 #include "sensor.h"
 
+/** @brief type to define which sensor to highlight*/
+typedef enum
+{
+	IAQ_HIGHLIGHT = 0U,
+	TVOC_HIGHLIGHT,
+	ECO2_HIGHLIGHT,
+	NONE_HIGHLIGHT,
+}sensor_data_highlight_t;
+
 /** @brief Initialises all graphical portions of the application*/
 void Gfx_init(void);
 
@@ -30,12 +39,9 @@ void Gfx_set_background_air_quality(void);
  * @param[in] sense_data - sensor data object*/
 void Gfx_write_air_quality(const volatile sensor_data_t * sense_data);
 
-/** @brief Sets up the display for alarm feature.*/
-void Gfx_set_background_alarm(void);
-
 /** @brief Writes the alarm data to the display*
  * @param[in] sense_data - sensor data object*/
-void Gfx_write_alarm(const volatile sensor_data_t * sense_data);
+void Gfx_write_alarm(const volatile sensor_data_t * sense_data, const sensor_data_highlight_t data_to_highlight);
 
 /** @brief Sets the display to low battery.*/
 void Gfx_set_background_low_battery(void);
@@ -54,5 +60,17 @@ void Gfx_normal_backlight(void);
 
 /** @brief set backlight off*/
 void Gfx_backlight_off(void);
+
+/** @brief Sets background for enabling alarms*/
+void Gfx_set_backgound_enable_alarm(void);
+
+/** @brief Highlights Alarm Off Text*/
+void Gfx_set_backgound_enable_alarm_off(void);
+
+/** @brief Highlights Alarm On Text*/
+void Gfx_set_backgound_enable_alarm_on(void);
+
+/** @brief Sets the display to breached Alarm Message*/
+void Gfx_set_backgound_breach_alarm(void);
 
 #endif /* APP_GFX_GFX_H_ */

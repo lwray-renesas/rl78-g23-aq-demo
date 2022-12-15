@@ -14,6 +14,9 @@
 #error "Must include rltos_task.h before including this file in any source file"
 #endif
 
+/** Customisable event flag type*/
+typedef uint32_t rltos_event_flag_t;
+
 /** @brief Utility MACRO used to check if all events is set.
  * @param[in] flags - variable containing flags.
  * @param[in] events - the events for checking.
@@ -32,7 +35,7 @@
 typedef struct
 {
     rltos_task_list_t events_task_list; /**< Used to maintain the tasks waiting on the events contained in the event set*/
-    rltos_uint event_flags; /**< Used to house the flags (each bit is a single event)*/
+    rltos_event_flag_t event_flags; /**< Used to house the flags (each bit is a single event)*/
 }rltos_events_t;
 
 /** @brief pointer to event set structure*/
@@ -41,14 +44,14 @@ typedef rltos_events_t * p_rltos_events_t;
 /** @brief Initialises event set.
  * @param[inout] es_to_create - pointer to event set [es] structure from which to create the event set.
  * @param[in] initial_flags - mask for flags to be set on creation.*/
-void Rltos_events_create(p_rltos_events_t events_to_create, const rltos_uint initial_flags);
+void Rltos_events_create(p_rltos_events_t events_to_create, const rltos_event_flag_t initial_flags);
 
 /** @brief Set events in a given group.
  * @param events_to_set - pointer to events structure to set events on.
  * @param flags - specific flags/events to set.
  * @return RLTOS_SUCCESS if successful.
  */
-rltos_err_t Rltos_events_set(p_rltos_events_t events_to_set, const rltos_uint flags);
+rltos_err_t Rltos_events_set(p_rltos_events_t events_to_set, const rltos_event_flag_t flags);
 
 /** @brief Get events in a given group
  * @param[inout] events_to_get - pointer to events structure to get events from.
@@ -59,7 +62,7 @@ rltos_err_t Rltos_events_set(p_rltos_events_t events_to_set, const rltos_uint fl
  * @param[in] timeout - How long to wait for given flags.
  * @return RLTOS_SUCCESS if successful.
  */
-rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_uint flags, rltos_uint * output_flags, const rltos_flag_t clear_flags, const rltos_flag_t all_flags, const rltos_uint timeout);
+rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_event_flag_t flags, rltos_event_flag_t * output_flags, const rltos_flag_t clear_flags, const rltos_flag_t all_flags, const rltos_uint timeout);
 
 #endif /* RLTOS_EVENT_FLAGS_H_ */
 

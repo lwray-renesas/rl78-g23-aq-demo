@@ -10,14 +10,14 @@
 #include "rltos_events.h"
 
 
-void Rltos_events_create(p_rltos_events_t events_to_create, const rltos_uint initial_flags)
+void Rltos_events_create(p_rltos_events_t events_to_create, const rltos_event_flag_t initial_flags)
 {
 	Task_list_init(&events_to_create->events_task_list);
 	events_to_create->event_flags = initial_flags;
 }
 /* END OF FUNCTION*/
 
-rltos_err_t Rltos_events_set(p_rltos_events_t events_to_set, const rltos_uint flags)
+rltos_err_t Rltos_events_set(p_rltos_events_t events_to_set, const rltos_event_flag_t flags)
 {
 	rltos_err_t err = RLTOS_SUCCESS;
 
@@ -48,7 +48,7 @@ rltos_err_t Rltos_events_set(p_rltos_events_t events_to_set, const rltos_uint fl
 }
 /* END OF FUNCTION*/
 
-rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_uint flags, rltos_uint * output_flags, const rltos_flag_t clear_flags, const rltos_flag_t all_flags, const rltos_uint timeout)
+rltos_err_t Rltos_events_get(p_rltos_events_t events_to_get, const rltos_event_flag_t flags, rltos_event_flag_t * output_flags, const rltos_flag_t clear_flags, const rltos_flag_t all_flags, const rltos_uint timeout)
 {
 	rltos_err_t err = RLTOS_SUCCESS;
 	bool necessary_events_set = false;

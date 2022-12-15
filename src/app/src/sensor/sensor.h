@@ -42,4 +42,11 @@ void Sensor_read(sensor_data_t * const sense_data_arg);
  */
 void Int_dec_add(int_dec_t * const x, int_dec_t const * const y);
 
+/** @brief Checks if X > Y
+ * @param x - value to compare
+ * @param y - value to compare
+ * @return true if X > Y, otherwise false.
+ */
+bool Int_dec_larger_than(int_dec_t * const x, int_dec_t const * const y);
+
 #endif /* APP_SENSOR_SENSOR_H_ */

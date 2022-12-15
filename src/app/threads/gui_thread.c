@@ -8,7 +8,7 @@
 #include "r_smc_entry.h"
 #include "app.h"
 
-static rltos_uint gui_rx_flags = 0U;
+static rltos_event_flag_t gui_rx_flags = 0U;
 static sensor_data_t gui_sensor_data;
 static sensor_data_t gui_alarm_sensor_data;
 
@@ -47,15 +47,22 @@ void Gui_thread_main(void)
 			Gfx_write_air_quality(&gui_sensor_data);
 		}
 
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_UPDATE_ALARMS))
-		{
-			Gfx_set_background_alarm();
-		}
-
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_ALARMS))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_ALARM_IAQ))
 		{
 			App_get_alarm_sensor_data(&gui_alarm_sensor_data);
-			Gfx_write_alarm(&gui_alarm_sensor_data);
+			Gfx_write_alarm(&gui_alarm_sensor_data, IAQ_HIGHLIGHT);
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_ALARM_TVOC))
+		{
+			App_get_alarm_sensor_data(&gui_alarm_sensor_data);
+			Gfx_write_alarm(&gui_alarm_sensor_data, TVOC_HIGHLIGHT);
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_ALARM_ECO2))
+		{
+			App_get_alarm_sensor_data(&gui_alarm_sensor_data);
+			Gfx_write_alarm(&gui_alarm_sensor_data, ECO2_HIGHLIGHT);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, WAKEUP))
@@ -65,6 +72,7 @@ void Gui_thread_main(void)
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, SLEEP))
 		{
+			Gfx_backlight_off();
 			Gfx_display_off();
 			Rltos_events_set(&gui_return_events, DISPLAY_ASLEEP);
 		}
@@ -89,10 +97,24 @@ void Gui_thread_main(void)
 			Gfx_normal_backlight();
 		}
 
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKLIGHT_OFF))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_ENABLE_ALARM))
 		{
-			Gfx_backlight_off();
-			Rltos_events_set(&gui_return_events, DISPLAY_BACKLIGHT_OFF);
+			Gfx_set_backgound_enable_alarm();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_ENABLE_ALARM_OFF))
+		{
+			Gfx_set_backgound_enable_alarm_off();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_ENABLE_ALARM_ON))
+		{
+			Gfx_set_backgound_enable_alarm_on();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_BREACH_ALARM))
+		{
+			Gfx_set_backgound_breach_alarm();
 		}
 
 		Rltos_task_sleep(3U);

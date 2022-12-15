@@ -176,7 +176,7 @@ uint16_t Text_put_str(const uint16_t x, const uint16_t y, const char * str, cons
 	const bool set_bg_colour = (NULL != bg_colour);
 	uint16_t pixels_written = 0U;
 
-	uint16_t l_x = 0U, l_y = y;
+	uint16_t l_x = x, l_y = y;
 
 	Set_colour(colour);
 
@@ -190,10 +190,15 @@ uint16_t Text_put_str(const uint16_t x, const uint16_t y, const char * str, cons
 		if((*(str+c) == '\n') || (*(str+c) == '\r') || (pixels_written + cur_font_dsc->ptr_font_glyph_dsc[*(str+c) - cur_font_dsc->unicode_start].w_px > max_x))
 		{
 			pixels_written = 0U;
-			l_x = 0U;
+			l_x = x;
 			l_y += cur_font_dsc->font_height;
 
-			if(l_y > max_y)
+			if((*(str+c) == '\n') || (*(str+c) == '\r'))
+			{
+				++c;
+			}
+
+			if((l_y > max_y) || (c >= str_len_bytes))
 			{
 				break;
 			}

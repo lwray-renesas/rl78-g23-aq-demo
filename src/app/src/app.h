@@ -16,32 +16,29 @@
 #include "rltos_mutex.h"
 #include "rltos_semaphore.h"
 
-/** @brief Enumerate type for gui event flags*/
-typedef enum
-{
-	BACKGROUND_TEMP_HUMID 		=	0x0001U,
-	UPDATE_TEMP_HUMID 			=	0x0002U,
-	BACKGROUND_AIR_QUALITY		=	0x0004U,
-	UPDATE_AIR_QUALITY 			=	0x0008U,
-	BACKGROUND_UPDATE_ALARMS	=	0x0010U,
-	UPDATE_ALARMS 				=	0x0020U,
-	WAKEUP 						=	0x0040U,
-	SLEEP 						=	0x0080U,
-	BACKGROUND_LOW_BATTERY		=	0x0100U,
-	WRITE_BACKGROUND			=	0x0200U,
-	REDUCED_BACKLIGHT			=	0x0400U,
-	NORMAL_BACKLIGHT			=	0x0800U,
-	BACKLIGHT_OFF				=	0x1000U,
-	ALL_GUI_EVENTS				=	0x1FFFU,
-}gui_event_t;
+/** GUI EVENTS*/
+#define	BACKGROUND_TEMP_HUMID 		(0x00001UL)
+#define	UPDATE_TEMP_HUMID 			(0x00002UL)
+#define	BACKGROUND_AIR_QUALITY		(0x00004UL)
+#define	UPDATE_ALARM_IAQ			(0x00008UL)
+#define	UPDATE_ALARM_TVOC			(0x00010UL)
+#define	UPDATE_ALARM_ECO2			(0x00020UL)
+#define	WAKEUP 						(0x00040UL)
+#define	SLEEP 						(0x00080UL)
+#define	BACKGROUND_LOW_BATTERY		(0x00100UL)
+#define	WRITE_BACKGROUND			(0x00200UL)
+#define	REDUCED_BACKLIGHT			(0x00400UL)
+#define	NORMAL_BACKLIGHT			(0x00800UL)
+#define	BACKGROUND_ENABLE_ALARM		(0x01000UL)
+#define	BACKGROUND_ENABLE_ALARM_OFF	(0x02000UL)
+#define	BACKGROUND_ENABLE_ALARM_ON	(0x04000UL)
+#define	BACKGROUND_BREACH_ALARM		(0x08000UL)
+#define	UPDATE_AIR_QUALITY			(0x10000UL)
+#define	ALL_GUI_EVENTS				(0x1FFFFUL)
 
-/** @brief Enumerate type for gui return signal event flags*/
-typedef enum
-{
-	DISPLAY_ASLEEP 				=	0x0001U,
-	DISPLAY_BACKLIGHT_OFF		=	0x0002U,
-	ALL_GUI_RETURN_EVENTS		=	0x0003U,
-}gui_return_event_t;
+/** GUI RETURN EVENTS*/
+#define DISPLAY_ASLEEP 				(0x00001UL)
+#define ALL_GUI_RETURN_EVENTS		(0x00001UL)
 
 /** Shared application events*/
 extern rltos_events_t gui_events;

@@ -86,11 +86,13 @@
 
 /** Display area data*/
 static ST7735S_display_area_info_t disp_info;
+/** flag indicating calibration text is being displayed*/
+static bool calibration_text = false;
 
 /** @brief Writes the temperature and humidity readings to the display.
  * @param[in] sense_data - sensor data object
- * @param[in] pointer to text colour*/
-static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const uint8_t * const text_colour);
+ * @param[in] data_to_highlight - selects which data to highlight*/
+static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const sensor_data_highlight_t data_to_highlight);
 /** @brief Utility function to erase text.
  * @param[in] x - x position of text to erase.
  * @param[in] y - y position of text to erase.
@@ -181,36 +183,33 @@ void Gfx_set_background_air_quality(void)
 
 void Gfx_write_air_quality(const volatile sensor_data_t * sense_data)
 {
-	static bool sensor_was_calibrated = false; /* Flag used to track the moment calibration finishes so we can remove calibrated text*/
-
 	if(sense_data->zmod_calibrated)
 	{
-		if(!sensor_was_calibrated)
+		if(calibration_text)
 		{
 			Erase_text(ECO2_TEXT_OFFSET_X, ECO2_TEXT_OFFSET_Y, Text_str_len_px("CALIBRATING..."));
-
-			sensor_was_calibrated = true;
+			calibration_text = false;
 		}
 
-		Gfx_write_air_quality_text(sense_data, FOREGROUND_TEXT_COLOUR);
+		Gfx_write_air_quality_text(sense_data, NONE_HIGHLIGHT);
 	}
 	else
 	{
 		Text_put_line(ECO2_TEXT_OFFSET_X, ECO2_TEXT_OFFSET_Y, "CALIBRATING...", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-		sensor_was_calibrated = false;
+		calibration_text = true;
 	}
 }
 /* END OF FUNCTION*/
 
-void Gfx_set_background_alarm(void)
+void Gfx_write_alarm(const volatile sensor_data_t * sense_data, const sensor_data_highlight_t data_to_highlight)
 {
-	Gfx_set_background_air_quality();
-}
-/* END OF FUNCTION*/
+	if(calibration_text)
+	{
+		Erase_text(ECO2_TEXT_OFFSET_X, ECO2_TEXT_OFFSET_Y, Text_str_len_px("CALIBRATING..."));
+		calibration_text = false;
+	}
 
-void Gfx_write_alarm(const volatile sensor_data_t * sense_data)
-{
-	Gfx_write_air_quality_text(sense_data, COLOUR_RED);
+	Gfx_write_air_quality_text(sense_data, data_to_highlight);
 }
 /* END OF FUNCTION*/
 
@@ -253,7 +252,42 @@ void Gfx_backlight_off(void)
 }
 /* END OF FUNCTION*/
 
-static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const uint8_t * const text_colour)
+void Gfx_set_backgound_enable_alarm(void)
+{
+	uint16_t l_txt = 0U;
+	Erase_background();
+	(void)Text_put_str(55U, 25U, "ALARM", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	l_txt = Text_put_str(BACKGROUND_X_START + 25U, 50U, " OFF ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	l_txt += Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
+
+void Gfx_set_backgound_enable_alarm_off(void)
+{
+	uint16_t l_txt = 0U;
+	l_txt = Text_put_str(BACKGROUND_X_START + 25U, 50U, " OFF ", BACKGROUND_TEXT_COLOUR, FOREGROUND_TEXT_COLOUR);
+	l_txt += Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
+
+void Gfx_set_backgound_enable_alarm_on(void)
+{
+	uint16_t l_txt = 0U;
+	l_txt = Text_put_str(BACKGROUND_X_START + 25U, 50U, " OFF ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	l_txt += Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", BACKGROUND_TEXT_COLOUR, FOREGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
+
+void Gfx_set_backgound_breach_alarm(void)
+{
+
+}
+/* END OF FUNCTION*/
+
+static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const sensor_data_highlight_t data_to_highlight)
 {
 	static uint16_t str_nav = 0U; /* Variable used to navigate the strings*/
 	static uint16_t iaq_str_len_prev = 0U; /* Variable used to store the previously written iaq string length*/
@@ -271,6 +305,14 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 			.x0 = 53U,
 			.y0 = 67U,
 	};
+	const uint8_t * IAQ_FOREGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+	const uint8_t * IAQ_BACKGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
+
+	const uint8_t * TVOC_FOREGROUND_COLOUR_PTR = (data_to_highlight == TVOC_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+	const uint8_t * TVOC_BACKGROUND_COLOUR_PTR = (data_to_highlight == TVOC_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
+
+	const uint8_t * ECO2_FOREGROUND_COLOUR_PTR = (data_to_highlight == ECO2_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+	const uint8_t * ECO2_BACKGROUND_COLOUR_PTR = (data_to_highlight == ECO2_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
 
 	status_bar.colour = Colour_lookup_iaq(sense_data->iaq);
 
@@ -287,7 +329,7 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 	str_nav = Text_int_to_str(sense_data->eco2.integer_part, eco2_str);
 
 	/* Write the iaq*/
-	str_len_tmp = Text_put_line(IAQ_TEXT_OFFSET_X, IAQ_TEXT_OFFSET_Y, iaq_str, text_colour, BACKGROUND_TEXT_COLOUR);
+	str_len_tmp = Text_put_line(IAQ_TEXT_OFFSET_X, IAQ_TEXT_OFFSET_Y, iaq_str, IAQ_FOREGROUND_COLOUR_PTR, IAQ_BACKGROUND_COLOUR_PTR);
 
 	/* Erase any extra pixels resulting in  shorter string*/
 	if(iaq_str_len_prev > str_len_tmp)
@@ -298,9 +340,9 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 	iaq_str_len_prev = str_len_tmp;
 
 	/* Write the tvoc*/
-	str_len_tmp = Text_put_line(TVOC_TEXT_OFFSET_X, TVOC_TEXT_OFFSET_Y, tvoc_str, text_colour, BACKGROUND_TEXT_COLOUR);
+	str_len_tmp = Text_put_line(TVOC_TEXT_OFFSET_X, TVOC_TEXT_OFFSET_Y, tvoc_str, TVOC_FOREGROUND_COLOUR_PTR, TVOC_BACKGROUND_COLOUR_PTR);
 	Text_set_font(&small_font);
-	Text_put_line(TVOC_TEXT_OFFSET_X, TVOC_TEXT_OFFSET_Y+16U, tvoc_unit_str, text_colour, BACKGROUND_TEXT_COLOUR);
+	Text_put_line(TVOC_TEXT_OFFSET_X, TVOC_TEXT_OFFSET_Y+16U, tvoc_unit_str, TVOC_FOREGROUND_COLOUR_PTR, TVOC_BACKGROUND_COLOUR_PTR);
 
 	/* Erase any extra pixels resulting in  shorter string*/
 	if(tvoc_str_len_prev > str_len_tmp)
@@ -312,9 +354,9 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 
 	/* Write the eco2*/
 	Text_set_font(&default_font);
-	str_len_tmp = Text_put_line(ECO2_TEXT_OFFSET_X, ECO2_TEXT_OFFSET_Y, eco2_str, text_colour, BACKGROUND_TEXT_COLOUR);
+	str_len_tmp = Text_put_line(ECO2_TEXT_OFFSET_X, ECO2_TEXT_OFFSET_Y, eco2_str, ECO2_FOREGROUND_COLOUR_PTR, ECO2_BACKGROUND_COLOUR_PTR);
 	Text_set_font(&small_font);
-	Text_put_line(ECO2_TEXT_OFFSET_X, ECO2_TEXT_OFFSET_Y+16U, eco2_unit_str, text_colour, BACKGROUND_TEXT_COLOUR);
+	Text_put_line(ECO2_TEXT_OFFSET_X, ECO2_TEXT_OFFSET_Y+16U, eco2_unit_str, ECO2_FOREGROUND_COLOUR_PTR, ECO2_BACKGROUND_COLOUR_PTR);
 
 	/* Erase any extra pixels resulting in  shorter string*/
 	if(eco2_str_len_prev > str_len_tmp)

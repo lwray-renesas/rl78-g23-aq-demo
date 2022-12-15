@@ -86,6 +86,30 @@ void Int_dec_add(int_dec_t * const x, int_dec_t const * const y)
 }
 /* END OF FUNCTION*/
 
+bool Int_dec_larger_than(int_dec_t * const x, int_dec_t const * const y)
+{
+	bool x_larger_than_y = false;
+
+	if(x->integer_part > y->integer_part)
+	{
+		x_larger_than_y = true;
+	}
+	else if(x->integer_part == y->integer_part)
+	{
+		if(x->decimal_part > y->decimal_part)
+		{
+			x_larger_than_y = true;
+		}
+	}
+	else
+	{
+		/* Do nothing - X integer < Y integer*/
+	}
+
+	return x_larger_than_y;
+}
+/* END OF FUNCTION*/
+
 /**********************************************************************
  * HS3001
  *********************************************************************/
