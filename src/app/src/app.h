@@ -34,11 +34,13 @@
 #define	BACKGROUND_ENABLE_ALARM_ON	(0x04000UL)
 #define	BACKGROUND_BREACH_ALARM		(0x08000UL)
 #define	UPDATE_AIR_QUALITY			(0x10000UL)
-#define	ALL_GUI_EVENTS				(0x1FFFFUL)
+#define BACKLIGHT_OFF				(0x20000UL)
+#define	ALL_GUI_EVENTS				(0x3FFFFUL)
 
 /** GUI RETURN EVENTS*/
 #define DISPLAY_ASLEEP 				(0x00001UL)
-#define ALL_GUI_RETURN_EVENTS		(0x00001UL)
+#define BACKLIGHT_TURNED_OFF		(0x00002UL)
+#define ALL_GUI_RETURN_EVENTS		(0x00003UL)
 
 /** Shared application events*/
 extern rltos_events_t gui_events;

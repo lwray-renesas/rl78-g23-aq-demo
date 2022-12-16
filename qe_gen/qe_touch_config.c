@@ -85,7 +85,7 @@ const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
     .tuning_mutual_target_value = 10240,
 #endif
 
-    .num_moving_average = 2,
+    .num_moving_average = 1,
     .tunning_enable     = true,
     .p_callback    = &qe_touch_callback,
 };
@@ -114,8 +114,8 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 3602,
-        .hysteresis = 180,
+        .threshold  = 1500,
+        .hysteresis = 100,
     },
 };
 #endif
@@ -150,7 +150,7 @@ const touch_cfg_t g_qe_touch_cfg_config01 =
 
     .on_freq     = 1,
     .off_freq    = 1,
-    .drift_freq  = 255,
+    .drift_freq  = 128,
     .cancel_freq = 0,
 
     .p_ctsu_instance = &g_qe_ctsu_instance_config01,

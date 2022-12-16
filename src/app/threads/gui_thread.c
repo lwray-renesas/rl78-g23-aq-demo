@@ -70,9 +70,14 @@ void Gui_thread_main(void)
 			Gfx_display_on();
 		}
 
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, SLEEP))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKLIGHT_OFF))
 		{
 			Gfx_backlight_off();
+			Rltos_events_set(&gui_return_events, BACKLIGHT_TURNED_OFF);
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, SLEEP))
+		{
 			Gfx_display_off();
 			Rltos_events_set(&gui_return_events, DISPLAY_ASLEEP);
 		}
@@ -117,7 +122,7 @@ void Gui_thread_main(void)
 			Gfx_set_backgound_breach_alarm();
 		}
 
-		Rltos_task_sleep(3U);
+		Rltos_task_sleep(0U);
 	}
 }
 /* End of thread*/

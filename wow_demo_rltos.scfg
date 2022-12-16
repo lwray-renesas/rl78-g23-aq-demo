@@ -1314,7 +1314,7 @@
                     <item id="fITL7" input="128" vlaue="0"/>
                 </option>
                 <option enabled="true" id="IntervalValue" selection="intervalValueText">
-                    <item id="intervalValueText" input="100" vlaue="25"/>
+                    <item id="intervalValueText" input="200" vlaue="50"/>
                 </option>
                 <option enabled="true" id="IntervalUnit" selection="ms">
                     <item id="ms" input="" vlaue="0"/>
@@ -1424,7 +1424,7 @@
                     <item id="uncheck" input="" vlaue="0"/>
                     <item id="check" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="period" selection="per1s">
+                <option enabled="true" id="period" selection="per1m">
                     <item id="per05s" input="" vlaue="0"/>
                     <item id="per1s" input="" vlaue="0"/>
                     <item id="per1m" input="" vlaue="0"/>

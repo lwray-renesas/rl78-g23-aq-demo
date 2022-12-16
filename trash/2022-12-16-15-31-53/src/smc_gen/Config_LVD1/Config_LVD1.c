@@ -18,17 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_RTC.c
-* Component Version: 1.2.0
+* File Name        : Config_LVD1.c
+* Component Version: 1.1.0
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_RTC.
+* Description      : This file implements device driver for Config_LVD1.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_RTC.h"
+#include "Config_LVD1.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -45,105 +45,55 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Create
-* Description  : This function initializes the real-time clock module.
+* Function Name: R_Config_LVD1_Create
+* Description  : This function initializes the voltage detector module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Create(void)
-{
-    /* Supplies input clock */
-    RTCWEN = 1U;
-    /* Disable RTC clock operation */
-    RTCE = 0U;
-    /* Disable INTRTC interrupt */
-    RTCMK = 1U;
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
-    /* Set INTRTC Low priority */
-    RTCPR1 = 1U;
-    RTCPR0 = 1U;
-    /* Set fRTCCK */
-    RTCC0 = _00_RTC_CLK_32KHZ;
-    /* Set 12-/24-hour system and period of Constant-period interrupt (INTRTC) */
-    RTCC0 |= (_03_RTC_INTRTC_CLOCK_1MINU);
+void R_Config_LVD1_Create(void)
+{        
+    LVIMK = 1U;    /* disable INTLVI interrupt */
+    LVIIF = 0U;    /* clear INTLVI interrupt flag */
+    /* Set INTLVI priority */
+    LVIPR1 = 1U;
+    LVIPR0 = 1U;
+    LVISEN = 1U;    /*Enable of rewriting the LVIS register*/
+    LVIS = _00_LVD_MODE_INT | _15_LVD_LEVEL_276;
+    LVISEN = 0U;    /*Disable of rewriting the LVIS register*/
 
-    R_Config_RTC_Create_UserInit();
+    R_Config_LVD1_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Start
-* Description  : This function enables the real-time clock.
+* Function Name: R_Config_LVD1_Start
+* Description  : This function starts the voltage detector operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Start(void)
+void R_Config_LVD1_Start(void)
 {
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
-    /* Enable INTRTC interrupt */
-    RTCMK = 0U;
-    /* Enable RTC clock operation */
-    RTCE = 1U;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_RTC_Stop
-* Description  : This function disables the real-time clock.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_Config_RTC_Stop(void)
-{
-    /* Disable RTC clock operation */
-    RTCE = 0U;
-    /* Disable INTRTC interrupt */
-    RTCMK = 1U;
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_RTC_Set_ConstPeriodInterruptOn
-* Description  : This function enables constant-period interrupt.
-* Arguments    : period -
-*                    the constant period of INTRTC
-* Return Value : status -
-*                    MD_OK or MD_ARGERROR
-***********************************************************************************************************************/
-MD_STATUS R_Config_RTC_Set_ConstPeriodInterruptOn(e_rtc_int_period_t period)
-{
-    MD_STATUS status = MD_OK;
-    if ((period < HALFSEC) || (period > ONEMONTH))
+    volatile uint16_t w_count;
+    LVISEN = 1U;    /*enable of rewriting the LVIS register*/
+    LVD1EN = 1U;    /*Start the lvd1 operation*/
+    LVISEN = 0U;    /*disable of rewriting the LVIS register*/
+    /* LVD1 is enabled after the stabilization waiting time (at least 500 us). */
+    for (w_count = 0U; w_count < LVD1_STABILIZATION_WAITTIME; w_count++)
     {
-        status = MD_ARGERROR;
+        NOP();
     }
-    else
-    {
-        /* Disable INTRTC */
-        RTCMK = 1U;
-        RTCC0 = (uint8_t)((RTCC0 & _F8_RTC_INTRTC_CLEAR) | period);
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;
-        /* Clear INTRTC interrupt flag */
-        RTCIF = 0U;
-        /* Enable INTRTC interrupt */
-        RTCMK = 0U;
-    }
-    return (status);
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Set_ConstPeriodInterruptOff
-* Description  : This function disables constant-period interrupt.
+* Function Name: R_Config_LVD1_Stop
+* Description  : This function stops the voltage detector operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Set_ConstPeriodInterruptOff(void)
+void R_Config_LVD1_Stop(void)
 {
-    RTCC0 &= _F8_RTC_INTRTC_CLEAR;
-    RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
+    LVISEN = 1U;    /*enable of rewriting the LVIS register*/
+    LVD1EN = 0U;    /*stop the lvd1 operation*/
+    LVISEN = 0U;    /*disable of rewriting the LVIS register*/
 }
 
 /* Start user code for adding. Do not edit comment generated here */

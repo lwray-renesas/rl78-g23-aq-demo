@@ -53,7 +53,7 @@ void Event_thread_main(void)
 
 		App_rotary_processing();
 
-		Rltos_task_sleep(1U);
+		Rltos_task_sleep(0U);
 	}
 }
 /* End of thread*/

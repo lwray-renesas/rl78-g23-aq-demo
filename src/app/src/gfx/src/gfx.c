@@ -81,6 +81,12 @@
 #define LOW_BATT_IMAGE_WIDTH  (50U)
 #define LOW_BATT_IMAGE_HEIGHT  (50U)
 
+/*********** ALARM ********************/
+#define ALARM_IMAGE_OFFSET_X  (59U)
+#define ALARM_IMAGE_OFFSET_Y  (23U)
+#define ALARM_IMAGE_WIDTH  (48U)
+#define ALARM_IMAGE_HEIGHT  (48U)
+
 /** @brief abs function for gfx stuff*/
 #define GFX_ABS(a, b) ((a > b) ? a-b : b-a)
 
@@ -283,7 +289,8 @@ void Gfx_set_backgound_enable_alarm_on(void)
 
 void Gfx_set_backgound_breach_alarm(void)
 {
-
+	Erase_background();
+	St7735s_send_image(ALARM_IMAGE_OFFSET_X, ALARM_IMAGE_OFFSET_Y, ALARM_IMAGE_WIDTH, ALARM_IMAGE_HEIGHT, (__far const uint8_t *)alarm_img);
 }
 /* END OF FUNCTION*/
 
