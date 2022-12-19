@@ -392,9 +392,9 @@ void App_rtc_handler(void)
 		Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
 		Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
 
-		alarm_breached = (Int_dec_larger_than(&alarm_sensor_data.tvoc, &sensor_data.tvoc) ||
-				Int_dec_larger_than(&alarm_sensor_data.iaq, &sensor_data.iaq) ||
-				Int_dec_larger_than(&alarm_sensor_data.eco2, &sensor_data.eco2)) && (sensor_data.zmod_calibrated);
+		alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
+				Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
+				Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2)) && (sensor_data.zmod_calibrated);
 
 		Rltos_mutex_release(&sensor_mutex);
 		Rltos_mutex_release(&alarm_sensor_mutex);

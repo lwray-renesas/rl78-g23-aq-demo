@@ -20,11 +20,6 @@
 #define DISPLAY_COLOUR_BPP			(16U)
 /** @brief macro used to define inversion method (0 = dot vs 1 = column)*/
 #define DISPLAY_INVERSION_CONTROL	(0)
-/** @brief Configuration macro:
- * 0 - perform NOP while waiting for SPI blocking transmissions to complete
- * 1 - Enter SLEEP mode while waiting for SPI blocking transmissions to complete
- */
-#define CONFIG_STATE_WHILE_WAIT		(0)
 
 /** @brief enumerated type to describe orientations for ST7735S controller*/
 typedef enum

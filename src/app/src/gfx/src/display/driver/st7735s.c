@@ -36,15 +36,6 @@
 #error "DISPLAY_INVERSION_CONTROL unsupported value - please check definition in st7735s.h"
 #endif
 
-/** @brief Used to set the wait state for blocking delays in SPI transactions.*/
-#if CONFIG_STATE_WHILE_WAIT == 0
-#define WAIT()		{ST7735S_NOP(); ST7735S_NOP(); ST7735S_NOP(); ST7735S_NOP(); ST7735S_NOP(); ST7735S_NOP();}
-#elif CONFIG_STATE_WHILE_WAIT == 1
-#define WAIT()		ST7735S_SLEEP()
-#else
-#error "Unsupported wait configuration - please set the state-while-wait macro to valid value"
-#endif
-
 typedef enum {
 	NOP       = 0x00,
 	SWRESET   = 0x01, /* Software Reset */

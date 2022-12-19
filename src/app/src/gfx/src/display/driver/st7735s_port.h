@@ -56,7 +56,7 @@ static inline void Delay_ms(uint16_t ms)
 
 		while(0U == TMIF04)
 		{
-			ST7735S_NOP();
+			ST7735S_SLEEP();
 		}
 
 		TT0 |= _0010_TAU_CH4_STOP_TRG_ON;
