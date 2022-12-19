@@ -52,5 +52,5 @@ Mkfile.old
 dkms.conf
 
 # Custom
-HardwareDebug/*
-trash/*
+/HardwareDebug/
+/trash/

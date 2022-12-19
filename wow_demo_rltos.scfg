@@ -245,21 +245,21 @@
         <Item bank="0" id="TAU1_INTTM17" priority="3"/>
     </tool>
     <tool id="Pins" version="1.0.1.0">
+        <pinItem allocation="75" comments="" direction="None" id="TI02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="66" comments="" direction="None" id="TSCAP" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="29" comments="" direction="I" id="P137" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="37" comments="" direction="IO" id="CCD04" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="1" comments="" direction="None" id="SCK30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="3" comments="" direction="O" id="P140" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="122" comments="" direction="O" id="P03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="123" comments="" direction="O" id="P02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="40" comments="" direction="None" id="SDAA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="81" comments="" direction="None" id="TOOLRxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="55" comments="" direction="None" id="TS10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="75" comments="" direction="None" id="TI02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="37" comments="" direction="IO" id="CCD04" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="1" comments="" direction="None" id="SCK30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="22" comments="" direction="None" id="TOOL0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="80" comments="" direction="None" id="TOOLTxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="40" comments="" direction="None" id="SDAA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="127" comments="" direction="None" id="SO30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="39" comments="" direction="None" id="SCLA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="81" comments="" direction="None" id="TOOLRxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="55" comments="" direction="None" id="TS10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
@@ -1921,7 +1921,7 @@
                     <item id="lvd_3880" input="" vlaue="0"/>
                     <item id="lvd_4080" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="interruptVoltage" selection="lvd_2760">
+                <option enabled="true" id="interruptVoltage" selection="lvd_2450">
                     <item id="lvd_1630" input="" vlaue="0"/>
                     <item id="lvd_1740" input="" vlaue="0"/>
                     <item id="lvd_1840" input="" vlaue="0"/>
