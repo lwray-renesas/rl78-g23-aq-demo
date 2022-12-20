@@ -62,9 +62,9 @@ void R_Config_IICA1_Create(void)
     IICE1 = 0U;
     IICAMK1 = 1U;    /* disable INTIICA1 interrupt */
     IICAIF1 = 0U;    /* clear INTIICA1 interrupt flag */
-    /* Set INTIICA1 high priority */
+    /* Set INTIICA1 level 1 priority */
     IICAPR11 = 0U;
-    IICAPR01 = 0U;
+    IICAPR01 = 1U;
     /* Set SCLA1, SDAA1 pin */
     CCDE &= 0x3FU;
     P6 &= 0xF3U;

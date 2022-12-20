@@ -66,7 +66,7 @@ void R_Config_RTC_Create(void)
     /* Set fRTCCK */
     RTCC0 = _00_RTC_CLK_32KHZ;
     /* Set 12-/24-hour system and period of Constant-period interrupt (INTRTC) */
-    RTCC0 |= (_03_RTC_INTRTC_CLOCK_1MINU);
+    RTCC0 |= (_02_RTC_INTRTC_CLOCK_1SEC);
 
     R_Config_RTC_Create_UserInit();
 }

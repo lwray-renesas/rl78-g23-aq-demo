@@ -231,7 +231,7 @@
         <Item bank="0" id="SAU1_INTSRE3" priority="3"/>
         <Item bank="0" id="TAU1_INTTM13H" priority="3"/>
         <Item bank="0" id="CTSU_INTCTSUWR" priority="3"/>
-        <Item bank="0" id="IICA_INTIICA1" priority="0"/>
+        <Item bank="0" id="IICA_INTIICA1" priority="1"/>
         <Item bank="0" id="CTSU_INTCTSURD" priority="3"/>
         <Item bank="0" id="CTSU_INTCTSUFN" priority="3"/>
         <Item bank="0" id="REMC_INTREMC" priority="3"/>
@@ -245,21 +245,21 @@
         <Item bank="0" id="TAU1_INTTM17" priority="3"/>
     </tool>
     <tool id="Pins" version="1.0.1.0">
-        <pinItem allocation="75" comments="" direction="None" id="TI02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="66" comments="" direction="None" id="TSCAP" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="29" comments="" direction="I" id="P137" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="37" comments="" direction="IO" id="CCD04" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="1" comments="" direction="None" id="SCK30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="3" comments="" direction="O" id="P140" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="122" comments="" direction="O" id="P03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="123" comments="" direction="O" id="P02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="22" comments="" direction="None" id="TOOL0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="80" comments="" direction="None" id="TOOLTxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="40" comments="" direction="None" id="SDAA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="127" comments="" direction="None" id="SO30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="39" comments="" direction="None" id="SCLA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="81" comments="" direction="None" id="TOOLRxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="55" comments="" direction="None" id="TS10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="75" comments="" direction="None" id="TI02" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="37" comments="" direction="IO" id="CCD04" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="1" comments="" direction="None" id="SCK30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="22" comments="" direction="None" id="TOOL0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="80" comments="" direction="None" id="TOOLTxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="127" comments="" direction="None" id="SO30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="39" comments="" direction="None" id="SCLA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
@@ -1261,7 +1261,7 @@
                 <option enabled="false" id="timeFalling" selection="input">
                     <item id="input" input="0" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Interrupt" selection="Level0">
+                <option enabled="true" id="Interrupt" selection="Level1">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>
@@ -1424,7 +1424,7 @@
                     <item id="uncheck" input="" vlaue="0"/>
                     <item id="check" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="period" selection="per1m">
+                <option enabled="true" id="period" selection="per1s">
                     <item id="per05s" input="" vlaue="0"/>
                     <item id="per1s" input="" vlaue="0"/>
                     <item id="per1m" input="" vlaue="0"/>

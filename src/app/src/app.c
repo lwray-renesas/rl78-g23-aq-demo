@@ -15,8 +15,10 @@
 #define CTSU_INACTIVITY_TIMEOUT	(75U)
 /** @brief 6 second inactivity timer at 200msec periodic interrupt*/
 #define CTSU_STATE_TIMEOUT	(30U)
-/** @brief 30 minute battery check timer at 1min periodic interrupt*/
-#define RTC_BATTERY_TIMEOUT		(30U)
+/** @brief 30 minute battery check timer at 1sec periodic interrupt*/
+#define RTC_BATTERY_TIMEOUT		(1800U)
+/** @brief 3 sec sensor check timer at 1sec periodic interrupt*/
+#define RTC_SENSOR_TIMEOUT		(3U)
 
 /** @brief enumerated type for system state machine*/
 typedef enum
@@ -347,14 +349,14 @@ void App_button_long_press_handler(void)
 
 void App_rtc_handler(void)
 {
-	static uint16_t rtc_battery_counter = 0U;
+	static uint16_t rtc_counter = 0U;
 
-	++rtc_battery_counter;
+	++rtc_counter;
 
 	/* Battery checking activity*/
-	if(rtc_battery_counter > RTC_BATTERY_TIMEOUT)
+	if((rtc_counter % RTC_BATTERY_TIMEOUT) == 0U)
 	{
-		rtc_battery_counter = 0U;
+		rtc_counter = 0U;
 
 		if( (!low_battery_flag) && (Hw_low_battery()))
 		{
@@ -372,49 +374,52 @@ void App_rtc_handler(void)
 		}
 	}
 
-	/* Sensor Read Processing*/
-	App_read_sensors();
-
-	if(TEMPERATURE_HUMIDITY == sys_state)
+	/* Sensor checking activity*/
+	if((rtc_counter % RTC_SENSOR_TIMEOUT) == 0U)
 	{
-		Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
-	}
+		App_read_sensors();
 
-	if(AIR_QUALITY == sys_state)
-	{
-		Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
-	}
-
-	if(alarm_checking_enabled)
-	{
-		bool alarm_breached = false;
-
-		Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
-		Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
-
-		alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
-				Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
-				Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2)) && (sensor_data.zmod_calibrated);
-
-		Rltos_mutex_release(&sensor_mutex);
-		Rltos_mutex_release(&alarm_sensor_mutex);
-
-		if(alarm_breached)
+		if(TEMPERATURE_HUMIDITY == sys_state)
 		{
-			App_signal_activity();
+			Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
+		}
 
-			if(LOW_POWER == sys_state)
-			{
-				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
-			}
-			else
-			{
-				Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
-			}
+		if(AIR_QUALITY == sys_state)
+		{
+			Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
+		}
 
-			sys_state = BREACH_ALARM;
-			alarm_checking_enabled = false;
-			alarm_condition = true;
+		if(alarm_checking_enabled)
+		{
+			bool alarm_breached = false;
+
+			Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
+			Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
+
+			alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
+					Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
+					Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2)) && (sensor_data.zmod_calibrated);
+
+			Rltos_mutex_release(&sensor_mutex);
+			Rltos_mutex_release(&alarm_sensor_mutex);
+
+			if(alarm_breached)
+			{
+				App_signal_activity();
+
+				if(LOW_POWER == sys_state)
+				{
+					Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
+				}
+				else
+				{
+					Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
+				}
+
+				sys_state = BREACH_ALARM;
+				alarm_checking_enabled = false;
+				alarm_condition = true;
+			}
 		}
 	}
 }
