@@ -18,17 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_cg_rtc_common.c
-* Version          : 1.0.11
+* File Name        : Config_ITL000_ITL001.c
+* Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : None
+* Description      : This file implements device driver for Config_ITL000_ITL001.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "r_cg_rtc_common.h"
+#include "Config_ITL000_ITL001.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -45,25 +45,58 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_RTC_Set_PowerOn
-* Description  : This function starts the clock supply for RTC.
+* Function Name: R_Config_ITL000_ITL001_Create
+* Description  : This function initializes the ITL000_ITL001 module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_RTC_Set_PowerOn(void)
+void R_Config_ITL000_ITL001_Create(void)
 {
-    RTCWEN = 1U;    /* supplies input clock */
+    /* Stop 32-bit interval timer */
+    ITLCTL0 = 0x00U;
+    /* 32-bit interval timer used as 16-bit timer */
+    ITLCTL0 |= _40_ITL_MODE_16BIT;
+    ITLCSEL0 &= _F8_ITL_CLOCK_FITL0_CLEAR;
+    ITLCSEL0 |= _04_ITL_CLOCK_FITL0_FSXP;
+    ITLFDIV00 &= _F8_ITL_ITL000_FITL0_CLEAR;
+    ITLFDIV00 |= _07_ITL_ITL000_FITL0_128;
+    ITLCMP00 = _0032_ITL_ITLCMP00_VALUE;
+    
+    R_Config_ITL000_ITL001_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_RTC_Set_PowerOff
-* Description  : This function stops the clock supply for RTC.
+* Function Name: R_Config_ITL000_ITL001_Start
+* Description  : This function starts the ITL000_ITL001 channel.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_RTC_Set_PowerOff(void)
+void R_Config_ITL000_ITL001_Start(void)
 {
-    RTCWEN = 0U;    /* stops supply of input clock */
+    ITLEN00 = 1U;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_ITL000_ITL001_Stop
+* Description  : This function stops the ITL000_ITL001 channel.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_ITL000_ITL001_Stop(void)
+{
+    ITLEN00 = 0U;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_ITL000_ITL001_Set_OperationMode
+* Description  : This function is used to stop counter and clear interrupt flag before changing operation mode.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_ITL000_ITL001_Set_OperationMode(void)
+{
+    /* Stop 32-bit interval timer */
+    ITLCTL0 &= 0xF0U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

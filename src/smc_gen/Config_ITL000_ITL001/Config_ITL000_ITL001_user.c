@@ -18,25 +18,23 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_RTC_user.c
+* File Name        : Config_ITL000_ITL001_user.c
 * Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_RTC.
+* Description      : This file implements device driver for Config_ITL000_ITL001.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_RTC.h"
+#include "Config_ITL000_ITL001.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "app.h"
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_Config_RTC_interrupt(vect=INTRTC)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -47,44 +45,15 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Create_UserInit
-* Description  : This function adds user code after initializing the real-time clock.
+* Function Name: R_Config_ITL000_ITL001_Create_UserInit
+* Description  : This function adds user code after initializing the ITL000_ITL001 channel.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Create_UserInit(void)
+void R_Config_ITL000_ITL001_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_RTC_callback_constperiod
-* Description  : This function is real-time clock constant-period interrupt service handler.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_Config_RTC_callback_constperiod(void)
-{
-    /* Start user code for r_Config_RTC_callback_constperiod. Do not edit comment generated here */
-	HW_SET_EVENT(hw_event_flags, RTC_CONSTANT_PERIOD);
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_RTC_interrupt
-* Description  : This function is INTRTC interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void __near r_Config_RTC_interrupt(void)
-{
-    if (1U == RIFG)
-    {
-        /* clear RIFG */
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;
-        r_Config_RTC_callback_constperiod();
-    }
 }
 
 /* Start user code for adding. Do not edit comment generated here */

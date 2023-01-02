@@ -30,7 +30,6 @@ Includes
 #include "r_cg_userdefine.h"
 #include "Config_PORT.h"
 #include "Config_IICA1.h"
-#include "Config_RTC.h"
 #include "Config_LVD1.h"
 #include "r_cg_sau_common.h"
 #include "r_cg_tau_common.h"
@@ -68,6 +67,5 @@ void R_Systeminit(void)
     R_SAU1_Create();
     R_ITL_Create();
     R_Config_IICA1_Create();
-    R_Config_RTC_Create();
     R_Config_LVD1_Create();
 }

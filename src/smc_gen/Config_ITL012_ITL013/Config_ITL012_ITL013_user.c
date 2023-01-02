@@ -18,17 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_ITL000_user.c
+* File Name        : Config_ITL012_ITL013_user.c
 * Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_ITL000.
+* Description      : This file implements device driver for Config_ITL012_ITL013.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_ITL000.h"
+#include "Config_ITL012_ITL013.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -45,12 +45,12 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ITL000_Create_UserInit
-* Description  : This function adds user code after initializing the ITL000 channel.
+* Function Name: R_Config_ITL012_ITL013_Create_UserInit
+* Description  : This function adds user code after initializing the ITL012_ITL013 channel.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_ITL000_Create_UserInit(void)
+void R_Config_ITL012_ITL013_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */

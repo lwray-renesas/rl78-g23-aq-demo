@@ -83,8 +83,8 @@ void App_button_click_handler(void);
 /** @brief Event handler for button long press*/
 void App_button_long_press_handler(void);
 
-/** @brief Event handler for RTC constant period interrupt*/
-void App_rtc_handler(void);
+/** @brief Event handler for constant period interrupt*/
+void App_constant_period_handler(void);
 
 /** @brrief Event handler for proximity events*/
 void App_proximity_handler(void);

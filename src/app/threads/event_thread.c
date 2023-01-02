@@ -41,9 +41,9 @@ void Event_thread_main(void)
 			App_button_long_press_handler();
 		}
 
-		if(HW_EVENT_OCCURRED(hw_event_rx_flags, RTC_CONSTANT_PERIOD))
+		if(HW_EVENT_OCCURRED(hw_event_rx_flags, CONSTANT_PERIOD))
 		{
-			App_rtc_handler();
+			App_constant_period_handler();
 		}
 
 		if(HW_EVENT_OCCURRED(hw_event_rx_flags, PROXIMITY_SCAN_COMPLETE))

@@ -55,7 +55,7 @@ void Hw_init(void)
 	R_Config_TAU0_1_Start();
 	R_Config_TAU0_2_Start();
 	R_Config_CSI30_Start_app();
-	R_Config_RTC_Start();
+	R_Config_ITL012_ITL013_Start();
 
 	Setup_elcl();
 }
@@ -105,7 +105,7 @@ void Hw_enable_proximity_detection(void)
 		while (true) {}
 	}
 
-	R_Config_ITL000_Start();
+	R_Config_ITL000_ITL001_Start();
 }
 /* END OF FUNCTION*/
 
@@ -113,7 +113,7 @@ void Hw_disable_proximity_detection(void)
 {
 	touch_err_t err;
 
-	R_Config_ITL000_Stop();
+	R_Config_ITL000_ITL001_Stop();
 
 	/* ScanStop causes the CTSU to stop waiting for the external trigger*/
 	err = RM_TOUCH_ScanStop(g_qe_touch_instance_config01.p_ctrl);

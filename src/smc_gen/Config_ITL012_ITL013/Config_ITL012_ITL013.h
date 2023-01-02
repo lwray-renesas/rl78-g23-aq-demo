@@ -18,14 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_cg_rtc_common.h
-* Version          : 1.0.11
+* File Name        : Config_ITL012_ITL013.h
+* Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : Common header file for RTC peripheral.
+* Description      : This file implements device driver for Config_ITL012_ITL013.
 ***********************************************************************************************************************/
 
-#ifndef RTC_COMMON_H
-#define RTC_COMMON_H
+/***********************************************************************************************************************
+Includes
+***********************************************************************************************************************/
+#include "r_cg_itl.h"
+
+#ifndef CFG_Config_ITL012_ITL013_H
+#define CFG_Config_ITL012_ITL013_H
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -34,6 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
+#define _02FF_ITL_ITLCMP01_VALUE                   (0x02FFU)    /* 16-bit compare data register */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -42,8 +48,12 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_RTC_Set_PowerOn(void);
-void R_RTC_Set_PowerOff(void);
+void R_Config_ITL012_ITL013_Create(void);
+void R_Config_ITL012_ITL013_Start(void);
+void R_Config_ITL012_ITL013_Stop(void);
+void R_Config_ITL012_ITL013_Set_OperationMode(void);
+void R_Config_ITL012_ITL013_Callback_Shared_Interrupt(void);
+void R_Config_ITL012_ITL013_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

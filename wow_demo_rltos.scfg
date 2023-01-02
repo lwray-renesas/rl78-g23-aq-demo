@@ -1290,165 +1290,6 @@
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
-        <configuration apiMode="FULL_API" id="efad835e-9a0f-4b01-948a-6f952c1552f5" inuse="true" name="Config_ITL000">
-            <allocatable id="ITL000">
-                <isocket id="OperationClockFMXP" selection="Clock.tool_clock_fMXP" value="0.0"/>
-                <isocket id="OperationClockFIHP" selection="Clock.tool_clock_fIHP" value="3.2E7"/>
-                <isocket id="OperationClockFIMP" selection="Clock.tool_clock_fIMP" value="0.0"/>
-                <isocket id="OperationClockFSXP" selection="Clock.tool_clock_fSXL" value="32768.0"/>
-                <option enabled="true" id="OperationClock0" selection="fSXP">
-                    <item id="fIHP" input="" vlaue="0"/>
-                    <item id="fIMP" input="" vlaue="0"/>
-                    <item id="fMXP" input="" vlaue="0"/>
-                    <item id="fSXP" input="" vlaue="0"/>
-                    <item id="ELCL" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ClockSource" selection="fITL7">
-                    <item id="fITL0" input="1" vlaue="0"/>
-                    <item id="fITL1" input="2" vlaue="0"/>
-                    <item id="fITL2" input="4" vlaue="0"/>
-                    <item id="fITL3" input="8" vlaue="0"/>
-                    <item id="fITL4" input="16" vlaue="0"/>
-                    <item id="fITL5" input="32" vlaue="0"/>
-                    <item id="fITL6" input="64" vlaue="0"/>
-                    <item id="fITL7" input="128" vlaue="0"/>
-                </option>
-                <option enabled="true" id="IntervalValue" selection="intervalValueText">
-                    <item id="intervalValueText" input="200" vlaue="50"/>
-                </option>
-                <option enabled="true" id="IntervalUnit" selection="ms">
-                    <item id="ms" input="" vlaue="0"/>
-                    <item id="us" input="" vlaue="0"/>
-                    <item id="ns" input="" vlaue="0"/>
-                    <item id="count" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ITLInterruptEnable" selection="disable">
-                    <item id="enable" input="" vlaue="0"/>
-                    <item id="disable" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="PriorityITL" selection="Level3">
-                    <item id="Level0" input="" vlaue="0"/>
-                    <item id="Level1" input="" vlaue="0"/>
-                    <item id="Level2" input="" vlaue="0"/>
-                    <item id="Level3" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="FilterMode" selection="8bitCountMode">
-                    <item id="8bitCountMode" input="" vlaue="0"/>
-                    <item id="16bitCountMode" input="" vlaue="0"/>
-                    <item id="16bitCaptureMode" input="" vlaue="0"/>
-                    <item id="32bitCountMode" input="" vlaue="0"/>
-                </option>
-            </allocatable>
-            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.2.0"/>
-            <allocator channelLevel0="000" channelLevel1="1" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="32 bit interval timer channel 0" display="ITL000" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.itl000" type="ITL">
-                <context>
-                    <option enabled="true" id="FilterMode" selection="8bitCountMode">
-                        <item enabled="true" id="8bitCountMode"/>
-                        <item enabled="true" id="16bitCountMode"/>
-                        <item enabled="true" id="16bitCaptureMode"/>
-                        <item enabled="true" id="32bitCountMode"/>
-                    </option>
-                </context>
-            </allocator>
-            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
-        </configuration>
-        <configuration apiMode="FULL_API" id="07409ed8-6dda-4e11-b2eb-a124f1bd902d" inuse="true" name="Config_RTC">
-            <allocatable id="RTC">
-                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
-                <isocket id="fCLK_MAX" selection="Clock.tool_clock_fCLK_MAX" value="3.2E7"/>
-                <isocket id="clockfSXR_fSXP" selection="Clock.tool_clock_fSXR_fSXL" value="32768.0"/>
-                <isocket id="clockfIL_fSXP" selection="Clock.tool_clock_fIL_fSXL" value="32768.0"/>
-                <option enabled="true" id="clocksource" selection="lowspeedclock">
-                    <item id="subclock" input="" vlaue="0"/>
-                    <item id="rtcclock" input="" vlaue="0"/>
-                    <item id="lowspeedclock" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="hourmode" selection="12hour">
-                    <item id="12hour" input="" vlaue="0"/>
-                    <item id="24hour" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="setinitvalue" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="initdate" selection="dynamic">
-                    <item id="dynamic" input="2000,1,1" vlaue="0"/>
-                </option>
-                <option enabled="false" id="inittime" selection="dynamic">
-                    <item id="dynamic" input="12,0,0" vlaue="0"/>
-                </option>
-                <option enabled="false" id="enable1hzout" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="alarmdetect" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="alarminit" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="sunday" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="monday" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="tuesday" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="wednesday" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="thursday" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="friday" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="saturday" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="alarminittime" selection="dynamic">
-                    <item id="dynamic" input="12,0" vlaue="0"/>
-                </option>
-                <option enabled="true" id="constperiodint" selection="check">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="period" selection="per1s">
-                    <item id="per05s" input="" vlaue="0"/>
-                    <item id="per1s" input="" vlaue="0"/>
-                    <item id="per1m" input="" vlaue="0"/>
-                    <item id="per1h" input="" vlaue="0"/>
-                    <item id="per1d" input="" vlaue="0"/>
-                    <item id="per1month" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="alarmint" selection="uncheck">
-                    <item id="uncheck" input="" vlaue="0"/>
-                    <item id="check" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="priority" selection="Level3">
-                    <item id="Level0" input="" vlaue="0"/>
-                    <item id="Level1" input="" vlaue="0"/>
-                    <item id="Level2" input="" vlaue="0"/>
-                    <item id="Level3" input="" vlaue="0"/>
-                </option>
-            </allocatable>
-            <component description="The real-time clock (RTC) is function that provides information about the present time and date and can generate wake-up signals (interrupts, alarms)." detailDescription="" display="Real-Time Clock" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.rtc" version="1.2.0"/>
-            <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Real-time Clock" display="RTC" id="com.renesas.smc.tools.swcomponent.codegenerator.rtc.rl78g23.rtc" type="RTC">
-                <context/>
-            </allocator>
-            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
-        </configuration>
         <configuration apiMode="FULL_API" id="023268fd-d048-433c-8ad4-26a46e424bbe" inuse="true" name="Config_TAU0_1">
             <allocatable id="TAU01">
                 <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
@@ -1945,6 +1786,130 @@
             <component description="The voltage detector is a function that compares the supply voltage with the detection voltage, and generates internal interrupt signal or internal reset signal." detailDescription="" display="Voltage Detector" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.lvd" version="1.1.0"/>
             <allocator channelLevel0="1" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Voltage detection 1" display="LVD1" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.lvd.g23lvd1" type="">
                 <context/>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="302f3708-cde7-4426-9874-d42e28a39716" inuse="true" name="Config_ITL012_ITL013">
+            <allocatable id="ITL012">
+                <isocket id="OperationClockFMXP" selection="Clock.tool_clock_fMXP" value="0.0"/>
+                <isocket id="OperationClockFIHP" selection="Clock.tool_clock_fIHP" value="3.2E7"/>
+                <isocket id="OperationClockFIMP" selection="Clock.tool_clock_fIMP" value="0.0"/>
+                <isocket id="OperationClockFSXP" selection="Clock.tool_clock_fSXL" value="32768.0"/>
+                <option enabled="true" id="OperationClock0" selection="fSXP">
+                    <item id="fIHP" input="" vlaue="0"/>
+                    <item id="fIMP" input="" vlaue="0"/>
+                    <item id="fMXP" input="" vlaue="0"/>
+                    <item id="fSXP" input="" vlaue="0"/>
+                    <item id="ELCL" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ClockSource" selection="fITL7">
+                    <item id="fITL0" input="1" vlaue="0"/>
+                    <item id="fITL1" input="2" vlaue="0"/>
+                    <item id="fITL2" input="4" vlaue="0"/>
+                    <item id="fITL3" input="8" vlaue="0"/>
+                    <item id="fITL4" input="16" vlaue="0"/>
+                    <item id="fITL5" input="32" vlaue="0"/>
+                    <item id="fITL6" input="64" vlaue="0"/>
+                    <item id="fITL7" input="128" vlaue="0"/>
+                </option>
+                <option enabled="true" id="IntervalValue" selection="intervalValueText">
+                    <item id="intervalValueText" input="3000" vlaue="767"/>
+                </option>
+                <option enabled="true" id="IntervalUnit" selection="ms">
+                    <item id="ms" input="" vlaue="0"/>
+                    <item id="us" input="" vlaue="0"/>
+                    <item id="ns" input="" vlaue="0"/>
+                    <item id="count" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ITLInterruptEnable" selection="disable">
+                    <item id="enable" input="" vlaue="0"/>
+                    <item id="disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="PriorityITL" selection="Level3">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="FilterMode" selection="16bitCountMode">
+                    <item id="8bitCountMode" input="" vlaue="0"/>
+                    <item id="16bitCountMode" input="" vlaue="0"/>
+                    <item id="16bitCaptureMode" input="" vlaue="0"/>
+                    <item id="32bitCountMode" input="" vlaue="0"/>
+                </option>
+            </allocatable>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.2.0"/>
+            <allocator channelLevel0="012" channelLevel1="2" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="32 bit interval timer channel 2 and channel 3" display="ITL012_ITL013" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.itl01" type="ITL">
+                <context>
+                    <option enabled="true" id="FilterMode" selection="16bitCountMode">
+                        <item enabled="true" id="8bitCountMode"/>
+                        <item enabled="true" id="16bitCountMode"/>
+                        <item enabled="true" id="16bitCaptureMode"/>
+                        <item enabled="true" id="32bitCountMode"/>
+                    </option>
+                </context>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="c71b5819-ce19-4094-8c39-dbfb15ce22fd" inuse="true" name="Config_ITL000_ITL001">
+            <allocatable id="ITL000">
+                <isocket id="OperationClockFMXP" selection="Clock.tool_clock_fMXP" value="0.0"/>
+                <isocket id="OperationClockFIHP" selection="Clock.tool_clock_fIHP" value="3.2E7"/>
+                <isocket id="OperationClockFIMP" selection="Clock.tool_clock_fIMP" value="0.0"/>
+                <isocket id="OperationClockFSXP" selection="Clock.tool_clock_fSXL" value="32768.0"/>
+                <option enabled="true" id="OperationClock0" selection="fSXP">
+                    <item id="fIHP" input="" vlaue="0"/>
+                    <item id="fIMP" input="" vlaue="0"/>
+                    <item id="fMXP" input="" vlaue="0"/>
+                    <item id="fSXP" input="" vlaue="0"/>
+                    <item id="ELCL" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ClockSource" selection="fITL7">
+                    <item id="fITL0" input="1" vlaue="0"/>
+                    <item id="fITL1" input="2" vlaue="0"/>
+                    <item id="fITL2" input="4" vlaue="0"/>
+                    <item id="fITL3" input="8" vlaue="0"/>
+                    <item id="fITL4" input="16" vlaue="0"/>
+                    <item id="fITL5" input="32" vlaue="0"/>
+                    <item id="fITL6" input="64" vlaue="0"/>
+                    <item id="fITL7" input="128" vlaue="0"/>
+                </option>
+                <option enabled="true" id="IntervalValue" selection="intervalValueText">
+                    <item id="intervalValueText" input="200" vlaue="50"/>
+                </option>
+                <option enabled="true" id="IntervalUnit" selection="ms">
+                    <item id="ms" input="" vlaue="0"/>
+                    <item id="us" input="" vlaue="0"/>
+                    <item id="ns" input="" vlaue="0"/>
+                    <item id="count" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ITLInterruptEnable" selection="disable">
+                    <item id="enable" input="" vlaue="0"/>
+                    <item id="disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="PriorityITL" selection="Level3">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="FilterMode" selection="16bitCountMode">
+                    <item id="8bitCountMode" input="" vlaue="0"/>
+                    <item id="16bitCountMode" input="" vlaue="0"/>
+                    <item id="16bitCaptureMode" input="" vlaue="0"/>
+                    <item id="32bitCountMode" input="" vlaue="0"/>
+                </option>
+            </allocatable>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.2.0"/>
+            <allocator channelLevel0="000" channelLevel1="2" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="32 bit interval timer channel 0 and channel 1" display="ITL000_ITL001" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.itl00" type="ITL">
+                <context>
+                    <option enabled="true" id="FilterMode" selection="16bitCountMode">
+                        <item enabled="true" id="8bitCountMode"/>
+                        <item enabled="true" id="16bitCountMode"/>
+                        <item enabled="true" id="16bitCaptureMode"/>
+                        <item enabled="true" id="32bitCountMode"/>
+                    </option>
+                </context>
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>

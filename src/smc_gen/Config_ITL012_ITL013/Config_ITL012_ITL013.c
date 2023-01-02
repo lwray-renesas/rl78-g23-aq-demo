@@ -18,17 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_RTC.c
+* File Name        : Config_ITL012_ITL013.c
 * Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_RTC.
+* Description      : This file implements device driver for Config_ITL012_ITL013.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_RTC.h"
+#include "Config_ITL012_ITL013.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -45,105 +45,58 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Create
-* Description  : This function initializes the real-time clock module.
+* Function Name: R_Config_ITL012_ITL013_Create
+* Description  : This function initializes the ITL012_ITL013 module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Create(void)
+void R_Config_ITL012_ITL013_Create(void)
 {
-    /* Supplies input clock */
-    RTCWEN = 1U;
-    /* Disable RTC clock operation */
-    RTCE = 0U;
-    /* Disable INTRTC interrupt */
-    RTCMK = 1U;
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
-    /* Set INTRTC Low priority */
-    RTCPR1 = 1U;
-    RTCPR0 = 1U;
-    /* Set fRTCCK */
-    RTCC0 = _00_RTC_CLK_32KHZ;
-    /* Set 12-/24-hour system and period of Constant-period interrupt (INTRTC) */
-    RTCC0 |= (_02_RTC_INTRTC_CLOCK_1SEC);
-
-    R_Config_RTC_Create_UserInit();
+    /* Stop 32-bit interval timer */
+    ITLCTL0 = 0x00U;
+    /* 32-bit interval timer used as 16-bit timer */
+    ITLCTL0 |= _40_ITL_MODE_16BIT;
+    ITLCSEL0 &= _F8_ITL_CLOCK_FITL0_CLEAR;
+    ITLCSEL0 |= _04_ITL_CLOCK_FITL0_FSXP;
+    ITLFDIV01 &= _F8_ITL_ITL012_FITL0_CLEAR;
+    ITLFDIV01 |= _07_ITL_ITL012_FITL0_128;
+    ITLCMP01 = _02FF_ITL_ITLCMP01_VALUE;
+    
+    R_Config_ITL012_ITL013_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Start
-* Description  : This function enables the real-time clock.
+* Function Name: R_Config_ITL012_ITL013_Start
+* Description  : This function starts the ITL012_ITL013 channel.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Start(void)
+void R_Config_ITL012_ITL013_Start(void)
 {
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
-    /* Enable INTRTC interrupt */
-    RTCMK = 0U;
-    /* Enable RTC clock operation */
-    RTCE = 1U;
+    ITLEN02 = 1U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Stop
-* Description  : This function disables the real-time clock.
+* Function Name: R_Config_ITL012_ITL013_Stop
+* Description  : This function stops the ITL012_ITL013 channel.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Stop(void)
+void R_Config_ITL012_ITL013_Stop(void)
 {
-    /* Disable RTC clock operation */
-    RTCE = 0U;
-    /* Disable INTRTC interrupt */
-    RTCMK = 1U;
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
+    ITLEN02 = 0U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_RTC_Set_ConstPeriodInterruptOn
-* Description  : This function enables constant-period interrupt.
-* Arguments    : period -
-*                    the constant period of INTRTC
-* Return Value : status -
-*                    MD_OK or MD_ARGERROR
-***********************************************************************************************************************/
-MD_STATUS R_Config_RTC_Set_ConstPeriodInterruptOn(e_rtc_int_period_t period)
-{
-    MD_STATUS status = MD_OK;
-    if ((period < HALFSEC) || (period > ONEMONTH))
-    {
-        status = MD_ARGERROR;
-    }
-    else
-    {
-        /* Disable INTRTC */
-        RTCMK = 1U;
-        RTCC0 = (uint8_t)((RTCC0 & _F8_RTC_INTRTC_CLEAR) | period);
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;
-        /* Clear INTRTC interrupt flag */
-        RTCIF = 0U;
-        /* Enable INTRTC interrupt */
-        RTCMK = 0U;
-    }
-    return (status);
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_RTC_Set_ConstPeriodInterruptOff
-* Description  : This function disables constant-period interrupt.
+* Function Name: R_Config_ITL012_ITL013_Set_OperationMode
+* Description  : This function is used to stop counter and clear interrupt flag before changing operation mode.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_RTC_Set_ConstPeriodInterruptOff(void)
+void R_Config_ITL012_ITL013_Set_OperationMode(void)
 {
-    RTCC0 &= _F8_RTC_INTRTC_CLEAR;
-    RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;
-    /* Clear INTRTC interrupt flag */
-    RTCIF = 0U;
+    /* Stop 32-bit interval timer */
+    ITLCTL0 &= 0xF0U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

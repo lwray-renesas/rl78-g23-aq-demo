@@ -15,10 +15,10 @@
 #define CTSU_INACTIVITY_TIMEOUT	(75U)
 /** @brief 6 second inactivity timer at 200msec periodic interrupt*/
 #define CTSU_STATE_TIMEOUT	(30U)
-/** @brief 30 minute battery check timer at 1sec periodic interrupt*/
-#define RTC_BATTERY_TIMEOUT		(1800U)
-/** @brief 3 sec sensor check timer at 1sec periodic interrupt*/
-#define RTC_SENSOR_TIMEOUT		(3U)
+/** @brief 30 minute battery check timer at 3sec periodic interrupt*/
+#define BATTERY_TIMEOUT		(600U)
+/** @brief 3 sec sensor check timer at 3sec periodic interrupt*/
+#define SENSOR_TIMEOUT		(1U)
 
 /** @brief enumerated type for system state machine*/
 typedef enum
@@ -351,16 +351,16 @@ void App_button_long_press_handler(void)
 /* END OF FUNCTION*/
 
 
-void App_rtc_handler(void)
+void App_constant_period_handler(void)
 {
-	static uint16_t rtc_counter = 0U;
+	static uint16_t constant_period_counter = 0U;
 
-	++rtc_counter;
+	++constant_period_counter;
 
 	/* Battery checking activity*/
-	if((rtc_counter % RTC_BATTERY_TIMEOUT) == 0U)
+	if((constant_period_counter % BATTERY_TIMEOUT) == 0U)
 	{
-		rtc_counter = 0U;
+		constant_period_counter = 0U;
 
 		if( (!low_battery_flag) && (Hw_low_battery()))
 		{
@@ -379,7 +379,7 @@ void App_rtc_handler(void)
 	}
 
 	/* Sensor checking activity*/
-	if( ((rtc_counter % RTC_SENSOR_TIMEOUT) == 0U) && (sensor_read_enabled) )
+	if( ((constant_period_counter % SENSOR_TIMEOUT) == 0U) && (sensor_read_enabled) )
 	{
 		App_read_sensors();
 
