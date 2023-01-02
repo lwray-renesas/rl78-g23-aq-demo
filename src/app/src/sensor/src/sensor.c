@@ -260,6 +260,14 @@ void Zmod4410_read(sensor_data_t * const sense_data_arg)
         }
     }
 
+	err = g_zmod4xxx_sensor0.p_api->temperatureAndHumiditySet(g_zmod4xxx_sensor0.p_ctrl,
+												(float)sense_data_arg->temperature_int,
+												(float)sense_data_arg->humidity_int);
+    if (FSP_SUCCESS != err)
+    {
+    	Demo_err();
+    }
+
     /* Calculate data */
     err = g_zmod4xxx_sensor0.p_api->iaq2ndGenDataCalculate(g_zmod4xxx_sensor0.p_ctrl,
                                                            &raw_data,

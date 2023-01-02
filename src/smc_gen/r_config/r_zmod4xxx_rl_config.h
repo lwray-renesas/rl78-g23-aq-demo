@@ -37,7 +37,7 @@
 #define RM_ZMOD4XXX_CFG_DEVICE_NUM_MAX                    (1) /* Number (max.) of ZMOD4xxx Sensors */
 
 /* SPECIFY OPERATION MODE FOR DEVICE0 */
-#define RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE            (3) /* Set operation mode of ZMOD4XXX Sensors device0 */
+#define RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE            (8) /* Set operation mode of ZMOD4XXX Sensors device0 */
                                                             /*
                                                             0 : Not selected
                                                             1 : IAQ 1st Gen. Continuous Mode
