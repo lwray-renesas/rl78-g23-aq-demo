@@ -19,12 +19,12 @@ typedef enum
     SENSOR_CALLBACK_STATUS_REPEAT,
 }sensor_callback_status_t;
 
-static volatile sensor_callback_status_t gs_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+static volatile sensor_callback_status_t zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+static volatile sensor_callback_status_t  zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 static volatile rm_zmod4xxx_iaq_2nd_data_t zmod_4410_data;
 
-static volatile sensor_callback_status_t gs_demo_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+static volatile sensor_callback_status_t hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 static rm_hs300x_data_t hs300x_data;
-static rm_hs300x_raw_data_t raw_data;
 
 sensor_data_t dummy_sense_data; /* used to store dummy read of sensor data*/
 
@@ -53,6 +53,7 @@ void Sensor_init(void)
 {
 	Hs300x_init();
 	Zmod4410_init();
+	Hw_enable_sensor_timer();
 }
 /* END OF FUNCTION*/
 
@@ -127,11 +128,12 @@ void Hs300x_init(void)
 void Hs300x_read(sensor_data_t * const sense_data_arg)
 {
 	fsp_err_t err;
+	static rm_hs300x_raw_data_t hs300x_raw_data;
 
 	/* Clear status */
-	gs_demo_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+	hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
-	while(SENSOR_CALLBACK_STATUS_SUCCESS != gs_demo_callback_status)
+	while(SENSOR_CALLBACK_STATUS_SUCCESS != hs300x_i2c_callback_status)
 	{
 		/* Start measurement */
 		err = g_hs300x_sensor0.p_api->measurementStart(g_hs300x_sensor0.p_ctrl);
@@ -140,32 +142,32 @@ void Hs300x_read(sensor_data_t * const sense_data_arg)
 			Demo_err();
 		}
 
-		while(SENSOR_CALLBACK_STATUS_WAIT == gs_demo_callback_status)
+		while(SENSOR_CALLBACK_STATUS_WAIT == hs300x_i2c_callback_status)
 		{
 			Rltos_task_sleep(1U);
 		}
 	}
 
 	/* Clear status */
-	gs_demo_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+	hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
-	while(SENSOR_CALLBACK_STATUS_SUCCESS != gs_demo_callback_status)
+	while(SENSOR_CALLBACK_STATUS_SUCCESS != hs300x_i2c_callback_status)
 	{
 		/* Read data */
-		err = g_hs300x_sensor0.p_api->read(g_hs300x_sensor0.p_ctrl, &raw_data);
+		err = g_hs300x_sensor0.p_api->read(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data);
 		if (FSP_SUCCESS != err)
 		{
 			Demo_err();
 		}
 
-		while(SENSOR_CALLBACK_STATUS_WAIT == gs_demo_callback_status)
+		while(SENSOR_CALLBACK_STATUS_WAIT == hs300x_i2c_callback_status)
 		{
 			Rltos_task_sleep(1U);
 		}
 	}
 
 	/* Calculate data */
-	err = g_hs300x_sensor0.p_api->dataCalculate(g_hs300x_sensor0.p_ctrl, &raw_data, &hs300x_data);
+	err = g_hs300x_sensor0.p_api->dataCalculate(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data, &hs300x_data);
 	if (FSP_SUCCESS == err)
 	{
 		sense_data_arg->temperature_int = hs300x_data.temperature.integer_part;
@@ -177,11 +179,11 @@ void Hs300x_user_callback0(rm_hs300x_callback_args_t * p_args)
 {
 	if (RM_HS300X_EVENT_SUCCESS == p_args->event)
 	{
-		gs_demo_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
+		hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
 	}
 	else
 	{
-		gs_demo_callback_status = SENSOR_CALLBACK_STATUS_REPEAT;
+		hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_REPEAT;
 	}
 }
 
@@ -201,12 +203,13 @@ void Zmod4410_init(void)
 void Zmod4410_read(sensor_data_t * const sense_data_arg)
 {
     fsp_err_t err;
-    rm_zmod4xxx_raw_data_t raw_data;
+    static rm_zmod4xxx_raw_data_t zmod_4410_raw_data;
 
     /* Clear status */
-    gs_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+    zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+    zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
-    while(SENSOR_CALLBACK_STATUS_SUCCESS != gs_i2c_callback_status)
+    while(SENSOR_CALLBACK_STATUS_SUCCESS != zmod_4410_i2c_callback_status)
     {
         /* Start measurement */
         err = g_zmod4xxx_sensor0.p_api->measurementStart(g_zmod4xxx_sensor0.p_ctrl);
@@ -218,29 +221,18 @@ void Zmod4410_read(sensor_data_t * const sense_data_arg)
 		Rltos_task_sleep(1U);
     }
 
-
-    /* Clear status */
-    gs_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-
-    while(SENSOR_CALLBACK_STATUS_SUCCESS != gs_i2c_callback_status)
+    while(SENSOR_CALLBACK_STATUS_SUCCESS != zmod_4410_irq_callback_status)
     {
-        /* Get status */
-        err = g_zmod4xxx_sensor0.p_api->statusCheck(g_zmod4xxx_sensor0.p_ctrl);
-        if (FSP_SUCCESS != err)
-        {
-            Demo_err();
-        }
-
-		Rltos_task_sleep(1U);
+    	STOP();
     }
 
     /* Clear status */
-    gs_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+    zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
-    while(SENSOR_CALLBACK_STATUS_SUCCESS != gs_i2c_callback_status)
+    while(SENSOR_CALLBACK_STATUS_SUCCESS != zmod_4410_i2c_callback_status)
     {
         /* Read data */
-        err = g_zmod4xxx_sensor0.p_api->read(g_zmod4xxx_sensor0.p_ctrl, &raw_data);
+        err = g_zmod4xxx_sensor0.p_api->read(g_zmod4xxx_sensor0.p_ctrl, &zmod_4410_raw_data);
         if (FSP_ERR_SENSOR_MEASUREMENT_NOT_FINISHED == err)
         {
 			Rltos_task_sleep(1U);
@@ -270,7 +262,7 @@ void Zmod4410_read(sensor_data_t * const sense_data_arg)
 
     /* Calculate data */
     err = g_zmod4xxx_sensor0.p_api->iaq2ndGenDataCalculate(g_zmod4xxx_sensor0.p_ctrl,
-                                                           &raw_data,
+                                                           &zmod_4410_raw_data,
                                                            (rm_zmod4xxx_iaq_2nd_data_t*)&zmod_4410_data);
     if (FSP_SUCCESS == err)
     {
@@ -288,12 +280,19 @@ void Zmod4xxx_user_i2c_callback0(rm_zmod4xxx_callback_args_t * p_args)
 {
     if (RM_ZMOD4XXX_EVENT_ERROR != p_args->event)
     {
-        gs_i2c_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
+        zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
     }
     else
     {
-        gs_i2c_callback_status = SENSOR_CALLBACK_STATUS_REPEAT;
+        zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_REPEAT;
     }
+}
+
+void Zmod4xxx_user_irq_callback0(rm_zmod4xxx_callback_args_t * p_args)
+{
+    (void)p_args;
+
+    zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
 }
 
 /**********************************************************************

@@ -31,6 +31,7 @@ Includes
 #include "Config_PORT.h"
 #include "Config_IICA1.h"
 #include "Config_LVD1.h"
+#include "Config_INTC.h"
 #include "Config_ITL012_ITL013.h"
 #include "Config_ITL000_ITL001.h"
 #include "Config_CSI30.h"

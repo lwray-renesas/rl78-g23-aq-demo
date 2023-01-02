@@ -18,23 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_cg_systeminit.c
-* Version          : 1.0.11
+* File Name        : Config_INTC.c
+* Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements system initializing function.
+* Description      : This file implements device driver for Config_INTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_PORT.h"
-#include "Config_IICA1.h"
-#include "Config_LVD1.h"
 #include "Config_INTC.h"
-#include "r_cg_sau_common.h"
-#include "r_cg_tau_common.h"
-#include "r_cg_itl_common.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -51,23 +45,51 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Systeminit
-* Description  : This function initializes every macro
+* Function Name: R_Config_INTC_Create
+* Description  : This function initializes the INTC module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Systeminit(void)
+void R_Config_INTC_Create(void)
 {
-    PRR0 = 0x7FU;    /* reset IICA, ADC, TAU and SAU module */
-    PRR1 = 0xF3U;    /* reset DAC, SMS, COMP, ITL, REMC, CTSU module */
-    PRR0 = 0x00U;    /* release IICA, ADC, TAU and SAU module */
-    PRR1 = 0x00U;    /* release DAC, SMS, COMP, ITL, REMC, CTSU module */
-    /* Set peripheral settings */
-    R_Config_PORT_Create();
-    R_TAU0_Create();
-    R_SAU1_Create();
-    R_ITL_Create();
-    R_Config_IICA1_Create();
-    R_Config_LVD1_Create();
-    R_Config_INTC_Create();
+    PMK5 = 1U;    /* disable INTP5 operation */
+    PIF5 = 0U;    /* clear INTP5 interrupt flag */
+    /* Set INTP5 low priority */
+    PPR15 = 1U;
+    PPR05 = 1U;
+    EGN0 = _00_INTP5_EDGE_FALLING_UNSEL;
+    EGP0 = _20_INTP5_EDGE_RISING_SEL;
+    /* Set INTP5 pin */
+    PMCE1 &= 0xBFU;
+    CCDE &= 0xFEU;
+    PM1 |= 0x40U;
+
+    R_Config_INTC_Create_UserInit();
 }
+
+/***********************************************************************************************************************
+* Function Name: R_Config_INTC_INTP5_Start
+* Description  : This function clears INTP5 interrupt flag and enables interrupt.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_INTC_INTP5_Start(void)
+{
+    PIF5 = 0U;    /* clear INTP5 interrupt flag */
+    PMK5 = 0U;    /* enable INTP5 interrupt */
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_INTC_INTP5_Stop
+* Description  : This function disables INTP5 interrupt and clears interrupt flag.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_INTC_INTP5_Stop(void)
+{
+    PMK5 = 1U;    /* disable INTP5 interrupt */
+    PIF5 = 0U;    /* clear INTP5 interrupt flag */
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */

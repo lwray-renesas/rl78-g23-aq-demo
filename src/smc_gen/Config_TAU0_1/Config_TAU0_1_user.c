@@ -85,6 +85,8 @@ static void Dec_rotary_counter(void)
 	SET1 !0x1B2.0 /* restart TS00*/
 	SET1 !0x1B2.1 /* restart TS01*/
 
-	DECW !_rotary_count
+	DECW !_rotary_count /* Decrement counter*/
+
+	SET1 !_hw_event_flags.2 /* Signal rotary count updated event*/
 }
 /* End user code. Do not edit comment generated here */

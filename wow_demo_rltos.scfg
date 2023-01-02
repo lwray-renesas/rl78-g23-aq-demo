@@ -260,6 +260,7 @@
         <pinItem allocation="80" comments="" direction="None" id="TOOLTxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="127" comments="" direction="None" id="SO30" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="39" comments="" direction="None" id="SCLA1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="76" comments="" direction="None" id="INTP5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
@@ -1714,9 +1715,9 @@
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE" selectedIndex="3"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_COMMS_INSTANCE" selectedIndex="1"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_COMMS_I2C_CALLBACK" selectedIndex="Zmod4xxx_user_i2c_callback0"/>
-                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE" selectedIndex="0"/>
-                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK" selectedIndex="zmod4xxx_user_irq_callback0"/>
-                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_NUMBER" selectedIndex="0"/>
+                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE" selectedIndex="1"/>
+                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK" selectedIndex="Zmod4xxx_user_irq_callback0"/>
+                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_NUMBER" selectedIndex="5"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE1_OPERATION_MODE" selectedIndex="0"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE1_COMMS_INSTANCE" selectedIndex="1"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE1_COMMS_I2C_CALLBACK" selectedIndex="zmod4xxx_user_i2c_callback1"/>
@@ -1910,6 +1911,219 @@
                         <item enabled="true" id="32bitCountMode"/>
                     </option>
                 </context>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="f3f006a7-0fb4-4f00-9785-4d5cfbfd5c5a" inuse="true" name="Config_INTC">
+            <allocatable id="INTC">
+                <allocatable id="INTP0">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP1">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP2">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP3">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP4">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP5">
+                    <option enabled="true" id="enableINTP" selection="enable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="validedge" selection="rising">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP6">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP7">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP8">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP9">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP10">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP11">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+            </allocatable>
+            <component description="The interrupt controller (INTC) is a function that sets request such as external pin interrupts." detailDescription="" display="Interrupt Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" version="1.2.0"/>
+            <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Interrupt Controller" display="INTC" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" type="">
+                <context/>
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>

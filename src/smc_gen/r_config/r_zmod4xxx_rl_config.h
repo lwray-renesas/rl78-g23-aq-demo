@@ -57,13 +57,13 @@
 #define RM_ZMOD4XXX_CFG_DEVICE0_COMMS_I2C_CALLBACK        (Zmod4xxx_user_i2c_callback0) /* Enable user I2C callback for ZMOD4XXX Sensor Device0 */
 
 /* SPECIFY IRQ ENABLED FOR DEVICE0 */
-#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE                (0)
+#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE                (1)
 
 /* SPECIFY IRQ CALLBACK FUNCTION NAME FOR DEVICE0 */
-#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK              (zmod4xxx_user_irq_callback0) /* Enable user IRQ(INTP) callback for ZMOD4XXX Sensor Device0 */
+#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK              (Zmod4xxx_user_irq_callback0) /* Enable user IRQ(INTP) callback for ZMOD4XXX Sensor Device0 */
 
 /* SPECIFY IRQ NUMBER FOR DEVICE0 */
-#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_NUMBER                _INTP0
+#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_NUMBER                _INTP5
 
 /* SPECIFY OPERATION MODE FOR DEVICE1 */
 #define RM_ZMOD4XXX_CFG_DEVICE1_OPERATION_MODE            (1) /* Set operation mode of ZMOD4XXX Sensor device1 */

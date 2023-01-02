@@ -32,6 +32,9 @@ extern volatile hardware_event_t hw_event_flags;
 /** @brief Initialises applications hardware - defaults the rotary to disabled*/
 void Hw_init(void);
 
+/** @brief Starts the sensor timer runner*/
+void Hw_enable_sensor_timer(void);
+
 /** @brief Gets the current tracked rotary encoder count
  * @return integer count representing rotary encoder position (0 at power up, negative for anti-clockwise & positive for clockwise)*/
 int16_t Hw_get_rotary_count(void);

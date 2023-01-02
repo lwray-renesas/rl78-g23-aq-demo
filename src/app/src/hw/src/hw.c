@@ -55,9 +55,14 @@ void Hw_init(void)
 	R_Config_TAU0_1_Start();
 	R_Config_TAU0_2_Start();
 	R_Config_CSI30_Start_app();
-	R_Config_ITL012_ITL013_Start();
 
 	Setup_elcl();
+}
+/* END OF FUNCTION*/
+
+void Hw_enable_sensor_timer(void)
+{
+	R_Config_ITL012_ITL013_Start();
 }
 /* END OF FUNCTION*/
 

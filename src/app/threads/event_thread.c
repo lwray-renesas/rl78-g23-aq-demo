@@ -26,10 +26,7 @@ void Event_thread_main(void)
 	while(1)
 	{
 		/* Monitor system for power management decisions i.e. entering low power mode & state management when returning from it*/
-		App_power_management();
-
-		/* Get the hardware events*/
-		hw_event_rx_flags = App_get_hw_events();
+		hw_event_rx_flags = App_power_management();
 
 		if(HW_EVENT_OCCURRED(hw_event_rx_flags, BUTTON_CLICK))
 		{
@@ -51,9 +48,12 @@ void Event_thread_main(void)
 			App_proximity_handler();
 		}
 
-		App_rotary_processing();
+		if(HW_EVENT_OCCURRED(hw_event_rx_flags, ROTARY_COUNT_UPDATED))
+		{
+			App_rotary_processing();
+		}
 
-		Rltos_task_sleep(0U);
+		Rltos_task_sleep(0U); /* Yield thread*/
 	}
 }
 /* End of thread*/

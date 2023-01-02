@@ -15,6 +15,7 @@
         <Setting id="P11" value="TOOLRxD"/>
         <Setting id="P03" value="P03"/>
         <Setting id="P02" value="P02"/>
+        <Setting id="P16" value="INTP5"/>
         <Setting id="P05" value="TS10"/>
         <Setting id="P17" value="TI02"/>
         <Setting id="P140" value="P140"/>
@@ -47,6 +48,7 @@
         <Setting id="Config_TAU0_0" value="CG"/>
         <Setting id="Config_TAU0_1" value="CG"/>
         <Setting id="r_ctsu" value=""/>
+        <Setting id="Config_INTC" value="CG"/>
         <Setting id="Config_CSI30" value="CG"/>
         <Setting id="Config_LVD1" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>

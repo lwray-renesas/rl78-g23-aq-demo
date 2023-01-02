@@ -60,16 +60,12 @@ void App_get_sensor_data(sensor_data_t * const sense_data_arg);
  * @param[in,out] A pointer to the sensor data structure to be populated*/
 void App_get_alarm_sensor_data(sensor_data_t * const sense_data_arg);
 
-/** @brief Interface for system power management.*/
-void App_power_management(void);
+/** @brief Interface for system power management.
+ * @return hardware events variable copy.*/
+hardware_event_t App_power_management(void);
 
 /** @brief Signals user activity to application for use in power management*/
 void App_signal_activity(void);
-
-/** @brief returns the current hardware events and clears the internal event variable.
- * @return hardware events variable copy.
- */
-hardware_event_t App_get_hw_events(void);
 
 /** @brief Handles rotary encoder I/O in set alarm state*/
 void App_rotary_processing(void);

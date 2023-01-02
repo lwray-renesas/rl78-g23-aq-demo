@@ -103,38 +103,41 @@ void App_get_alarm_sensor_data(sensor_data_t * const sense_data_arg)
 }
 /* END OF FUNCTION*/
 
-void App_power_management(void)
+hardware_event_t App_power_management(void)
 {
-	if(LOW_POWER == sys_state)
+	hardware_event_t l_hw_events = NO_EVENT;
+	RLTOS_PREPARE_CRITICAL_SECTION();
+
+	/* Check if there are any hardware events to handle*/
+	do
 	{
-		STOP(); /* Enter low power mode*/
+		/* Enter appropriate low power state*/
+		if(LOW_POWER == sys_state)
+		{
+			STOP(); /* Enter low power mode*/
+		}
+		else
+		{
+			HALT(); /* Just halt the cpu until an event occurs which we want to handle*/
+		}
+
+		/* check the event flags*/
+		RLTOS_ENTER_CRITICAL_SECTION();
+
+		l_hw_events = hw_event_flags;
+		hw_event_flags = NO_EVENT;
+
+		RLTOS_EXIT_CRITICAL_SECTION();
 	}
-	else
-	{
-		HALT(); /* Just halt the cpu until an event occurs which we want to handle*/
-	}
+	while(NO_EVENT == l_hw_events);
+
+	return l_hw_events;
 }
 /* END OF FUNCTION*/
 
 void App_signal_activity(void)
 {
 	activity_flag = true;
-}
-/* END OF FUNCTION*/
-
-hardware_event_t App_get_hw_events(void)
-{
-	hardware_event_t l_hw_events = NO_EVENT;
-	RLTOS_PREPARE_CRITICAL_SECTION();
-
-	RLTOS_ENTER_CRITICAL_SECTION();
-
-	l_hw_events = hw_event_flags;
-	hw_event_flags = NO_EVENT;
-
-	RLTOS_EXIT_CRITICAL_SECTION();
-
-	return l_hw_events;
 }
 /* END OF FUNCTION*/
 
