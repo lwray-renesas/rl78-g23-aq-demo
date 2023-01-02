@@ -13,11 +13,11 @@
 
 /** @brief 15 second inactivity timer at 200msec periodic interrupt from CTSU*/
 #define CTSU_INACTIVITY_TIMEOUT	(75U)
-/** @brief 6 second inactivity timer at 200msec periodic interrupt*/
+/** @brief 6 second state inactivity timer at 200msec periodic interrupt from CTSU*/
 #define CTSU_STATE_TIMEOUT	(30U)
-/** @brief 30 minute battery check timer at 3sec periodic interrupt*/
-#define BATTERY_TIMEOUT		(600U)
-/** @brief 3 sec sensor check timer at 3sec periodic interrupt*/
+/** @brief 30 minute battery check timer at 90sec periodic interrupt*/
+#define BATTERY_TIMEOUT		(20U)
+/** @brief 90 sec sensor check timer at 90sec periodic interrupt*/
 #define SENSOR_TIMEOUT		(1U)
 
 /** @brief enumerated type for system state machine*/
@@ -63,16 +63,11 @@ static bool low_battery_flag = false;
 static bool alarm_checking_enabled = false;
 /** flag indicating whether the alarm has been acknowledged*/
 static bool alarm_condition = false;
-/** flag to indicate whether sensor reading is enbaled*/
-static bool sensor_read_enabled = true;
 
 void App_init_sensors(void)
 {
-	/* First sensor reading is bogus - so perform two reads on initialisation*/
 	Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
 	Sensor_init();
-	Sensor_read(&sensor_data);
-	Sensor_read(&sensor_data);
 	Rltos_mutex_release(&sensor_mutex);
 }
 /* END OF FUNCTION*/
@@ -280,7 +275,6 @@ void App_button_click_handler(void)
 	case SET_ALARM:
 	{
 		App_signal_activity();
-		sensor_read_enabled = true;
 		switch(alarm_state)
 		{
 		case ECO2: alarm_state = IAQ; Rltos_events_set(&gui_events, UPDATE_ALARM_IAQ); break;
@@ -324,7 +318,6 @@ void App_button_long_press_handler(void)
 	{
 		App_signal_activity();
 		sys_state = SET_ALARM;
-		sensor_read_enabled = false;
 		Hw_start_rotary();
 		switch(alarm_state)
 		{
@@ -382,7 +375,7 @@ void App_constant_period_handler(void)
 	}
 
 	/* Sensor checking activity*/
-	if( ((constant_period_counter % SENSOR_TIMEOUT) == 0U) && (sensor_read_enabled) )
+	if((constant_period_counter % SENSOR_TIMEOUT) == 0U)
 	{
 		App_read_sensors();
 
@@ -490,9 +483,6 @@ void App_proximity_handler(void)
 
 					/* Ensure the rotary decoder is disabled to*/
 					Hw_stop_rotary();
-
-					/* Forcefully ensure sensor reading is enabled*/
-					sensor_read_enabled = true;
 
 					/* Wait for the display to go to sleep*/
 					Rltos_events_set(&gui_events, SLEEP | BACKLIGHT_OFF);
