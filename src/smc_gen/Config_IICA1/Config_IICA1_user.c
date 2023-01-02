@@ -73,7 +73,6 @@ void R_Config_IICA1_Create_UserInit(void)
 static void r_Config_IICA1_callback_master_sendend(void)
 {
 /* Start user code for r_Config_IICA1_callback_master_sendend. Do not edit comment generated here */
-	EI();
     rm_comms_i2c_bus0_callback(false);
 /* End user code. Do not edit comment generated here */
 }
@@ -87,7 +86,6 @@ static void r_Config_IICA1_callback_master_sendend(void)
 static void r_Config_IICA1_callback_master_receiveend(void)
 {
 /* Start user code for r_Config_IICA1_callback_master_receiveend. Do not edit comment generated here */
-	EI();
     rm_comms_i2c_bus0_callback(false);
 /* End user code. Do not edit comment generated here */
 }
@@ -102,7 +100,6 @@ static void r_Config_IICA1_callback_master_receiveend(void)
 static void r_Config_IICA1_callback_master_error(MD_STATUS flag)
 {
     /* Start user code for r_Config_IICA1_callback_master_error. Do not edit comment generated here */
-	EI();
     rm_comms_i2c_bus0_callback(true);
     /* End user code. Do not edit comment generated here */
 }
