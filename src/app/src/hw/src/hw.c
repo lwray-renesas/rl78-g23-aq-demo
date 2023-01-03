@@ -62,7 +62,7 @@ void Hw_init(void)
 
 void Hw_enable_sensor_timer(void)
 {
-	R_Config_ITL012_ITL013_Start();
+	R_Config_RTC_Start();
 }
 /* END OF FUNCTION*/
 

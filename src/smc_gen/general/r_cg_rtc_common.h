@@ -18,43 +18,32 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_ITL012_ITL013_user.c
-* Component Version: 1.2.0
+* File Name        : r_cg_rtc_common.h
+* Version          : 1.0.11
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_ITL012_ITL013.
+* Description      : Common header file for RTC peripheral.
 ***********************************************************************************************************************/
-/***********************************************************************************************************************
-Includes
-***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_cg_userdefine.h"
-#include "Config_ITL012_ITL013.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+
+#ifndef RTC_COMMON_H
+#define RTC_COMMON_H
 
 /***********************************************************************************************************************
-Pragma directive
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-Global variables and functions
+Macro definitions
 ***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ITL012_ITL013_Create_UserInit
-* Description  : This function adds user code after initializing the ITL012_ITL013 channel.
-* Arguments    : None
-* Return Value : None
+Typedef definitions
 ***********************************************************************************************************************/
-void R_Config_ITL012_ITL013_Create_UserInit(void)
-{
-    /* Start user code for user init. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
 
-/* Start user code for adding. Do not edit comment generated here */
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_RTC_Set_PowerOn(void);
+void R_RTC_Set_PowerOff(void);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+#endif

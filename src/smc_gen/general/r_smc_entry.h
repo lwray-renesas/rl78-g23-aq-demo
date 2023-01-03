@@ -32,7 +32,7 @@ Includes
 #include "Config_IICA1.h"
 #include "Config_LVD1.h"
 #include "Config_INTC.h"
-#include "Config_ITL012_ITL013.h"
+#include "Config_RTC.h"
 #include "Config_ITL000_ITL001.h"
 #include "Config_CSI30.h"
 #include "Config_TAU0_0.h"
@@ -45,6 +45,7 @@ Includes
 #include "r_cg_itl_common.h"
 #include "r_cg_lvd_common.h"
 #include "r_cg_iica_common.h"
+#include "r_cg_rtc_common.h"
 #include "r_cg_userdefine.h"
 
 #ifndef SMC_ENTRY_H

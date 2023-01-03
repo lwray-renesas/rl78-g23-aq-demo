@@ -39,12 +39,12 @@
     </Segment>
     <Segment id="Component">
         <Setting id="r_bsp" value=""/>
+        <Setting id="Config_RTC" value="CG"/>
         <Setting id="Config_ITL000_ITL001" value="CG"/>
         <Setting id="r_hs300x" value=""/>
         <Setting id="Config_IICA1" value="CG"/>
         <Setting id="r_zmod4xxx" value=""/>
         <Setting id="r_comms_i2c" value=""/>
-        <Setting id="Config_ITL012_ITL013" value="CG"/>
         <Setting id="Config_TAU0_0" value="CG"/>
         <Setting id="Config_TAU0_1" value="CG"/>
         <Setting id="r_ctsu" value=""/>

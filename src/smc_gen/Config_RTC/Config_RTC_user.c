@@ -18,23 +18,25 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_ITL012_ITL013.c
+* File Name        : Config_RTC_user.c
 * Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_ITL012_ITL013.
+* Description      : This file implements device driver for Config_RTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_ITL012_ITL013.h"
+#include "Config_RTC.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "hw.h"
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
+#pragma interrupt r_Config_RTC_interrupt(vect=INTRTC)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -45,58 +47,44 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ITL012_ITL013_Create
-* Description  : This function initializes the ITL012_ITL013 module.
+* Function Name: R_Config_RTC_Create_UserInit
+* Description  : This function adds user code after initializing the real-time clock.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_ITL012_ITL013_Create(void)
+void R_Config_RTC_Create_UserInit(void)
 {
-    /* Stop 32-bit interval timer */
-    ITLCTL0 = 0x00U;
-    /* 32-bit interval timer used as 16-bit timer */
-    ITLCTL0 |= _40_ITL_MODE_16BIT;
-    ITLCSEL0 &= _F8_ITL_CLOCK_FITL0_CLEAR;
-    ITLCSEL0 |= _04_ITL_CLOCK_FITL0_FSXP;
-    ITLFDIV01 &= _F8_ITL_ITL012_FITL0_CLEAR;
-    ITLFDIV01 |= _07_ITL_ITL012_FITL0_128;
-    ITLCMP01 = _59FF_ITL_ITLCMP01_VALUE;
-    
-    R_Config_ITL012_ITL013_Create_UserInit();
+    /* Start user code for user init. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ITL012_ITL013_Start
-* Description  : This function starts the ITL012_ITL013 channel.
+* Function Name: r_Config_RTC_callback_constperiod
+* Description  : This function is real-time clock constant-period interrupt service handler.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_ITL012_ITL013_Start(void)
+static void r_Config_RTC_callback_constperiod(void)
 {
-    ITLEN02 = 1U;
+    /* Start user code for r_Config_RTC_callback_constperiod. Do not edit comment generated here */
+	HW_SET_EVENT(hw_event_flags, CONSTANT_PERIOD);
+    /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ITL012_ITL013_Stop
-* Description  : This function stops the ITL012_ITL013 channel.
+* Function Name: r_Config_RTC_interrupt
+* Description  : This function is INTRTC interrupt service routine.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_ITL012_ITL013_Stop(void)
+static void __near r_Config_RTC_interrupt(void)
 {
-    ITLEN02 = 0U;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_ITL012_ITL013_Set_OperationMode
-* Description  : This function is used to stop counter and clear interrupt flag before changing operation mode.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_Config_ITL012_ITL013_Set_OperationMode(void)
-{
-    /* Stop 32-bit interval timer */
-    ITLCTL0 &= 0xF0U;
+    if (1U == RIFG)
+    {
+        /* clear RIFG */
+        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;
+        r_Config_RTC_callback_constperiod();
+    }
 }
 
 /* Start user code for adding. Do not edit comment generated here */

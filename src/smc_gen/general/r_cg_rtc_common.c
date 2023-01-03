@@ -18,24 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_cg_systeminit.c
+* File Name        : r_cg_rtc_common.c
 * Version          : 1.0.11
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements system initializing function.
+* Description      : None
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_PORT.h"
-#include "Config_IICA1.h"
-#include "Config_LVD1.h"
-#include "Config_INTC.h"
-#include "Config_RTC.h"
-#include "r_cg_sau_common.h"
-#include "r_cg_tau_common.h"
-#include "r_cg_itl_common.h"
+#include "r_cg_rtc_common.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -52,24 +45,26 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Systeminit
-* Description  : This function initializes every macro
+* Function Name: R_RTC_Set_PowerOn
+* Description  : This function starts the clock supply for RTC.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Systeminit(void)
+void R_RTC_Set_PowerOn(void)
 {
-    PRR0 = 0x7FU;    /* reset IICA, ADC, TAU and SAU module */
-    PRR1 = 0xF3U;    /* reset DAC, SMS, COMP, ITL, REMC, CTSU module */
-    PRR0 = 0x00U;    /* release IICA, ADC, TAU and SAU module */
-    PRR1 = 0x00U;    /* release DAC, SMS, COMP, ITL, REMC, CTSU module */
-    /* Set peripheral settings */
-    R_Config_PORT_Create();
-    R_TAU0_Create();
-    R_SAU1_Create();
-    R_ITL_Create();
-    R_Config_IICA1_Create();
-    R_Config_LVD1_Create();
-    R_Config_INTC_Create();
-    R_Config_RTC_Create();
+    RTCWEN = 1U;    /* supplies input clock */
 }
+
+/***********************************************************************************************************************
+* Function Name: R_RTC_Set_PowerOff
+* Description  : This function stops the clock supply for RTC.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_RTC_Set_PowerOff(void)
+{
+    RTCWEN = 0U;    /* stops supply of input clock */
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */

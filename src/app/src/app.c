@@ -11,14 +11,14 @@
 #include "r_zmod4xxx_if.h"
 #include "qe_touch_config.h"
 
-/** @brief 15 second inactivity timer at 200msec periodic interrupt from CTSU*/
-#define INACTIVITY_TIMEOUT	(75U)
-/** @brief 6 second state inactivity timer at 200msec periodic interrupt from CTSU*/
-#define STATE_TIMEOUT	(30U)
-/** @brief 30 minute battery check timer at 90sec periodic interrupt*/
-#define BATTERY_TIMEOUT		(20U)
-/** @brief 90 sec sensor check timer at 90sec periodic interrupt*/
-#define SENSOR_TIMEOUT		(1U)
+/** @brief 15 second inactivity timer at 1sec periodic interrupt*/
+#define INACTIVITY_TIMEOUT	(15U)
+/** @brief 6 second state inactivity timer at 1sec periodic interrupt*/
+#define STATE_TIMEOUT	(6U)
+/** @brief 30 minute battery check timer at 1sec periodic interrupt*/
+#define BATTERY_TIMEOUT		(1800U)
+/** @brief 90 sec sensor check timer at 1sec periodic interrupt*/
+#define SENSOR_TIMEOUT		(90U)
 
 /** @brief enumerated type for system state machine*/
 typedef enum
@@ -350,6 +350,7 @@ void App_button_long_press_handler(void)
 void App_constant_period_handler(void)
 {
 	static uint16_t constant_period_counter = 0U;
+	static uint16_t inactivity_counter = 0U;
 
 	++constant_period_counter;
 
@@ -422,6 +423,58 @@ void App_constant_period_handler(void)
 			}
 		}
 	}
+
+	/* Inactivity tracking*/
+	if(LOW_POWER != sys_state)
+	{
+		if(!activity_flag)
+		{
+			++inactivity_counter;
+			if(inactivity_counter > INACTIVITY_TIMEOUT)
+			{
+				static rltos_event_flag_t l_disp_asleep_flag = 0U;
+
+				/* Transition application to low power state*/
+				sys_state = LOW_POWER;
+
+				/* Ensure the rotary decoder is disabled to*/
+				Hw_stop_rotary();
+
+				/* Wait for the display to go to sleep*/
+				Rltos_events_set(&gui_events, SLEEP | BACKLIGHT_OFF);
+				Rltos_events_get(&gui_return_events, DISPLAY_ASLEEP | BACKLIGHT_TURNED_OFF, &l_disp_asleep_flag, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+
+				inactivity_counter = 0U;
+			}
+			else if((inactivity_counter % STATE_TIMEOUT) == 0U)
+			{
+				/* Auto menu change from temp & humidity to air quality*/
+				if(TEMPERATURE_HUMIDITY == sys_state)
+				{
+					sys_state = AIR_QUALITY;
+					Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
+				}
+				else if(AIR_QUALITY == sys_state)
+				{
+					sys_state = TEMPERATURE_HUMIDITY;
+					Rltos_events_set(&gui_events, BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
+				}
+				else
+				{
+					/* Shouldn't Get Here*/
+				}
+			}
+			else
+			{
+				/* Do Nothing*/
+			}
+		}
+		else
+		{
+			inactivity_counter = 0U;
+			activity_flag = false;
+		}
+	}
 }
 /* END OF FUNCTION*/
 
@@ -429,7 +482,6 @@ void App_constant_period_handler(void)
 void App_proximity_handler(void)
 {
 	static uint64_t proximity_status = 0ULL;
-	static uint16_t ctsu_inactivity_counter = 0U;
 
 	/* Immediately retrieve the CTSU data*/
 	fsp_err_t err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &proximity_status, NULL, NULL);
@@ -463,60 +515,6 @@ void App_proximity_handler(void)
 			{
 				sys_state = TEMPERATURE_HUMIDITY;
 				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
-			}
-		}
-	}
-	else
-	{
-		/* Inactivity tracking*/
-		if(LOW_POWER != sys_state)
-		{
-			if(!activity_flag)
-			{
-				++ctsu_inactivity_counter;
-				if(ctsu_inactivity_counter > INACTIVITY_TIMEOUT)
-				{
-					static rltos_event_flag_t l_disp_asleep_flag = 0U;
-
-					/* Transition application to low power state*/
-					sys_state = LOW_POWER;
-
-					/* Ensure the rotary decoder is disabled to*/
-					Hw_stop_rotary();
-
-					/* Wait for the display to go to sleep*/
-					Rltos_events_set(&gui_events, SLEEP | BACKLIGHT_OFF);
-					Rltos_events_get(&gui_return_events, DISPLAY_ASLEEP | BACKLIGHT_TURNED_OFF, &l_disp_asleep_flag, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
-
-					ctsu_inactivity_counter = 0U;
-				}
-				else if((ctsu_inactivity_counter % STATE_TIMEOUT) == 0U)
-				{
-					/* Auto menu change from temp & humidity to air quality*/
-					if(TEMPERATURE_HUMIDITY == sys_state)
-					{
-						sys_state = AIR_QUALITY;
-						Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
-					}
-					else if(AIR_QUALITY == sys_state)
-					{
-						sys_state = TEMPERATURE_HUMIDITY;
-						Rltos_events_set(&gui_events, BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
-					}
-					else
-					{
-						/* Shouldn't Get Here*/
-					}
-				}
-				else
-				{
-					/* Do Nothing*/
-				}
-			}
-			else
-			{
-				ctsu_inactivity_counter = 0U;
-				activity_flag = false;
 			}
 		}
 	}

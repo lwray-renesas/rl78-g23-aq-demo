@@ -34,15 +34,7 @@ void qe_touch_callback(touch_callback_args_t * p_args)
 {
 	(void)p_args;
 
-	/* If long delay channel elapses - emit signal, otherwise emit ctsu channel signal*/
-	if(0x04U == ITLS0)
-	{
-		HW_SET_EVENT(hw_event_flags, CONSTANT_PERIOD);
-	}
-	else
-	{
-		HW_SET_EVENT(hw_event_flags, PROXIMITY_SCAN_COMPLETE);
-	}
+	HW_SET_EVENT(hw_event_flags, PROXIMITY_SCAN_COMPLETE);
 
 	/* Clear interval timer interrupt flags*/
 	ITLS0 = 0U;

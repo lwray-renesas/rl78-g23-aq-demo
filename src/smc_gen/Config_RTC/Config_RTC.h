@@ -18,19 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_ITL012_ITL013.h
+* File Name        : Config_RTC.h
 * Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_ITL012_ITL013.
+* Description      : This file implements device driver for Config_RTC.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_itl.h"
+#include "r_cg_rtc.h"
 
-#ifndef CFG_Config_ITL012_ITL013_H
-#define CFG_Config_ITL012_ITL013_H
+#ifndef CFG_Config_RTC_H
+#define CFG_Config_RTC_H
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -39,21 +39,51 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _59FF_ITL_ITLCMP01_VALUE                   (0x59FFU)    /* 16-bit compare data register */
+#define RTC_WAITTIME_2CYCLE                  (163U)
 
 /***********************************************************************************************************************
 Typedef definitions
 ***********************************************************************************************************************/
+typedef struct
+{
+    uint8_t sec;
+    uint8_t min;
+    uint8_t hour;
+    uint8_t day;
+    uint8_t week;
+    uint8_t month;
+    uint8_t year;
+} st_rtc_counter_value_t;
+typedef struct
+{
+    uint8_t alarmwm;
+    uint8_t alarmwh;
+    uint8_t alarmww;
+} st_rtc_alarm_value_t;
+typedef enum
+{
+    HOUR12,
+    HOUR24
+} e_rtc_hour_system_t;
+typedef enum
+{
+    HALFSEC = 1U,
+    ONESEC,
+    ONEMIN,
+    ONEHOUR,
+    ONEDAY,
+    ONEMONTH
+} e_rtc_int_period_t;
 
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_Config_ITL012_ITL013_Create(void);
-void R_Config_ITL012_ITL013_Start(void);
-void R_Config_ITL012_ITL013_Stop(void);
-void R_Config_ITL012_ITL013_Set_OperationMode(void);
-void R_Config_ITL012_ITL013_Callback_Shared_Interrupt(void);
-void R_Config_ITL012_ITL013_Create_UserInit(void);
+void R_Config_RTC_Create(void);
+void R_Config_RTC_Start(void);
+void R_Config_RTC_Stop(void);
+MD_STATUS R_Config_RTC_Set_ConstPeriodInterruptOn(e_rtc_int_period_t period);
+void R_Config_RTC_Set_ConstPeriodInterruptOff(void);
+void R_Config_RTC_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
