@@ -10,6 +10,7 @@
 #include "r_zmod4xxx_if.h"
 #include "r_hs300x_if.h"
 #include "rltos_task.h"
+#include "hw.h"
 
 /** callback status enumerated type*/
 typedef enum
