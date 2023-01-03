@@ -12,9 +12,9 @@
 #include "qe_touch_config.h"
 
 /** @brief 15 second inactivity timer at 200msec periodic interrupt from CTSU*/
-#define CTSU_INACTIVITY_TIMEOUT	(75U)
+#define INACTIVITY_TIMEOUT	(75U)
 /** @brief 6 second state inactivity timer at 200msec periodic interrupt from CTSU*/
-#define CTSU_STATE_TIMEOUT	(30U)
+#define STATE_TIMEOUT	(30U)
 /** @brief 30 minute battery check timer at 90sec periodic interrupt*/
 #define BATTERY_TIMEOUT		(20U)
 /** @brief 90 sec sensor check timer at 90sec periodic interrupt*/
@@ -474,7 +474,7 @@ void App_proximity_handler(void)
 			if(!activity_flag)
 			{
 				++ctsu_inactivity_counter;
-				if(ctsu_inactivity_counter > CTSU_INACTIVITY_TIMEOUT)
+				if(ctsu_inactivity_counter > INACTIVITY_TIMEOUT)
 				{
 					static rltos_event_flag_t l_disp_asleep_flag = 0U;
 
@@ -490,7 +490,7 @@ void App_proximity_handler(void)
 
 					ctsu_inactivity_counter = 0U;
 				}
-				else if((ctsu_inactivity_counter % CTSU_STATE_TIMEOUT) == 0U)
+				else if((ctsu_inactivity_counter % STATE_TIMEOUT) == 0U)
 				{
 					/* Auto menu change from temp & humidity to air quality*/
 					if(TEMPERATURE_HUMIDITY == sys_state)
