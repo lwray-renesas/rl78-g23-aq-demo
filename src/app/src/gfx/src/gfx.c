@@ -106,6 +106,8 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 static void Erase_text(uint16_t x, uint16_t y, uint16_t length);
 /** @brief Utility functino used to clear the display background area (everything but the title/renesas logo)*/
 static void Erase_background(void);
+/** @brief Utility functino used to clear the title image area*/
+static void Erase_title(void);
 /** @brief Utility function which returns a colour depending on the air quality index value which corresponds to the severity.
  * @param[in] iaqx100 - air quality index reading.*/
 static const uint8_t * Colour_lookup_iaq(const int_dec_t iaq);
@@ -262,28 +264,28 @@ void Gfx_set_backgound_enable_alarm(void)
 {
 	uint16_t l_txt = 0U;
 	Erase_background();
-	(void)Text_put_str(55U, 25U, "ALARM", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-	l_txt = Text_put_str(BACKGROUND_X_START + 25U, 50U, " OFF ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-	l_txt += Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-	(void)Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_line(55U, 25U, "ALARM", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	l_txt = Text_put_line(BACKGROUND_X_START + 25U, 50U, " OFF ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	l_txt += Text_put_line(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_line(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 }
 /* END OF FUNCTION*/
 
 void Gfx_set_backgound_enable_alarm_off(void)
 {
 	uint16_t l_txt = 0U;
-	l_txt = Text_put_str(BACKGROUND_X_START + 25U, 50U, " OFF ", BACKGROUND_TEXT_COLOUR, FOREGROUND_TEXT_COLOUR);
-	l_txt += Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-	(void)Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	l_txt = Text_put_line(BACKGROUND_X_START + 25U, 50U, " OFF ", BACKGROUND_TEXT_COLOUR, FOREGROUND_TEXT_COLOUR);
+	l_txt += Text_put_line(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_line(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 }
 /* END OF FUNCTION*/
 
 void Gfx_set_backgound_enable_alarm_on(void)
 {
 	uint16_t l_txt = 0U;
-	l_txt = Text_put_str(BACKGROUND_X_START + 25U, 50U, " OFF ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-	l_txt += Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-	(void)Text_put_str(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", BACKGROUND_TEXT_COLOUR, FOREGROUND_TEXT_COLOUR);
+	l_txt = Text_put_line(BACKGROUND_X_START + 25U, 50U, " OFF ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	l_txt += Text_put_line(BACKGROUND_X_START + l_txt + 25U, 50U, "    ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_line(BACKGROUND_X_START + l_txt + 25U, 50U, " ON ", BACKGROUND_TEXT_COLOUR, FOREGROUND_TEXT_COLOUR);
 }
 /* END OF FUNCTION*/
 
@@ -291,6 +293,81 @@ void Gfx_set_backgound_breach_alarm(void)
 {
 	Erase_background();
 	St7735s_send_image(ALARM_IMAGE_OFFSET_X, ALARM_IMAGE_OFFSET_Y, ALARM_IMAGE_WIDTH, ALARM_IMAGE_HEIGHT, (__far const uint8_t *)alarm_img);
+}
+/* END OF FUNCTION*/
+
+void Gfx_display_offset_tuning(void)
+{
+	(void)Text_put_str(TITLE_IMAGE_OFFSET_X, TITLE_IMAGE_OFFSET_Y, "CTSU Tuning", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+	(void)Text_put_str(BACKGROUND_X_START, BACKGROUND_Y_START, "1. Put Me Down\n2. Click Button", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
+
+void Gfx_display_countdown(void)
+{
+	static uint8_t countdown_state = 5U;
+	static uint16_t local_char_len = 0U;
+	static uint16_t local_str_len = 0U;
+
+	switch(countdown_state)
+	{
+	case 5U:
+	{
+		Erase_background();
+		Erase_title();
+		local_str_len = Text_put_str(15U, BACKGROUND_Y_START, "Countdown: ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "5", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		--countdown_state;
+	}
+	break;
+	case 4U:
+	{
+		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
+		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "4", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		--countdown_state;
+	}
+	break;
+	case 3U:
+	{
+		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
+		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "3", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		--countdown_state;
+	}
+	break;
+	case 2U:
+	{
+		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
+		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "2", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		--countdown_state;
+	}
+	break;
+	case 1U:
+	{
+		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
+		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "1", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		--countdown_state;
+		local_str_len = 0U;
+		countdown_state = 5U;
+	}
+	break;
+	default:
+		/* Shouldn't get here*/
+	break;
+	}
+}
+/* END OF FUNCTION*/
+
+void Gfx_display_tuning_elipse(void)
+{
+	Erase_background();
+	(void)Text_put_str(40U, BACKGROUND_Y_START, "Tuning...", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
+
+void Gfx_display_success(void)
+{
+	Erase_background();
+	(void)Text_put_str(40U, BACKGROUND_Y_START, "Success!!!", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 }
 /* END OF FUNCTION*/
 
@@ -398,6 +475,20 @@ static void Erase_background(void)
 			.width = BACKGROUND_WIDTH,
 			.x0 = BACKGROUND_X_START,
 			.y0 = BACKGROUND_Y_START,
+			.colour = BACKGROUND_TEXT_COLOUR,
+	};
+
+	Draw_solid_rectangle(&eraser);
+}
+/* END OF FUNCTION*/
+
+static void Erase_title(void)
+{
+	static const solid_rectangle_t eraser = {
+			.height = TITLE_IMAGE_HEIGHT,
+			.width = TITLE_IMAGE_WIDTH,
+			.x0 = TITLE_IMAGE_OFFSET_X,
+			.y0 = TITLE_IMAGE_OFFSET_Y,
 			.colour = BACKGROUND_TEXT_COLOUR,
 	};
 

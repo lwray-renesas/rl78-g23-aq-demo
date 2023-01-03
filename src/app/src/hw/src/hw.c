@@ -41,10 +41,6 @@ void Hw_init(void)
 	/* Initialize pins (function created by Smart Configurator) */
 	R_CTSU_PinSetInit();
 
-#if 1
-	/* Sets ELCL connections*/
-	Setup_elcl();
-
 	/* Open Touch middleware */
 	err = RM_TOUCH_Open(g_qe_touch_instance_config01.p_ctrl, g_qe_touch_instance_config01.p_cfg);
 	if (TOUCH_SUCCESS != err)
@@ -56,6 +52,21 @@ void Hw_init(void)
 	MK2H |= 0x40;    /* Disable interrupt servicing of "write request interrupt for setting registers for each channel" */
 	MK3L |= 0x01;    /* Disable interrupt servicing of "measurement data transfer request interrupt" */
 
+	R_Config_TAU0_0_Start();
+	R_Config_TAU0_1_Start();
+	R_Config_TAU0_2_Start();
+	R_Config_CSI30_Start_app();
+
+	/* Sets ELCL connections*/
+	Setup_elcl();
+}
+/* END OF FUNCTION*/
+
+void Hw_ctsu_start(void)
+{
+	static uint64_t l_button_status = 0ULL;
+	fsp_err_t err = FSP_SUCCESS;
+
 	/* for ExternalTrigger */
 	err = RM_TOUCH_ScanStart(g_qe_touch_instance_config01.p_ctrl);
 	if (FSP_SUCCESS != err)
@@ -63,59 +74,44 @@ void Hw_init(void)
 		while (true) {}
 	}
 
-	/* Clear interval timer interrupt flags*/
+	/* Clear interval timer interrupt flags & start the timer (ctsu trigger)*/
 	ITLS0 = 0U;
 	ITLIF = 0U;
-
 	R_Config_ITL000_ITL001_Start();
 
-	/* Measurement loop */
+	/* Measurement loop for initial offset tuning.*/
 	while (true)
 	{
-		/* for [CONFIG01] configuration */
-		while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE)) {}
-		hw_event_flags = NO_EVENT;
+		while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE))
+		{
+			NOP();
+		}
+
+		hw_event_flags = NO_EVENT; /* Reset the event flags*/
+
 		err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &l_button_status, NULL, NULL);
 		if (FSP_SUCCESS == err)
 		{
-			R_Config_ITL000_ITL001_Stop();
 			break;
 		}
 	}
 
-	/* Start SMS measurement */
-	err = RM_TOUCH_SmsSet(g_qe_touch_instance_config01.p_ctrl);
-	err = RM_TOUCH_ScanStart(g_qe_touch_instance_config01.p_ctrl);
-
-	ITLS0 = 0U;
-	ITLIF = 0U;
-	R_Config_ITL000_ITL001_Start();
-
-	while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE))
+	/* Keep reading until touch has been removed*/
+	while(true)
 	{
-		STOP();
+		while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE))
+		{
+			NOP();
+		}
+
+		hw_event_flags = NO_EVENT; /* Reset the event flags*/
+
+		err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &l_button_status, NULL, NULL);
+		if (l_button_status == 0ULL)
+		{
+			break;
+		}
 	}
-
-	hw_event_flags = NO_EVENT;
-	R_Config_ITL000_ITL001_Stop();
-	ITLS0 = 0U;
-	ITLIF = 0U;
-	R_Config_ITL000_ITL001_Start();
-	err = RM_TOUCH_ScanStart(g_qe_touch_instance_config01.p_ctrl);
-
-	while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE))
-	{
-		STOP();
-	}
-
-	hw_event_flags = NO_EVENT;
-
-#endif
-
-	R_Config_TAU0_0_Start();
-	R_Config_TAU0_1_Start();
-	R_Config_TAU0_2_Start();
-	R_Config_CSI30_Start_app();
 }
 /* END OF FUNCTION*/
 
@@ -151,44 +147,6 @@ void Hw_stop_rotary(void)
 {
 	Elcl_set_output_state(&elcl_ctl, ELCL_OUTPUT_3, ELCL_OUTPUT_DISABLED);
 	Elcl_set_output_state(&elcl_ctl, ELCL_OUTPUT_4, ELCL_OUTPUT_DISABLED);
-}
-/* END OF FUNCTION*/
-
-void Hw_enable_proximity_detection(void)
-{
-	touch_err_t err;
-
-	/* Clear interval timer interrupt flags*/
-	ITLS0 = 0U;
-	ITLIF = 0U;
-
-	/* ScanStart causes the CTSU to wait for the external trigger*/
-	err = RM_TOUCH_ScanStart(g_qe_touch_instance_config01.p_ctrl);
-	if (TOUCH_SUCCESS != err)
-	{
-		while (true) {}
-	}
-
-	R_Config_ITL000_ITL001_Start();
-}
-/* END OF FUNCTION*/
-
-void Hw_disable_proximity_detection(void)
-{
-	touch_err_t err;
-
-	R_Config_ITL000_ITL001_Stop();
-
-	/* ScanStop causes the CTSU to stop waiting for the external trigger*/
-	err = RM_TOUCH_ScanStop(g_qe_touch_instance_config01.p_ctrl);
-	if (TOUCH_SUCCESS != err)
-	{
-		while (true) {}
-	}
-
-	/* Clear interval timer interrupt flags*/
-	ITLS0 = 0U;
-	ITLIF = 0U;
 }
 /* END OF FUNCTION*/
 

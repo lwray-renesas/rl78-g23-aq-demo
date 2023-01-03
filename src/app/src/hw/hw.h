@@ -32,6 +32,9 @@ extern volatile hardware_event_t hw_event_flags;
 /** @brief Initialises applications hardware - defaults the rotary to disabled*/
 void Hw_init(void);
 
+/** @brief Performs initial offset tuning in hardware*/
+void Hw_ctsu_start(void);
+
 /** @brief Starts the sensor timer runner*/
 void Hw_enable_sensor_timer(void);
 
@@ -44,12 +47,6 @@ void Hw_start_rotary(void);
 
 /** @brief Stops the ELCL module from providing a count source to the event counters*/
 void Hw_stop_rotary(void);
-
-/** @brief Enables the capacitive proximity detection circuit*/
-void Hw_enable_proximity_detection(void);
-
-/** @brief Disables the capacitive proximity detection circuit*/
-void Hw_disable_proximity_detection(void);
 
 /** @brief Returns true if low battery voltage is detected.
  * @return true if battey voltage is low, false otherwise.*/

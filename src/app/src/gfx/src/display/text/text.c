@@ -23,8 +23,8 @@ void Text_set_font(const font_descriptor_t * font_dsc)
 
 void Text_init(uint16_t x_max, uint16_t y_max)
 {
-	max_x = x_max;
-	max_y = y_max;
+	max_x = x_max-1U;
+	max_y = y_max-1U;
 }
 /* END OF FUNCTION*/
 
@@ -187,9 +187,9 @@ uint16_t Text_put_str(const uint16_t x, const uint16_t y, const char * str, cons
 
 	for(uint16_t c = 0U; c < str_len_bytes; ++c)
 	{
-		if((*(str+c) == '\n') || (*(str+c) == '\r') || (pixels_written + cur_font_dsc->ptr_font_glyph_dsc[*(str+c) - cur_font_dsc->unicode_start].w_px > max_x))
+		bool too_much_text = false;
+		while((*(str+c) == '\n') || (*(str+c) == '\r') || ((l_x + cur_font_dsc->ptr_font_glyph_dsc[*(str+c) - cur_font_dsc->unicode_start].w_px) > max_x))
 		{
-			pixels_written = 0U;
 			l_x = x;
 			l_y += cur_font_dsc->font_height;
 
@@ -200,14 +200,23 @@ uint16_t Text_put_str(const uint16_t x, const uint16_t y, const char * str, cons
 
 			if((l_y > max_y) || (c >= str_len_bytes))
 			{
+				too_much_text = true;
 				break;
 			}
 		}
 
-		pixels_written += Write_char(l_x + pixels_written, l_y, *(str+c), set_bg_colour);
+		if(too_much_text)
+		{
+			break;
+		}
+		else
+		{
+			pixels_written = Write_char(l_x, l_y, *(str+c), set_bg_colour);
+			l_x += pixels_written;
+		}
 	}
 
-	return pixels_written;
+	return l_x;
 }
 /* END OF FUNCTION*/
 

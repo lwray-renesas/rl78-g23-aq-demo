@@ -73,4 +73,16 @@ void Gfx_set_backgound_enable_alarm_on(void);
 /** @brief Sets the display to breached Alarm Message*/
 void Gfx_set_backgound_breach_alarm(void);
 
+/** @brief displays offset tuning message*/
+void Gfx_display_offset_tuning(void);
+
+/** @brief displays count down from 5 (contains static variable)*/
+void Gfx_display_countdown(void);
+
+/** @brief displays tuning... message*/
+void Gfx_display_tuning_elipse(void);
+
+/** @brief displays succes message*/
+void Gfx_display_success(void);
+
 #endif /* APP_GFX_GFX_H_ */

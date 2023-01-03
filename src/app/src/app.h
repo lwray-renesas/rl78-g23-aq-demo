@@ -17,30 +17,37 @@
 #include "rltos_semaphore.h"
 
 /** GUI EVENTS*/
-#define	BACKGROUND_TEMP_HUMID 		(0x00001UL)
-#define	UPDATE_TEMP_HUMID 			(0x00002UL)
-#define	BACKGROUND_AIR_QUALITY		(0x00004UL)
-#define	UPDATE_ALARM_IAQ			(0x00008UL)
-#define	UPDATE_ALARM_TVOC			(0x00010UL)
-#define	UPDATE_ALARM_ECO2			(0x00020UL)
-#define	WAKEUP 						(0x00040UL)
-#define	SLEEP 						(0x00080UL)
-#define	BACKGROUND_LOW_BATTERY		(0x00100UL)
-#define	WRITE_BACKGROUND			(0x00200UL)
-#define	REDUCED_BACKLIGHT			(0x00400UL)
-#define	NORMAL_BACKLIGHT			(0x00800UL)
-#define	BACKGROUND_ENABLE_ALARM		(0x01000UL)
-#define	BACKGROUND_ENABLE_ALARM_OFF	(0x02000UL)
-#define	BACKGROUND_ENABLE_ALARM_ON	(0x04000UL)
-#define	BACKGROUND_BREACH_ALARM		(0x08000UL)
-#define	UPDATE_AIR_QUALITY			(0x10000UL)
-#define BACKLIGHT_OFF				(0x20000UL)
-#define	ALL_GUI_EVENTS				(0x3FFFFUL)
+#define	BACKGROUND_TEMP_HUMID 		(0x000001UL)
+#define	UPDATE_TEMP_HUMID 			(0x000002UL)
+#define	BACKGROUND_AIR_QUALITY		(0x000004UL)
+#define	UPDATE_ALARM_IAQ			(0x000008UL)
+#define	UPDATE_ALARM_TVOC			(0x000010UL)
+#define	UPDATE_ALARM_ECO2			(0x000020UL)
+#define	WAKEUP 						(0x000040UL)
+#define	SLEEP 						(0x000080UL)
+#define	BACKGROUND_LOW_BATTERY		(0x000100UL)
+#define	WRITE_BACKGROUND			(0x000200UL)
+#define	REDUCED_BACKLIGHT			(0x000400UL)
+#define	NORMAL_BACKLIGHT			(0x000800UL)
+#define	BACKGROUND_ENABLE_ALARM		(0x001000UL)
+#define	BACKGROUND_ENABLE_ALARM_OFF	(0x002000UL)
+#define	BACKGROUND_ENABLE_ALARM_ON	(0x004000UL)
+#define	BACKGROUND_BREACH_ALARM		(0x008000UL)
+#define	UPDATE_AIR_QUALITY			(0x010000UL)
+#define BACKLIGHT_OFF				(0x020000UL)
+#define DISPLAY_OFFSET_TUNING		(0x040000UL)
+#define DISPLAY_COUNTDOWN			(0x080000UL)
+#define DISPLAY_TUNING_ELIPSE		(0x100000UL)
+#define DISPLAY_SUCCESS				(0x200000UL)
+#define	ALL_GUI_EVENTS				(0x3FFFFFUL)
 
 /** GUI RETURN EVENTS*/
-#define DISPLAY_ASLEEP 				(0x00001UL)
-#define BACKLIGHT_TURNED_OFF		(0x00002UL)
-#define ALL_GUI_RETURN_EVENTS		(0x00003UL)
+#define DISPLAY_ASLEEP 				(0x000001UL)
+#define BACKLIGHT_TURNED_OFF		(0x000002UL)
+#define TUNING_ELIPSE_DISPLAYED		(0x000004UL)
+#define SUCCESS_DISPLAYED			(0x000008UL)
+#define COUNTDOWN_DISPLAYED			(0x000010UL)
+#define ALL_GUI_RETURN_EVENTS		(0x00001FUL)
 
 /** Shared application events*/
 extern rltos_events_t gui_events;
@@ -48,6 +55,9 @@ extern rltos_events_t gui_return_events;
 
 /** @brief Interface for intialising sensors*/
 void App_init_sensors(void);
+
+/** @brief Performs initial offset tuning in RTOS & user friendly way*/
+void App_initial_offset_tuning(void);
 
 /** @brief Interface for invoking a sensor update*/
 void App_read_sensors(void);

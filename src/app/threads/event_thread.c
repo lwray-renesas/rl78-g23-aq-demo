@@ -20,8 +20,8 @@ void Event_thread_main(void)
 	/* Initialise the sensor portion of the application*/
 	App_init_sensors();
 
-	/* Enable ctsu on power up*/
-	Hw_enable_proximity_detection();
+	/* Performs initial offset tuning of the CTSU*/
+	App_initial_offset_tuning();
 
 	while(1)
 	{

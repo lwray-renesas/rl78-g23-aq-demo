@@ -64,11 +64,91 @@ static bool alarm_checking_enabled = false;
 /** flag indicating whether the alarm has been acknowledged*/
 static bool alarm_condition = false;
 
+/** @brief gets hardware events
+ * @return returns hardware event copy.
+ */
+static inline hardware_event_t Get_hw_events(void)
+{
+	hardware_event_t l_hw_events = NO_EVENT;
+	RLTOS_PREPARE_CRITICAL_SECTION();
+	RLTOS_ENTER_CRITICAL_SECTION();
+
+	l_hw_events = hw_event_flags;
+	hw_event_flags = NO_EVENT;
+
+	RLTOS_EXIT_CRITICAL_SECTION();
+
+	return l_hw_events;
+}
+/* END OF FUNCTION*/
+
 void App_init_sensors(void)
 {
 	Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
 	Sensor_init();
 	Rltos_mutex_release(&sensor_mutex);
+}
+/* END OF FUNCTION*/
+
+void App_initial_offset_tuning(void)
+{
+	uint8_t delay_count = 0U;
+	static rltos_event_flag_t l_disp_flags = 0U;
+
+	RLTOS_PREPARE_CRITICAL_SECTION();
+
+	/* Set initial offset tuning screen "CTSU Tuning\n Click button and put me down!"*/
+	Rltos_events_set(&gui_events, WAKEUP | backlight_state | DISPLAY_OFFSET_TUNING);
+
+	/* Wait for user to click*/
+	while(!HW_EVENT_OCCURRED(Get_hw_events(), BUTTON_CLICK))
+	{
+		NOP();
+	}
+
+	/* Delay 5seconds (use RTC) and show count down to user*/
+	while(delay_count < 5U)
+	{
+		Rltos_events_set(&gui_events, DISPLAY_COUNTDOWN);
+		Rltos_events_get(&gui_return_events, COUNTDOWN_DISPLAYED, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+
+		/* Wait for periodic (1sec) interrupt*/
+		while(!HW_EVENT_OCCURRED(Get_hw_events(), CONSTANT_PERIOD))
+		{
+			NOP();
+		}
+
+		++delay_count;
+	}
+
+	delay_count = 0U;
+
+	/* Show user "Tuning..." screen*/
+	Rltos_events_set(&gui_events, DISPLAY_TUNING_ELIPSE);
+	Rltos_events_get(&gui_return_events, TUNING_ELIPSE_DISPLAYED, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+
+	/* Perform offset tuning*/
+	Hw_ctsu_start();
+
+	/* Show user Success Screen*/
+	Rltos_events_set(&gui_events, DISPLAY_SUCCESS);
+	Rltos_events_get(&gui_return_events, SUCCESS_DISPLAYED, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+
+	/* Delay 3seconds (use RTC)*/
+	while(delay_count < 3U)
+	{
+		/* Wait for periodic (1sec) interrupt*/
+		while(!HW_EVENT_OCCURRED(Get_hw_events(), CONSTANT_PERIOD))
+		{
+			NOP();
+		}
+
+		++delay_count;
+	}
+
+	/* Shutdown display and enter application*/
+	Rltos_events_set(&gui_events, WRITE_BACKGROUND | SLEEP | BACKLIGHT_OFF);
+	Rltos_events_get(&gui_return_events, DISPLAY_ASLEEP | BACKLIGHT_TURNED_OFF, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
 }
 /* END OF FUNCTION*/
 
@@ -101,30 +181,27 @@ void App_get_alarm_sensor_data(sensor_data_t * const sense_data_arg)
 hardware_event_t App_power_management(void)
 {
 	hardware_event_t l_hw_events = NO_EVENT;
-	RLTOS_PREPARE_CRITICAL_SECTION();
+	bool finished_sleeping = false;
 
-	/* Check if there are any hardware events to handle*/
 	do
 	{
 		/* Enter appropriate low power state*/
 		if(LOW_POWER == sys_state)
 		{
-			STOP(); /* Enter low power mode*/
+			/* Enter STOP - only leave if we have a periodic interrupt to process or proximity scan*/
+			STOP();
+			l_hw_events = Get_hw_events();
+			finished_sleeping = HW_EVENT_OCCURRED(l_hw_events, PROXIMITY_SCAN_COMPLETE) || HW_EVENT_OCCURRED(l_hw_events, CONSTANT_PERIOD);
 		}
 		else
 		{
-			HALT(); /* Just halt the cpu until an event occurs which we want to handle*/
+			/* Enter HALT - just while we wait for another event to process, then regardless of event, exit power management*/
+			HALT();
+			l_hw_events = Get_hw_events();
+			finished_sleeping = true;
 		}
-
-		/* check the event flags*/
-		RLTOS_ENTER_CRITICAL_SECTION();
-
-		l_hw_events = hw_event_flags;
-		hw_event_flags = NO_EVENT;
-
-		RLTOS_EXIT_CRITICAL_SECTION();
 	}
-	while(NO_EVENT == l_hw_events);
+	while(!finished_sleeping);
 
 	return l_hw_events;
 }
