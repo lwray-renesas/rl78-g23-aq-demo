@@ -184,6 +184,7 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 
 	case ZMOD4410_CALCULATE:
 	{
+#if RM_ZMOD4410_IAQ_2ND_GEN_ULP_CFG_LIB_ENABLE == 1
 		/* TH compensation*/
 		err = g_zmod4xxx_sensor0.p_api->temperatureAndHumiditySet(g_zmod4xxx_sensor0.p_ctrl,
 				(float)sense_data_arg->temperature_int,
@@ -192,6 +193,7 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 		{
 			Demo_err();
 		}
+#endif
 
 		/* Calculate data */
 		err = g_zmod4xxx_sensor0.p_api->iaq2ndGenDataCalculate(g_zmod4xxx_sensor0.p_ctrl,

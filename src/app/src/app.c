@@ -17,8 +17,16 @@
 #define STATE_TIMEOUT	(6U)
 /** @brief 30 minute battery check timer at 1sec periodic interrupt*/
 #define BATTERY_TIMEOUT		(1800U)
+
+#if RM_ZMOD4410_IAQ_2ND_GEN_ULP_CFG_LIB_ENABLE == 1
 /** @brief 90 sec sensor check timer at 1sec periodic interrupt*/
 #define SENSOR_TIMEOUT		(90U)
+#elif RM_ZMOD4410_IAQ_2ND_GEN_CFG_LIB_ENABLE == 1
+/** @brief 3 sec sensor check timer at 1sec periodic interrupt*/
+#define SENSOR_TIMEOUT		(3U)
+#else
+#error "Unsupported ZMOD library!"
+#endif
 
 /** @brief enumerated type for system state machine*/
 typedef enum
