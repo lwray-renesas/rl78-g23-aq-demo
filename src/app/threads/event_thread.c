@@ -9,6 +9,7 @@
 #include "app.h"
 
 static hardware_event_t hw_event_rx_flags = NO_EVENT; /**< event flags for hw events*/
+static bool sensor_readings_completed = false;
 
 /** @brief The event handler and dispatcher for the application.
  * All events from hardware and state changes are managed.
@@ -28,6 +29,9 @@ void Event_thread_main(void)
 		/* Monitor system for power management decisions i.e. entering low power mode & state management when returning from it*/
 		hw_event_rx_flags = App_power_management();
 
+		/* Invoke threadsafe sensor state machine before processing hardware events*/
+		sensor_readings_completed = App_read_sensors();
+
 		if(HW_EVENT_OCCURRED(hw_event_rx_flags, BUTTON_CLICK))
 		{
 			App_button_click_handler();
@@ -40,7 +44,7 @@ void Event_thread_main(void)
 
 		if(HW_EVENT_OCCURRED(hw_event_rx_flags, CONSTANT_PERIOD))
 		{
-			App_constant_period_handler();
+			App_constant_period_handler(sensor_readings_completed);
 		}
 
 		if(HW_EVENT_OCCURRED(hw_event_rx_flags, PROXIMITY_SCAN_COMPLETE))

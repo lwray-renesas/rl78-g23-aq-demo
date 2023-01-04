@@ -145,7 +145,7 @@ void Gui_thread_main(void)
 			Rltos_events_set(&gui_return_events, SUCCESS_DISPLAYED);
 		}
 
-		Rltos_task_sleep(0U);
+		Rltos_task_sleep(0U); /* Yield thread*/
 	}
 }
 /* End of thread*/

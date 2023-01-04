@@ -78,11 +78,11 @@ static void __near r_Config_TAU0_1_interrupt(void)
 /* Start user code for adding. Do not edit comment generated here */
 static void Dec_rotary_counter(void)
 {
-	CLR1 !0xFFE1.6 /* clear TMIF00 interrupt flag */
-	CLR1 !0xFFE5.6 /* enable TMMK00 interrupt */
-
 	SET1 !0x1B2.0 /* restart TS00*/
 	SET1 !0x1B2.1 /* restart TS01*/
+
+	CLR1 !0xFFE1.6 /* clear TMIF00 interrupt flag */
+	CLR1 !0xFFE2.5 /* clear TMIF01 interrupt flag */
 
 	DECW !_rotary_count /* Decrement counter*/
 

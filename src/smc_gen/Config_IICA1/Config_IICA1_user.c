@@ -214,6 +214,7 @@ static void r_Config_IICA1_master_handler(void)
 static void __near r_Config_IICA1_interrupt(void)
 {
     /* Start user code for r_Config_IICA1_interrupt. Do not edit comment generated here */
+	EI(); /* Enable rotary encoder interrupts to nest*/
     /* End user code. Do not edit comment generated here */
     if (0x80U == (IICS1 & _80_IICA_STATUS_MASTER))
     {

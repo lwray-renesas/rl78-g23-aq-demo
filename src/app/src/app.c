@@ -69,14 +69,8 @@ static bool alarm_condition = false;
  */
 static inline hardware_event_t Get_hw_events(void)
 {
-	hardware_event_t l_hw_events = NO_EVENT;
-	RLTOS_PREPARE_CRITICAL_SECTION();
-	RLTOS_ENTER_CRITICAL_SECTION();
-
-	l_hw_events = hw_event_flags;
-	hw_event_flags = NO_EVENT;
-
-	RLTOS_EXIT_CRITICAL_SECTION();
+	hardware_event_t l_hw_events = hw_event_flags;
+	hw_event_flags &= ~l_hw_events; /* Clear the events which have been detected*/
 
 	return l_hw_events;
 }
@@ -95,8 +89,6 @@ void App_initial_offset_tuning(void)
 	uint8_t delay_count = 0U;
 	static rltos_event_flag_t l_disp_flags = 0U;
 
-	RLTOS_PREPARE_CRITICAL_SECTION();
-
 	/* Set initial offset tuning screen "CTSU Tuning\n Click button and put me down!"*/
 	Rltos_events_set(&gui_events, WAKEUP | backlight_state | DISPLAY_OFFSET_TUNING);
 
@@ -105,6 +97,8 @@ void App_initial_offset_tuning(void)
 	{
 		NOP();
 	}
+
+	Hw_enable_sensor_timer();
 
 	/* Delay 5seconds (use RTC) and show count down to user*/
 	while(delay_count < 5U)
@@ -152,11 +146,15 @@ void App_initial_offset_tuning(void)
 }
 /* END OF FUNCTION*/
 
-void App_read_sensors(void)
+bool App_read_sensors(void)
 {
+	bool sensor_read_complete = false;
+
 	Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
-	Sensor_read(&sensor_data);
+	sensor_read_complete = Sensor_read(&sensor_data);
 	Rltos_mutex_release(&sensor_mutex);
+
+	return sensor_read_complete;
 }
 /* END OF FUNCTION*/
 
@@ -185,8 +183,8 @@ hardware_event_t App_power_management(void)
 
 	do
 	{
-		/* Enter appropriate low power state*/
-		if(LOW_POWER == sys_state)
+		/* Only enter stop state if we are not reading the sensors or we are awaiting the IRQ on the ZMOD while in the system LOW_POWER state*/
+		if( (LOW_POWER == sys_state) && (Sensor_stop_safe()) )
 		{
 			/* Enter STOP - only leave if we have a periodic interrupt to process or proximity scan*/
 			STOP();
@@ -424,7 +422,7 @@ void App_button_long_press_handler(void)
 /* END OF FUNCTION*/
 
 
-void App_constant_period_handler(void)
+void App_constant_period_handler(bool sensor_readings_completed)
 {
 	static uint16_t constant_period_counter = 0U;
 	static uint16_t inactivity_counter = 0U;
@@ -455,48 +453,52 @@ void App_constant_period_handler(void)
 	/* Sensor checking activity*/
 	if((constant_period_counter % SENSOR_TIMEOUT) == 0U)
 	{
-		App_read_sensors();
+		/* If the sensors handler is in the waiting state - trigger the state machine*/
+		Sensor_try_trigger_read();
 
-		if(TEMPERATURE_HUMIDITY == sys_state)
+		if(sensor_readings_completed)
 		{
-			Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
-		}
-
-		if(AIR_QUALITY == sys_state)
-		{
-			Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
-		}
-
-		if(alarm_checking_enabled)
-		{
-			bool alarm_breached = false;
-
-			Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
-			Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
-
-			alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
-					Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
-					Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2)) && (sensor_data.zmod_calibrated);
-
-			Rltos_mutex_release(&sensor_mutex);
-			Rltos_mutex_release(&alarm_sensor_mutex);
-
-			if(alarm_breached)
+			if(TEMPERATURE_HUMIDITY == sys_state)
 			{
-				App_signal_activity();
+				Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
+			}
 
-				if(LOW_POWER == sys_state)
-				{
-					Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
-				}
-				else
-				{
-					Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
-				}
+			if(AIR_QUALITY == sys_state)
+			{
+				Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
+			}
 
-				sys_state = BREACH_ALARM;
-				alarm_checking_enabled = false;
-				alarm_condition = true;
+			if(alarm_checking_enabled)
+			{
+				bool alarm_breached = false;
+
+				Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
+				Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
+
+				alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
+						Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
+						Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2)) && (sensor_data.zmod_calibrated);
+
+				Rltos_mutex_release(&sensor_mutex);
+				Rltos_mutex_release(&alarm_sensor_mutex);
+
+				if(alarm_breached)
+				{
+					App_signal_activity();
+
+					if(LOW_POWER == sys_state)
+					{
+						Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
+					}
+					else
+					{
+						Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
+					}
+
+					sys_state = BREACH_ALARM;
+					alarm_checking_enabled = false;
+					alarm_condition = true;
+				}
 			}
 		}
 	}

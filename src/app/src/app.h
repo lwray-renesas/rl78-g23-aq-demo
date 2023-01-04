@@ -59,8 +59,9 @@ void App_init_sensors(void);
 /** @brief Performs initial offset tuning in RTOS & user friendly way*/
 void App_initial_offset_tuning(void);
 
-/** @brief Interface for invoking a sensor update*/
-void App_read_sensors(void);
+/** @brief Interface for invoking a sensor update
+ * @return true if reading completed on last call, false otherwise.*/
+bool App_read_sensors(void);
 
 /** @brief Interface for reading the latest sensor data
  * @param[in,out] A pointer to the sensor data structure to be populated*/
@@ -89,8 +90,9 @@ void App_button_click_handler(void);
 /** @brief Event handler for button long press*/
 void App_button_long_press_handler(void);
 
-/** @brief Event handler for constant period interrupt*/
-void App_constant_period_handler(void);
+/** @brief Event handler for constant period interrupt
+ * @param[in] sensor_readings_completed - boolean signal (flag) indicating whether or not there is fresh sensor data available*/
+void App_constant_period_handler(bool sensor_readings_completed);
 
 /** @brrief Event handler for proximity events*/
 void App_proximity_handler(void);

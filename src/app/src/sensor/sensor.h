@@ -29,12 +29,40 @@ typedef struct
 	bool zmod_calibrated; /**< is the zmod calibrated*/
 }sensor_data_t;
 
+/** @brief enumerated type for sensor read state*/
+typedef enum
+{
+	SENSOR_WAITING = 0U, /**< Sensor waiting to be triggered*/
+
+	HS300X_START_MEASURMENT,
+	HS300X_I2C_WAIT_0,
+	HS300X_READ,
+	HS300X_I2C_WAIT_1,
+	HS300X_CALCULATE,
+
+	ZMOD4410_START_MEASUREMENT,
+	ZMOD4410_I2C_WAIT_0,
+	ZMOD4410_IRQ_WAIT,
+	ZMOD4410_READ,
+	ZMOD4410_I2C_WAIT_1,
+	ZMOD4410_CALCULATE,
+}sensor_read_state_t;
+
 /** @brief Initiaises the sensors in the application*/
 void Sensor_init(void);
 
 /** @brief performs a read on the sensors in the application
- * @param[in,out] A pointer to the sensor data structure to be populated*/
-void Sensor_read(sensor_data_t * const sense_data_arg);
+ * @details before this function does any processing - Sensor_try_trigger_read must be called to start the state machine.
+ * @param[in,out] A pointer to the sensor data structure to be populated
+ * @return true if reading completed on last call, false otherwise.*/
+bool Sensor_read(sensor_data_t * const sense_data_arg);
+
+/** @brief function which checks if the sensor state machine is in a safe stop to enter STOP mode.
+ * @return true if it is safe, false otherwise.*/
+bool Sensor_stop_safe(void);
+
+/** @brief function to attempt to start the state machine within Sensor_read function*/
+void Sensor_try_trigger_read(void);
 
 /** @brief Adds the value y to x.
  * @param x - value changed.

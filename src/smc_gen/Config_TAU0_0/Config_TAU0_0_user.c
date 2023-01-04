@@ -79,11 +79,11 @@ static void __near r_Config_TAU0_0_interrupt(void)
 /* Start user code for adding. Do not edit comment generated here */
 static void Inc_rotary_counter(void)
 {
-	CLR1 !0xFFE2.5 /* clear TMIF01 interrupt flag */
-	CLR1 !0xFFE6.5 /* enable TMMK01 interrupt */
-
 	SET1 !0x1B2.0 /* restart TS00*/
 	SET1 !0x1B2.1 /* restart TS01*/
+
+	CLR1 !0xFFE1.6 /* clear TMIF00 interrupt flag */
+	CLR1 !0xFFE2.5 /* clear TMIF01 interrupt flag */
 
 	INCW !_rotary_count /* Increment counter*/
 
