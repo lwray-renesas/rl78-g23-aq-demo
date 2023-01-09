@@ -306,7 +306,7 @@
                     <item id="both" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="CountValue" selection="CountValue">
-                    <item id="CountValue" input="4" vlaue="3"/>
+                    <item id="CountValue" input="2" vlaue="1"/>
                 </option>
                 <option enabled="true" id="InterruptEnable" selection="enable">
                     <item id="enable" input="" vlaue="0"/>
@@ -1336,7 +1336,7 @@
                     <item id="both" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="CountValue" selection="CountValue">
-                    <item id="CountValue" input="4" vlaue="3"/>
+                    <item id="CountValue" input="2" vlaue="1"/>
                 </option>
                 <option enabled="true" id="InterruptEnable" selection="enable">
                     <item id="enable" input="" vlaue="0"/>
