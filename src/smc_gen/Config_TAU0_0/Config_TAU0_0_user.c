@@ -60,6 +60,9 @@ extern volatile int16_t rotary_count;
 void R_Config_TAU0_0_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
+#if 0
+	NFEN1_bit.no0 = 1U;
+#endif
     /* End user code. Do not edit comment generated here */
 }
 
