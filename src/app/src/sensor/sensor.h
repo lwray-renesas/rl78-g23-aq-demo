@@ -34,18 +34,8 @@ typedef enum
 {
 	SENSOR_WAITING = 0U, /**< Sensor waiting to be triggered*/
 
-	HS300X_START_MEASURMENT,
-	HS300X_I2C_WAIT_0,
-	HS300X_READ,
-	HS300X_I2C_WAIT_1,
-	HS300X_CALCULATE,
-
-	ZMOD4410_START_MEASUREMENT,
-	ZMOD4410_I2C_WAIT_0,
-	ZMOD4410_IRQ_WAIT,
-	ZMOD4410_READ,
-	ZMOD4410_I2C_WAIT_1,
-	ZMOD4410_CALCULATE,
+	SENSOR_START_MEASURMENT,
+	SENSOR_WAIT_TO_READ,
 }sensor_read_state_t;
 
 /** @brief Initiaises the sensors in the application*/
@@ -61,8 +51,14 @@ bool Sensor_read(sensor_data_t * const sense_data_arg);
  * @return true if it is safe, false otherwise.*/
 bool Sensor_stop_safe(void);
 
+/** @brief function which checks if the sensor state machine is ready to work*/
+bool Sensor_state_machine_ready(void);
+
 /** @brief function to attempt to start the state machine within Sensor_read function*/
 void Sensor_try_trigger_read(void);
+
+/** @brief Sensor callback tomindicate end of delay*/
+void Sensor_oneshot_callback(void);
 
 /** @brief Adds the value y to x.
  * @param x - value changed.

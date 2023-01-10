@@ -18,56 +18,59 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_smc_entry.h
-* Version          : 1.0.11
+* File Name        : Config_TAU0_5_user.c
+* Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : SMC platform header file..
+* Description      : This file implements device driver for Config_TAU0_5.
 ***********************************************************************************************************************/
-
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_PORT.h"
-#include "Config_IICA1.h"
-#include "Config_LVD1.h"
-#include "Config_INTC.h"
-#include "Config_RTC.h"
-#include "Config_ITL000_ITL001.h"
-#include "Config_CSI30.h"
-#include "Config_TAU0_0.h"
-#include "Config_TAU0_1.h"
-#include "Config_TAU0_2.h"
-#include "Config_TAU0_3.h"
-#include "Config_TAU0_4.h"
-#include "Config_TAU0_5.h"
-#include "r_cg_sau_common.h"
-#include "r_cg_tau_common.h"
-#include "r_cg_itl_common.h"
-#include "r_cg_lvd_common.h"
-#include "r_cg_iica_common.h"
-#include "r_cg_rtc_common.h"
 #include "r_cg_userdefine.h"
-
-#ifndef SMC_ENTRY_H
-#define SMC_ENTRY_H
-
-/***********************************************************************************************************************
-Macro definitions (Register bit)
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Macro definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Typedef definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Global functions
-***********************************************************************************************************************/
-/* Start user code for function. Do not edit comment generated here */
+#include "Config_TAU0_5.h"
+/* Start user code for include. Do not edit comment generated here */
+#include "sensor.h"
 /* End user code. Do not edit comment generated here */
-#endif
 
+/***********************************************************************************************************************
+Pragma directive
+***********************************************************************************************************************/
+#pragma interrupt r_Config_TAU0_5_interrupt(vect=INTTM05)
+/* Start user code for pragma. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+Global variables and functions
+***********************************************************************************************************************/
+/* Start user code for global. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+* Function Name: R_Config_TAU0_5_Create_UserInit
+* Description  : This function adds user code after initializing the TAU0 channel 5.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_TAU0_5_Create_UserInit(void)
+{
+    /* Start user code for user init. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_TAU0_5_interrupt
+* Description  : This function is INTTM05 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void __near r_Config_TAU0_5_interrupt(void)
+{
+    /* Start user code for r_Config_TAU0_5_interrupt. Do not edit comment generated here */
+	Sensor_oneshot_callback();
+	R_Config_TAU0_5_Stop(); /* Stop timer to replicate oneshot behaviour*/
+    /* End user code. Do not edit comment generated here */
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */

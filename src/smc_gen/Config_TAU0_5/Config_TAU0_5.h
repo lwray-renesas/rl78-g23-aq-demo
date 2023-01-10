@@ -18,39 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_smc_entry.h
-* Version          : 1.0.11
+* File Name        : Config_TAU0_5.h
+* Component Version: 1.2.0
 * Device(s)        : R7F100GSNxFB
-* Description      : SMC platform header file..
+* Description      : This file implements device driver for Config_TAU0_5.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "Config_PORT.h"
-#include "Config_IICA1.h"
-#include "Config_LVD1.h"
-#include "Config_INTC.h"
-#include "Config_RTC.h"
-#include "Config_ITL000_ITL001.h"
-#include "Config_CSI30.h"
-#include "Config_TAU0_0.h"
-#include "Config_TAU0_1.h"
-#include "Config_TAU0_2.h"
-#include "Config_TAU0_3.h"
-#include "Config_TAU0_4.h"
-#include "Config_TAU0_5.h"
-#include "r_cg_sau_common.h"
-#include "r_cg_tau_common.h"
-#include "r_cg_itl_common.h"
-#include "r_cg_lvd_common.h"
-#include "r_cg_iica_common.h"
-#include "r_cg_rtc_common.h"
-#include "r_cg_userdefine.h"
+#include "r_cg_tau.h"
 
-#ifndef SMC_ENTRY_H
-#define SMC_ENTRY_H
+#ifndef CFG_Config_TAU0_5_H
+#define CFG_Config_TAU0_5_H
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -59,6 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
+#define _0043_TAU_TDR05_VALUE               (0x0043U)    /* 16-bit timer data register 05 (TDR05) */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -67,7 +48,10 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
+void R_Config_TAU0_5_Create(void);
+void R_Config_TAU0_5_Start(void);
+void R_Config_TAU0_5_Stop(void);
+void R_Config_TAU0_5_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
-

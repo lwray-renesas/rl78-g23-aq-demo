@@ -8,6 +8,7 @@
 #define ST7735S_PORT_H_
 
 #include "r_smc_entry.h"
+#include "hw.h"
 
 #if defined(__clang__) || defined(__GNUC__)
 
@@ -43,27 +44,6 @@
 #define Spi_write_block(tx_buf, tx_num)	{R_Config_CSI30_Send_app(tx_buf, tx_num);}
 
 /** @brief Implements milli-second resolution delay*/
-static inline void Delay_ms(uint16_t ms)
-{
-	if(ms > 0U)
-	{
-		TDR04 = (ms > 1U) ? (ms << 2U)-1U : 0U;
-
-		TMMK04 = 1U;    /* disable INTTM02 interrupt */
-		TMIF04 = 0U;    /* clear INTTM02 interrupt flag */
-
-		TS0 |= _0010_TAU_CH4_START_TRG_ON;
-
-		while(0U == TMIF04)
-		{
-			ST7735S_SLEEP();
-		}
-
-		TT0 |= _0010_TAU_CH4_STOP_TRG_ON;
-
-		TMIF04 = 0U;    /* clear INTTM02 interrupt flag */
-	}
-}
-/* END OF FUNCTION*/
+#define Delay_ms(ms) {Hw_delay_ms(ms);}
 
 #endif /* ST7735S_PORT_H_ */

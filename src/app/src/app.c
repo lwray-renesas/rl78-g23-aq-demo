@@ -186,30 +186,23 @@ void App_get_alarm_sensor_data(sensor_data_t * const sense_data_arg)
 
 hardware_event_t App_power_management(void)
 {
-	hardware_event_t l_hw_events = NO_EVENT;
-	bool finished_sleeping = false;
-
-	do
+	/* Only enter low power mode if the sensor state machines do not require processing*/
+	if(!Sensor_state_machine_ready())
 	{
 		/* Only enter stop state if we are not reading the sensors or we are awaiting the IRQ on the ZMOD while in the system LOW_POWER state*/
 		if( (LOW_POWER == sys_state) && (Sensor_stop_safe()) )
 		{
 			/* Enter STOP - only leave if we have a periodic interrupt to process or proximity scan*/
 			STOP();
-			l_hw_events = Get_hw_events();
-			finished_sleeping = HW_EVENT_OCCURRED(l_hw_events, PROXIMITY_SCAN_COMPLETE) || HW_EVENT_OCCURRED(l_hw_events, CONSTANT_PERIOD);
 		}
 		else
 		{
 			/* Enter HALT - just while we wait for another event to process, then regardless of event, exit power management*/
 			HALT();
-			l_hw_events = Get_hw_events();
-			finished_sleeping = true;
 		}
 	}
-	while(!finished_sleeping);
 
-	return l_hw_events;
+	return Get_hw_events();
 }
 /* END OF FUNCTION*/
 
@@ -463,50 +456,51 @@ void App_constant_period_handler(bool sensor_readings_completed)
 	{
 		/* If the sensors handler is in the waiting state - trigger the state machine*/
 		Sensor_try_trigger_read();
+	}
 
-		if(sensor_readings_completed)
+	/* Check if readings are ready to use*/
+	if(sensor_readings_completed)
+	{
+		if(TEMPERATURE_HUMIDITY == sys_state)
 		{
-			if(TEMPERATURE_HUMIDITY == sys_state)
+			Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
+		}
+
+		if(AIR_QUALITY == sys_state)
+		{
+			Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
+		}
+
+		if(alarm_checking_enabled && sensor_data.zmod_calibrated)
+		{
+			bool alarm_breached = false;
+
+			Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
+			Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
+
+			alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
+					Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
+					Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2));
+
+			Rltos_mutex_release(&sensor_mutex);
+			Rltos_mutex_release(&alarm_sensor_mutex);
+
+			if(alarm_breached)
 			{
-				Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
-			}
+				App_signal_activity();
 
-			if(AIR_QUALITY == sys_state)
-			{
-				Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
-			}
-
-			if(alarm_checking_enabled)
-			{
-				bool alarm_breached = false;
-
-				Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
-				Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
-
-				alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
-						Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
-						Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2)) && (sensor_data.zmod_calibrated);
-
-				Rltos_mutex_release(&sensor_mutex);
-				Rltos_mutex_release(&alarm_sensor_mutex);
-
-				if(alarm_breached)
+				if(LOW_POWER == sys_state)
 				{
-					App_signal_activity();
-
-					if(LOW_POWER == sys_state)
-					{
-						Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
-					}
-					else
-					{
-						Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
-					}
-
-					sys_state = BREACH_ALARM;
-					alarm_checking_enabled = false;
-					alarm_condition = true;
+					Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
 				}
+				else
+				{
+					Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
+				}
+
+				sys_state = BREACH_ALARM;
+				alarm_checking_enabled = false;
+				alarm_condition = true;
 			}
 		}
 	}

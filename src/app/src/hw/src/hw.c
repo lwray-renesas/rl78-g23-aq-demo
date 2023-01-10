@@ -29,7 +29,6 @@ extern void R_CTSU_PinSetInit(void);
 
 void Hw_init(void)
 {
-	static uint64_t l_button_status = 0ULL;
 	touch_err_t err;
 
 	EI();
@@ -175,6 +174,36 @@ bool Hw_low_battery(void)
 
 	return (low_battery_count == LOW_BATTERY_READ_COUNT);
 }
+/* END OF FUNCTION*/
+
+void Hw_delay_ms(uint16_t ms)
+{
+	if(ms > 0U)
+	{
+		TDR04 = (ms > 1U) ? (ms << 2U)-1U : 0U;
+
+		TMMK04 = 1U;    /* disable INTTM02 interrupt */
+		TMIF04 = 0U;    /* clear INTTM02 interrupt flag */
+
+		TS0 |= _0010_TAU_CH4_START_TRG_ON;
+
+		while(0U == TMIF04)
+		{
+			HALT();
+		}
+
+		TT0 |= _0010_TAU_CH4_STOP_TRG_ON;
+
+		TMIF04 = 0U;    /* clear INTTM02 interrupt flag */
+	}
+}
+/* END OF FUNCTION*/
+
+void Hw_start_oneshot(void)
+{
+	R_Config_TAU0_5_Start();
+}
+/* END OF FUNCTION*/
 
 static void Setup_elcl(void)
 {

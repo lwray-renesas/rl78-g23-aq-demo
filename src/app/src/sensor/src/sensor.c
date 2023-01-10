@@ -25,6 +25,7 @@ static volatile sensor_callback_status_t  zmod_4410_irq_callback_status = SENSOR
 static volatile rm_zmod4xxx_iaq_2nd_data_t zmod_4410_data;
 
 static volatile sensor_callback_status_t hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+static volatile sensor_callback_status_t hs300x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 static rm_hs300x_data_t hs300x_data;
 
 static volatile sensor_read_state_t sensor_read_state = SENSOR_WAITING;
@@ -62,10 +63,11 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 	switch(sensor_read_state)
 	{
 
-	case HS300X_START_MEASURMENT:
+	case SENSOR_START_MEASURMENT:
 	{
-		hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-
+		/**********************
+		 * HS3001
+		 *********************/
 		/* Start measurement */
 		err = g_hs300x_sensor0.p_api->measurementStart(g_hs300x_sensor0.p_ctrl);
 		if (FSP_SUCCESS != err)
@@ -73,62 +75,16 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 			Demo_err();
 		}
 
-		sensor_read_state = HS300X_I2C_WAIT_0;
-	}
-	break;
-
-	case HS300X_I2C_WAIT_0:
-	{
-		if(SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_i2c_callback_status)
+		/* Wait for IIC to finish*/
+		while(SENSOR_CALLBACK_STATUS_WAIT == hs300x_i2c_callback_status)
 		{
-			sensor_read_state = HS300X_READ;
-		}
-	}
-	break;
-
-	case HS300X_READ:
-	{
-		hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-
-		/* Read data */
-		err = g_hs300x_sensor0.p_api->read(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data);
-		if (FSP_SUCCESS != err)
-		{
-			Demo_err();
+			HALT();
 		}
 
-		sensor_read_state = HS300X_I2C_WAIT_1;
-	}
-	break;
 
-	case HS300X_I2C_WAIT_1:
-	{
-		if(SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_i2c_callback_status)
-		{
-			sensor_read_state = HS300X_CALCULATE;
-		}
-	}
-	break;
-
-	case HS300X_CALCULATE:
-	{
-		/* Calculate data */
-		err = g_hs300x_sensor0.p_api->dataCalculate(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data, &hs300x_data);
-		if (FSP_SUCCESS == err)
-		{
-			sense_data_arg->temperature_int = hs300x_data.temperature.integer_part;
-			sense_data_arg->humidity_int = hs300x_data.humidity.integer_part;
-		}
-
-		sensor_read_state = ZMOD4410_START_MEASUREMENT;
-	}
-	break;
-
-	case ZMOD4410_START_MEASUREMENT:
-	{
-		zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-		zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-
+		/**********************
+		 * ZMOD4410
+		 *********************/
 		/* Start measurement */
 		err = g_zmod4xxx_sensor0.p_api->measurementStart(g_zmod4xxx_sensor0.p_ctrl);
 		if (FSP_SUCCESS != err)
@@ -136,82 +92,94 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 			Demo_err();
 		}
 
-		sensor_read_state = ZMOD4410_I2C_WAIT_0;
-	}
-	break;
-
-	case ZMOD4410_I2C_WAIT_0:
-	{
-		if(SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_i2c_callback_status)
+		/* Wait for IIC to finish*/
+		while(SENSOR_CALLBACK_STATUS_WAIT == zmod_4410_i2c_callback_status)
 		{
-			sensor_read_state = ZMOD4410_IRQ_WAIT;
-		}
-	}
-	break;
-
-	case ZMOD4410_IRQ_WAIT:
-	{
-		if(SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status)
-		{
-			sensor_read_state = ZMOD4410_READ;
-		}
-	}
-	break;
-
-	case ZMOD4410_READ:
-	{
-		zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-
-		/* Read data */
-		err = g_zmod4xxx_sensor0.p_api->read(g_zmod4xxx_sensor0.p_ctrl, &zmod_4410_raw_data);
-		if (FSP_SUCCESS != err)
-		{
-			Demo_err();
+			HALT();
 		}
 
-		sensor_read_state = ZMOD4410_I2C_WAIT_1;
+		Hw_start_oneshot(); /* Wait for oneshot to elapse before reading HS300X*/
+		sensor_read_state = SENSOR_WAIT_TO_READ;
 	}
 	break;
 
-	case ZMOD4410_I2C_WAIT_1:
+	case SENSOR_WAIT_TO_READ:
 	{
-		if(SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_i2c_callback_status)
+		/* Only read and process data if the sensors are ready*/
+		if( (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status) && (SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status) )
 		{
-			sensor_read_state = ZMOD4410_CALCULATE;
-		}
-	}
-	break;
+			hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
-	case ZMOD4410_CALCULATE:
-	{
+			/* Read data */
+			err = g_hs300x_sensor0.p_api->read(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data);
+			if (FSP_SUCCESS != err)
+			{
+				Demo_err();
+			}
+
+			/* Wait for IIC to finish*/
+			while(SENSOR_CALLBACK_STATUS_WAIT == hs300x_i2c_callback_status)
+			{
+				HALT();
+			}
+
+			zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+
+			/* Read data */
+			err = g_zmod4xxx_sensor0.p_api->read(g_zmod4xxx_sensor0.p_ctrl, &zmod_4410_raw_data);
+			if (FSP_SUCCESS != err)
+			{
+				Demo_err();
+			}
+
+			/* Wait for IIC to finish*/
+			while(SENSOR_CALLBACK_STATUS_WAIT == zmod_4410_i2c_callback_status)
+			{
+				HALT();
+			}
+
+			/* Calculate data */
+			err = g_hs300x_sensor0.p_api->dataCalculate(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data, &hs300x_data);
+			if (FSP_SUCCESS == err)
+			{
+				sense_data_arg->temperature_int = hs300x_data.temperature.integer_part;
+				sense_data_arg->humidity_int = hs300x_data.humidity.integer_part;
+			}
+
 #if RM_ZMOD4410_IAQ_2ND_GEN_ULP_CFG_LIB_ENABLE == 1
-		/* TH compensation*/
-		err = g_zmod4xxx_sensor0.p_api->temperatureAndHumiditySet(g_zmod4xxx_sensor0.p_ctrl,
-				(float)sense_data_arg->temperature_int,
-				(float)sense_data_arg->humidity_int);
-		if (FSP_SUCCESS != err)
-		{
-			Demo_err();
-		}
+			/* TH compensation*/
+			err = g_zmod4xxx_sensor0.p_api->temperatureAndHumiditySet(g_zmod4xxx_sensor0.p_ctrl,
+					(float)sense_data_arg->temperature_int,
+					(float)sense_data_arg->humidity_int);
+			if (FSP_SUCCESS != err)
+			{
+				Demo_err();
+			}
 #endif
 
-		/* Calculate data */
-		err = g_zmod4xxx_sensor0.p_api->iaq2ndGenDataCalculate(g_zmod4xxx_sensor0.p_ctrl,
-				&zmod_4410_raw_data,
-				(rm_zmod4xxx_iaq_2nd_data_t*)&zmod_4410_data);
-		if (FSP_SUCCESS == err)
-		{
-			sense_data_arg->zmod_calibrated = true;
-			sense_data_arg->iaq.integer_part = (int16_t)(zmod_4410_data.iaq);
-			sense_data_arg->iaq.decimal_part = (int16_t)(zmod_4410_data.iaq*100.00f)%100;
-			sense_data_arg->tvoc.integer_part = (int16_t)(zmod_4410_data.tvoc);
-			sense_data_arg->tvoc.decimal_part = (int16_t)(zmod_4410_data.tvoc*100.00f)%100;
-			sense_data_arg->eco2.integer_part = (int16_t)(zmod_4410_data.eco2);
-			sense_data_arg->eco2.decimal_part = (int16_t)(zmod_4410_data.eco2*100.00f)%100;
-		}
+			/* Calculate data */
+			err = g_zmod4xxx_sensor0.p_api->iaq2ndGenDataCalculate(g_zmod4xxx_sensor0.p_ctrl,
+					&zmod_4410_raw_data,
+					(rm_zmod4xxx_iaq_2nd_data_t*)&zmod_4410_data);
+			if (FSP_SUCCESS == err)
+			{
+				sense_data_arg->zmod_calibrated = true;
+				sense_data_arg->iaq.integer_part = (int16_t)(zmod_4410_data.iaq);
+				sense_data_arg->iaq.decimal_part = (int16_t)(zmod_4410_data.iaq*100.00f)%100;
+				sense_data_arg->tvoc.integer_part = (int16_t)(zmod_4410_data.tvoc);
+				sense_data_arg->tvoc.decimal_part = (int16_t)(zmod_4410_data.tvoc*100.00f)%100;
+				sense_data_arg->eco2.integer_part = (int16_t)(zmod_4410_data.eco2);
+				sense_data_arg->eco2.decimal_part = (int16_t)(zmod_4410_data.eco2*100.00f)%100;
+			}
 
-		sensor_read_state = SENSOR_WAITING;
-		readings_completed = true;
+			zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+			zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+			hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+			hs300x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+
+			sensor_read_state = SENSOR_WAITING;
+			readings_completed = true;
+		}
 	}
 	break;
 
@@ -226,7 +194,19 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 
 bool Sensor_stop_safe(void)
 {
-	return (SENSOR_WAITING == sensor_read_state) || (ZMOD4410_IRQ_WAIT == sensor_read_state);
+	return (SENSOR_WAITING == sensor_read_state) ||
+			((SENSOR_WAIT_TO_READ == sensor_read_state) &&
+			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status) &&
+			 (SENSOR_CALLBACK_STATUS_SUCCESS != zmod_4410_irq_callback_status));
+}
+/* END OF FUNCTION*/
+
+bool Sensor_state_machine_ready(void)
+{
+	return (SENSOR_START_MEASURMENT == sensor_read_state) ||
+			((SENSOR_WAIT_TO_READ == sensor_read_state) &&
+			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status) &&
+			 (SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status));
 }
 /* END OF FUNCTION*/
 
@@ -234,8 +214,14 @@ void Sensor_try_trigger_read(void)
 {
 	if(SENSOR_WAITING == sensor_read_state)
 	{
-		sensor_read_state = HS300X_START_MEASURMENT;
+		sensor_read_state = SENSOR_START_MEASURMENT;
 	}
+}
+/* END OF FUNCTION*/
+
+void Sensor_oneshot_callback(void)
+{
+	hs300x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
 }
 /* END OF FUNCTION*/
 

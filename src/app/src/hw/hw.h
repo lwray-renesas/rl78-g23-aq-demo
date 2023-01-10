@@ -52,4 +52,10 @@ void Hw_stop_rotary(void);
  * @return true if battey voltage is low, false otherwise.*/
 bool Hw_low_battery(void);
 
+/** @brief Function to delay a set number of milliseconds.*/
+void Hw_delay_ms(uint16_t ms);
+
+/** @brief Function to start the timer for 35ms delay*/
+void Hw_start_oneshot(void);
+
 #endif /* APP_HW_HW_H_ */

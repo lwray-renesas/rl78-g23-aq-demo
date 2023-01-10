@@ -2162,6 +2162,74 @@
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
+        <configuration apiMode="FULL_API" id="085900c8-7698-4e79-9ef6-8f17a145c22f" inuse="true" name="Config_TAU0_5">
+            <allocatable id="TAU05">
+                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <option enabled="true" id="OperationClock" selection="CK1">
+                    <item id="CK0" input="" vlaue="0"/>
+                    <item id="CK1" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ClockSource" selection="FCLK16384">
+                    <item id="FCLK1" input="1" vlaue="0"/>
+                    <item id="FCLK2" input="2" vlaue="0"/>
+                    <item id="FCLK4" input="4" vlaue="0"/>
+                    <item id="FCLK8" input="8" vlaue="0"/>
+                    <item id="FCLK16" input="16" vlaue="0"/>
+                    <item id="FCLK32" input="32" vlaue="0"/>
+                    <item id="FCLK64" input="64" vlaue="0"/>
+                    <item id="FCLK128" input="128" vlaue="0"/>
+                    <item id="FCLK256" input="256" vlaue="0"/>
+                    <item id="FCLK512" input="512" vlaue="0"/>
+                    <item id="FCLK1024" input="1024" vlaue="0"/>
+                    <item id="FCLK2048" input="2048" vlaue="0"/>
+                    <item id="FCLK4096" input="4096" vlaue="0"/>
+                    <item id="FCLK8192" input="8192" vlaue="0"/>
+                    <item id="FCLK16384" input="16384" vlaue="0"/>
+                    <item id="FCLK32768" input="32768" vlaue="0"/>
+                </option>
+                <option enabled="true" id="IntervalValue16bits" selection="intervalValueText16bits">
+                    <item id="intervalValueText16bits" input="35" vlaue="67"/>
+                </option>
+                <option enabled="true" id="IntervalUnit16bits" selection="ms">
+                    <item id="ms" input="" vlaue="0"/>
+                    <item id="us" input="" vlaue="0"/>
+                    <item id="ns" input="" vlaue="0"/>
+                    <item id="count" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="StartInt" selection="disable">
+                    <item id="enable" input="" vlaue="0"/>
+                    <item id="disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="InterruptEnable" selection="enable">
+                    <item id="enable" input="" vlaue="0"/>
+                    <item id="disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="Priority" selection="Level3">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="FilterMode" selection="16bitCountMode">
+                    <item id="8bitCountMode" input="" vlaue="0"/>
+                    <item id="16bitCountMode" input="" vlaue="0"/>
+                    <item id="16bitCaptureMode" input="" vlaue="0"/>
+                    <item id="32bitCountMode" input="" vlaue="0"/>
+                </option>
+            </allocatable>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.2.0"/>
+            <allocator channelLevel0="0" channelLevel1="5" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 5" display="TAU0_5" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.tau05" type="TAU">
+                <context>
+                    <option enabled="true" id="FilterMode" selection="16bitCountMode">
+                        <item enabled="true" id="8bitCountMode"/>
+                        <item enabled="true" id="16bitCountMode"/>
+                        <item enabled="true" id="16bitCaptureMode"/>
+                        <item enabled="true" id="32bitCountMode"/>
+                    </option>
+                </context>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
     </tool>
     <tool id="System">
         <section id="ocd">

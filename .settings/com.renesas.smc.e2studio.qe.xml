@@ -54,6 +54,7 @@
         <Setting id="Config_PORT" value="CG"/>
         <Setting id="rm_touch" value=""/>
         <Setting id="Config_TAU0_4" value="CG"/>
+        <Setting id="Config_TAU0_5" value="CG"/>
         <Setting id="Config_TAU0_2" value="CG"/>
         <Setting id="Config_TAU0_3" value="CG"/>
     </Segment>
