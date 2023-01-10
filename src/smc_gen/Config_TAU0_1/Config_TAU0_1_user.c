@@ -59,9 +59,7 @@ Global variables and functions
 void R_Config_TAU0_1_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
-#if 0
 	NFEN1_bit.no1 = 1U;
-#endif
     /* End user code. Do not edit comment generated here */
 }
 
