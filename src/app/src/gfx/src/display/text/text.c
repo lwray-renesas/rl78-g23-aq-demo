@@ -252,6 +252,40 @@ static void Str_rev(char * const str, uint16_t len)
 }
 /* END OF FUNCTION*/
 
+int16_t Text_int_to_str_sf(int16_t i, uint16_t sf, char * const str)
+{
+	const bool is_negative = (i < 0);
+	char * l_str = str;
+	uint16_t ui = (is_negative) ? (uint16_t) (i * -1) : (uint16_t) i;
+	uint16_t str_len = 0U;
+	uint16_t l_sf = sf;
+
+	do
+	{
+		*l_str = (ui % 10U) + '0';
+		ui /= 10U;
+
+		++l_str;
+		++str_len;
+		--l_sf;
+	}
+	while ( (ui > 0U) || (l_sf > 0U));
+
+	if(is_negative)
+	{
+		*l_str = '-';
+		++l_str;
+		++str_len;
+	}
+
+	Str_rev(l_str-str_len, str_len);
+
+	*l_str = '\0'; /* NULL Terminate*/
+
+	return str_len;
+}
+/* END OF FUNCTION*/
+
 int16_t Text_int_to_str(int16_t i, char * const str)
 {
 	const bool is_negative = (i < 0);

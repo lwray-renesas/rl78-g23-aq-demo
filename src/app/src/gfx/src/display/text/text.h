@@ -67,6 +67,14 @@ uint16_t Text_put_str(const uint16_t x, const uint16_t y, const char * str, cons
  */
 uint16_t Text_str_len_px(const char * str);
 
+/** @brief converts a signed integer into a string to maximum significatn figures, prepending zeroes as required.
+ * @param i - signed integer
+ * @param sf - significant figures to place.
+ * @param str - output string
+ * @return size of string excluding null
+ */
+int16_t Text_int_to_str_sf(int16_t i, uint16_t sf, char * const str);
+
 /** @brief converts a signed integer into a string
  * @param i - signed integer
  * @param str - output string

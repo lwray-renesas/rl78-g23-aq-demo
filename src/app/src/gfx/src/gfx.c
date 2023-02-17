@@ -405,11 +405,11 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 	str_nav = Text_int_to_str(sense_data->iaq.integer_part, iaq_str);
 	iaq_str[str_nav] = '.';
 	++str_nav;
-	str_nav = Text_int_to_str(sense_data->iaq.decimal_part, &iaq_str[str_nav]);
+	str_nav = Text_int_to_str_sf(sense_data->iaq.decimal_part, 2U, &iaq_str[str_nav]);
 	str_nav = Text_int_to_str(sense_data->tvoc.integer_part, tvoc_str);
 	tvoc_str[str_nav] = '.';
 	++str_nav;
-	str_nav = Text_int_to_str(sense_data->tvoc.decimal_part, &tvoc_str[str_nav]);
+	str_nav = Text_int_to_str_sf(sense_data->tvoc.decimal_part, 2U, &tvoc_str[str_nav]);
 	str_nav = Text_int_to_str(sense_data->eco2.integer_part, eco2_str);
 
 	/* Write the iaq*/

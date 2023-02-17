@@ -56,7 +56,7 @@ extern rltos_mutex_t alarm_sensor_mutex;
 /** Local sensor data structure*/
 static sensor_data_t sensor_data;
 /** Local alarm sensor data structure*/
-static sensor_data_t alarm_sensor_data = {0, 0, {1,0}, {1,0}, {400,0}, false};
+static sensor_data_t alarm_sensor_data = {0, 0, {2,50}, {3,50}, {1000,0}, false};
 /** System state variable*/
 static system_state_t sys_state = LOW_POWER;
 /** Alarm setting state variable*/
