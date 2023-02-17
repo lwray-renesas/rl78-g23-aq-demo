@@ -19,7 +19,7 @@
 /***********************************************************************************************************************
 * File Name    : r_ctsu_pinset.c
 * Version      : 1.0.0
-* Device(s)    : R7F100GSNxFB
+* Device(s)    : R7F100GFNxFP
 * Tool-Chain   : Renesas CCRL78 Toolchain
 * Description  : Setting of port registers
 ***********************************************************************************************************************/
@@ -43,7 +43,8 @@ Global variables and functions
 void R_CTSU_PinSetInit(void)
 {
 
-    /* Set TS10 pin */
-    PMCT0 |= 0x20U;
-    PM0 |= 0x20U;
+    /* Set TS25 pin */
+    PMCA2 &= 0x7FU;
+    PMCT2 |= 0x80U;
+    PM2 |= 0x80U;
 }

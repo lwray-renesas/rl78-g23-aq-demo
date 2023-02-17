@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_0.c
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_TAU0_0.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -65,8 +65,8 @@ void R_Config_TAU0_0_Create(void)
     /* TAU00 used as external event counter function */
     TIS1 |= _01_TAU_CH0_INPUT_ELCL;
     TMR00 = _8000_TAU_CLOCK_SELECT_CKM1 | _1000_TAU_CLOCK_MODE_TIMN | _0000_TAU_TRIGGER_SOFTWARE | 
-            _0080_TAU_TIMN_EDGE_BOTH_LOW | _0006_TAU_MODE_EVENT_COUNT;
-    TDR00 = _0003_TAU_TDR00_VALUE;
+            _0040_TAU_TIMN_EDGE_RISING | _0006_TAU_MODE_EVENT_COUNT;
+    TDR00 = _0001_TAU_TDR00_VALUE;
     TO0 &= (uint16_t)~_0001_TAU_CH0_OUTPUT_VALUE_1;
     TOE0 &= (uint16_t)~_0001_TAU_CH0_OUTPUT_ENABLE;
 

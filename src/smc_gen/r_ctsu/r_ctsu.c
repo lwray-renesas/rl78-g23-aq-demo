@@ -2318,8 +2318,6 @@ void ctsu_end_isr (void)
     ctsu_instance_ctrl_t * p_instance_ctrl = gp_ctsu_isr_context;
     uint16_t               rd_index;
 
-    __EI();/* Allow nested interrupts*/
-
     /* In CTSU1 and CTSU2 self-capacity and current measurement mode and diagnostic mode, */
     /* rd_index has the same value as wr_index.                                           */
     rd_index = p_instance_ctrl->rd_index;

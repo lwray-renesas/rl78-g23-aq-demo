@@ -30,7 +30,7 @@
 *                               - BSP_CFG_FILWAITTIME
 *         : 28.02.2022 1.20     Added the following function.
 *                               - change_clock_setting
-*                               Changeed to enable/disable for each API function.
+*                               Changed to enable/disable for each API function.
 
 ***********************************************************************************************************************/
 /*************************************************
@@ -570,7 +570,7 @@ uint32_t get_fclk_freq_hz(void)
  * Attention    : Stop the specified clock before calling this function.
 **************************************************/
 #if BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE == 0
-e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t *set_values)
+e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 {
     e_bsp_err_t    status = BSP_OK;
 
@@ -648,7 +648,7 @@ void mcu_clock_setup(void)
     uint8_t tmp_stab_set;
 #endif
 
-    cmc_tmp = 0x10U; /* XT1 oscilation mode for unused pins*/
+    cmc_tmp = 0x10U;
 
     /* High-speed system clock(fMX) setting */
 #if BSP_CFG_HISYSCLK_SOURCE == 0

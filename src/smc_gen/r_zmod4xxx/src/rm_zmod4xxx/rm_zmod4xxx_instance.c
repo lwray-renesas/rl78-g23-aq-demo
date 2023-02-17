@@ -44,6 +44,9 @@
 #if RM_ZMOD4510_OAQ_2ND_GEN_CFG_LIB_ENABLE
 #include "oaq_2nd_gen/oaq_2nd_gen.h"
 #endif
+#if RM_ZMOD4450_RAQ_CFG_LIB_ENABLE
+#include "raq/raq.h"
+#endif
 
 /**********************************************************************************************************************
  Macro definitions
@@ -62,7 +65,7 @@ extern void rm_zmod4xxx_comms_i2c_callback (rm_comms_callback_args_t * p_args);
 void rm_zmod4xxx_callback0(rm_comms_callback_args_t * p_args);
 void RM_ZMOD4XXX_CFG_DEVICE0_COMMS_I2C_CALLBACK(rm_zmod4xxx_callback_args_t * p_args);
 #if RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE
-void rm_zmod4xxx_irq_callback0(void);
+void rm_zmod4xxx_irq_callback0(void * pargs);
 void RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK(rm_zmod4xxx_callback_args_t * p_args); 
 #endif
 #endif
@@ -72,7 +75,7 @@ void RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK(rm_zmod4xxx_callback_args_t * p_args);
 void rm_zmod4xxx_callback1(rm_comms_callback_args_t * p_args);
 void RM_ZMOD4XXX_CFG_DEVICE1_COMMS_I2C_CALLBACK(rm_zmod4xxx_callback_args_t * p_args);
 #if RM_ZMOD4XXX_CFG_DEVICE1_IRQ_ENABLE
-void rm_zmod4xxx_irq_callback1(void);
+void rm_zmod4xxx_irq_callback1(void * pargs);
 void RM_ZMOD4XXX_CFG_DEVICE1_IRQ_CALLBACK(rm_zmod4xxx_callback_args_t * p_args); 
 #endif
 #endif
@@ -137,6 +140,12 @@ oaq_2nd_gen_results_t           g_zmod4xxx_sensor0_lib_results;
 uint8_t                         g_zmod4xxx_sensor0_product_data[10];
 extern rm_zmod4xxx_api_t const  g_zmod4xxx_on_zmod4510_oaq_2nd_gen;
 extern zmod4xxx_conf            g_zmod4510_oaq_2nd_gen_sensor_type[];
+#elif RM_ZMOD4450_RAQ_CFG_LIB_ENABLE && (RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE == 9)
+raq_params_t                    g_zmod4xxx_sensor0_lib_handle;
+raq_results_t                   g_zmod4xxx_sensor0_lib_results;
+uint8_t                         g_zmod4xxx_sensor0_product_data[5];
+extern rm_zmod4xxx_api_t const  g_zmod4xxx_on_zmod4450_raq;
+extern zmod4xxx_conf            g_zmod4450_raq_sensor_type[];
 #else
 uint8_t                         g_zmod4xxx_sensor0_product_data[1]; // Dummy
 uint8_t                         g_zmod4xxx_sensor0_lib_handle;      // Dummy
@@ -186,6 +195,11 @@ rm_zmod4xxx_lib_extended_cfg_t g_zmod4xxx_sensor0_extended_cfg =
     .product_id = 0x6320,
     .p_api = (void *)&g_zmod4xxx_on_zmod4510_oaq_2nd_gen,
     .p_data_set = (void *)g_zmod4510_oaq_2nd_gen_sensor_type,
+#elif RM_ZMOD4450_RAQ_CFG_LIB_ENABLE && (RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE == 9)
+    .lib_type = RM_ZMOD4450_LIB_TYPE_RAQ,
+    .product_id = 0x7310,
+    .p_api = (void *)&g_zmod4xxx_on_zmod4450_raq,
+    .p_data_set = (void *)g_zmod4450_raq_sensor_type,
 #else
 #endif
     .p_product_data = g_zmod4xxx_sensor0_product_data,
@@ -200,7 +214,7 @@ const rm_zmod4xxx_cfg_t g_zmod4xxx_sensor0_cfg =
     .p_irq_instance = NULL,
     .p_irq_callback = NULL,
 #else
-    .p_irq_instance = (void *)&g_zmod4xxx_sensor0_irq_instance,
+    .p_irq_instance = &g_zmod4xxx_sensor0_irq_instance,
     .p_irq_callback = (void (*)(rm_zmod4xxx_callback_args_t *))RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK,
 #endif
     .p_comms_callback = (void (*)(rm_zmod4xxx_callback_args_t *))RM_ZMOD4XXX_CFG_DEVICE0_COMMS_I2C_CALLBACK,
@@ -220,7 +234,7 @@ void rm_zmod4xxx_callback0(rm_comms_callback_args_t * p_args)
     rm_zmod4xxx_comms_i2c_callback(p_args);
 }
 
-void rm_zmod4xxx_irq_callback0(void)
+void rm_zmod4xxx_irq_callback0(void * pargs)
 {
     external_irq_callback_args_t args;
     args.p_context = (void *)&g_zmod4xxx_sensor0_ctrl;
@@ -234,10 +248,8 @@ void rm_zmod4xxx_irq_callback0(void)
 #if RM_ZMOD4XXX_CFG_DEVICE1_IRQ_ENABLE
 external_irq_instance_t g_zmod4xxx_sensor1_irq_instance = 
 {
-    .number     = RM_ZMOD4XXX_CFG_DEVICE1_IRQ_NUMBER,
 	.p_start    = XSTART(RM_ZMOD4XXX_CFG_INTC, RM_ZMOD4XXX_CFG_DEVICE1_IRQ_NUMBER)
 	.p_stop     = XSTOP(RM_ZMOD4XXX_CFG_INTC, RM_ZMOD4XXX_CFG_DEVICE1_IRQ_NUMBER)
-    .p_callback = rm_zmod4xxx_irq_callback1,
 };
 #endif
 
@@ -287,6 +299,12 @@ oaq_2nd_gen_results_t           g_zmod4xxx_sensor1_lib_results;
 uint8_t                         g_zmod4xxx_sensor1_product_data[10];
 extern rm_zmod4xxx_api_t const  g_zmod4xxx_on_zmod4510_oaq_2nd_gen;
 extern zmod4xxx_conf            g_zmod4510_oaq_2nd_gen_sensor_type[];
+#elif RM_ZMOD4450_RAQ_CFG_LIB_ENABLE && (RM_ZMOD4XXX_CFG_DEVICE1_OPERATION_MODE == 9)
+raq_params_t                    g_zmod4xxx_sensor1_lib_handle;
+raq_results_t                   g_zmod4xxx_sensor1_lib_results;
+uint8_t                         g_zmod4xxx_sensor1_product_data[5];
+extern rm_zmod4xxx_api_t const  g_zmod4xxx_on_zmod4450_raq;
+extern zmod4xxx_conf            g_zmod4450_raq_sensor_type[];
 #else
 uint8_t                         g_zmod4xxx_sensor1_product_data[1]; // Dummy
 uint8_t                         g_zmod4xxx_sensor1_lib_handle;      // Dummy
@@ -336,6 +354,11 @@ rm_zmod4xxx_lib_extended_cfg_t g_zmod4xxx_sensor1_extended_cfg =
     .product_id = 0x6320,
     .p_api = (void *)&g_zmod4xxx_on_zmod4510_oaq_2nd_gen,
     .p_data_set = (void *)g_zmod4510_oaq_2nd_gen_sensor_type,
+#elif RM_ZMOD4450_RAQ_CFG_LIB_ENABLE && (RM_ZMOD4XXX_CFG_DEVICE1_OPERATION_MODE == 9)
+    .lib_type = RM_ZMOD4450_LIB_TYPE_RAQ,
+    .product_id = 0x7310,
+    .p_api = (void *)&g_zmod4xxx_on_zmod4450_raq,
+    .p_data_set = (void *)g_zmod4450_raq_sensor_type,
 #else
 #endif
     .p_product_data = g_zmod4xxx_sensor1_product_data,
@@ -350,7 +373,7 @@ const rm_zmod4xxx_cfg_t g_zmod4xxx_sensor1_cfg =
     .p_irq_instance = NULL,
     .p_irq_callback = NULL,
 #else
-    .p_irq_instance = NULL,
+    .p_irq_instance = &g_zmod4xxx_sensor1_irq_instance,
     .p_irq_callback = (void (*)(rm_zmod4xxx_callback_args_t *))RM_ZMOD4XXX_CFG_DEVICE1_IRQ_CALLBACK,
 #endif
     .p_comms_callback = (void (*)(rm_zmod4xxx_callback_args_t *))RM_ZMOD4XXX_CFG_DEVICE1_COMMS_I2C_CALLBACK,
@@ -370,7 +393,7 @@ void rm_zmod4xxx_callback1(rm_comms_callback_args_t * p_args)
     rm_zmod4xxx_comms_i2c_callback(p_args);
 }
 
-void rm_zmod4xxx_irq_callback1(void)
+void rm_zmod4xxx_irq_callback1(void * pargs)
 {
     external_irq_callback_args_t args;
     args.p_context = (void *)&g_zmod4xxx_sensor1_ctrl;

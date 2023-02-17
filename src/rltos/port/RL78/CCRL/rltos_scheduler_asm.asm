@@ -75,7 +75,7 @@ _Rltos_port_yield:
 
 
 ; START OF FUNCTION - void Rltos_port_tick(void)
-	_Rltos_port_tick  .vector 0x0028
+	_Rltos_port_tick  .vector 0x0030
 	.SECTION    .text, TEXT
 _Rltos_port_tick:
 	SAVE_CONTEXT

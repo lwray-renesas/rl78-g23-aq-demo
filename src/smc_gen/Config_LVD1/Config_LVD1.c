@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_LVD1.c
 * Component Version: 1.1.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_LVD1.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -58,7 +58,7 @@ void R_Config_LVD1_Create(void)
     LVIPR1 = 1U;
     LVIPR0 = 1U;
     LVISEN = 1U;    /*Enable of rewriting the LVIS register*/
-    LVIS = _00_LVD_MODE_INT | _17_LVD_LEVEL_245;
+    LVIS = _00_LVD_MODE_INT | _15_LVD_LEVEL_276;
     LVISEN = 0U;    /*Disable of rewriting the LVIS register*/
 
     R_Config_LVD1_Create_UserInit();

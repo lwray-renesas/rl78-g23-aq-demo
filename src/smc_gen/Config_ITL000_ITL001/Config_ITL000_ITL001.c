@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_ITL000_ITL001.c
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_ITL000_ITL001.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -60,7 +60,7 @@ void R_Config_ITL000_ITL001_Create(void)
     ITLCSEL0 |= _04_ITL_CLOCK_FITL0_FSXP;
     ITLFDIV00 &= _F8_ITL_ITL000_FITL0_CLEAR;
     ITLFDIV00 |= _07_ITL_ITL000_FITL0_128;
-    ITLCMP00 = _0032_ITL_ITLCMP00_VALUE;
+    ITLCMP00 = _0019_ITL_ITLCMP00_VALUE;
     
     R_Config_ITL000_ITL001_Create_UserInit();
 }

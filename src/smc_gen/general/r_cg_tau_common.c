@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : r_cg_tau_common.c
 * Version          : 1.0.11
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : None
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -30,10 +30,11 @@ Includes
 #include "r_cg_userdefine.h"
 #include "Config_TAU0_0.h"
 #include "Config_TAU0_1.h"
-#include "Config_TAU0_2.h"
-#include "Config_TAU0_3.h"
 #include "Config_TAU0_4.h"
 #include "Config_TAU0_5.h"
+#include "Config_TAU0_3.h"
+#include "Config_TAU0_2.h"
+#include "Config_TAU0_6.h"
 #include "r_cg_tau_common.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -62,21 +63,11 @@ void R_TAU0_Create(void)
     /* Set TAU0 settings */
     R_Config_TAU0_0_Create();
     R_Config_TAU0_1_Create();
-    R_Config_TAU0_2_Create();
-    R_Config_TAU0_3_Create();
     R_Config_TAU0_4_Create();
     R_Config_TAU0_5_Create();
-}
-
-/***********************************************************************************************************************
-* Function Name: R_TAU1_Create
-* Description  : This function enables TAU1 input clock supply and initializes TAU1 module.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_TAU1_Create(void)
-{
-    TAU1EN = 1U;    /* start TAU1 clock */
+    R_Config_TAU0_3_Create();
+    R_Config_TAU0_2_Create();
+    R_Config_TAU0_6_Create();
 }
 
 /***********************************************************************************************************************
@@ -121,50 +112,6 @@ void R_TAU0_Set_Reset(void)
 void R_TAU0_Release_Reset(void)
 {
     TAU0RES = 0U;    /* release TAU0 */
-}
-
-/***********************************************************************************************************************
-* Function Name: R_TAU1_Set_PowerOn
-* Description  : This function starts the clock supply for TAU1.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_TAU1_Set_PowerOn(void)
-{
-    TAU1EN = 1U;    /* start TAU1 clock */
-}
-
-/***********************************************************************************************************************
-* Function Name: R_TAU1_Set_PowerOff
-* Description  : This function stops the clock supply for TAU1.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_TAU1_Set_PowerOff(void)
-{
-    TAU1EN = 0U;    /* stop TAU1 clock */
-}
-
-/***********************************************************************************************************************
-* Function Name: R_TAU1_Set_Reset
-* Description  : This function sets TAU1 module in reset state.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_TAU1_Set_Reset(void)
-{
-    TAU1RES = 1U;    /* reset TAU1 */
-}
-
-/***********************************************************************************************************************
-* Function Name: R_TAU1_Release_Reset
-* Description  : This function releases TAU1 module from reset state.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_TAU1_Release_Reset(void)
-{
-    TAU1RES = 0U;    /* release TAU1 */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

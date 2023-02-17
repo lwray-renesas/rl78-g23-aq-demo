@@ -33,15 +33,15 @@
 
 #endif
 
-#define DC_high()	 {P14_bit.no0 = 1U;}
-#define DC_low()	 {P14_bit.no0 = 0U;}
-#define Reset_high() {P0_bit.no2 = 1U;}
-#define Reset_low()  {P0_bit.no2 = 0U;}
-#define CS_high()    {P0_bit.no3 = 1U;}
-#define CS_low()     {P0_bit.no3 = 0U;}
+#define DC_high()	 {P14_bit.no6 = 1U;}
+#define DC_low()	 {P14_bit.no6 = 0U;}
+#define Reset_high() {P7_bit.no3 = 1U;}
+#define Reset_low()  {P7_bit.no3 = 0U;}
+#define CS_high()    {P1_bit.no3 = 1U;}
+#define CS_low()     {P1_bit.no3 = 0U;}
 
 /** @brief tx_buf must satisfy uint8_t const * const & tx_num must satisfy uint16_t*/
-#define Spi_write_block(tx_buf, tx_num)	{R_Config_CSI30_Send_app(tx_buf, tx_num);}
+#define Spi_write_block(tx_buf, tx_num)	{R_Config_CSI00_Send_app(tx_buf, tx_num);}
 
 /** @brief Implements milli-second resolution delay*/
 #define Delay_ms(ms) {Hw_delay_ms(ms);}

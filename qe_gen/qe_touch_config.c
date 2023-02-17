@@ -40,7 +40,9 @@ void qe_touch_callback(touch_callback_args_t * p_args)
 	ITLS0 = 0U;
 	ITLIF = 0U;
 }
-
+/***********************************************************************************************************************
+These parameters were generated using the advanced tuning.
+***********************************************************************************************************************/
 
 
 
@@ -51,7 +53,7 @@ CTSU Related Information for [CONFIG01] configuration.
 
 const ctsu_element_cfg_t g_qe_ctsu_element_cfg_config01[] =
 {
-    { .so = 0x092, .snum = 0x07, .sdpa = 0x03 },
+    { .so = 0x000, .snum = 0x07, .sdpa = 0x07 },
 };
 
 const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
@@ -61,15 +63,15 @@ const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
     .txvsel = CTSU_TXVSEL_VCC,
     .txvsel2= CTSU_TXVSEL_MODE,
 
-    .atune12= CTSU_ATUNE12_40UA,
+    .atune12= CTSU_ATUNE12_160UA,
     .md     = CTSU_MODE_SELF_MULTI_SCAN,
     .posel  = CTSU_POSEL_LOW_GPIO,
 
 
     .ctsuchac0  = 0x00, /* ch0-ch7 enable mask */
-    .ctsuchac1  = 0x04, /* ch8-ch15 enable mask */
+    .ctsuchac1  = 0x00, /* ch8-ch15 enable mask */
     .ctsuchac2  = 0x00, /* ch16-ch23 enable mask */
-    .ctsuchac3  = 0x00, /* ch24-ch31 enable mask */
+    .ctsuchac3  = 0x02, /* ch24-ch31 enable mask */
     .ctsuchac4  = 0x00, /* ch32-ch39 enable mask */
     .ctsuchtrc0 = 0x00, /* ch0-ch7 mutual tx mask */
     .ctsuchtrc1 = 0x00, /* ch8-ch15 mutual tx mask */
@@ -85,7 +87,7 @@ const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
     .tuning_mutual_target_value = 10240,
 #endif
 
-    .num_moving_average = 1,
+    .num_moving_average = 3,
     .tunning_enable     = true,
     .p_callback    = &qe_touch_callback,
 };
@@ -114,8 +116,8 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 1500,
-        .hysteresis = 100,
+        .threshold  = 200,
+        .hysteresis = 25,
     },
 };
 #endif
@@ -150,7 +152,7 @@ const touch_cfg_t g_qe_touch_cfg_config01 =
 
     .on_freq     = 1,
     .off_freq    = 1,
-    .drift_freq  = 128,
+    .drift_freq  = 32,
     .cancel_freq = 0,
 
     .p_ctsu_instance = &g_qe_ctsu_instance_config01,

@@ -25,7 +25,7 @@
 /** @brief 3 sec sensor check timer at 1sec periodic interrupt*/
 #define SENSOR_TIMEOUT		(3U)
 #else
-#error "Unsupported ZMOD library!"
+#error "Sensor unsupported"
 #endif
 
 /** @brief enumerated type for system state machine*/
@@ -71,14 +71,21 @@ static bool low_battery_flag = false;
 static bool alarm_checking_enabled = false;
 /** flag indicating whether the alarm has been acknowledged*/
 static bool alarm_condition = false;
+/** counter to count the alarm singalling time*/
+static uint16_t alarm_length = 0U;
 
 /** @brief gets hardware events
  * @return returns hardware event copy.
  */
 static inline hardware_event_t Get_hw_events(void)
 {
-	hardware_event_t l_hw_events = hw_event_flags;
+	hardware_event_t l_hw_events = NO_EVENT;
+	RLTOS_PREPARE_CRITICAL_SECTION();
+
+	RLTOS_ENTER_CRITICAL_SECTION();
+	l_hw_events = hw_event_flags;
 	hw_event_flags &= ~l_hw_events; /* Clear the events which have been detected*/
+	RLTOS_EXIT_CRITICAL_SECTION();
 
 	return l_hw_events;
 }
@@ -364,7 +371,12 @@ void App_button_click_handler(void)
 	case BREACH_ALARM:
 	{
 		App_signal_activity();
+
+		alarm_length = 0U;
+		Hw_alarm_led_off();
+		Hw_stop_alarm();
 		alarm_condition = false;
+
 		sys_state = AIR_QUALITY;
 		Hw_stop_rotary();
 		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
@@ -458,50 +470,18 @@ void App_constant_period_handler(bool sensor_readings_completed)
 		Sensor_try_trigger_read();
 	}
 
-	/* Check if readings are ready to use*/
-	if(sensor_readings_completed)
+	/* Handle alarm HW*/
+	if(alarm_condition)
 	{
-		if(TEMPERATURE_HUMIDITY == sys_state)
+		Hw_alarm_led_toggle();
+
+		if(alarm_length > 10U)
 		{
-			Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
+			Hw_stop_alarm();
 		}
-
-		if(AIR_QUALITY == sys_state)
+		else
 		{
-			Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
-		}
-
-		if(alarm_checking_enabled && sensor_data.zmod_calibrated)
-		{
-			bool alarm_breached = false;
-
-			Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
-			Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
-
-			alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
-					Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
-					Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2));
-
-			Rltos_mutex_release(&sensor_mutex);
-			Rltos_mutex_release(&alarm_sensor_mutex);
-
-			if(alarm_breached)
-			{
-				App_signal_activity();
-
-				if(LOW_POWER == sys_state)
-				{
-					Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
-				}
-				else
-				{
-					Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
-				}
-
-				sys_state = BREACH_ALARM;
-				alarm_checking_enabled = false;
-				alarm_condition = true;
-			}
+			++alarm_length;
 		}
 	}
 
@@ -554,6 +534,55 @@ void App_constant_period_handler(bool sensor_readings_completed)
 		{
 			inactivity_counter = 0U;
 			activity_flag = false;
+		}
+	}
+
+	/* Check if readings are ready to use*/
+	if(sensor_readings_completed)
+	{
+		if(TEMPERATURE_HUMIDITY == sys_state)
+		{
+			Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
+		}
+
+		if(AIR_QUALITY == sys_state)
+		{
+			Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
+		}
+
+		if(alarm_checking_enabled && sensor_data.zmod_calibrated)
+		{
+			bool alarm_breached = false;
+
+			Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
+			Rltos_mutex_lock(&alarm_sensor_mutex, RLTOS_UINT_MAX);
+
+			alarm_breached = (Int_dec_larger_than(&sensor_data.tvoc, &alarm_sensor_data.tvoc) ||
+					Int_dec_larger_than(&sensor_data.iaq, &alarm_sensor_data.iaq) ||
+					Int_dec_larger_than(&sensor_data.eco2, &alarm_sensor_data.eco2));
+
+			Rltos_mutex_release(&sensor_mutex);
+			Rltos_mutex_release(&alarm_sensor_mutex);
+
+			if(alarm_breached)
+			{
+				App_signal_activity();
+
+				Hw_trigger_alarm();
+
+				if(LOW_POWER == sys_state)
+				{
+					Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
+				}
+				else
+				{
+					Rltos_events_set(&gui_events, BACKGROUND_BREACH_ALARM);
+				}
+
+				sys_state = BREACH_ALARM;
+				alarm_checking_enabled = false;
+				alarm_condition = true;
+			}
 		}
 	}
 }

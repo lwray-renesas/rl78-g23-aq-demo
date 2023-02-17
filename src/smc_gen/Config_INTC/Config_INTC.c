@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_INTC.c
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_INTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -52,44 +52,49 @@ Global variables and functions
 ***********************************************************************************************************************/
 void R_Config_INTC_Create(void)
 {
-    PMK5 = 1U;    /* disable INTP5 operation */
-    PIF5 = 0U;    /* clear INTP5 interrupt flag */
-    /* Set INTP5 low priority */
-    PPR15 = 1U;
-    PPR05 = 1U;
-    EGN0 = _00_INTP5_EDGE_FALLING_UNSEL;
-    EGP0 = _20_INTP5_EDGE_RISING_SEL;
-    /* Set INTP5 pin */
-    PMCE1 &= 0xBFU;
-    CCDE &= 0xFEU;
-    PM1 |= 0x40U;
+    PMK0 = 1U;    /* disable INTP0 operation */
+    PIF0 = 0U;    /* clear INTP0 interrupt flag */
+    /* Set INTP0 low priority */
+    PPR10 = 1U;
+    PPR00 = 1U;
+    EGN0 = _00_INTP0_EDGE_FALLING_UNSEL;
+    EGP0 = _01_INTP0_EDGE_RISING_SEL;
 
     R_Config_INTC_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_INTC_INTP5_Start
-* Description  : This function clears INTP5 interrupt flag and enables interrupt.
+* Function Name: R_Config_INTC_INTP0_Start
+* Description  : This function clears INTP0 interrupt flag and enables interrupt.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_INTC_INTP5_Start(void)
+void R_Config_INTC_INTP0_Start(void)
 {
-    PIF5 = 0U;    /* clear INTP5 interrupt flag */
-    PMK5 = 0U;    /* enable INTP5 interrupt */
+    PIF0 = 0U;    /* clear INTP0 interrupt flag */
+    PMK0 = 0U;    /* enable INTP0 interrupt */
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_INTC_INTP5_Stop
-* Description  : This function disables INTP5 interrupt and clears interrupt flag.
+* Function Name: R_Config_INTC_INTP0_Stop
+* Description  : This function disables INTP0 interrupt and clears interrupt flag.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_INTC_INTP5_Stop(void)
+void R_Config_INTC_INTP0_Stop(void)
 {
-    PMK5 = 1U;    /* disable INTP5 interrupt */
-    PIF5 = 0U;    /* clear INTP5 interrupt flag */
+    PMK0 = 1U;    /* disable INTP0 interrupt */
+    PIF0 = 0U;    /* clear INTP0 interrupt flag */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void R_Config_INTC_INTC0_Start(void)
+{
+	R_Config_INTC_INTP0_Start();
+}
+
+void R_Config_INTC_INTC0_Stop(void)
+{
+	R_Config_INTC_INTP0_Stop();
+}
 /* End user code. Do not edit comment generated here */

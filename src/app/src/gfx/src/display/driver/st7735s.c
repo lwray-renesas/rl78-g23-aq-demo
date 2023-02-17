@@ -239,7 +239,7 @@ void St7735s_init(const uint8_t * const init_fill_colour)
 
 	St7735s_write_cmd_sequence(init_buf, sizeof(init_buf));
 
-	St7735s_set_orientation(ORIENT_0);
+	St7735s_set_orientation(ORIENT_180);
 
 	colour_ptr = init_fill_colour;
 

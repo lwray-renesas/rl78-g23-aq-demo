@@ -18,17 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_IICA1.c
-* Component Version: 1.3.0
-* Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_IICA1.
+* File Name        : Config_DTC.c
+* Component Version: 1.1.1
+* Device(s)        : R7F100GFNxFP
+* Description      : This file implements device driver for Config_DTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_IICA1.h"
+#include "Config_DTC.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -41,162 +41,133 @@ Pragma directive
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-volatile uint8_t g_iica1_master_status_flag;      /* iica1 master flag */
-volatile uint8_t * gp_iica1_rx_address;           /* iica1 receive buffer address */
-uint16_t g_iica1_rx_len;                          /* iica1 receive data length */
-volatile uint16_t g_iica1_rx_cnt;                 /* iica1 receive data count */
-volatile uint8_t * gp_iica1_tx_address;           /* iica1 send buffer address */
-volatile uint16_t g_iica1_tx_cnt;                 /* iica1 send data count */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+#pragma address dtc_vectortable = 0x0FFD00U
+uint8_t __near dtc_vectortable[40U];
+
+#pragma address dtc_controldata_0 = 0x0FFD40U
+st_dtc_data_t __near dtc_controldata_0;
+
+#pragma address dtc_controldata_22 = 0x0FFDF0U
+st_dtc_data_t __near dtc_controldata_22;
+
+#pragma address dtc_controldata_23 = 0x0FFDF8U
+st_dtc_data_t __near dtc_controldata_23;
 
 /***********************************************************************************************************************
-* Function Name: R_Config_IICA1_Create
-* Description  : This function initializes the IICA1 module.
+* Function Name: R_Config_DTC_Create
+* Description  : This function initializes the DTC module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_IICA1_Create(void)
+void R_Config_DTC_Create(void)
 {
-    IICA1EN = 1U;    /* enables input clock supply */
-    IICE1 = 0U;
-    IICAMK1 = 1U;    /* disable INTIICA1 interrupt */
-    IICAIF1 = 0U;    /* clear INTIICA1 interrupt flag */
-    /* Set INTIICA1 level 1 priority */
-    IICAPR11 = 0U;
-    IICAPR01 = 1U;
-    /* Set SCLA1, SDAA1 pin */
-    CCDE &= 0x3FU;
-    P6 &= 0xF3U;
-    PM6 |= 0x0CU;
-    SMC1 = 0U;
-    IICWL1 = _4C_IICA1_IICWL_VALUE;
-    IICWH1 = _55_IICA1_IICWH_VALUE;
-    IICCTL11 |= _01_IICA_fCLK_HALF;
-    SVA1 = _10_IICA1_MASTERADDRESS;
-    STCEN1 = 1U;
-    IICRSV1 = 1U;
-    SPIE1 = 0U;
-    WTIM1 = 1U;
-    ACKE1 = 1U;
-    IICAMK1 = 0U;
-    IICE1 = 1U;
-    LREL1 = 1U;
-    /* Set SCLA1, SDAA1 pin */
-    PM6 &= 0xF3U;
+    /* Enable input clock supply */
+    DTCEN = 1U;
+    /* Disable all DTC channels operation */
+    DTCEN0 = 0x00U;
+    DTCEN1 = 0x00U;
+    DTCEN2 = 0x00U;
+    DTCEN3 = 0x00U;
+    DTCEN4 = 0x00U;
+    /* Set base address */
+    DTCBAR = 0xFDU;
+    /* Set DTCD0 */
+    dtc_vectortable[29U] = 0x40U;
+    dtc_controldata_0.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
+                              _00_DTC_DEST_ADDR_FIXED | _02_DTC_REPEAT_AREA_SOURCE | _01_DTC_TRANSFER_MODE_REPEAT;
+    dtc_controldata_0.dtbls = _01_DTCD0_TRANSFER_BLOCKSIZE;
+    dtc_controldata_0.dtcct = _08_DTCD0_TRANSFER_BYTE;
+    dtc_controldata_0.dtrld = _08_DTCD0_TRANSFER_BYTE;
+    dtc_controldata_0.dtsar = _E000_DTCD0_SRC_ADDRESS;
+    dtc_controldata_0.dtdar = _FFA6_DTCD0_DEST_ADDRESS;
+    /* Set DTCD22 */
+    dtc_vectortable[33U] = 0xF0U;
+    dtc_controldata_22.dtccr = _40_DTC_DATA_SIZE_16BITS | _00_DTC_CHAIN_TRANSFER_DISABLE | _00_DTC_DEST_ADDR_FIXED | 
+                               _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_TRANSFER_MODE_NORMAL;
+    dtc_controldata_22.dtbls = _01_DTCD22_TRANSFER_BLOCKSIZE;
+    dtc_controldata_22.dtcct = _01_DTCD22_TRANSFER_BYTE;
+    dtc_controldata_22.dtrld = 0x00U;
+    dtc_controldata_22.dtsar = _0000_DTCD22_SRC_ADDRESS;
+    dtc_controldata_22.dtdar = _0000_DTCD22_DEST_ADDRESS;
+    /* Set DTCD23 */
+    dtc_vectortable[34U] = 0xF8U;
+    dtc_controldata_23.dtccr = _40_DTC_DATA_SIZE_16BITS | _00_DTC_CHAIN_TRANSFER_DISABLE | _00_DTC_DEST_ADDR_FIXED | 
+                               _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_TRANSFER_MODE_NORMAL;
+    dtc_controldata_23.dtbls = _01_DTCD23_TRANSFER_BLOCKSIZE;
+    dtc_controldata_23.dtcct = _01_DTCD23_TRANSFER_BYTE;
+    dtc_controldata_23.dtrld = 0x00U;
+    dtc_controldata_23.dtsar = _0000_DTCD23_SRC_ADDRESS;
+    dtc_controldata_23.dtdar = _0000_DTCD23_DEST_ADDRESS;
 
-    R_Config_IICA1_Create_UserInit();
+    R_Config_DTC_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_IICA1_Stop
-* Description  : This function stops IICA1 module operation.
+* Function Name: R_DTCD0_Start
+* Description  : This function starts DTCD0 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_IICA1_Stop(void)
+void R_DTCD0_Start(void)
 {
-    IICE1 = 0U;    /* disable IICA1 operation */
+    DTCEN3 |= _04_DTC_TAU06_ACTIVATION_ENABLE;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_IICA1_StopCondition
-* Description  : This function stops the IICA1 condition.
+* Function Name: R_DTCD0_Stop
+* Description  : This function stops DTCD0 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_IICA1_StopCondition(void)
+void R_DTCD0_Stop(void)
 {
-    SPT1 = 1U;    /* set stop condition flag */
+    DTCEN3 &= (uint8_t)~_04_DTC_TAU06_ACTIVATION_ENABLE;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_IICA1_Master_Send
-* Description  : This function starts to send data as master mode.
-* Arguments    : adr -
-*                    transfer address
-*                tx_buf -
-*                    transfer buffer pointer
-*                tx_num -
-*                    buffer size
-*                wait -
-*                    wait for start condition
-* Return Value : status -
-*                    MD_OK, MD_ERROR1 or MD_ERROR2
+* Function Name: R_DTCD22_Start
+* Description  : This function starts DTCD22 module operation.
+* Arguments    : None
+* Return Value : None
 ***********************************************************************************************************************/
-MD_STATUS R_Config_IICA1_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num, uint8_t wait)
+void R_DTCD22_Start(void)
 {
-    MD_STATUS status = MD_OK;
-
-    STT1 = 1U;    /* send IICA1 start condition */
-    IICAMK1 = 0U;    /* enable INTIICA1 interrupt */
-
-    /* Wait */
-    while (0U == STD1)
-    {
-        if (0U == (wait--))
-        {
-            status = MD_ERROR2;
-            break;
-        }
-    }
-
-    /* Detect start condition */
-    if (MD_OK == status)
-    {
-        g_iica1_tx_cnt = tx_num;
-        gp_iica1_tx_address = tx_buf;
-        g_iica1_master_status_flag = _00_IICA_MASTER_FLAG_CLEAR;
-        adr &= (uint8_t)~0x01U;    /* set send mode */
-        IICA1 = adr;    /* send address */
-    }
-
-    return (status);
+    DTCEN4 |= _40_DTC_CTSUWR_ACTIVATION_ENABLE;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_IICA1_Master_Receive
-* Description  : This function starts to receive data as master mode.
-* Arguments    : adr -
-*                    receive address
-*                rx_buf -
-*                    receive buffer pointer
-*                rx_num -
-*                    buffer size
-*                wait -
-*                    wait for start condition
-* Return Value : status -
-*                    MD_OK, MD_ERROR1 or MD_ERROR2
+* Function Name: R_DTCD22_Stop
+* Description  : This function stops DTCD22 module operation.
+* Arguments    : None
+* Return Value : None
 ***********************************************************************************************************************/
-MD_STATUS R_Config_IICA1_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num, uint8_t wait)
+void R_DTCD22_Stop(void)
 {
-    MD_STATUS status = MD_OK;
+    DTCEN4 &= (uint8_t)~_40_DTC_CTSUWR_ACTIVATION_ENABLE;
+}
 
-    STT1 = 1U;    /* send IICA1 start condition */
-    IICAMK1 = 0U;    /* enable INTIICA1 interrupt */
+/***********************************************************************************************************************
+* Function Name: R_DTCD23_Start
+* Description  : This function starts DTCD23 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD23_Start(void)
+{
+    DTCEN4 |= _20_DTC_CTSURD_ACTIVATION_ENABLE;
+}
 
-    /* Wait */
-    while (0U == STD1)
-    {
-        if (0U == (wait--))
-        {
-            status = MD_ERROR2;
-            break;
-        }
-    }
-
-    if (MD_OK == status)
-    {
-        /* Set parameter */
-        g_iica1_rx_len = rx_num;
-        g_iica1_rx_cnt = 0U;
-        gp_iica1_rx_address = rx_buf;
-        g_iica1_master_status_flag = _00_IICA_MASTER_FLAG_CLEAR;
-        adr |= 0x01U;    /* set receive mode */
-        IICA1 = adr;    /* receive address */
-    }
-
-    return (status);
+/***********************************************************************************************************************
+* Function Name: R_DTCD23_Stop
+* Description  : This function stops DTCD23 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD23_Stop(void)
+{
+    DTCEN4 &= (uint8_t)~_20_DTC_CTSURD_ACTIVATION_ENABLE;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

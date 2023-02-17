@@ -57,6 +57,7 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 {
 	static rm_hs300x_raw_data_t hs300x_raw_data;
 	static rm_zmod4xxx_raw_data_t zmod_4410_raw_data;
+
 	fsp_err_t err = FSP_SUCCESS;
 	bool readings_completed = false;
 
@@ -80,7 +81,6 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 		{
 			HALT();
 		}
-
 
 		/**********************
 		 * ZMOD4410
@@ -106,7 +106,8 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 	case SENSOR_WAIT_TO_READ:
 	{
 		/* Only read and process data if the sensors are ready*/
-		if( (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status) && (SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status) )
+		if( (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status)
+				&& (SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status))
 		{
 			hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
@@ -174,6 +175,7 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 
 			zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 			zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+
 			hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 			hs300x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
@@ -196,7 +198,7 @@ bool Sensor_stop_safe(void)
 {
 	return (SENSOR_WAITING == sensor_read_state) ||
 			((SENSOR_WAIT_TO_READ == sensor_read_state) &&
-			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status) &&
+			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status)	 &&
 			 (SENSOR_CALLBACK_STATUS_SUCCESS != zmod_4410_irq_callback_status));
 }
 /* END OF FUNCTION*/

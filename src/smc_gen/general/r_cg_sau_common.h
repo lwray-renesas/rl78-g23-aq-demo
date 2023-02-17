@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : r_cg_sau_common.h
 * Version          : 1.0.11
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : Common header file for SAU peripheral.
 ***********************************************************************************************************************/
 
@@ -54,8 +54,6 @@ void R_SAU1_Set_Reset(void);
 void R_SAU1_Release_Reset(void);
 void R_SAU0_Set_SnoozeOn(void);
 void R_SAU0_Set_SnoozeOff(void);
-void R_SAU1_Set_SnoozeOn(void);
-void R_SAU1_Set_SnoozeOff(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

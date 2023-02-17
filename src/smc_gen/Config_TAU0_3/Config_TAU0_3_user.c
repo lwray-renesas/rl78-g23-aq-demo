@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_3_user.c
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_TAU0_3.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -30,32 +30,133 @@ Includes
 #include "r_cg_userdefine.h"
 #include "Config_TAU0_3.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "app.h"
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
+#pragma interrupt r_Config_TAU0_3_interrupt(vect=INTTM03)
 /* Start user code for pragma. Do not edit comment generated here */
+#define BUTTON_ASSERTED			(1U)
+#define BUTTON_LONG_PRESS_COUNT	(9U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+static volatile uint8_t button_hold_count = 0U;
+
+typedef enum
+{
+	FIRST_DETECTION = 0U,
+	HOLDING,
+	WAIT_FOR_RELASE
+}button_state_t;
+
+volatile button_state_t button_state = FIRST_DETECTION;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 * Function Name: R_Config_TAU0_3_Create_UserInit
-* Description  : This function adds user code after initializing the TAU0 channel 3.
+* Description  : This function adds user code after initializing the TAU0 channel3.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 void R_Config_TAU0_3_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
-	/* Enable RTOS tick interrupt*/
-    TMIF03H = 0U;    /* clear INTTM03 interrupt flag */
-    TMMK03H = 0U;    /* enable INTTM03 interrupt */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_TAU0_3_interrupt
+* Description  : This function is INTTM03 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void __near r_Config_TAU0_3_interrupt(void)
+{
+    /* Start user code for r_Config_TAU0_3_interrupt. Do not edit comment generated here */
+
+	switch(button_state)
+	{
+
+	case FIRST_DETECTION:
+	{
+		/* Increment the hold count*/
+		++button_hold_count;
+
+		/* If the port is now de-asserted*/
+		if(P3_bit.no1 != BUTTON_ASSERTED)
+		{
+			/* Consider the button to have been clicked*/
+			button_state = FIRST_DETECTION;
+			button_hold_count = 0U;
+			HW_SET_EVENT(hw_event_flags, BUTTON_CLICK);
+		}
+		else
+		{
+			/* Otherwise, we are holding the button down*/
+			button_state = HOLDING;
+		    TS0 |= _0008_TAU_CH3_START_TRG_ON; /* Manual trigger the delay counter again*/
+		}
+	}
+	break;
+
+	case HOLDING:
+	{
+		/* Increment the hold count*/
+		++button_hold_count;
+
+		/* If we have been holding the button down for the appropriate number of time slices*/
+		if(button_hold_count > BUTTON_LONG_PRESS_COUNT)
+		{
+			/* Consider the button to have been held*/
+			button_state = WAIT_FOR_RELASE;
+			button_hold_count = 0U;
+			HW_SET_EVENT(hw_event_flags, BUTTON_LONG_PRESS);
+		    TS0 |= _0008_TAU_CH3_START_TRG_ON; /* Manual trigger the delay counter again*/
+		}
+		else
+		{
+			/* If the port is now de-asserted*/
+			if(P3_bit.no1 != BUTTON_ASSERTED)
+			{
+				/* Consider the button to have been clicked*/
+				button_state = FIRST_DETECTION;
+				button_hold_count = 0U;
+				HW_SET_EVENT(hw_event_flags, BUTTON_CLICK);
+			}
+			else
+			{
+			    TS0 |= _0008_TAU_CH3_START_TRG_ON; /* Manual trigger the delay counter again*/
+			}
+		}
+	}
+	break;
+
+	case WAIT_FOR_RELASE:
+	{
+		/* If the port is now de-asserted*/
+		if(P3_bit.no1 != BUTTON_ASSERTED)
+		{
+			/* Consider the button to be released - now we can wait for the next event*/
+			button_state = FIRST_DETECTION;
+		}
+		else
+		{
+		    TS0 |= _0008_TAU_CH3_START_TRG_ON; /* Manual trigger the delay counter again*/
+		}
+	}
+	break;
+
+	default:
+		/* Do Nothing - Never Get Here*/
+		break;
+	}
+
     /* End user code. Do not edit comment generated here */
 }
 

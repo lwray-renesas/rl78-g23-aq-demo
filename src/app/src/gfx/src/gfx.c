@@ -244,19 +244,19 @@ void Gfx_display_on(void)
 
 void Gfx_reduced_backlight(void)
 {
-	CCS4 = 0x01U; /* 2mA backlight*/
+	Hw_backlight_set(BACKLIGHT_DIM);
 }
 /* END OF FUNCTION*/
 
 void Gfx_normal_backlight(void)
 {
-	CCS4 = 0x04U; /* 15mA backlight*/
+	Hw_backlight_set(BACKLIGHT_ON);
 }
 /* END OF FUNCTION*/
 
 void Gfx_backlight_off(void)
 {
-	CCS4 = 0x00U; /* Hi-Z backlight*/
+	Hw_backlight_set(BACKLIGHT_OFF);
 }
 /* END OF FUNCTION*/
 
@@ -498,28 +498,27 @@ static void Erase_title(void)
 
 static const uint8_t * Colour_lookup_iaq(const int_dec_t iaq)
 {
-	const uint8_t * colour_ptr = NULL;
-	const uint16_t iaqx100 = (iaq.integer_part * 100U) + iaq.decimal_part;
+	const uint8_t * colour_ptr = COLOUR_BAD;
 
-	if(iaqx100 < 200U)
+	if(iaq.integer_part < 2U)
 	{
 		colour_ptr = COLOUR_VERY_GOOD;
 	}
-	else if(iaqx100 < 300U)
+	else if(iaq.integer_part < 3U)
 	{
 		colour_ptr = COLOUR_GOOD;
 	}
-	else if(iaqx100 < 400U)
+	else if(iaq.integer_part < 4U)
 	{
 		colour_ptr = COLOUR_MEDIUM;
 	}
-	else if(iaqx100 < 500U)
+	else if(iaq.integer_part < 5U)
 	{
 		colour_ptr = COLOUR_POOR;
 	}
 	else
 	{
-		colour_ptr = COLOUR_BAD;
+		/* Do Nothing*/
 	}
 
 	return colour_ptr;

@@ -26,6 +26,14 @@ typedef enum
 	ALL_HARDWARE_EVENTS		=	0x001FU,
 }hardware_event_t;
 
+/** @brief Enumerated type for backlight level*/
+typedef enum
+{
+	BACKLIGHT_OFF			=	0x0000U,
+	BACKLIGHT_DIM			=	0x0001U,
+	BACKLIGHT_ON			=	0x0002U,
+}backlight_level_t;
+
 /** Variable to store event flags*/
 extern volatile hardware_event_t hw_event_flags;
 
@@ -57,5 +65,21 @@ void Hw_delay_ms(uint16_t ms);
 
 /** @brief Function to start the timer for 35ms delay*/
 void Hw_start_oneshot(void);
+
+/** @brief Triggers Alarm Hardware (Buzzer sequence + LED)*/
+void Hw_trigger_alarm(void);
+
+/** @brief Stop all alarm HW*/
+void Hw_stop_alarm(void);
+
+/** @brief Toggles alarm LED*/
+void Hw_alarm_led_toggle(void);
+
+/** @brief Disables alarm LED*/
+void Hw_alarm_led_off(void);
+
+/** @brief Set backlight level
+ * @param[in] backlight_level - level of backlight.*/
+void Hw_backlight_set(backlight_level_t const backlight_level);
 
 #endif /* APP_HW_HW_H_ */

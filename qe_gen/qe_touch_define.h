@@ -32,7 +32,9 @@
 #ifndef QE_TOUCH_DEFINE_H
 #define QE_TOUCH_DEFINE_H
 
-
+/***********************************************************************************************************************
+These parameters were generated using the advanced tuning.
+***********************************************************************************************************************/
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
@@ -46,8 +48,8 @@ Macro definitions
 
 #define QE_TOUCH_MACRO_CTSU_IP_KIND (2)
 
-#define CTSU_CFG_VCC_MV           (2700)
-#define CTSU_CFG_LOW_VOLTAGE_MODE (0)
+#define CTSU_CFG_VCC_MV           (1800)
+#define CTSU_CFG_LOW_VOLTAGE_MODE (1)
 
 #define CTSU_CFG_PCLK_DIVISION (0)
 
@@ -56,7 +58,7 @@ Macro definitions
 #define CTSU_CFG_NUM_SUMULTI   (3)
 #define CTSU_CFG_SUMULTI0      (0x3F)
 #define CTSU_CFG_SUMULTI1      (0x36)
-#define CTSU_CFG_SUMULTI2      (0x48)
+#define CTSU_CFG_SUMULTI2      (0x2D)
 
 #define CTSU_CFG_CALIB_RTRIM_SUPPORT       (0)
 #define CTSU_CFG_TEMP_CORRECTION_SUPPORT   (0)

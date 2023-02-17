@@ -18,187 +18,187 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_IICA1_user.c
+* File Name        : Config_IICA0_user.c
 * Component Version: 1.3.0
-* Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_IICA1.
+* Device(s)        : R7F100GFNxFP
+* Description      : This file implements device driver for Config_IICA0.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_IICA1.h"
+#include "Config_IICA0.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "r_comms_i2c_if.h"
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_Config_IICA1_interrupt(vect=INTIICA1)
+#pragma interrupt r_Config_IICA0_interrupt(vect=INTIICA0)
 /* Start user code for pragma. Do not edit comment generated here */
-#include "r_comms_i2c_if.h"
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern volatile uint8_t g_iica1_master_status_flag;      /* iica1 master flag */
-extern volatile uint8_t * gp_iica1_rx_address;           /* iica1 receive buffer address */
-extern uint16_t g_iica1_rx_len;                          /* iica1 receive data length */
-extern volatile uint16_t g_iica1_rx_cnt;                 /* iica1 receive data count */
-extern volatile uint8_t * gp_iica1_tx_address;           /* iica1 send buffer address */
-extern volatile uint16_t g_iica1_tx_cnt;                 /* iica1 send data count */
+extern volatile uint8_t g_iica0_master_status_flag;      /* iica0 master flag */
+extern volatile uint8_t * gp_iica0_rx_address;           /* iica0 receive buffer address */
+extern uint16_t g_iica0_rx_len;                          /* iica0 receive data length */
+extern volatile uint16_t g_iica0_rx_cnt;                 /* iica0 receive data count */
+extern volatile uint8_t * gp_iica0_tx_address;           /* iica0 send buffer address */
+extern volatile uint16_t g_iica0_tx_cnt;                 /* iica0 send data count */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_IICA1_Create_UserInit
-* Description  : This function adds user code after initializing the IICA1.
+* Function Name: R_Config_IICA0_Create_UserInit
+* Description  : This function adds user code after initializing the IICA0.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_IICA1_Create_UserInit(void)
+void R_Config_IICA0_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_IICA1_callback_master_sendend
-* Description  : This function is a callback function when IICA1 finishes master transmission.
+* Function Name: r_Config_IICA0_callback_master_sendend
+* Description  : This function is a callback function when IICA0 finishes master transmission.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_Config_IICA1_callback_master_sendend(void)
+static void r_Config_IICA0_callback_master_sendend(void)
 {
-/* Start user code for r_Config_IICA1_callback_master_sendend. Do not edit comment generated here */
+/* Start user code for r_Config_IICA0_callback_master_sendend. Do not edit comment generated here */
     rm_comms_i2c_bus0_callback(false);
 /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_IICA1_callback_master_receiveend
-* Description  : This function is a callback function when IICA1 finishes master reception.
+* Function Name: r_Config_IICA0_callback_master_receiveend
+* Description  : This function is a callback function when IICA0 finishes master reception.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_Config_IICA1_callback_master_receiveend(void)
+static void r_Config_IICA0_callback_master_receiveend(void)
 {
-/* Start user code for r_Config_IICA1_callback_master_receiveend. Do not edit comment generated here */
+/* Start user code for r_Config_IICA0_callback_master_receiveend. Do not edit comment generated here */
     rm_comms_i2c_bus0_callback(false);
 /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_IICA1_callback_master_error
-* Description  : This function is a callback function when IICA1 master error occurs.
+* Function Name: r_Config_IICA0_callback_master_error
+* Description  : This function is a callback function when IICA0 master error occurs.
 * Arguments    : flag -
 *                    status flag
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_Config_IICA1_callback_master_error(MD_STATUS flag)
+static void r_Config_IICA0_callback_master_error(MD_STATUS flag)
 {
-    /* Start user code for r_Config_IICA1_callback_master_error. Do not edit comment generated here */
+    /* Start user code for r_Config_IICA0_callback_master_error. Do not edit comment generated here */
     rm_comms_i2c_bus0_callback(true);
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_IICA1_master_handler
-* Description  : This function is IICA1 master handler
+* Function Name: r_Config_IICA0_master_handler
+* Description  : This function is IICA0 master handler
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_Config_IICA1_master_handler(void)
+static void r_Config_IICA0_master_handler(void)
 {
     /* Detection of stop condition handling */
-    if ((0U == IICBSY1) && (0U != g_iica1_tx_cnt))
+    if ((0U == IICBSY0) && (0U != g_iica0_tx_cnt))
     {
-        r_Config_IICA1_callback_master_error(MD_SPT);
+        r_Config_IICA0_callback_master_error(MD_SPT);
     }
     else
     {
         /* Control for sended address */
-        if (0U == (g_iica1_master_status_flag & _80_IICA_ADDRESS_COMPLETE))
+        if (0U == (g_iica0_master_status_flag & _80_IICA_ADDRESS_COMPLETE))
         {
-            if (1U == ACKD1)
+            if (1U == ACKD0)
             {
-                g_iica1_master_status_flag |= _80_IICA_ADDRESS_COMPLETE;
+                g_iica0_master_status_flag |= _80_IICA_ADDRESS_COMPLETE;
 
-                if (1U == TRC1)
+                if (1U == TRC0)
                 {
-                    WTIM1 = 1U;
+                    WTIM0 = 1U;
 
-                    if (g_iica1_tx_cnt > 0U)
+                    if (g_iica0_tx_cnt > 0U)
                     {
-                        IICA1 = *gp_iica1_tx_address;
-                        gp_iica1_tx_address++;
-                        g_iica1_tx_cnt--;
+                        IICA0 = *gp_iica0_tx_address;
+                        gp_iica0_tx_address++;
+                        g_iica0_tx_cnt--;
                     }
                     else
                     {
-                        r_Config_IICA1_callback_master_sendend();
+                        r_Config_IICA0_callback_master_sendend();
                     }
                 }
                 else
                 {
-                    ACKE1 = 1U;
-                    WTIM1 = 0U;
-                    WREL1 = 1U;
+                    ACKE0 = 1U;
+                    WTIM0 = 0U;
+                    WREL0 = 1U;
                 }
             }
             else
             {
-                r_Config_IICA1_callback_master_error(MD_NACK);
+                r_Config_IICA0_callback_master_error(MD_NACK);
             }
         }
         else
         {
             /* Master send control */
-            if (1U == TRC1)
+            if (1U == TRC0)
             {
-                if ((0U == ACKD1) && (0U != g_iica1_tx_cnt))
+                if ((0U == ACKD0) && (0U != g_iica0_tx_cnt))
                 {
-                    r_Config_IICA1_callback_master_error(MD_NACK);
+                    r_Config_IICA0_callback_master_error(MD_NACK);
                 }
                 else
                 {
-                    if (g_iica1_tx_cnt > 0U)
+                    if (g_iica0_tx_cnt > 0U)
                     {
-                        IICA1 = *gp_iica1_tx_address;
-                        gp_iica1_tx_address++;
-                        g_iica1_tx_cnt--;
+                        IICA0 = *gp_iica0_tx_address;
+                        gp_iica0_tx_address++;
+                        g_iica0_tx_cnt--;
                     }
                     else
                     {
-                        r_Config_IICA1_callback_master_sendend();
+                        r_Config_IICA0_callback_master_sendend();
                     }
                 }
             }
             /* Master receive control */
             else
             {
-                if (g_iica1_rx_cnt < g_iica1_rx_len)
+                if (g_iica0_rx_cnt < g_iica0_rx_len)
                 {
-                    *gp_iica1_rx_address = IICA1;
-                    gp_iica1_rx_address++;
-                    g_iica1_rx_cnt++;
+                    *gp_iica0_rx_address = IICA0;
+                    gp_iica0_rx_address++;
+                    g_iica0_rx_cnt++;
                     
-                    if (g_iica1_rx_cnt == g_iica1_rx_len)
+                    if (g_iica0_rx_cnt == g_iica0_rx_len)
                     {
-                        ACKE1 = 0U;
-                        WTIM1 = 1U;
-                        WREL1 = 1U;
+                        ACKE0 = 0U;
+                        WTIM0 = 1U;
+                        WREL0 = 1U;
                     }
                     else
                     {
-                        WREL1 = 1U;
+                        WREL0 = 1U;
                     }
                 }
                 else
                 {
-                    r_Config_IICA1_callback_master_receiveend();
+                    r_Config_IICA0_callback_master_receiveend();
                 }
             }
         }
@@ -206,19 +206,19 @@ static void r_Config_IICA1_master_handler(void)
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_IICA1_interrupt
-* Description  : This function is INTIICA1 interrupt service routine.
+* Function Name: r_Config_IICA0_interrupt
+* Description  : This function is INTIICA0 interrupt service routine.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_Config_IICA1_interrupt(void)
+static void __near r_Config_IICA0_interrupt(void)
 {
-    /* Start user code for r_Config_IICA1_interrupt. Do not edit comment generated here */
+    /* Start user code for r_Config_IICA0_interrupt. Do not edit comment generated here */
 	EI(); /* Enable rotary encoder interrupts to nest*/
     /* End user code. Do not edit comment generated here */
-    if (0x80U == (IICS1 & _80_IICA_STATUS_MASTER))
+    if (0x80U == (IICS0 & _80_IICA_STATUS_MASTER))
     {
-        r_Config_IICA1_master_handler();
+        r_Config_IICA0_master_handler();
     }
 }
 

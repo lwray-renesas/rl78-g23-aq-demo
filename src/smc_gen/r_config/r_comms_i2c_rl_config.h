@@ -53,7 +53,7 @@
 /* SPECIFY DRIVER TYPE, COMPONENT NAME */
 /* For Bus No.0 */
 #define COMMS_I2C_CFG_BUS0_DRIVER_TYPE          (COMMS_DRIVER_I2C) /* Driver type of I2C Bus */
-#define COMMS_I2C_CFG_BUS0_COMPONENT            Config_IICA1
+#define COMMS_I2C_CFG_BUS0_COMPONENT            Config_IICA0
 
 /* For Bus No.1 */
 #define COMMS_I2C_CFG_BUS1_DRIVER_TYPE          (COMMS_DRIVER_NONE) /* Driver type of I2C Bus */

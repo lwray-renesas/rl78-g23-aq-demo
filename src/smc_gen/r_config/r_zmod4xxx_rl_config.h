@@ -37,9 +37,8 @@
 #define RM_ZMOD4XXX_CFG_DEVICE_NUM_MAX                    (1) /* Number (max.) of ZMOD4xxx Sensors */
 
 /* SPECIFY OPERATION MODE FOR DEVICE0 */
-#define RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE            (8) /* Set operation mode of ZMOD4XXX Sensors device0 */
+#define RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE            (3) /* Set operation mode of ZMOD4XXX Sensors device0 */
                                                             /*
-                                                            0 : Not selected
                                                             1 : IAQ 1st Gen. Continuous Mode
                                                             2 : IAQ 1st Gen. Low Power Mode
                                                             3 : IAQ 2nd Gen.
@@ -48,6 +47,7 @@
                                                             5 : Sulfur Odor
                                                             6 : OAQ 1st Gen.
                                                             7 : OAQ 2nd Gen.
+                                                            9 : RAQ
                                                              */
 
 /* SPECIFY USING COMMUNICATION LINE INSTANCE FOP DEVICE0 */
@@ -63,7 +63,7 @@
 #define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK              (Zmod4xxx_user_irq_callback0) /* Enable user IRQ(INTP) callback for ZMOD4XXX Sensor Device0 */
 
 /* SPECIFY IRQ NUMBER FOR DEVICE0 */
-#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_NUMBER                _INTP5
+#define RM_ZMOD4XXX_CFG_DEVICE0_IRQ_NUMBER                _INTP0
 
 /* SPECIFY OPERATION MODE FOR DEVICE1 */
 #define RM_ZMOD4XXX_CFG_DEVICE1_OPERATION_MODE            (1) /* Set operation mode of ZMOD4XXX Sensor device1 */
@@ -130,6 +130,12 @@
 #define RM_ZMOD4510_OAQ_2ND_GEN_CFG_LIB_ENABLE (1)
 #else
 #define RM_ZMOD4510_OAQ_2ND_GEN_CFG_LIB_ENABLE (0)
+#endif
+
+#if (RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE == 9) || ((RM_ZMOD4XXX_CFG_DEVICE1_OPERATION_MODE == 9)  && (RM_ZMOD4XXX_CFG_DEVICE_NUM_MAX == 2))
+#define RM_ZMOD4450_RAQ_CFG_LIB_ENABLE (1)
+#else
+#define RM_ZMOD4450_RAQ_CFG_LIB_ENABLE (0)
 #endif
 
 #endif  /* R_ZMOD4XXX_CONFIG_H */

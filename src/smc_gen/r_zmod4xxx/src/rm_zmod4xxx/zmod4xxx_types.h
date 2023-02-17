@@ -18,21 +18,23 @@
 ***********************************************************************************************************************/
 
 /**
- * @file   zmod4xxx_types.h
- * @brief  zmod4xxx types
- * @version x.y.z
- * @author Oezguen Guenyeli
+ * @file    zmod4xxx_types.h
+ * @brief   zmod4xxx types
+ * @version 2.5.1
+ * @author  Renesas Electronics Corporation
  */
 
 #ifndef _ZMOD4XXX_TYPES_H
-#define _ZMOD4XXX_TYPES_H
+ #define _ZMOD4XXX_TYPES_H
 
-#include <stdint.h>
-#include <stdio.h>
+ #include <stdint.h>
+ #include <stdio.h>
 
  #ifdef __cplusplus
 extern "C" {
  #endif
+
+ #if 1                                 // For multiple operations
 
 /**
  * @brief Variables that describe the library version
@@ -43,6 +45,7 @@ typedef struct
     uint8_t minor;
     uint8_t patch;
 } algorithm_version;
+ #endif
 
 /**
  * @brief error_codes Error codes

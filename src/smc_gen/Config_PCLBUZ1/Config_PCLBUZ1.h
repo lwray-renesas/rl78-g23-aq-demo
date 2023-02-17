@@ -18,19 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_CSI30.h
+* File Name        : Config_PCLBUZ1.h
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_CSI30.
+* Device(s)        : R7F100GFNxFP
+* Description      : This file implements device driver for Config_PCLBUZ1.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_sau.h"
+#include "r_cg_pclbuz.h"
 
-#ifndef CFG_Config_CSI30_H
-#define CFG_Config_CSI30_H
+#ifndef CFG_Config_PCLBUZ1_H
+#define CFG_Config_PCLBUZ1_H
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -39,7 +39,6 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0200_SAU1_CH2_BAUDRATE_DIVISOR    (0x0200U)    /* transfer clock set by dividing the operating clock */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -48,13 +47,11 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_Config_CSI30_Create(void);
-void R_Config_CSI30_Start(void);
-void R_Config_CSI30_Stop(void);
-MD_STATUS R_Config_CSI30_Send(uint8_t * const tx_buf, uint16_t tx_num);
-void R_Config_CSI30_Create_UserInit(void);
+void R_Config_PCLBUZ1_Create(void);
+void R_Config_PCLBUZ1_Start(void);
+void R_Config_PCLBUZ1_Stop(void);
+void R_Config_PCLBUZ1_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
-void R_Config_CSI30_Start_app(void);
-void R_Config_CSI30_Send_app(uint8_t __far const * const tx_buf, uint16_t tx_num);
 /* End user code. Do not edit comment generated here */
 #endif
+

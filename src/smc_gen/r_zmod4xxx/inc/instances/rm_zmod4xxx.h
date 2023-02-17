@@ -57,7 +57,6 @@ FSP_HEADER
 /** ZMOD4XXX Library type */
 typedef enum e_rm_zmod4xxx_lib_type
 {
-    RM_ZMOD4XXX_LIB_NOT_SELECTED = 0,
     RM_ZMOD4410_LIB_TYPE_IAQ_1ST_GEN_CONTINUOUS = 1,
     RM_ZMOD4410_LIB_TYPE_IAQ_1ST_GEN_LOW_POWER,
     RM_ZMOD4410_LIB_TYPE_IAQ_2ND_GEN,
@@ -66,6 +65,7 @@ typedef enum e_rm_zmod4xxx_lib_type
     RM_ZMOD4510_LIB_TYPE_OAQ_1ST_GEN,
     RM_ZMOD4510_LIB_TYPE_OAQ_2ND_GEN,
     RM_ZMOD4410_LIB_TYPE_IAQ_2ND_GEN_ULP,
+    RM_ZMOD4450_LIB_TYPE_RAQ,
 } rm_zmod4xxx_lib_type_t;
 
 /** ZMOD4XXX initialization process block */
@@ -159,6 +159,9 @@ fsp_err_t RM_ZMOD4XXX_Oaq1stGenDataCalculate(rm_zmod4xxx_ctrl_t * const         
 fsp_err_t RM_ZMOD4XXX_Oaq2ndGenDataCalculate(rm_zmod4xxx_ctrl_t * const         p_api_ctrl,
                                              rm_zmod4xxx_raw_data_t * const     p_raw_data,
                                              rm_zmod4xxx_oaq_2nd_data_t * const p_zmod4xxx_data);
+fsp_err_t RM_ZMOD4XXX_RaqDataCalculate(rm_zmod4xxx_ctrl_t * const     p_api_ctrl,
+                                       rm_zmod4xxx_raw_data_t * const p_raw_data,
+                                       rm_zmod4xxx_raq_data_t * const p_zmod4xxx_data);
 fsp_err_t RM_ZMOD4XXX_Close(rm_zmod4xxx_ctrl_t * const p_api_ctrl);
 
 #if defined(__CCRX__) || defined(__ICCRX__) || defined(__RX__)

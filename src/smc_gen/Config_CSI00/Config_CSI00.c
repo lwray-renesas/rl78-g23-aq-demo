@@ -18,17 +18,17 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_CSI30.c
+* File Name        : Config_CSI00.c
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_CSI30.
+* Device(s)        : R7F100GFNxFP
+* Description      : This file implements device driver for Config_CSI00.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_CSI30.h"
+#include "Config_CSI00.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -41,81 +41,85 @@ Pragma directive
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-volatile uint8_t * gp_csi30_tx_address;    /* csi30 send buffer address */
-volatile uint16_t g_csi30_tx_count;        /* csi30 send data count */
+volatile uint8_t * gp_csi00_tx_address;    /* csi00 send buffer address */
+volatile uint16_t g_csi00_tx_count;        /* csi00 send data count */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_CSI30_Create
-* Description  : This function initializes the CSI30 module.
+* Function Name: R_Config_CSI00_Create
+* Description  : This function initializes the CSI00 module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_CSI30_Create(void)
+void R_Config_CSI00_Create(void)
 {
-    SPS1 &= _00F0_SAU_CK00_CLEAR;
-    SPS1 |= _0000_SAU_CK00_FCLK_0;
-    /* Stop channel 2 */
-    ST1 |= _0004_SAU_CH2_STOP_TRG_ON;
-    /* Mask channel 2 interrupt */
-    CSIMK30 = 1U;    /* disable INTCSI30 interrupt */
-    CSIIF30 = 0U;    /* clear INTCSI30 interrupt flag */
-    /* Set INTCSI30 level 1 priority */
-    CSIPR130 = 0U;
-    CSIPR030 = 1U;
-    SIR12 = _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
-    SMR12 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_CLOCK_MODE_CKS | 
+    SPS0 &= _00F0_SAU_CK00_CLEAR;
+    SPS0 |= _0000_SAU_CK00_FCLK_0;
+    /* Stop channel 0 */
+    ST0 |= _0001_SAU_CH0_STOP_TRG_ON;
+    /* Mask channel 0 interrupt */
+    CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
+    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
+    /* Set INTCSI00 level 1 priority */
+    CSIPR100 = 0U;
+    CSIPR000 = 1U;
+    SIR00 = _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
+    SMR00 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_CLOCK_MODE_CKS | 
             _0000_SAU_TRIGGER_SOFTWARE | _0000_SAU_MODE_CSI | _0000_SAU_TRANSFER_END;
-    SCR12 = _0004_SAU_SCRMN_INITIALVALUE | _8000_SAU_TRANSMISSION | _3000_SAU_TIMING_4 | _0000_SAU_MSB | 
+    SCR00 = _0004_SAU_SCRMN_INITIALVALUE | _8000_SAU_TRANSMISSION | _3000_SAU_TIMING_4 | _0000_SAU_MSB | 
             _0003_SAU_LENGTH_8;
-    SDR12 = _0200_SAU1_CH2_BAUDRATE_DIVISOR;
-    SO1 &= (uint16_t)~_0400_SAU_CH2_CLOCK_OUTPUT_1;    /* CSI30 clock initial level */
-    SO1 &= (uint16_t)~_0004_SAU_CH2_DATA_OUTPUT_1;    /* CSI30 SO initial level */
-    SOE1 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable CSI30 output */
-    /* Set SO30 pin */
-    P14 |= 0x10U;
-    PM14 &= 0xEFU;
-    /* Set SCK30 pin */
-    P14 |= 0x04U;
-    PM14 &= 0xFBU;
+    SDR00 = _0200_SAU0_CH0_BAUDRATE_DIVISOR;
+    SO0 &= (uint16_t)~_0100_SAU_CH0_CLOCK_OUTPUT_1;    /* CSI00 clock initial level */
+    SO0 &= (uint16_t)~_0001_SAU_CH0_DATA_OUTPUT_1;    /* CSI00 SO initial level */
+    SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;    /* enable CSI00 output */
+    /* Set SO00 pin */
+    PMCE1 &= 0xFBU;
+    PFOE1 |= 0x01U;
+    P1 |= 0x04U;
+    PM1 &= 0xFBU;
+    /* Set SCK00 pin */
+    PMCE1 &= 0xFEU;
+    PFOE1 |= 0x04U;
+    P1 |= 0x01U;
+    PM1 &= 0xFEU;
     
-    R_Config_CSI30_Create_UserInit();
+    R_Config_CSI00_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_CSI30_Start
-* Description  : This function starts the CSI30 module operation.
+* Function Name: R_Config_CSI00_Start
+* Description  : This function starts the CSI00 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_CSI30_Start(void)
+void R_Config_CSI00_Start(void)
 {
-    SO1 &= (uint16_t)~_0400_SAU_CH2_CLOCK_OUTPUT_1;    /* CSI30 clock initial level */
-    SO1 &= (uint16_t)~_0004_SAU_CH2_DATA_OUTPUT_1;    /* CSI30 SO initial level */
-    SOE1 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable CSI30 output */
-    SS1 |= _0004_SAU_CH2_START_TRG_ON;    /* enable CSI30 */
-    CSIIF30 = 0U;    /* clear INTCSI30 interrupt flag */
-    CSIMK30 = 0U;    /* enable INTCSI30 interrupt */
+    SO0 &= (uint16_t)~_0100_SAU_CH0_CLOCK_OUTPUT_1;    /* CSI00 clock initial level */
+    SO0 &= (uint16_t)~_0001_SAU_CH0_DATA_OUTPUT_1;    /* CSI00 SO initial level */
+    SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;    /* enable CSI00 output */
+    SS0 |= _0001_SAU_CH0_START_TRG_ON;    /* enable CSI00 */
+    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
+    CSIMK00 = 0U;    /* enable INTCSI00 interrupt */
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_CSI30_Stop
-* Description  : This function stops the CSI30 module operation.
+* Function Name: R_Config_CSI00_Stop
+* Description  : This function stops the CSI00 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_CSI30_Stop(void)
+void R_Config_CSI00_Stop(void)
 {
-    CSIMK30 = 1U;    /* disable INTCSI30 interrupt */
-    ST1 |= _0004_SAU_CH2_STOP_TRG_ON;    /* disable CSI30 */
-    SOE1 &= (uint16_t)~_0004_SAU_CH2_OUTPUT_ENABLE;    /* disable CSI30 output */
-    CSIIF30 = 0U;    /* clear INTCSI30 interrupt flag */
+    CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
+    ST0 |= _0001_SAU_CH0_STOP_TRG_ON;    /* disable CSI00 */
+    SOE0 &= (uint16_t)~_0001_SAU_CH0_OUTPUT_ENABLE;    /* disable CSI00 output */
+    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_CSI30_Send
-* Description  : This function sends CSI30 data.
+* Function Name: R_Config_CSI00_Send
+* Description  : This function sends CSI00 data.
 * Arguments    : tx_buf -
 *                    transfer buffer pointer
 *                tx_num -
@@ -123,7 +127,7 @@ void R_Config_CSI30_Stop(void)
 * Return Value : status -
 *                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
-MD_STATUS R_Config_CSI30_Send(uint8_t * const tx_buf, uint16_t tx_num)
+MD_STATUS R_Config_CSI00_Send(uint8_t * const tx_buf, uint16_t tx_num)
 {
     MD_STATUS status = MD_OK;
 
@@ -133,13 +137,13 @@ MD_STATUS R_Config_CSI30_Send(uint8_t * const tx_buf, uint16_t tx_num)
     }
     else
     {
-        g_csi30_tx_count = tx_num;    /* send data count */
-        gp_csi30_tx_address = tx_buf;    /* send buffer pointer */
-        CSIMK30 = 1U;    /* disable INTCSI30 interrupt */
-        SIO30 = *gp_csi30_tx_address;    /* started by writing data to SDR12[7:0] */
-        gp_csi30_tx_address++;
-        g_csi30_tx_count--;
-        CSIMK30 = 0U;    /* enable INTCSI30 interrupt */
+        g_csi00_tx_count = tx_num;    /* send data count */
+        gp_csi00_tx_address = tx_buf;    /* send buffer pointer */
+        CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
+        SIO00 = *gp_csi00_tx_address;    /* started by writing data to SDR00[7:0] */
+        gp_csi00_tx_address++;
+        g_csi00_tx_count--;
+        CSIMK00 = 0U;    /* enable INTCSI00 interrupt */
     }
 
     return (status);
@@ -147,35 +151,35 @@ MD_STATUS R_Config_CSI30_Send(uint8_t * const tx_buf, uint16_t tx_num)
 
 /* Start user code for adding. Do not edit comment generated here */
 
-void R_Config_CSI30_Start_app(void)
+void R_Config_CSI00_Start_app(void)
 {
-	SO1 &= (uint16_t)~_0400_SAU_CH2_CLOCK_OUTPUT_1;    /* CSI30 clock initial level */
-	SO1 &= (uint16_t)~_0004_SAU_CH2_DATA_OUTPUT_1;    /* CSI30 SO initial level */
-	SOE1 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable CSI30 output */
-	SS1 |= _0004_SAU_CH2_START_TRG_ON;    /* enable CSI30 */
-	CSIMK30 = 1U;    /* disable INTCSI30 interrupt */
-	CSIIF30 = 0U;    /* clear INTCSI30 interrupt flag */
+    SO0 &= (uint16_t)~_0100_SAU_CH0_CLOCK_OUTPUT_1;    /* CSI00 clock initial level */
+    SO0 &= (uint16_t)~_0001_SAU_CH0_DATA_OUTPUT_1;    /* CSI00 SO initial level */
+    SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;    /* enable CSI00 output */
+    SS0 |= _0001_SAU_CH0_START_TRG_ON;    /* enable CSI00 */
+    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
+    CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
 }
 
-void R_Config_CSI30_Send_app(uint8_t __far const * const tx_buf, uint16_t tx_num)
+void R_Config_CSI00_Send_app(uint8_t __far const * const tx_buf, uint16_t tx_num)
 {
 	uint16_t l_tx_num = tx_num;
 	uint8_t __far const * l_tx_buf = tx_buf;
 
 	while(l_tx_num > 0U)
 	{
-		SIO30 = *l_tx_buf;
+		SIO00 = *l_tx_buf;
 
 		l_tx_num--;
 		l_tx_buf++;
 
 		/* Wait for the interrupt flag to set*/
-		while(0U == CSIIF30)
+		while(0U == CSIIF00)
 		{
 			NOP();
 		}
 
-		CSIIF30 = 0U;
+		CSIIF00 = 0U;
 	}
 }
 

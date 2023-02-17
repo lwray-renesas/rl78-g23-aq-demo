@@ -33,6 +33,8 @@
  * Typedef definitions
  *********************************************************************************************************************/
 /* IRQ */
+#ifndef R_SENSOR_IRQ_DEFINE
+#define R_SENSOR_IRQ_DEFINE
 #if RM_ZMOD4XXX_CFG_IRQ_ENABLE
 typedef struct st_external_irq_instance
 {
@@ -44,6 +46,7 @@ typedef struct st_external_irq_callback_args
 {
     void * p_context;
 } external_irq_callback_args_t;
+#endif /* R_SENSOR_IRQ_DEFINE */
 
  /**********************************************************************************************************************
  * Exported global functions

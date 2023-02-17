@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_INTC_user.c
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_INTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -35,7 +35,7 @@ Includes
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_Config_INTC_intp5_interrupt(vect=INTP5)
+#pragma interrupt r_Config_INTC_intp0_interrupt(vect=INTP0)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -59,14 +59,14 @@ void R_Config_INTC_Create_UserInit(void)
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_INTC_intp5_interrupt
-* Description  : This function is INTP5 interrupt service routine
+* Function Name: r_Config_INTC_intp0_interrupt
+* Description  : This function is INTP0 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_Config_INTC_intp5_interrupt(void)
+static void __near r_Config_INTC_intp0_interrupt(void)
 {
-    /* Start user code for r_Config_INTC_intp5_interrupt. Do not edit comment generated here */
+    /* Start user code for r_Config_INTC_intp0_interrupt. Do not edit comment generated here */
 	rm_zmod4xxx_irq_callback0();
     /* End user code. Do not edit comment generated here */
 }

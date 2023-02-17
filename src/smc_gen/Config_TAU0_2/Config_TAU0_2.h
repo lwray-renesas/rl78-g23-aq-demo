@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_2.h
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_TAU0_2.
 ***********************************************************************************************************************/
 
@@ -39,7 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _00C2_TAU_TDR02_VALUE               (0x00C2U)    /* 16-bit timer data register 02 (TDR02) */
+#define _0061_TAU_TDR02_VALUE               (0x0061U)    /* 16-bit timer data register 02 (TDR02) */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -51,7 +51,6 @@ Global functions
 void R_Config_TAU0_2_Create(void);
 void R_Config_TAU0_2_Start(void);
 void R_Config_TAU0_2_Stop(void);
-void R_Config_TAU0_2_Set_SoftwareTriggerOn(void);
 void R_Config_TAU0_2_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

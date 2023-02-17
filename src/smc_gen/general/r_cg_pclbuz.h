@@ -18,71 +18,53 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_CSI30_user.c
-* Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_CSI30.
+* File Name        : r_cg_pclbuz.h
+* Version          : 1.0.11
+* Device(s)        : R7F100GFNxFP
+* Description      : General header file for PCLBUZ peripheral.
 ***********************************************************************************************************************/
+
+#ifndef PCLBUZ_H
+#define PCLBUZ_H
+
 /***********************************************************************************************************************
-Includes
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_cg_userdefine.h"
-#include "Config_CSI30.h"
-/* Start user code for include. Do not edit comment generated here */
-#include "st7735s.h"
+/*
+    Clock Output Select Registers n (CKSn)
+*/
+/* PCLBUZn output enable/disable specification (PCLOEn) */
+#define _80_PCLBUZ_OUTPUT_ENABLE        (0x80U)    /* pclbuz pin output enable */
+#define _00_PCLBUZ_OUTPUT_DISABLE       (0x00U)    /* pclbuz pin output disable */
+/* PCLBUZn output clock selection (CSELn, CCSn2 - CCSn0) */
+#define _00_PCLBUZ_OUTCLK_FMAIN0        (0x00U)    /* fMAIN */
+#define _01_PCLBUZ_OUTCLK_FMAIN1        (0x01U)    /* fMAIN/2 */
+#define _02_PCLBUZ_OUTCLK_FMAIN2        (0x02U)    /* fMAIN/2^2 */
+#define _03_PCLBUZ_OUTCLK_FMAIN3        (0x03U)    /* fMAIN/2^3 */
+#define _04_PCLBUZ_OUTCLK_FMAIN4        (0x04U)    /* fMAIN/2^4 */
+#define _05_PCLBUZ_OUTCLK_FMAIN11       (0x05U)    /* fMAIN/2^11 */
+#define _06_PCLBUZ_OUTCLK_FMAIN12       (0x06U)    /* fMAIN/2^12 */
+#define _07_PCLBUZ_OUTCLK_FMAIN13       (0x07U)    /* fMAIN/2^13 */
+#define _08_PCLBUZ_OUTCLK_FSXP0         (0x08U)    /* fSXP */
+#define _09_PCLBUZ_OUTCLK_FSXP1         (0x09U)    /* fSXP/2 */
+#define _0A_PCLBUZ_OUTCLK_FSXP2         (0x0AU)    /* fSXP/2^2 */
+#define _0B_PCLBUZ_OUTCLK_FSXP3         (0x0BU)    /* fSXP/2^3 */
+#define _0C_PCLBUZ_OUTCLK_FSXP4         (0x0CU)    /* fSXP/2^4 */
+#define _0D_PCLBUZ_OUTCLK_FSXP5         (0x0DU)    /* fSXP/2^5 */
+#define _0E_PCLBUZ_OUTCLK_FSXP6         (0x0EU)    /* fSXP/2^6 */
+#define _0F_PCLBUZ_OUTCLK_FSXP7         (0x0FU)    /* fSXP/2^7 */
+
+/***********************************************************************************************************************
+Macro definitions
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Typedef definitions
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-#pragma interrupt r_Config_CSI30_interrupt(vect=INTCSI30)
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-Global variables and functions
-***********************************************************************************************************************/
-extern volatile uint8_t * gp_csi30_tx_address;    /* csi30 send buffer address */
-extern volatile uint16_t g_csi30_tx_count;        /* csi30 send data count */
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-* Function Name: R_Config_CSI30_Create_UserInit
-* Description  : This function adds user code after initializing the CSI30.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_Config_CSI30_Create_UserInit(void)
-{
-    /* Start user code for user init. Do not edit comment generated here */
-	/* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_CSI30_interrupt
-* Description  : This function is INTCSI30 interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void __near r_Config_CSI30_interrupt(void)
-{
-    uint8_t err_type;
-
-    err_type = (uint8_t)(SSR12 & _0001_SAU_OVERRUN_ERROR);
-    SIR12 = (uint16_t)err_type;
-
-    if (1U != err_type)
-    {
-        if (g_csi30_tx_count > 0U)
-        {
-            SIO30 = *gp_csi30_tx_address;
-            gp_csi30_tx_address++;
-            g_csi30_tx_count--;
-        }
-    }
-}
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#endif

@@ -18,19 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_IICA1.h
-* Component Version: 1.3.0
-* Device(s)        : R7F100GSNxFB
-* Description      : This file implements device driver for Config_IICA1.
+* File Name        : Config_DTC.h
+* Component Version: 1.1.1
+* Device(s)        : R7F100GFNxFP
+* Description      : This file implements device driver for Config_DTC.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_iica.h"
+#include "r_cg_dtc.h"
 
-#ifndef CFG_Config_IICA1_H
-#define CFG_Config_IICA1_H
+#ifndef CFG_Config_DTC_H
+#define CFG_Config_DTC_H
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -39,24 +39,43 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-
-#define _10_IICA1_MASTERADDRESS                (0x10U)    /* IICA1 address */
-#define _4C_IICA1_IICWL_VALUE                  (0x4CU)
-#define _55_IICA1_IICWH_VALUE                  (0x55U)
+#define _01_DTCD0_TRANSFER_BLOCKSIZE       (0x01U)    /* transfer block size */
+#define _08_DTCD0_TRANSFER_BYTE            (0x08U)    /* number of transfers */
+#define _E000_DTCD0_SRC_ADDRESS            (0xE000U)
+#define _FFA6_DTCD0_DEST_ADDRESS           (0xFFA6U)
+#define _01_DTCD22_TRANSFER_BLOCKSIZE       (0x01U)    /* transfer block size */
+#define _01_DTCD22_TRANSFER_BYTE            (0x01U)    /* number of transfers */
+#define _0000_DTCD22_SRC_ADDRESS            (0x0000U)
+#define _0000_DTCD22_DEST_ADDRESS           (0x0000U)
+#define _01_DTCD23_TRANSFER_BLOCKSIZE       (0x01U)    /* transfer block size */
+#define _01_DTCD23_TRANSFER_BYTE            (0x01U)    /* number of transfers */
+#define _0000_DTCD23_SRC_ADDRESS            (0x0000U)
+#define _0000_DTCD23_DEST_ADDRESS           (0x0000U)
 
 /***********************************************************************************************************************
 Typedef definitions
 ***********************************************************************************************************************/
+typedef struct
+{
+    uint8_t  dtccr;
+    uint8_t  dtbls;
+    uint8_t  dtcct;
+    uint8_t  dtrld;
+    uint16_t dtsar;
+    uint16_t dtdar;
+}st_dtc_data_t;
 
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_Config_IICA1_Create(void);
-void R_Config_IICA1_Stop(void);
-void R_Config_IICA1_StopCondition(void);
-MD_STATUS R_Config_IICA1_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num, uint8_t wait);
-MD_STATUS R_Config_IICA1_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num, uint8_t wait);
-void R_Config_IICA1_Create_UserInit(void);
+void R_Config_DTC_Create(void);
+void R_DTCD0_Start(void);
+void R_DTCD0_Stop(void);
+void R_DTCD22_Start(void);
+void R_DTCD22_Stop(void);
+void R_DTCD23_Start(void);
+void R_DTCD23_Stop(void);
+void R_Config_DTC_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

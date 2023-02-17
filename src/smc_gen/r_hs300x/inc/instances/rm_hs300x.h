@@ -1,4 +1,21 @@
-/* ${REA_DISCLAIMER_PLACEHOLDER} */
+/***********************************************************************************************************************
+* DISCLAIMER
+* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
+* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
+* applicable laws, including copyright laws. 
+* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
+* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
+* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
+* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
+* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
+* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
+* following link:
+* http://www.renesas.com/disclaimer
+*
+* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+***********************************************************************************************************************/
 
 /*******************************************************************************************************************//**
  * @addtogroup RM_HS300X
@@ -49,6 +66,7 @@ typedef struct rm_hs300x_instance_ctrl
     rm_comms_instance_t const         * p_comms_i2c_instance; ///< Pointer of I2C Communications Middleware instance structure
     void const                        * p_context;            ///< Pointer to the user-provided context
     rm_hs300x_programmnig_mode_params_t programming_mode;     ///< Programming mode flag
+    uint8_t buf[3];                                           ///< Buffer for I2C communications
 
     /* Pointer to callback and optional working memory */
     void (* p_callback)(rm_hs300x_callback_args_t * p_args);
@@ -70,8 +88,7 @@ extern rm_hs300x_api_t const g_hs300x_on_hs300x;
 fsp_err_t RM_HS300X_Open(rm_hs300x_ctrl_t * const p_api_ctrl, rm_hs300x_cfg_t const * const p_cfg);
 fsp_err_t RM_HS300X_Close(rm_hs300x_ctrl_t * const p_api_ctrl);
 fsp_err_t RM_HS300X_MeasurementStart(rm_hs300x_ctrl_t * const p_api_ctrl);
-fsp_err_t RM_Hs300x_read(rm_hs300x_ctrl_t * const     p_api_ctrl,
-                         rm_hs300x_raw_data_t * const p_raw_data);
+fsp_err_t RM_HS300X_Read(rm_hs300x_ctrl_t * const p_api_ctrl, rm_hs300x_raw_data_t * const p_raw_data);
 fsp_err_t RM_HS300X_DataCalculate(rm_hs300x_ctrl_t * const     p_api_ctrl,
                                   rm_hs300x_raw_data_t * const p_raw_data,
                                   rm_hs300x_data_t * const     p_hs300x_data);
@@ -81,7 +98,6 @@ fsp_err_t RM_HS300X_ResolutionChange(rm_hs300x_ctrl_t * const     p_api_ctrl,
                                      rm_hs300x_resolution_t const resolution);
 fsp_err_t RM_HS300X_SensorIdGet(rm_hs300x_ctrl_t * const p_api_ctrl, uint32_t * const p_sensor_id);
 fsp_err_t RM_HS300X_ProgrammingModeExit(rm_hs300x_ctrl_t * const p_api_ctrl);
-void rm_hs300x_callback (rm_comms_callback_args_t * p_args);
 
 #if defined(__CCRX__) || defined(__ICCRX__) || defined(__RX__)
 #elif defined(__CCRL__) || defined(__ICCRL78__) || defined(__llvm__) || defined(__RL78__)

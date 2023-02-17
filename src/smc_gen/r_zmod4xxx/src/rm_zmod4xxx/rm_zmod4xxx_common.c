@@ -18,7 +18,7 @@ extern void delay_wait(uint32_t count);
  * ファイル内グローバル変数
  *************************************************/
 /* 遅延時間定義テーブル */
-extern const unsigned long long bsp_delay_time[];
+extern unsigned long long bsp_delay_time[];
 
 /*************************************************
  * 関数定義

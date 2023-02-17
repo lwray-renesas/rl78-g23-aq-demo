@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_3.c
 * Component Version: 1.2.0
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : This file implements device driver for Config_TAU0_3.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -46,48 +46,75 @@ Global variables and functions
 
 /***********************************************************************************************************************
 * Function Name: R_Config_TAU0_3_Create
-* Description  : This function initializes the TAU0 channel 3 module.
+* Description  : This function initializes the TAU0 channel3 module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 void R_Config_TAU0_3_Create(void)
 {
-    TPS0 &= _CFFF_TAU_CKM3_CLEAR;
-    TPS0 |= _3000_TAU_CKM3_FCLK_14;
+    TPS0 &= _FF0F_TAU_CKM1_CLEAR;
+    TPS0 |= _00E0_TAU_CKM1_FCLK_14;
     /* Stop channel 3 */
-    TT0 |= _0800_TAU_CH3_H8_STOP_TRG_ON;
-    /* TAU03 used as interval timer */
-    TMR03 = _C000_TAU_CLOCK_SELECT_CKM3 | _0000_TAU_CLOCK_MODE_CKS | _0800_TAU_8BITS_MODE | 
-            _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_MODE_INTERVAL_TIMER | _0001_TAU_START_INT_USED;
-    TDR03H = _61_TAU_TDR03H_VALUE;
+    TT0 |= _0008_TAU_CH3_STOP_TRG_ON;
+    /* Mask channel 3 interrupt */
+    TMMK03 = 1U;    /* disable INTTM03 interrupt */
+    TMIF03 = 0U;    /* clear INTTM03 interrupt flag */
+    /* Set INTTM03 low priority */
+    TMPR103 = 1U;
+    TMPR003 = 1U;
+    /* TAU03 is used as delay count function */
+    NFEN1 |= _08_TAU_CH3_NOISE_ON;
+    TMR03 = _8000_TAU_CLOCK_SELECT_CKM1 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_16BITS_MODE | 
+            _0100_TAU_TRIGGER_TIMN_VALID | _0040_TAU_TIMN_EDGE_RISING | _0008_TAU_MODE_ONE_COUNT | 
+            _0000_TAU_START_INT_UNUSED;
+    TDR03 = _00C2_TAU_TDR03_VALUE;
     TOM0 &= (uint16_t)~_0008_TAU_CH3_SLAVE_OUTPUT;
     TOL0 &= (uint16_t)~_0008_TAU_CH3_OUTPUT_LEVEL_L;
     TO0 &= (uint16_t)~_0008_TAU_CH3_OUTPUT_VALUE_1;
     TOE0 &= (uint16_t)~_0008_TAU_CH3_OUTPUT_ENABLE;
-    
+    /* Set TI03 pin */
+    PMCT3 &= 0xFDU;
+    PM3 |= 0x02U;
+
     R_Config_TAU0_3_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_TAU0_3_Higher8bits_Start
-* Description  : This function starts the TAU0 channel 3 higher 8 bits counter.
+* Function Name: R_Config_TAU0_3_Start
+* Description  : This function starts the TAU0 channel3 counter.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_TAU0_3_Higher8bits_Start(void)
+void R_Config_TAU0_3_Start(void)
 {
-    TS0 |= _0800_TAU_CH3_H8_START_TRG_ON;
+    TMIF03 = 0U;    /* clear INTTM03 interrupt flag */
+    TMMK03 = 0U;    /* enable INTTM03 interrupt */
+    TS0 |= _0008_TAU_CH3_START_TRG_ON;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_TAU0_3_Higher8bits_Stop
-* Description  : This function stops the TAU0 channel 3 higher 8 bits counter.
+* Function Name: R_Config_TAU0_3_Stop
+* Description  : This function stops the TAU0 channel3 counter.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Config_TAU0_3_Higher8bits_Stop(void)
+void R_Config_TAU0_3_Stop(void)
 {
-    TT0 |= _0800_TAU_CH3_H8_STOP_TRG_ON;
+    TT0 |= _0008_TAU_CH3_STOP_TRG_ON;
+    /* Mask channel 3 interrupt */
+    TMMK03 = 1U;    /* disable INTTM03 interrupt */
+    TMIF03 = 0U;    /* clear INTTM03 interrupt flag */
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_TAU0_3_Set_SoftwareTriggerOn
+* Description  : This function generates software trigger.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_TAU0_3_Set_SoftwareTriggerOn(void)
+{
+    TS0 |= _0008_TAU_CH3_START_TRG_ON;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

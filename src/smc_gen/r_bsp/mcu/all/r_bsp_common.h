@@ -32,6 +32,10 @@
 *                               Changed to enable/disable for each API function.
 *                               Changed the version of smart configurator to check to 1030.
 *                               Changed to always determine the version of smart configurator.
+*         : 31.05.2022 1.30     Added the following enumerated variable.
+*                                - e_bsp_delay_units_t
+*                               Added prototype of the following function
+*                                - R_BSP_SoftwareDelay
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -63,10 +67,10 @@
  * n = this clock may not be available depending on the number of terminals. 
  * RL78 MCU supported clocks
  *
- * Clock  G23 F24 F23
- * ------ --- --- ---
- * HIOCLK  X   X   X
- * SYSCLK  X   X   X
+ * Clock  G23 F24 F23 G15
+ * ------ --- --- --- ---
+ * HIOCLK  X   X   X   X
+ * SYSCLK  X   X   X   Xn
  * SXCLK   X   Xn  Xn
  * MIOCLK  X
  * LOCLK   X   X   X
@@ -94,6 +98,14 @@ typedef enum
     BSP_ERROR3
 } e_bsp_err_t;
 
+/* Available delay units. */
+typedef enum
+{
+    BSP_DELAY_SECS = 0,     /* Requested delay amount is in seconds. */
+    BSP_DELAY_MILLISECS,    /* Requested delay amount is in milliseconds. */
+    BSP_DELAY_MICROSECS     /* Requested delay amount is in microseconds. */
+} e_bsp_delay_units_t;
+
 /*************************************************
  * Function declaration
  *************************************************/
@@ -111,7 +123,11 @@ e_bsp_err_t R_BSP_SetClockSource (e_clock_mode_t mode);
 #endif
 
 #if BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE == 0
-e_bsp_err_t R_BSP_ChangeClockSetting (e_clock_mode_t mode, uint8_t *set_values);
+e_bsp_err_t R_BSP_ChangeClockSetting (e_clock_mode_t mode, uint8_t * set_values);
+#endif
+
+#if BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE == 0
+e_bsp_err_t R_BSP_SoftwareDelay (uint32_t delay, e_bsp_delay_units_t units);
 #endif
 
 #endif /* #define R_BSP_COMMON_H */

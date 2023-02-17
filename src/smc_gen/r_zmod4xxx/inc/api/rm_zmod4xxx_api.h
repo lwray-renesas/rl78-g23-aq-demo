@@ -153,6 +153,13 @@ typedef struct st_rm_zmod4xxx_oaq_2nd_data
     uint16_t epa_aqi;                  ///< The Air Quality Index according to the EPA standard based on ozone
 } rm_zmod4xxx_oaq_2nd_data_t;
 
+/** ZMOD4XXX RAQ structure */
+typedef struct st_rm_zmod4xxx_raq_data
+{
+    bool  control_signal;              ///< Control signal input for raq lib.
+    float raq;                         ///< Concentration ratio for raq lib.
+} rm_zmod4xxx_raq_data_t;
+
 /** ZMOD4XXX configuration block */
 typedef struct st_rm_zmod4xxx_cfg
 {
@@ -285,6 +292,17 @@ typedef struct st_rm_zmod4xxx_api
     fsp_err_t (* oaq2ndGenDataCalculate)(rm_zmod4xxx_ctrl_t * const         p_api_ctrl,
                                          rm_zmod4xxx_raw_data_t * const     p_raw_data,
                                          rm_zmod4xxx_oaq_2nd_data_t * const p_zmod4xxx_data);
+
+    /** Calculate RAQ values from ADC data.
+     * @par Implemented as
+     * - @ref RM_ZMOD4XXX_RaqDataCalculate()
+     *
+     * @param[in]  p_api_ctrl           Pointer to control structure.
+     * @param[in]  p_raw_data           Pointer to raw data.
+     * @param[in]  p_zmod4xxx_data      Pointer to ZMOD4XXXX data structure.
+     */
+    fsp_err_t (* raqDataCalculate)(rm_zmod4xxx_ctrl_t * const p_api_ctrl, rm_zmod4xxx_raw_data_t * const p_raw_data,
+                                   rm_zmod4xxx_raq_data_t * const p_zmod4xxx_data);
 
     /** Set temperature and humidity.
      * @par Implemented as

@@ -32,15 +32,11 @@
  *********************************************************************************************************************/
 #if (1 <= RM_HS300X_CFG_DEVICE_NUM_MAX)
 void rm_hs300x_callback0(rm_comms_callback_args_t * p_args);
- #if (1 == RM_HS300X_CFG_DEVICE0_CALLBACK_ENABLE)
- void RM_HS300X_CFG_DEVICE0_CALLBACK(rm_hs300x_callback_args_t * p_args);
- #endif
+void RM_HS300X_CFG_DEVICE0_CALLBACK(rm_hs300x_callback_args_t * p_args);
 #endif
 #if (2 <= RM_HS300X_CFG_DEVICE_NUM_MAX)
 void rm_hs300x_callback1(rm_comms_callback_args_t * p_args);
- #if (1 == RM_HS300X_CFG_DEVICE1_CALLBACK_ENABLE)
- void RM_HS300X_CFG_DEVICE1_CALLBACK(rm_hs300x_callback_args_t * p_args);
- #endif
+void RM_HS300X_CFG_DEVICE1_CALLBACK(rm_hs300x_callback_args_t * p_args);
 #endif
 
 /**********************************************************************************************************************
@@ -52,11 +48,7 @@ rm_hs300x_instance_ctrl_t g_hs300x_sensor0_ctrl;
 const rm_hs300x_cfg_t g_hs300x_sensor0_cfg =
 {
     .p_instance = &(RM_HS300X_CFG_DEVICE0_COMMS_INSTANCE),
-#if (1 == RM_HS300X_CFG_DEVICE0_CALLBACK_ENABLE)
     .p_callback = (void (*)(rm_hs300x_callback_args_t *))RM_HS300X_CFG_DEVICE0_CALLBACK,
-#else
-    .p_callback = NULL,
-#endif
     .p_context  = NULL,
 };
 const rm_hs300x_instance_t g_hs300x_sensor0 =
@@ -75,11 +67,7 @@ void rm_hs300x_callback0(rm_comms_callback_args_t * p_args)
 const rm_hs300x_cfg_t g_hs300x_sensor1_cfg =
 {
 	.p_instance = &(RM_HS300X_CFG_DEVICE1_COMMS_INSTANCE),
-#if (1 == RM_HS300X_CFG_DEVICE1_CALLBACK_ENABLE)
     .p_callback = (void (*)(rm_hs300x_callback_args_t *))RM_HS300X_CFG_DEVICE1_CALLBACK,
-#else
-    .p_callback = NULL,
-#endif
     .p_context  = NULL,
 };
 rm_hs300x_instance_ctrl_t g_hs300x_sensor1_ctrl;
@@ -95,3 +83,6 @@ void rm_hs300x_callback1(rm_comms_callback_args_t * p_args)
     rm_hs300x_callback(p_args);
 }
 #endif
+/*******************************************************************************************************************//**
+ * @} (end addtogroup RM_HS300X)
+ **********************************************************************************************************************/

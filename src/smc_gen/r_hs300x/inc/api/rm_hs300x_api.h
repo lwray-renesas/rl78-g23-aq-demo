@@ -64,6 +64,7 @@ FSP_HEADER
 /**********************************************************************************************************************
  * Typedef definitions
  **********************************************************************************************************************/
+
 /** Event in the callback function */
 typedef enum e_rm_hs300x_event
 {
@@ -90,7 +91,7 @@ typedef enum e_rm_hs300x_resolution
 /** HS300X callback parameter definition */
 typedef struct st_rm_hs300x_callback_args
 {
-    void const * p_context;
+    void const      * p_context;
     rm_hs300x_event_t event;
 } rm_hs300x_callback_args_t;
 
@@ -118,9 +119,9 @@ typedef struct st_rm_hs300x_data
 /** HS300X Configuration */
 typedef struct st_rm_hs300x_cfg
 {
-    rm_comms_instance_t const * p_instance; ///< Pointer to Communications Middleware instance.
-    void const                * p_context;  ///< Pointer to the user-provided context.
-    void const                * p_extend;   ///< Pointer to extended configuration by instance of interface.
+    rm_comms_instance_t const * p_instance;                  ///< Pointer to Communications Middleware instance.
+    void const                * p_context;                   ///< Pointer to the user-provided context.
+    void const                * p_extend;                    ///< Pointer to extended configuration by instance of interface.
     void (* p_callback)(rm_hs300x_callback_args_t * p_args); ///< Pointer to callback function.
 } rm_hs300x_cfg_t;
 
@@ -152,7 +153,7 @@ typedef struct st_rm_hs300x_api
 
     /** Read ADC data from HS300X.
      * @par Implemented as
-     * - @ref RM_Hs300x_read()
+     * - @ref RM_HS300X_Read()
      *
      * @param[in]  p_ctrl           Pointer to control structure.
      * @param[in]  p_raw_data       Pointer to raw data structure.

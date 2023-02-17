@@ -62,8 +62,8 @@ rltos_events_t gui_return_events;
 void main(void)
 {
 	/* Initialise RLTOS hardware requirements*/
-	Rltos_port_start_tick_timer = R_Config_TAU0_3_Higher8bits_Start;
-	Rltos_port_stop_tick_timer = R_Config_TAU0_3_Higher8bits_Stop;
+	Rltos_port_start_tick_timer = R_Config_TAU0_2_Start;
+	Rltos_port_stop_tick_timer = R_Config_TAU0_2_Stop;
 
 	/* Initialise the hardware*/
 	Hw_init();

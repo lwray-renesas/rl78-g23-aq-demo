@@ -21,6 +21,9 @@ volatile int16_t rotary_count = 0;
 /** local variable used to track the rotary count value*/
 static volatile int16_t l_rotary_count = 0;
 
+#pragma address tone=0xfe000
+uint8_t tone[8];
+
 /** @brief Performs ELCL Setup*/
 static void Setup_elcl(void);
 
@@ -32,6 +35,16 @@ void Hw_init(void)
 	touch_err_t err;
 
 	EI();
+
+	/* Generate Tone Sequence*/
+    tone[0] = 0x8DU;
+    tone[1] = 0x8CU;
+    tone[2] = 0x8FU;
+    tone[3] = 0x8EU;
+    tone[4] = 0x8EU;
+    tone[5] = 0x8FU;
+    tone[6] = 0x8CU;
+    tone[7] = 0x8DU;
 
 	/* Connection of unused pins for P123 and P124 */
 	/* The settings for the CMC register are described in the "mcu_clocks.c" file */
@@ -53,8 +66,10 @@ void Hw_init(void)
 
 	R_Config_TAU0_0_Start();
 	R_Config_TAU0_1_Start();
-	R_Config_TAU0_2_Start();
-	R_Config_CSI30_Start_app();
+	R_Config_TAU0_3_Start();
+	R_Config_CSI00_Start_app();
+    R_DTCD0_Start();
+    Hw_alarm_led_off();
 
 	/* Sets ELCL connections*/
 	Setup_elcl();
@@ -189,7 +204,7 @@ void Hw_delay_ms(uint16_t ms)
 
 		while(0U == TMIF04)
 		{
-			HALT();
+			NOP();
 		}
 
 		TT0 |= _0010_TAU_CH4_STOP_TRG_ON;
@@ -202,6 +217,74 @@ void Hw_delay_ms(uint16_t ms)
 void Hw_start_oneshot(void)
 {
 	R_Config_TAU0_5_Start();
+}
+/* END OF FUNCTION*/
+
+void Hw_trigger_alarm(void)
+{
+	P1_bit.no7 = 0U; /* Enable CCIO*/
+	P1_bit.no6 = 0U;
+	CCDE |= 0x03U; /* Turn on LED's*/
+	CCS0 = 0x01U;
+    R_Config_TAU0_6_Start();
+}
+/* END OF FUNCTION*/
+
+void Hw_stop_alarm(void)
+{
+	R_Config_TAU0_6_Stop(); /* Stop tone sequence generation timer*/
+	CKS1 = 0x0FU; /* Turn off buzzer*/
+}
+/* END OF FUNCTION*/
+
+void Hw_alarm_led_toggle(void)
+{
+	CCS0 ^= 0x01U;
+}
+/* END OF FUNCTION*/
+
+void Hw_alarm_led_off(void)
+{
+	P1_bit.no7 = 1U;
+	P1_bit.no6 = 1U;
+	CCS0 = 0x00U;
+	CCDE &= ~0x03U; /* Turn off LED's*/
+}
+/* END OF FUNCTION*/
+
+void Hw_backlight_set(backlight_level_t const backlight_level)
+{
+	switch(backlight_level)
+	{
+	case BACKLIGHT_OFF:
+	{
+		P6_bit.no2 = 1U;
+		CCS6 = 0x00U; /* Hi-Z backlight*/
+		CCDE &= ~0x40U;
+	}
+	break;
+
+	case BACKLIGHT_DIM:
+	{
+		P6_bit.no2 = 0U;
+		CCDE |= 0x40U;
+		CCS6 = 0x01U; /* 2mA backlight*/
+	}
+	break;
+
+	case BACKLIGHT_ON:
+	{
+		P6_bit.no2 = 0U;
+		CCDE |= 0x40U;
+		CCS6 = 0x04U; /* 15mA backlight*/
+	}
+	break;
+
+	default:
+		/* Do Nothing - shouldn;t get here*/
+		break;
+
+	}
 }
 /* END OF FUNCTION*/
 

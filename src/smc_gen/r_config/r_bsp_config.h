@@ -63,6 +63,8 @@
 *                               Removed the following macro definition.
 *                                - BSP_CFG_API_FUNCTIONS_DISABLE
 *                               Added a comment about macro definition BSP_CFG_CONFIGURATOR_VERSION.
+*         : 31.05.2022 1.30     Added the following macro definition.
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -109,7 +111,7 @@
  P = 100-pin : 0x9
  S = 128-pin : 0xA
 */
-#define BSP_CFG_MCU_PART_PIN_NUM (0xA) /* Generated value. Do not edit this manually */
+#define BSP_CFG_MCU_PART_PIN_NUM (0x4) /* Generated value. Do not edit this manually */
 
 /* group
  100G = RL78/G23 : (true)
@@ -126,7 +128,7 @@
 #define BSP_CFG_OPTBYTE0_VALUE (0xEFU) /* Generated value. Do not edit this manually */
 #define BSP_CFG_OPTBYTE1_VALUE (0x3AU) /* Generated value. Do not edit this manually */
 #define BSP_CFG_OPTBYTE2_VALUE (0xE8U) /* Generated value. Do not edit this manually */
-#define BSP_CFG_OPTBYTE3_VALUE (0x84U) /* Generated value. Do not edit this manually */
+#define BSP_CFG_OPTBYTE3_VALUE (0x04U) /* Generated value. Do not edit this manually */
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U) /* Generated value. Do not edit this manually */
 #define BSP_CFG_SECUID1_VALUE (0x00U) /* Generated value. Do not edit this manually */
@@ -926,6 +928,12 @@
 */
 #define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (0)
 
+/* API function disable(R_BSP_SoftwareDelay)
+ 0 : Enable API functions
+ 1 : Disable API functions
+*/
+#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (1)
+
 /* Parameter check enable
  0 : Disable parameter check.
  1 : Enable parameter check.
@@ -1134,7 +1142,7 @@
 */
 #define BSP_CFG_MOCO_DIVIDE (0) /* Generated value. Do not edit this manually */
 
-// Operation setting at initial setting
+/* Operation setting at initial setting */
 /* Starts the high-speed on-chip oscillator at initialization
  0 : Stops the high-speed on-chip oscillator at initialization
  1 : Starts the high-speed on-chip oscillator at initialization
@@ -1150,8 +1158,8 @@
 */
 #define BSP_CFG_RTOS_USED               (0)
 
-// Loop count using the main system clock.
-// The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+/* Loop count using the main system clock. */
+/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction. */
 /* Subsystem clock oscillation stabilization time.
    If the main system clock is 32 MHz, 800000 means 300 ms. */
 #define BSP_CFG_SUBWAITTIME              (800000U)
@@ -1188,7 +1196,7 @@
    Setting BSP_CFG_WDT_REFRESH_ENABLE == 2 will result in a callback to the user defined
    my_sw_wdt_refresh_init_function just prior to the clock is set by bsp_init_system.
    In addition, a callback to the user defined my_sw_wdt_refresh_setting_function occurs
-   during the oscillation stabilization wait time od the subsystem clock.
+   during the oscillation stabilization wait time of the subsystem clock.
 */
 #define BSP_CFG_WDT_REFRESH_ENABLE                   (0)
 #define BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION       my_sw_wdt_refresh_init_function

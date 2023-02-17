@@ -62,6 +62,8 @@
 *                               Removed the following macro definition.
 *                                - BSP_CFG_API_FUNCTIONS_DISABLE
 *                               Added a comment about macro definition BSP_CFG_CONFIGURATOR_VERSION.
+*         : 31.05.2022 1.30     Added the following macro definition.
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -925,6 +927,12 @@
 */
 #define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (0)
 
+/* API function disable(R_BSP_SoftwareDelay)
+ 0 : Enable API functions
+ 1 : Disable API functions
+*/
+#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (0)
+
 /* Parameter check enable
  0 : Disable parameter check.
  1 : Enable parameter check.
@@ -1133,7 +1141,7 @@
 */
 #define BSP_CFG_MOCO_DIVIDE (0)
 
-// Operation setting at initial setting
+/* Operation setting at initial setting */
 /* Starts the high-speed on-chip oscillator at initialization
  0 : Stops the high-speed on-chip oscillator at initialization
  1 : Starts the high-speed on-chip oscillator at initialization
@@ -1149,8 +1157,8 @@
 */
 #define BSP_CFG_RTOS_USED               (0)
 
-// Loop count using the main system clock.
-// The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+/* Loop count using the main system clock. */
+/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction. */
 /* Subsystem clock oscillation stabilization time.
    If the main system clock is 32 MHz, 800000 means 300 ms. */
 #define BSP_CFG_SUBWAITTIME              (800000U)
@@ -1187,7 +1195,7 @@
    Setting BSP_CFG_WDT_REFRESH_ENABLE == 2 will result in a callback to the user defined
    my_sw_wdt_refresh_init_function just prior to the clock is set by bsp_init_system.
    In addition, a callback to the user defined my_sw_wdt_refresh_setting_function occurs
-   during the oscillation stabilization wait time od the subsystem clock.
+   during the oscillation stabilization wait time of the subsystem clock.
 */
 #define BSP_CFG_WDT_REFRESH_ENABLE                   (0)
 #define BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION       my_sw_wdt_refresh_init_function

@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : r_cg_sau_common.c
 * Version          : 1.0.11
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : None
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -28,7 +28,7 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "r_cg_userdefine.h"
-#include "Config_CSI30.h"
+#include "Config_CSI00.h"
 #include "r_cg_sau_common.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -54,6 +54,7 @@ Global variables and functions
 void R_SAU0_Create(void)
 {
     SAU0EN = 1U;    /* supplies input clock */
+    R_Config_CSI00_Create();
 }
 
 /***********************************************************************************************************************
@@ -65,7 +66,6 @@ void R_SAU0_Create(void)
 void R_SAU1_Create(void)
 {
     SAU1EN = 1U;    /* supplies input clock */
-    R_Config_CSI30_Create();
 }
 
 /***********************************************************************************************************************
@@ -176,28 +176,6 @@ void R_SAU0_Set_SnoozeOn(void)
 void R_SAU0_Set_SnoozeOff(void)
 {
     SSC0 &= (uint16_t)~_0001_SAU_CH0_SNOOZE_ON;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_SAU1_Set_SnoozeOn
-* Description  : This function enables SAU1 wakeup function.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_SAU1_Set_SnoozeOn(void)
-{
-    SSC1 |= _0001_SAU_CH0_SNOOZE_ON;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_SAU1_Set_SnoozeOff
-* Description  : This function disables SAU1 wakeup function.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_SAU1_Set_SnoozeOff(void)
-{
-    SSC1 &= (uint16_t)~_0001_SAU_CH0_SNOOZE_ON;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

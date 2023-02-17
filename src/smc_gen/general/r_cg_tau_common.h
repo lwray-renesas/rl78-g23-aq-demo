@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : r_cg_tau_common.h
 * Version          : 1.0.11
-* Device(s)        : R7F100GSNxFB
+* Device(s)        : R7F100GFNxFP
 * Description      : Common header file for TAU peripheral.
 ***********************************************************************************************************************/
 
@@ -43,15 +43,10 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_TAU0_Create(void);
-void R_TAU1_Create(void);
 void R_TAU0_Set_PowerOn(void);
 void R_TAU0_Set_PowerOff(void);
 void R_TAU0_Set_Reset(void);
 void R_TAU0_Release_Reset(void);
-void R_TAU1_Set_PowerOn(void);
-void R_TAU1_Set_PowerOff(void);
-void R_TAU1_Set_Reset(void);
-void R_TAU1_Release_Reset(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

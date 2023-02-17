@@ -68,7 +68,7 @@ fsp_err_t rm_zmod4xxx_delay_ms (rm_zmod4xxx_ctrl_t * const p_ctrl, uint32_t cons
  **********************************************************************************************************************/
 fsp_err_t rm_zmod4xxx_irq_open (rm_zmod4xxx_ctrl_t * const p_api_ctrl)
 {
-#if RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE
+#if RM_ZMOD4XXX_CFG_IRQ_ENABLE
     rm_zmod4xxx_instance_ctrl_t * p_ctrl = (rm_zmod4xxx_instance_ctrl_t *) p_api_ctrl;
     external_irq_instance_t     * p_irq  = (external_irq_instance_t *) p_ctrl->p_irq_instance;
     /* Start IRQ */
@@ -84,7 +84,7 @@ fsp_err_t rm_zmod4xxx_irq_open (rm_zmod4xxx_ctrl_t * const p_api_ctrl)
  **********************************************************************************************************************/
 fsp_err_t rm_zmod4xxx_irq_close (rm_zmod4xxx_ctrl_t * const p_api_ctrl)
 {
-#if RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE
+#if RM_ZMOD4XXX_CFG_IRQ_ENABLE
     rm_zmod4xxx_instance_ctrl_t * p_ctrl = (rm_zmod4xxx_instance_ctrl_t *) p_api_ctrl;
     external_irq_instance_t     * p_irq  = (external_irq_instance_t *) p_ctrl->p_irq_instance;
     /* Start IRQ */
