@@ -28,17 +28,14 @@
 ***********************************************************************************************************************/
 
 #include "qe_touch_config.h"
-#include "hw.h"
+
+volatile uint8_t      g_qe_touch_flag;
+volatile ctsu_event_t g_qe_ctsu_event;
 
 void qe_touch_callback(touch_callback_args_t * p_args)
 {
-	(void)p_args;
-
-	HW_SET_EVENT(hw_event_flags, PROXIMITY_SCAN_COMPLETE);
-
-	/* Clear interval timer interrupt flags*/
-	ITLS0 = 0U;
-	ITLIF = 0U;
+    g_qe_touch_flag = 1;
+    g_qe_ctsu_event = p_args -> event;
 }
 /***********************************************************************************************************************
 These parameters were generated using the advanced tuning.
@@ -53,7 +50,7 @@ CTSU Related Information for [CONFIG01] configuration.
 
 const ctsu_element_cfg_t g_qe_ctsu_element_cfg_config01[] =
 {
-    { .so = 0x000, .snum = 0x07, .sdpa = 0x07 },
+    { .so = 0x069, .snum = 0x07, .sdpa = 0x07 },
 };
 
 const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
@@ -83,11 +80,11 @@ const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
     .p_elements = g_qe_ctsu_element_cfg_config01,
 
 #if (CTSU_TARGET_VALUE_CONFIG_SUPPORT == 1)
-    .tuning_self_target_value   = 15360,
+    .tuning_self_target_value   = 8192,
     .tuning_mutual_target_value = 10240,
 #endif
 
-    .num_moving_average = 3,
+    .num_moving_average = 1,
     .tunning_enable     = true,
     .p_callback    = &qe_touch_callback,
 };
@@ -116,8 +113,8 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 200,
-        .hysteresis = 25,
+        .threshold  = 110,
+        .hysteresis = 3,
     },
 };
 #endif
@@ -152,7 +149,7 @@ const touch_cfg_t g_qe_touch_cfg_config01 =
 
     .on_freq     = 1,
     .off_freq    = 1,
-    .drift_freq  = 32,
+    .drift_freq  = 64,
     .cancel_freq = 0,
 
     .p_ctsu_instance = &g_qe_ctsu_instance_config01,

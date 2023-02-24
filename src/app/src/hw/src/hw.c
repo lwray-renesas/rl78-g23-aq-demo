@@ -14,18 +14,50 @@
 /** @brief macro used to determine the number of consecutive battery readings before considering a battery low*/
 #define LOW_BATTERY_READ_COUNT	(5U)
 
+/** @brief Median Filter depth for CTSU*/
+#define FILTERDEPTH     (7U)
+
 /** variable to store event flags*/
 volatile hardware_event_t hw_event_flags = NO_EVENT;
 /** counter defined here but manipulated by timer 00 & 05 modules*/
 volatile int16_t rotary_count = 0;
 /** local variable used to track the rotary count value*/
 static volatile int16_t l_rotary_count = 0;
+/** variable used to satisfy memory requirements of callback set API in touch middleware*/
+touch_callback_args_t touch_callback_memory;
+
+/** sorted odd size median filter variables */
+static uint16_t median_filter_array[FILTERDEPTH] = {0U,};
+static uint16_t filter_data;
 
 #pragma address tone=0xfe000
 uint8_t tone[8];
 
 /** @brief Performs ELCL Setup*/
 static void Setup_elcl(void);
+
+/** @brief Retrieves ctsu data & inserts data point into median filter arrays */
+static void Hw_ctsu_insert_data_point(void);
+
+/** @brief swaps data at xp with data at yp
+ * @param xp - data X
+ * @param yp - data Y
+ */
+static void Swap(uint16_t *xp, uint16_t *yp);
+
+/** @brief Performs bubble sort on data of size n
+ * @param array - aray of data to sort.
+ * @param n - size of array
+ */
+static void Bubble_sort(uint16_t * array, uint16_t n);
+
+/** @brief Performs sorting of median filter data */
+static void Sorted_median_filter(void);
+
+/** @brief callback used for ctsu scan complete
+ * @param p_args - pointer to callback argument struct.
+ */
+static void Touch_callback(touch_callback_args_t * p_args);
 
 /** @brief function to set ctsu pins*/
 extern void R_CTSU_PinSetInit(void);
@@ -37,14 +69,14 @@ void Hw_init(void)
 	EI();
 
 	/* Generate Tone Sequence*/
-    tone[0] = 0x8DU;
-    tone[1] = 0x8CU;
-    tone[2] = 0x8FU;
-    tone[3] = 0x8EU;
-    tone[4] = 0x8EU;
-    tone[5] = 0x8FU;
-    tone[6] = 0x8CU;
-    tone[7] = 0x8DU;
+	tone[0] = 0x8DU;
+	tone[1] = 0x8CU;
+	tone[2] = 0x8FU;
+	tone[3] = 0x8EU;
+	tone[4] = 0x8EU;
+	tone[5] = 0x8FU;
+	tone[6] = 0x8CU;
+	tone[7] = 0x8DU;
 
 	/* Connection of unused pins for P123 and P124 */
 	/* The settings for the CMC register are described in the "mcu_clocks.c" file */
@@ -61,6 +93,13 @@ void Hw_init(void)
 		while (true) {}
 	}
 
+	err = RM_TOUCH_CallbackSet(g_qe_touch_instance_config01.p_ctrl, Touch_callback, NULL, &touch_callback_memory);
+	if (TOUCH_SUCCESS != err)
+	{
+		/* TODO: Handle/signal/log error*/
+		while (true) {}
+	}
+
 	MK2H |= 0x40;    /* Disable interrupt servicing of "write request interrupt for setting registers for each channel" */
 	MK3L |= 0x01;    /* Disable interrupt servicing of "measurement data transfer request interrupt" */
 
@@ -68,8 +107,8 @@ void Hw_init(void)
 	R_Config_TAU0_1_Start();
 	R_Config_TAU0_3_Start();
 	R_Config_CSI00_Start_app();
-    R_DTCD0_Start();
-    Hw_alarm_led_off();
+	R_DTCD0_Start();
+	Hw_alarm_led_off();
 
 	/* Sets ELCL connections*/
 	Setup_elcl();
@@ -83,6 +122,7 @@ void Hw_ctsu_start(void)
 {
 	static uint64_t l_button_status = 0ULL;
 	fsp_err_t err = FSP_SUCCESS;
+	uint16_t seed_array_count = FILTERDEPTH;
 
 	/* for ExternalTrigger */
 	err = RM_TOUCH_ScanStart(g_qe_touch_instance_config01.p_ctrl);
@@ -129,6 +169,14 @@ void Hw_ctsu_start(void)
 			break;
 		}
 	}
+
+	/* Scan until the array is seeded with real world data*/
+	do
+	{
+		Hw_ctsu_insert_data_point();
+		--seed_array_count;
+	}
+	while(seed_array_count > 0U);
 }
 /* END OF FUNCTION*/
 
@@ -229,7 +277,7 @@ void Hw_trigger_alarm(void)
 	P1_bit.no6 = 0U;
 	CCDE |= 0x03U; /* Turn on LED's*/
 	CCS0 = 0x01U;
-    R_Config_TAU0_6_Start();
+	R_Config_TAU0_6_Start();
 }
 /* END OF FUNCTION*/
 
@@ -291,6 +339,28 @@ void Hw_backlight_set(backlight_level_t const backlight_level)
 }
 /* END OF FUNCTION*/
 
+bool Hw_ctsu_get_proximity_data(void)
+{
+	uint64_t proximity_status = 0ULL;
+	fsp_err_t err = FSP_SUCCESS;
+
+	/* Retrieve the latest data*/
+	Hw_ctsu_insert_data_point();
+
+	/* Run the filter*/
+	Sorted_median_filter();
+
+	err = R_CTSU_DataInsert(g_qe_ctsu_instance_config01.p_ctrl, &filter_data);
+
+	if(err == FSP_SUCCESS)
+	{
+		err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &proximity_status, NULL, NULL);
+	}
+
+	return (err == FSP_SUCCESS) && (proximity_status > 0ULL);
+}
+/* END OF FUNCTION*/
+
 static void Setup_elcl(void)
 {
 	/****************************************************************
@@ -331,5 +401,80 @@ static void Setup_elcl(void)
 	Elcl_link_to_logic(&elcl_ctl, ELCL_BLOCK1, ELCL_LNK_3, ELCL_CELL1_INPUT_0);
 	Elcl_set_output(&elcl_ctl, ELCL_OUTPUT_6, ELCL_OUTPUT_L1_CELL1, ELCL_POSITIVE_LOGIC); /* CTSU*/
 	Elcl_set_output_state(&elcl_ctl, ELCL_OUTPUT_6, ELCL_OUTPUT_ENABLED);
+}
+/* END OF FUNCTION*/
+
+static void Hw_ctsu_insert_data_point(void)
+{
+	static uint16_t median_filter_index = 0U;
+	uint16_t measurement_data = 0U;
+	fsp_err_t err = FSP_SUCCESS;
+
+	err = R_CTSU_DataGet(g_qe_ctsu_instance_config01.p_ctrl, &measurement_data);
+
+	if(FSP_SUCCESS == err)
+	{
+		median_filter_array[median_filter_index] = measurement_data;
+		++median_filter_index;
+
+		if(median_filter_index > FILTERDEPTH)
+		{
+			median_filter_index = 0U;
+		}
+	}
+}
+/* END OF FUNCTION*/
+
+static void Swap(uint16_t *xp, uint16_t *yp)
+{
+	uint16_t temp = *xp;
+	*xp = *yp;
+	*yp = temp;
+}
+/* END OF FUNCTION*/
+
+static void Bubble_sort(uint16_t * array, uint16_t n)
+{
+	uint16_t i = 0U;
+	uint16_t j = 0U;
+
+	for (i = 0U; i < n-1U; i++)
+	{
+		for (j = 0U; j < n-i-1U; j++)
+		{
+			if (array[j] > array[j+1U])
+			{
+				Swap(&array[j], &array[j+1U]);
+			}
+		}
+	}
+}
+/* END OF FUNCTION*/
+
+static void Sorted_median_filter(void)
+{
+	/* perform a simple bubble sort on the array*/
+	Bubble_sort(median_filter_array, FILTERDEPTH);
+
+	/* calculate median from sorted array. Pick middle value for faster processing
+	 *  discover if filter depth is even or odd
+	 */
+#if ( (FILTERDEPTH % 2U) == 0 )
+		filter_data = (uint16_t) (median_filter_array[(FILTERDEPTH-1U) >> 1U] + median_filter_array[FILTERDEPTH >> 1U]) >> 1U;
+#else
+		filter_data = median_filter_array[(FILTERDEPTH-1U) >> 1U];
+#endif
+}
+/* END OF FUNCTION*/
+
+static void Touch_callback(touch_callback_args_t * p_args)
+{
+	(void)p_args;
+
+	HW_SET_EVENT(hw_event_flags, PROXIMITY_SCAN_COMPLETE);
+
+	/* Clear interval timer interrupt flags*/
+	ITLS0 = 0U;
+	ITLIF = 0U;
 }
 /* END OF FUNCTION*/

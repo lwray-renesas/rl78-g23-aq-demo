@@ -9,7 +9,6 @@
 #include "r_smc_entry.h"
 #include "r_hs300x_if.h"
 #include "r_zmod4xxx_if.h"
-#include "qe_touch_config.h"
 
 /** @brief 15 second inactivity timer at 1sec periodic interrupt*/
 #define INACTIVITY_TIMEOUT	(15U)
@@ -27,6 +26,7 @@
 #else
 #error "Sensor unsupported"
 #endif
+
 
 /** @brief enumerated type for system state machine*/
 typedef enum
@@ -607,21 +607,9 @@ void App_constant_period_handler(bool sensor_readings_completed)
 
 void App_proximity_handler(void)
 {
-	static uint64_t proximity_status = 0ULL;
-
-	/* Immediately retrieve the CTSU data*/
-	fsp_err_t err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &proximity_status, NULL, NULL);
-
-	/* Allow failures for incomplete tuning - first few scans will inevitably be for offset compensation*/
-	if((err != FSP_SUCCESS) && (err != FSP_ERR_CTSU_INCOMPLETE_TUNING))
-	{
-		while(1){}
-	}
-
 	/* Check if the proximity sensor has triggered*/
-	if(proximity_status > 0ULL)
+	if(Hw_ctsu_get_proximity_data())
 	{
-		proximity_status = 0ULL;
 		App_signal_activity();
 
 		if(LOW_POWER == sys_state)

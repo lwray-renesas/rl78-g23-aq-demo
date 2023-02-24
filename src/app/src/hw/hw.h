@@ -82,4 +82,9 @@ void Hw_alarm_led_off(void);
  * @param[in] backlight_level - level of backlight.*/
 void Hw_backlight_set(backlight_level_t const backlight_level);
 
+/** @brief Sorts and processes median filter with proximity determination
+ * @return true if proximal sense engaged (touch) - false otherwise (no touch)
+ */
+bool Hw_ctsu_get_proximity_data(void);
+
 #endif /* APP_HW_HW_H_ */
