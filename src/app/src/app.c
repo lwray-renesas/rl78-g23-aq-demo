@@ -14,7 +14,7 @@
 /** @brief 15 second inactivity timer at 1sec periodic interrupt*/
 #define INACTIVITY_TIMEOUT	(15U)
 /** @brief 6 second state inactivity timer at 1sec periodic interrupt*/
-#define STATE_TIMEOUT	(6U)
+#define STATE_TIMEOUT	(3U)
 /** @brief 30 minute battery check timer at 1sec periodic interrupt*/
 #define BATTERY_TIMEOUT		(1800U)
 
