@@ -69,6 +69,8 @@ static rltos_event_flag_t backlight_state = NORMAL_BACKLIGHT;
 static bool low_battery_flag = false;
 /** flag to enable/disable alarm checking*/
 static bool alarm_checking_enabled = false;
+/** temporary flag to enable/disable alarm checking during selection process*/
+static bool alarm_checking_enabled_temp = false;
 /** flag indicating whether the alarm has been acknowledged*/
 static bool alarm_condition = false;
 /** counter to count the alarm singalling time*/
@@ -309,19 +311,41 @@ void App_rotary_processing(void)
 		{
 			App_signal_activity();
 			/* Clockwise = ON*/
-			alarm_checking_enabled = true;
+			alarm_checking_enabled_temp = true;
 			Rltos_events_set(&gui_events, BACKGROUND_ENABLE_ALARM_ON);
 		}
 		else if(l_rot_count < 0)
 		{
 			App_signal_activity();
 			/* Anti-clockwise = Off*/
-			alarm_checking_enabled = false;
+			alarm_checking_enabled_temp = false;
 			Rltos_events_set(&gui_events, BACKGROUND_ENABLE_ALARM_OFF);
 		}
 		else
 		{
 			/* Do Nothing*/
+		}
+	}
+	else if(TEMPERATURE_HUMIDITY == sys_state)
+	{
+		int16_t l_rot_count = Hw_get_rotary_count();
+
+		if(0 < l_rot_count)
+		{
+			App_signal_activity();
+			sys_state = AIR_QUALITY;
+			Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
+		}
+	}
+	else if(AIR_QUALITY == sys_state)
+	{
+		int16_t l_rot_count = Hw_get_rotary_count();
+
+		if(0 > l_rot_count)
+		{
+			App_signal_activity();
+			sys_state = TEMPERATURE_HUMIDITY;
+			Rltos_events_set(&gui_events, BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
 		}
 	}
 	else
@@ -338,15 +362,6 @@ void App_button_click_handler(void)
 {
 	switch(sys_state)
 	{
-	case TEMPERATURE_HUMIDITY:
-	{
-		App_signal_activity();
-		sys_state = AIR_QUALITY;
-		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
-	}
-	break;
-
-	case AIR_QUALITY:
 	case LOW_BATTERY:
 	{
 		App_signal_activity();
@@ -378,16 +393,16 @@ void App_button_click_handler(void)
 		alarm_condition = false;
 
 		sys_state = AIR_QUALITY;
-		Hw_stop_rotary();
 		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
 	}
 	break;
 
 	case ENABLE_ALARM:
 	{
+		/* Latch in the alarm checking state*/
+		alarm_checking_enabled = alarm_checking_enabled_temp;
 		App_signal_activity();
 		sys_state = AIR_QUALITY;
-		Hw_stop_rotary();
 		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
 	}
 	break;
@@ -408,7 +423,6 @@ void App_button_long_press_handler(void)
 		/* Disable the alarm checking when updating alarm data*/
 		alarm_checking_enabled = false;
 		sys_state = SET_ALARM;
-		Hw_start_rotary();
 		switch(alarm_state)
 		{
 		case IAQ: Rltos_events_set(&gui_events, UPDATE_ALARM_IAQ); break;
@@ -502,9 +516,6 @@ void App_constant_period_handler(bool sensor_readings_completed)
 
 				/* Transition application to low power state*/
 				sys_state = LOW_POWER;
-
-				/* Ensure the rotary decoder is disabled to*/
-				Hw_stop_rotary();
 
 				/* Wait for the display to go to sleep*/
 				Rltos_events_set(&gui_events, SLEEP | BACKLIGHT_OFF);

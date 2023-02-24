@@ -73,6 +73,9 @@ void Hw_init(void)
 
 	/* Sets ELCL connections*/
 	Setup_elcl();
+
+	/* Enable the rotary*/
+	Hw_start_rotary();
 }
 /* END OF FUNCTION*/
 
