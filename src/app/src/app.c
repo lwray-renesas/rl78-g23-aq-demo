@@ -145,8 +145,8 @@ void App_initial_offset_tuning(void)
 	Rltos_events_set(&gui_events, DISPLAY_SUCCESS);
 	Rltos_events_get(&gui_return_events, SUCCESS_DISPLAYED, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
 
-	/* Delay 3seconds (use RTC)*/
-	while(delay_count < 3U)
+	/* Delay 2seconds (use RTC)*/
+	while(delay_count < 2U)
 	{
 		/* Wait for periodic (1sec) interrupt*/
 		while(!HW_EVENT_OCCURRED(Get_hw_events(), CONSTANT_PERIOD))
