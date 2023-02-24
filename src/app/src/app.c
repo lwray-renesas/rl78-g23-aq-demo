@@ -405,6 +405,8 @@ void App_button_long_press_handler(void)
 	if(AIR_QUALITY == sys_state)
 	{
 		App_signal_activity();
+		/* Disable the alarm checking when updating alarm data*/
+		alarm_checking_enabled = false;
 		sys_state = SET_ALARM;
 		Hw_start_rotary();
 		switch(alarm_state)
@@ -412,6 +414,9 @@ void App_button_long_press_handler(void)
 		case IAQ: Rltos_events_set(&gui_events, UPDATE_ALARM_IAQ); break;
 		case TVOC: Rltos_events_set(&gui_events, UPDATE_ALARM_TVOC); break;
 		case ECO2: Rltos_events_set(&gui_events, UPDATE_ALARM_ECO2); break;
+		default:
+			/* Do Nothing*/
+			break;
 		}
 	}
 	else if(SET_ALARM == sys_state)
