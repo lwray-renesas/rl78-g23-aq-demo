@@ -10,12 +10,10 @@
 #include "r_smc_entry.h"
 #include "rltos_task.h"
 #include "qe_touch_config.h"
+#include "filter.h"
 
 /** @brief macro used to determine the number of consecutive battery readings before considering a battery low*/
 #define LOW_BATTERY_READ_COUNT	(5U)
-
-/** @brief Median Filter depth for CTSU*/
-#define FILTERDEPTH     (3U)
 
 /** variable to store event flags*/
 volatile hardware_event_t hw_event_flags = NO_EVENT;
@@ -26,34 +24,35 @@ static volatile int16_t l_rotary_count = 0;
 /** variable used to satisfy memory requirements of callback set API in touch middleware*/
 touch_callback_args_t touch_callback_memory;
 
-/** sorted odd size median filter variables */
-static uint16_t median_filter_array[FILTERDEPTH] = {0U,};
-static uint16_t filter_data;
-
 #pragma address tone=0xfe000
 uint8_t tone[8];
+
+/** lpf state object*/
+static lpf_state_t lpf_state = {
+		.y_prev = 0U,
+		.coeff = 50000U
+};
+
+/** median filter state object*/
+static mf_state_t mf_state = {
+		.median_filter_array = {0U,},
+		.median_filter_index = 0U
+};
+
+/** kf state object*/
+static kf_state_t kf_state = {
+		.some_data = 0U
+};
 
 /** @brief Performs ELCL Setup*/
 static void Setup_elcl(void);
 
 /** @brief Retrieves ctsu data & inserts data point into median filter arrays
- * @param[in] lpf - true to enable low pass filter*/
-static void Hw_ctsu_insert_data_point(bool lpf);
-
-/** @brief swaps data at xp with data at yp
- * @param xp - data X
- * @param yp - data Y
- */
-static void Swap(uint16_t *xp, uint16_t *yp);
-
-/** @brief Performs bubble sort on data of size n
- * @param array - aray of data to sort.
- * @param n - size of array
- */
-static void Bubble_sort(uint16_t * array, uint16_t n);
-
-/** @brief Performs sorting of median filter data */
-static void Sorted_median_filter(void);
+ * @param[in] lpf - true to enable low pass filter
+ * @param[in] mf - true to enable median filter
+ * @param[in] kf - true to enable kalman filter
+ * @return filtered data point*/
+static uint16_t Hw_ctsu_get_data_point(bool lpf, bool mf, bool kf);
 
 /** @brief callback used for ctsu scan complete
  * @param p_args - pointer to callback argument struct.
@@ -164,7 +163,7 @@ void Hw_ctsu_start(void)
 
 		hw_event_flags = NO_EVENT; /* Reset the event flags*/
 
-		Hw_ctsu_insert_data_point(false);
+		(void)Hw_ctsu_get_data_point(false, true, false);
 		--seed_array_count;
 	}
 	while(seed_array_count > 0U);
@@ -334,14 +333,9 @@ bool Hw_ctsu_get_proximity_data(void)
 {
 	uint64_t proximity_status = 0ULL;
 	fsp_err_t err = FSP_SUCCESS;
+	uint16_t data_point = Hw_ctsu_get_data_point(true, true, false);
 
-	/* Retrieve the latest data*/
-	Hw_ctsu_insert_data_point(true);
-
-	/* Run the filter*/
-	Sorted_median_filter();
-
-	err = R_CTSU_DataInsert(g_qe_ctsu_instance_config01.p_ctrl, &filter_data);
+	err = R_CTSU_DataInsert(g_qe_ctsu_instance_config01.p_ctrl, &data_point);
 
 	if(err == FSP_SUCCESS)
 	{
@@ -395,17 +389,10 @@ static void Setup_elcl(void)
 }
 /* END OF FUNCTION*/
 
-static void Hw_ctsu_insert_data_point(bool lpf)
+static uint16_t Hw_ctsu_get_data_point(bool lpf, bool mf, bool kf)
 {
-	static uint16_t median_filter_index = 0U;
-	static const uint32_t filter_coef = 50000;
-	static uint16_t y_prev = 0UL;
-	static uint16_t y_cur = 0UL;
 	uint16_t measurement_data = 0U;
 	fsp_err_t err = FSP_SUCCESS;
-	uint32_t y_prev_32 = 0UL;
-	uint32_t measurement_data_32 = 0UL;
-	uint32_t y_cur_32 = 0ULL;
 
 	err = R_CTSU_DataGet(g_qe_ctsu_instance_config01.p_ctrl, &measurement_data);
 
@@ -413,68 +400,21 @@ static void Hw_ctsu_insert_data_point(bool lpf)
 	{
 		if(lpf)
 		{
-			measurement_data_32 = (uint32_t)measurement_data;
-			y_prev_32 = (uint32_t)y_prev;
-			y_cur_32 = ((y_prev_32 * (0x0000FFFFUL - filter_coef)) + (measurement_data_32 * filter_coef)) >> 16U;
-			y_cur = (uint16_t)y_cur_32;
-			y_prev = y_cur;
-		}
-		else
-		{
-			y_cur = measurement_data;
-			y_prev = y_cur;
+			measurement_data = Low_pass_filter(&lpf_state, measurement_data);
 		}
 
-		median_filter_array[median_filter_index] = y_cur;
-		++median_filter_index;
-
-		if(median_filter_index > FILTERDEPTH)
+		if(kf)
 		{
-			median_filter_index = 0U;
+			measurement_data = Kalman_filter(&kf_state, measurement_data);
+		}
+
+		if(mf)
+		{
+			measurement_data = Median_filter(&mf_state, measurement_data);
 		}
 	}
-}
-/* END OF FUNCTION*/
 
-static void Swap(uint16_t *xp, uint16_t *yp)
-{
-	uint16_t temp = *xp;
-	*xp = *yp;
-	*yp = temp;
-}
-/* END OF FUNCTION*/
-
-static void Bubble_sort(uint16_t * array, uint16_t n)
-{
-	uint16_t i = 0U;
-	uint16_t j = 0U;
-
-	for (i = 0U; i < n-1U; i++)
-	{
-		for (j = 0U; j < n-i-1U; j++)
-		{
-			if (array[j] > array[j+1U])
-			{
-				Swap(&array[j], &array[j+1U]);
-			}
-		}
-	}
-}
-/* END OF FUNCTION*/
-
-static void Sorted_median_filter(void)
-{
-	/* perform a simple bubble sort on the array*/
-	Bubble_sort(median_filter_array, FILTERDEPTH);
-
-	/* calculate median from sorted array. Pick middle value for faster processing
-	 *  discover if filter depth is even or odd
-	 */
-#if ( (FILTERDEPTH % 2U) == 0 )
-		filter_data = (uint16_t) (median_filter_array[(FILTERDEPTH-1U) >> 1U] + median_filter_array[FILTERDEPTH >> 1U]) >> 1U;
-#else
-		filter_data = median_filter_array[(FILTERDEPTH-1U) >> 1U];
-#endif
+	return measurement_data;
 }
 /* END OF FUNCTION*/
 

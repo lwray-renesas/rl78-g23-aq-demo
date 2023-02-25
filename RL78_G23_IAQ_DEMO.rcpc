@@ -68,6 +68,10 @@
                     <Path>src\app\src\hw\src\elcl\prv\elcl_prv.h</Path>
                   </Category>
                 </Category>
+                <Category Name="filter">
+                  <Path>src\app\src\hw\src\filter\filter.c</Path>
+                  <Path>src\app\src\hw\src\filter\filter.h</Path>
+                </Category>
               </Category>
             </Category>
             <Category Name="sensor">
@@ -1863,6 +1867,7 @@
           <Option>-cpu=S3</Option>
           <Option>-c</Option>
           <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
+          <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
           <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
           <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
           <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
@@ -2039,6 +2044,7 @@
           <Path>HardwareDebug\text.obj</Path>
           <Path>HardwareDebug\gfx.obj</Path>
           <Path>HardwareDebug\elcl.obj</Path>
+          <Path>HardwareDebug\filter.obj</Path>
           <Path>HardwareDebug\hw.obj</Path>
           <Path>HardwareDebug\sensor.obj</Path>
           <Path>HardwareDebug\event_thread.obj</Path>
@@ -2497,6 +2503,7 @@
         <NoTargetFile Target="trash\2023-02-24-18-49-53\src\smc_gen\r_zmod4xxx\src\rm_zmod4xxx\sulfur_odor\rm_zmod4410_sulfur_odor.c"/>
         <NoTargetFile Target="trash\2023-02-24-18-49-53\src\smc_gen\rm_touch\rm_touch.c"/>
         <CommonOptions>
+          <IncludePathForC>"${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\${ProjName}\qe_gen"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</IncludePathForC>
