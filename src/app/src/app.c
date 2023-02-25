@@ -597,6 +597,7 @@ void App_constant_period_handler(bool sensor_readings_completed)
 
 				sys_state = BREACH_ALARM;
 				alarm_checking_enabled = false;
+				alarm_checking_enabled_temp = false;
 				alarm_condition = true;
 			}
 		}
