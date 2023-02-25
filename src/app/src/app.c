@@ -202,7 +202,7 @@ hardware_event_t App_power_management(void)
 		if( (LOW_POWER == sys_state) && (Sensor_stop_safe()) )
 		{
 			/* Enter STOP - only leave if we have a periodic interrupt to process or proximity scan*/
-			STOP();
+			HALT();
 		}
 		else
 		{

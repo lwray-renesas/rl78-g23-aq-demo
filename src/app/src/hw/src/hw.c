@@ -15,7 +15,7 @@
 #define LOW_BATTERY_READ_COUNT	(5U)
 
 /** @brief Median Filter depth for CTSU*/
-#define FILTERDEPTH     (7U)
+#define FILTERDEPTH     (3U)
 
 /** variable to store event flags*/
 volatile hardware_event_t hw_event_flags = NO_EVENT;
@@ -36,8 +36,9 @@ uint8_t tone[8];
 /** @brief Performs ELCL Setup*/
 static void Setup_elcl(void);
 
-/** @brief Retrieves ctsu data & inserts data point into median filter arrays */
-static void Hw_ctsu_insert_data_point(void);
+/** @brief Retrieves ctsu data & inserts data point into median filter arrays
+ * @param[in] lpf - true to enable low pass filter*/
+static void Hw_ctsu_insert_data_point(bool lpf);
 
 /** @brief swaps data at xp with data at yp
  * @param xp - data X
@@ -147,24 +148,7 @@ void Hw_ctsu_start(void)
 		hw_event_flags = NO_EVENT; /* Reset the event flags*/
 
 		err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &l_button_status, NULL, NULL);
-		if (FSP_SUCCESS == err)
-		{
-			break;
-		}
-	}
-
-	/* Keep reading until touch has been removed*/
-	while(true)
-	{
-		while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE))
-		{
-			NOP();
-		}
-
-		hw_event_flags = NO_EVENT; /* Reset the event flags*/
-
-		err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &l_button_status, NULL, NULL);
-		if (l_button_status == 0ULL)
+		if ((FSP_SUCCESS == err) && (l_button_status == 0ULL))
 		{
 			break;
 		}
@@ -173,7 +157,14 @@ void Hw_ctsu_start(void)
 	/* Scan until the array is seeded with real world data*/
 	do
 	{
-		Hw_ctsu_insert_data_point();
+		while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE))
+		{
+			NOP();
+		}
+
+		hw_event_flags = NO_EVENT; /* Reset the event flags*/
+
+		Hw_ctsu_insert_data_point(false);
 		--seed_array_count;
 	}
 	while(seed_array_count > 0U);
@@ -345,7 +336,7 @@ bool Hw_ctsu_get_proximity_data(void)
 	fsp_err_t err = FSP_SUCCESS;
 
 	/* Retrieve the latest data*/
-	Hw_ctsu_insert_data_point();
+	Hw_ctsu_insert_data_point(true);
 
 	/* Run the filter*/
 	Sorted_median_filter();
@@ -404,17 +395,37 @@ static void Setup_elcl(void)
 }
 /* END OF FUNCTION*/
 
-static void Hw_ctsu_insert_data_point(void)
+static void Hw_ctsu_insert_data_point(bool lpf)
 {
 	static uint16_t median_filter_index = 0U;
+	static const uint32_t filter_coef = 50000;
+	static uint16_t y_prev = 0UL;
+	static uint16_t y_cur = 0UL;
 	uint16_t measurement_data = 0U;
 	fsp_err_t err = FSP_SUCCESS;
+	uint32_t y_prev_32 = 0UL;
+	uint32_t measurement_data_32 = 0UL;
+	uint32_t y_cur_32 = 0ULL;
 
 	err = R_CTSU_DataGet(g_qe_ctsu_instance_config01.p_ctrl, &measurement_data);
 
 	if(FSP_SUCCESS == err)
 	{
-		median_filter_array[median_filter_index] = measurement_data;
+		if(lpf)
+		{
+			measurement_data_32 = (uint32_t)measurement_data;
+			y_prev_32 = (uint32_t)y_prev;
+			y_cur_32 = ((y_prev_32 * (0x0000FFFFUL - filter_coef)) + (measurement_data_32 * filter_coef)) >> 16U;
+			y_cur = (uint16_t)y_cur_32;
+			y_prev = y_cur;
+		}
+		else
+		{
+			y_cur = measurement_data;
+			y_prev = y_cur;
+		}
+
+		median_filter_array[median_filter_index] = y_cur;
 		++median_filter_index;
 
 		if(median_filter_index > FILTERDEPTH)

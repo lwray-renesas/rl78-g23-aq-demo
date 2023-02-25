@@ -230,6 +230,7 @@
         <pinItem allocation="25" comments="" direction="O" id="CCD00" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="17" comments="" direction="O" id="P73" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="42" comments="" direction="O" id="P01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="2" comments="" direction="None" id="TOOL0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="27" comments="" direction="O" id="P14" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="28" comments="" direction="O" id="P13" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="26" comments="" direction="None" id="PCLBUZ1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -2064,7 +2065,7 @@
                     <item id="fITL7" input="128" vlaue="0"/>
                 </option>
                 <option enabled="true" id="IntervalValue" selection="intervalValueText">
-                    <item id="intervalValueText" input="100" vlaue="25"/>
+                    <item id="intervalValueText" input="50" vlaue="12"/>
                 </option>
                 <option enabled="true" id="IntervalUnit" selection="ms">
                     <item id="ms" input="" vlaue="0"/>
@@ -3396,20 +3397,20 @@
     </tool>
     <tool id="System">
         <section id="ocd">
-            <option enabled="true" id="operation" selection="unused">
+            <option enabled="true" id="operation" selection="useEmulate">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="useEmulate"/>
                 <item enabled="true" id="useUART"/>
             </option>
-            <option enabled="false" id="Emulator" selection="E2lite">
+            <option enabled="true" id="Emulator" selection="E2lite">
                 <item enabled="true" id="E2"/>
                 <item enabled="true" id="E2lite"/>
             </option>
-            <option enabled="false" id="pseudo" selection="used">
+            <option enabled="true" id="pseudo" selection="used">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
-            <option enabled="false" id="startstopfunction" selection="unused">
+            <option enabled="true" id="startstopfunction" selection="unused">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
@@ -3417,7 +3418,7 @@
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
-            <option enabled="false" id="trace" selection="unused">
+            <option enabled="true" id="trace" selection="unused">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
@@ -3428,7 +3429,7 @@
             <option enabled="true" id="securityId" selection="input">
                 <item enabled="true" id="input" input="0x00000000000000000000" value="0"/>
             </option>
-            <option enabled="false" id="authentication" selection="erase">
+            <option enabled="true" id="authentication" selection="erase">
                 <item enabled="true" id="notErase"/>
                 <item enabled="true" id="erase"/>
             </option>

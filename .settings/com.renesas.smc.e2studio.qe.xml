@@ -13,6 +13,7 @@
         <Setting id="P41" value="P41"/>
         <Setting id="P63" value="P63"/>
         <Setting id="P62" value="CCD06"/>
+        <Setting id="P40" value="TOOL0"/>
         <Setting id="P21" value="P21"/>
         <Setting id="P20" value="P20"/>
         <Setting id="P01" value="P01"/>
