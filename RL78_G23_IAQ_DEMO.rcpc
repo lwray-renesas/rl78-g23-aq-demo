@@ -69,6 +69,7 @@
                   </Category>
                 </Category>
                 <Category Name="filter">
+                  <Path>src\app\src\hw\src\filter\Q1616.h</Path>
                   <Path>src\app\src\hw\src\filter\filter.c</Path>
                   <Path>src\app\src\hw\src\filter\filter.h</Path>
                 </Category>
