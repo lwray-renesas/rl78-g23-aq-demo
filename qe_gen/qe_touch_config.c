@@ -150,7 +150,7 @@ const touch_cfg_t g_qe_touch_cfg_config01 =
     .on_freq     = 1,
     .off_freq    = 1,
     .drift_freq  = 64,
-    .cancel_freq = 0,
+    .cancel_freq = 300,
 
     .p_ctsu_instance = &g_qe_ctsu_instance_config01,
 };
