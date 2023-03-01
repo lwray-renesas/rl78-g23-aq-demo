@@ -46,6 +46,7 @@ Global variables and functions
 extern volatile uint8_t * gp_csi00_tx_address;    /* csi00 send buffer address */
 extern volatile uint16_t g_csi00_tx_count;        /* csi00 send data count */
 /* Start user code for global. Do not edit comment generated here */
+
 static volatile bool tx_done = true;
 
 /** @brief sends the SPI via simple polling of interrupt flags (doesn't use isr)
