@@ -227,7 +227,7 @@ static inline void St7735s_soft_reset(void)
  * @param tx_buf - pointer to buffer for transmission.
  * @param tx_num - number of bytes to send.
  */
-static void St7735s_write_data_buf(__far const uint8_t * const tx_buf, uint16_t tx_num)
+static void St7735s_write_data_buf(const uint8_t * const tx_buf, uint16_t tx_num)
 {
 	DC_high();
 

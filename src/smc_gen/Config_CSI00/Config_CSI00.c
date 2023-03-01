@@ -150,37 +150,4 @@ MD_STATUS R_Config_CSI00_Send(uint8_t * const tx_buf, uint16_t tx_num)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-
-void R_Config_CSI00_Start_app(void)
-{
-    SO0 &= (uint16_t)~_0100_SAU_CH0_CLOCK_OUTPUT_1;    /* CSI00 clock initial level */
-    SO0 &= (uint16_t)~_0001_SAU_CH0_DATA_OUTPUT_1;    /* CSI00 SO initial level */
-    SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;    /* enable CSI00 output */
-    SS0 |= _0001_SAU_CH0_START_TRG_ON;    /* enable CSI00 */
-    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
-    CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
-}
-
-void R_Config_CSI00_Send_app(const uint8_t * const tx_buf, uint16_t tx_num)
-{
-	uint16_t l_tx_num = tx_num;
-	uint8_t const * l_tx_buf = tx_buf;
-
-	while(l_tx_num > 0U)
-	{
-		SIO00 = *l_tx_buf;
-
-		l_tx_num--;
-		l_tx_buf++;
-
-		/* Wait for the interrupt flag to set*/
-		while(0U == CSIIF00)
-		{
-			NOP();
-		}
-
-		CSIIF00 = 0U;
-	}
-}
-
 /* End user code. Do not edit comment generated here */

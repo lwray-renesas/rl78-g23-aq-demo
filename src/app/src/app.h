@@ -44,10 +44,7 @@
 /** GUI RETURN EVENTS*/
 #define DISPLAY_ASLEEP 				(0x000001UL)
 #define BACKLIGHT_TURNED_OFF		(0x000002UL)
-#define TUNING_ELIPSE_DISPLAYED		(0x000004UL)
-#define SUCCESS_DISPLAYED			(0x000008UL)
-#define COUNTDOWN_DISPLAYED			(0x000010UL)
-#define ALL_GUI_RETURN_EVENTS		(0x00001FUL)
+#define ALL_GUI_RETURN_EVENTS		(0x000003UL)
 
 /** Shared application events*/
 extern rltos_events_t gui_events;

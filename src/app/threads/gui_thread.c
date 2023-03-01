@@ -130,24 +130,23 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_COUNTDOWN))
 		{
 			Gfx_display_countdown();
-			Rltos_events_set(&gui_return_events, COUNTDOWN_DISPLAYED);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_TUNING_ELIPSE))
 		{
 			Gfx_display_tuning_elipse();
-			Rltos_events_set(&gui_return_events, TUNING_ELIPSE_DISPLAYED);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_SUCCESS))
 		{
 			Gfx_display_success();
-			Rltos_events_set(&gui_return_events, SUCCESS_DISPLAYED);
 		}
 
+		/* Refresh the display contents*/
 		Gfx_display_refresh();
 
-		Rltos_task_sleep(0U); /* Yield thread*/
+		/* Yield thread*/
+		Rltos_task_sleep(0U);
 	}
 }
 /* End of thread*/

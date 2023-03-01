@@ -121,7 +121,7 @@ void App_initial_offset_tuning(void)
 	while(delay_count < 5U)
 	{
 		Rltos_events_set(&gui_events, DISPLAY_COUNTDOWN);
-		Rltos_events_get(&gui_return_events, COUNTDOWN_DISPLAYED, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+		Rltos_task_sleep(0U);
 
 		/* Wait for periodic (1sec) interrupt*/
 		while(!HW_EVENT_OCCURRED(Get_hw_events(), CONSTANT_PERIOD))
@@ -136,14 +136,14 @@ void App_initial_offset_tuning(void)
 
 	/* Show user "Tuning..." screen*/
 	Rltos_events_set(&gui_events, DISPLAY_TUNING_ELIPSE);
-	Rltos_events_get(&gui_return_events, TUNING_ELIPSE_DISPLAYED, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+	Rltos_task_sleep(0U);
 
 	/* Perform offset tuning*/
 	Hw_ctsu_start();
 
 	/* Show user Success Screen*/
 	Rltos_events_set(&gui_events, DISPLAY_SUCCESS);
-	Rltos_events_get(&gui_return_events, SUCCESS_DISPLAYED, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+	Rltos_task_sleep(0U);
 
 	/* Delay 2seconds (use RTC)*/
 	while(delay_count < 2U)

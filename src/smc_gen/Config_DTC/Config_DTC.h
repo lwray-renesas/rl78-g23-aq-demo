@@ -43,6 +43,10 @@ Macro definitions
 #define _08_DTCD0_TRANSFER_BYTE            (0x08U)    /* number of transfers */
 #define _E000_DTCD0_SRC_ADDRESS            (0xE000U)
 #define _FFA6_DTCD0_DEST_ADDRESS           (0xFFA6U)
+#define _01_DTCD1_TRANSFER_BLOCKSIZE       (0x01U)    /* transfer block size */
+#define _01_DTCD1_TRANSFER_BYTE            (0x01U)    /* number of transfers */
+#define _0000_DTCD1_SRC_ADDRESS            (0x0000U)
+#define _0000_DTCD1_DEST_ADDRESS           (0x0000U)
 #define _01_DTCD22_TRANSFER_BLOCKSIZE       (0x01U)    /* transfer block size */
 #define _01_DTCD22_TRANSFER_BYTE            (0x01U)    /* number of transfers */
 #define _0000_DTCD22_SRC_ADDRESS            (0x0000U)
@@ -71,11 +75,19 @@ Global functions
 void R_Config_DTC_Create(void);
 void R_DTCD0_Start(void);
 void R_DTCD0_Stop(void);
+void R_DTCD1_Start(void);
+void R_DTCD1_Stop(void);
 void R_DTCD22_Start(void);
 void R_DTCD22_Stop(void);
 void R_DTCD23_Start(void);
 void R_DTCD23_Stop(void);
 void R_Config_DTC_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
+/** @brief Function to start the DTC running for spi operation.
+ * @param src - pointer to src data
+ * @param dst - pointer to destination
+ * @param cnt - number of bytes to transmit
+ */
+ void Start_dtc1(__near const uint8_t * src, __near uint8_t * dst, uint16_t cnt);
 /* End user code. Do not edit comment generated here */
 #endif

@@ -49,6 +49,9 @@ uint8_t __near dtc_vectortable[40U];
 #pragma address dtc_controldata_0 = 0x0FFD40U
 st_dtc_data_t __near dtc_controldata_0;
 
+#pragma address dtc_controldata_1 = 0x0FFD48U
+st_dtc_data_t __near dtc_controldata_1;
+
 #pragma address dtc_controldata_22 = 0x0FFDF0U
 st_dtc_data_t __near dtc_controldata_22;
 
@@ -82,6 +85,15 @@ void R_Config_DTC_Create(void)
     dtc_controldata_0.dtrld = _08_DTCD0_TRANSFER_BYTE;
     dtc_controldata_0.dtsar = _E000_DTCD0_SRC_ADDRESS;
     dtc_controldata_0.dtdar = _FFA6_DTCD0_DEST_ADDRESS;
+    /* Set DTCD1 */
+    dtc_vectortable[12U] = 0x48U;
+    dtc_controldata_1.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_CHAIN_TRANSFER_DISABLE | _00_DTC_DEST_ADDR_FIXED | 
+                              _04_DTC_SOURCE_ADDR_INCREMENTED | _00_DTC_TRANSFER_MODE_NORMAL;
+    dtc_controldata_1.dtbls = _01_DTCD1_TRANSFER_BLOCKSIZE;
+    dtc_controldata_1.dtcct = _01_DTCD1_TRANSFER_BYTE;
+    dtc_controldata_1.dtrld = 0x00U;
+    dtc_controldata_1.dtsar = _0000_DTCD1_SRC_ADDRESS;
+    dtc_controldata_1.dtdar = _0000_DTCD1_DEST_ADDRESS;
     /* Set DTCD22 */
     dtc_vectortable[33U] = 0xF0U;
     dtc_controldata_22.dtccr = _40_DTC_DATA_SIZE_16BITS | _00_DTC_CHAIN_TRANSFER_DISABLE | _00_DTC_DEST_ADDR_FIXED | 
@@ -124,6 +136,28 @@ void R_DTCD0_Start(void)
 void R_DTCD0_Stop(void)
 {
     DTCEN3 &= (uint8_t)~_04_DTC_TAU06_ACTIVATION_ENABLE;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_DTCD1_Start
+* Description  : This function starts DTCD1 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD1_Start(void)
+{
+    DTCEN1 |= _08_DTC_UART0T_ACTIVATION_ENABLE;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_DTCD1_Stop
+* Description  : This function stops DTCD1 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD1_Stop(void)
+{
+    DTCEN1 &= (uint8_t)~_08_DTC_UART0T_ACTIVATION_ENABLE;
 }
 
 /***********************************************************************************************************************
@@ -171,4 +205,16 @@ void R_DTCD23_Stop(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+
+void Start_dtc1(__near const uint8_t * src, __near uint8_t * dst, uint16_t cnt)
+{
+	dtc_controldata_1.dtbls = 1U;
+	dtc_controldata_1.dtcct = (cnt > 255U) ? 0U : (uint8_t)cnt;
+	dtc_controldata_1.dtsar = (uint16_t)src;
+	dtc_controldata_1.dtdar = (uint16_t)dst;
+
+	R_DTCD1_Start();
+}
+/* END OF FUNCTION*/
+
 /* End user code. Do not edit comment generated here */
