@@ -161,10 +161,10 @@ void R_Config_CSI00_Start_app(void)
     CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
 }
 
-void R_Config_CSI00_Send_app(uint8_t __far const * const tx_buf, uint16_t tx_num)
+void R_Config_CSI00_Send_app(const uint8_t * const tx_buf, uint16_t tx_num)
 {
 	uint16_t l_tx_num = tx_num;
-	uint8_t __far const * l_tx_buf = tx_buf;
+	uint8_t const * l_tx_buf = tx_buf;
 
 	while(l_tx_num > 0U)
 	{

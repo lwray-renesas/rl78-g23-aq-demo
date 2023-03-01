@@ -82,6 +82,9 @@ void St7735s_set_pixel(uint16_t x, uint16_t y);
  */
 void St7735s_set_bgpixel(uint16_t x, uint16_t y);
 
+/** @brief Function to refresh the screen with current RAM contents*/
+void St7735s_refresh(void);
+
 /** @brief Function used to send raw image data to display.
  * @details Images can be converted using: http://javl.github.io/image2cpp/
  * @param x - x coordinate

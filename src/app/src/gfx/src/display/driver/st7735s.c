@@ -36,6 +36,8 @@
 #error "DISPLAY_INVERSION_CONTROL unsupported value - please check definition in st7735s.h"
 #endif
 
+#define IMAGE_BUFFER_SIZE	(BYTES_PER_COLOUR * DISPLAY_PIXEL_WIDTH * DISPLAY_PIXEL_HEIGHT)
+
 typedef enum {
 	NOP       = 0x00,
 	SWRESET   = 0x01, /* Software Reset */
@@ -151,12 +153,14 @@ static const uint8_t init_buf[] = {
 		1,   NORON  /* normal display mode on */
 };
 
+static uint8_t image_buffer[IMAGE_BUFFER_SIZE];
+
 /**
  * @brief Used to send SPI data.
  * @param tx_buf - pointer to buffer for transmission.
  * @param tx_num - number of bytes to send.
  */
-static inline void Spi_send_blocking(__far const uint8_t * const tx_buf, uint16_t tx_num)
+static inline void Spi_send_blocking(const uint8_t * const tx_buf, uint16_t tx_num)
 {
 	CS_low(); /* Assert chip select signal*/
 
@@ -331,79 +335,34 @@ void St7735s_set_bgcolour(const uint8_t * const bg_colour)
 
 void St7735s_set_pixel(uint16_t x, uint16_t y)
 {
-	static uint8_t pixel_buf[] = {5, CASET, 0x00, 0x00, 0x00, 0x00, 5, RASET, 0x00, 0x00, 0x00, 0x00};
-
-	pixel_buf[3] = current_display_constants.xoffset + x;
-	pixel_buf[5] = current_display_constants.xend;
-	pixel_buf[9] = current_display_constants.yoffset + y;
-	pixel_buf[11] = current_display_constants.yend;
-
-	St7735s_write_cmd_sequence(pixel_buf, sizeof(pixel_buf));
-
-	St7735s_set_ram_access();
-
-	St7735s_write_data_buf(colour_ptr, BYTES_PER_COLOUR);
+#if BYTES_PER_COLOUR == 3
+	image_buffer[((y * DISPLAY_PIXEL_WIDTH) + x)*3U] = colour_ptr[0U];
+	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)*3U)+1U] = colour_ptr[1U];
+	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)*3U)+2U] = colour_ptr[2U];
+#else
+	image_buffer[((y * DISPLAY_PIXEL_WIDTH) + x)<<1U] = colour_ptr[0U];
+	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)<<1U)+1U] = colour_ptr[1U];
+#endif
 }
 /* END OF FUNCTION*/
 
 void St7735s_set_bgpixel(uint16_t x, uint16_t y)
 {
-	static uint8_t pixel_buf[] = {5, CASET, 0x00, 0x00, 0x00, 0x00, 5, RASET, 0x00, 0x00, 0x00, 0x00};
-
-	pixel_buf[3] = current_display_constants.xoffset + x;
-	pixel_buf[5] = current_display_constants.xend;
-	pixel_buf[9] = current_display_constants.yoffset + y;
-	pixel_buf[11] = current_display_constants.yend;
-
-	St7735s_write_cmd_sequence(pixel_buf, sizeof(pixel_buf));
-
-	St7735s_set_ram_access();
-
-	St7735s_write_data_buf(bg_colour_ptr, BYTES_PER_COLOUR);
+#if BYTES_PER_COLOUR == 3
+	image_buffer[((y * DISPLAY_PIXEL_WIDTH) + x)*3U] = bg_colour_ptr[0U];
+	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)*3U)+1U] = bg_colour_ptr[1U];
+	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)*3U)+2U] = bg_colour_ptr[2U];
+#else
+	image_buffer[((y * DISPLAY_PIXEL_WIDTH) + x)<<1U] = bg_colour_ptr[0U];
+	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)<<1U)+1U] = bg_colour_ptr[1U];
+#endif
 }
 /* END OF FUNCTION*/
 
-void St7735s_send_image(uint16_t x, uint16_t y, uint16_t width, uint16_t height, __far const uint8_t * data)
+void St7735s_refresh(void)
 {
 	static uint8_t pixel_buf[] = {5, CASET, 0x00, 0x00, 0x00, 0x00, 5, RASET, 0x00, 0x00, 0x00, 0x00};
 
-	pixel_buf[3] = current_display_constants.xoffset + x;
-	pixel_buf[5] = current_display_constants.xoffset + x + width - 1U;
-	pixel_buf[9] = current_display_constants.yoffset + y;
-	pixel_buf[11] = current_display_constants.yoffset + y + height - 1U;
-
-	St7735s_write_cmd_sequence(pixel_buf, sizeof(pixel_buf));
-
-	St7735s_set_ram_access();
-
-	St7735s_write_data_buf(data, BYTES_PER_COLOUR * width * height);
-}
-/* END OF FUNCTION*/
-
-void St7735s_fill_area_bg(uint16_t x, uint16_t y, uint16_t width, uint16_t height)
-{
-	static uint8_t pixel_buf[] = {5, CASET, 0x00, 0x00, 0x00, 0x00, 5, RASET, 0x00, 0x00, 0x00, 0x00};
-	const uint16_t pixel_count = width * height;
-	pixel_buf[3] = current_display_constants.xoffset + x;
-	pixel_buf[5] = current_display_constants.xoffset + x + width - 1U;
-	pixel_buf[9] = current_display_constants.yoffset + y;
-	pixel_buf[11] = current_display_constants.yoffset + y + height - 1U;
-
-	St7735s_write_cmd_sequence(pixel_buf, sizeof(pixel_buf));
-
-	St7735s_set_ram_access();
-
-	for(uint16_t pixel_pos = 0U; pixel_pos < pixel_count; ++pixel_pos)
-	{
-		St7735s_write_data_buf(bg_colour_ptr, BYTES_PER_COLOUR);
-	}
-}
-/* END OF FUNCTION*/
-
-void St7735s_fill_display(void)
-{
-	static uint8_t pixel_buf[] = {5, CASET, 0x00, 0x00, 0x00, 0x00, 5, RASET, 0x00, 0x00, 0x00, 0x00};
-	static const uint16_t pixel_count = DISPLAY_PIXEL_HEIGHT*DISPLAY_PIXEL_WIDTH;
 	pixel_buf[3] = current_display_constants.xoffset;
 	pixel_buf[5] = current_display_constants.xend;
 	pixel_buf[9] = current_display_constants.yoffset;
@@ -413,9 +372,51 @@ void St7735s_fill_display(void)
 
 	St7735s_set_ram_access();
 
-	for(uint16_t pixel_pos = 0U; pixel_pos < pixel_count; ++pixel_pos)
+	St7735s_write_data_buf(image_buffer, IMAGE_BUFFER_SIZE);
+}
+/* END OF FUNCTION*/
+
+void St7735s_send_image(uint16_t x, uint16_t y, uint16_t width, uint16_t height, __far const uint8_t * data)
+{
+	uint16_t data_index = 0U;
+
+	for(uint16_t y_pos = y; y_pos < (y+height); ++y_pos)
 	{
-		St7735s_write_data_buf(colour_ptr, BYTES_PER_COLOUR);
+		for(uint16_t x_pos = x; x_pos < (x+width); ++x_pos)
+		{
+#if BYTES_PER_COLOUR == 3
+	image_buffer[((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U] = data[data_index];
+	image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U)+1U] = data[data_index+1U];
+	image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U)+2U] = data[data_index+2U];
+	data_index += 3U;
+#else
+	image_buffer[((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)<<1U] = data[data_index];
+	image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)<<1U)+1U] = data[data_index+1U];
+	data_index += 2U;
+#endif
+		}
+	}
+}
+/* END OF FUNCTION*/
+
+void St7735s_fill_area_bg(uint16_t x, uint16_t y, uint16_t width, uint16_t height)
+{
+	for(uint16_t x_pos = x; x_pos < (x+width); ++x_pos)
+	{
+		for(uint16_t y_pos = y; y_pos < (y+height); ++y_pos)
+		{
+			St7735s_set_bgpixel(x_pos,y_pos);
+		}
+	}
+}
+/* END OF FUNCTION*/
+
+void St7735s_fill_display(void)
+{
+	for(uint16_t pixel_pos = 0U; pixel_pos < IMAGE_BUFFER_SIZE; ++pixel_pos)
+	{
+		image_buffer[pixel_pos] = colour_ptr[0U];
+		image_buffer[pixel_pos] = colour_ptr[1U];
 	}
 }
 /* END OF FUNCTION*/

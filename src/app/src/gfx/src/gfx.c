@@ -106,8 +106,8 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 static void Erase_text(uint16_t x, uint16_t y, uint16_t length);
 /** @brief Utility functino used to clear the display background area (everything but the title/renesas logo)*/
 static void Erase_background(void);
-/** @brief Utility functino used to clear the title image area*/
-static void Erase_title(void);
+/** @brief Utility functino used to clear the entire display*/
+static void Erase_display(void);
 /** @brief Utility function which returns a colour depending on the air quality index value which corresponds to the severity.
  * @param[in] iaqx100 - air quality index reading.*/
 static const uint8_t * Colour_lookup_iaq(const int_dec_t iaq);
@@ -306,47 +306,41 @@ void Gfx_display_offset_tuning(void)
 void Gfx_display_countdown(void)
 {
 	static uint8_t countdown_state = 5U;
-	static uint16_t local_char_len = 0U;
-	static uint16_t local_str_len = 0U;
 
 	switch(countdown_state)
 	{
 	case 5U:
 	{
-		Erase_background();
-		Erase_title();
-		local_str_len = Text_put_str(15U, BACKGROUND_Y_START, "Countdown: ", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "5", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		Erase_display();
+		(void)Text_put_str(15U, BACKGROUND_Y_START, "Countdown: 5", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 		--countdown_state;
 	}
 	break;
 	case 4U:
 	{
-		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
-		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "4", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		Erase_text(15U, BACKGROUND_Y_START, Text_str_len_px("Countdown: 5"));
+		(void)Text_put_str(15U, BACKGROUND_Y_START, "Countdown: 4", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 		--countdown_state;
 	}
 	break;
 	case 3U:
 	{
-		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
-		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "3", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		Erase_text(15U, BACKGROUND_Y_START, Text_str_len_px("Countdown: 4"));
+		(void)Text_put_str(15U, BACKGROUND_Y_START, "Countdown: 3", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 		--countdown_state;
 	}
 	break;
 	case 2U:
 	{
-		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
-		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "2", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+		Erase_text(15U, BACKGROUND_Y_START, Text_str_len_px("Countdown: 3"));
+		(void)Text_put_str(15U, BACKGROUND_Y_START, "Countdown: 2", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 		--countdown_state;
 	}
 	break;
 	case 1U:
 	{
-		Erase_text(15U + local_str_len, BACKGROUND_Y_START, local_char_len);
-		local_char_len = Text_put_str(15U + local_str_len, BACKGROUND_Y_START, "1", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-		--countdown_state;
-		local_str_len = 0U;
+		Erase_text(15U, BACKGROUND_Y_START, Text_str_len_px("Countdown: 2"));
+		(void)Text_put_str(15U, BACKGROUND_Y_START, "Countdown: 1", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 		countdown_state = 5U;
 	}
 	break;
@@ -368,6 +362,12 @@ void Gfx_display_success(void)
 {
 	Erase_background();
 	(void)Text_put_str(40U, BACKGROUND_Y_START, "Success!!!", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
+
+void Gfx_display_refresh(void)
+{
+	St7735s_refresh();
 }
 /* END OF FUNCTION*/
 
@@ -482,17 +482,11 @@ static void Erase_background(void)
 }
 /* END OF FUNCTION*/
 
-static void Erase_title(void)
+static void Erase_display(void)
 {
-	static const solid_rectangle_t eraser = {
-			.height = TITLE_IMAGE_HEIGHT,
-			.width = TITLE_IMAGE_WIDTH,
-			.x0 = TITLE_IMAGE_OFFSET_X,
-			.y0 = TITLE_IMAGE_OFFSET_Y,
-			.colour = BACKGROUND_TEXT_COLOUR,
-	};
-
-	Draw_solid_rectangle(&eraser);
+	St7735s_set_colour(BACKGROUND_TEXT_COLOUR);
+	St7735s_fill_display();
+	St7735s_set_colour(FOREGROUND_TEXT_COLOUR);
 }
 /* END OF FUNCTION*/
 

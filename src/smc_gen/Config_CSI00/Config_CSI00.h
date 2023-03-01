@@ -55,6 +55,6 @@ MD_STATUS R_Config_CSI00_Send(uint8_t * const tx_buf, uint16_t tx_num);
 void R_Config_CSI00_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 void R_Config_CSI00_Start_app(void);
-void R_Config_CSI00_Send_app(uint8_t __far const * const tx_buf, uint16_t tx_num);
+void R_Config_CSI00_Send_app(const uint8_t * const tx_buf, uint16_t tx_num);
 /* End user code. Do not edit comment generated here */
 #endif

@@ -85,4 +85,7 @@ void Gfx_display_tuning_elipse(void);
 /** @brief displays succes message*/
 void Gfx_display_success(void);
 
+/** @brief refreshes display with RAM buffer contents*/
+void Gfx_display_refresh(void);
+
 #endif /* APP_GFX_GFX_H_ */
