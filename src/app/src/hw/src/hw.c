@@ -29,21 +29,16 @@ uint8_t tone[8];
 
 /** lpf state object*/
 static lpf_state_t lpf0_state = {
-		.y_prev = 8000U,
-		.coeff = Q1616(0,7),
+		.coeff = Q1616(0,6),
 };
 
 /** lpf state object*/
 static lpf_state_t lpf1_state = {
-		.y_prev = 8000U,
-		.coeff = Q1616(0,7),
+		.coeff = Q1616(0,6),
 };
 
 /** median filter state object*/
-static mf_state_t mf_state = {
-		.median_filter_array = {0,},
-		.median_filter_index = 0
-};
+static mf_state_t mf_state;
 
 /** biquad state object*/
 static bq_state_t bq_state = {
@@ -196,6 +191,9 @@ void Hw_ctsu_start(void)
 			{
 				bq_index = 0U;
 			}
+
+			lpf0_state.y_prev = measurement_data;
+			lpf1_state.y_prev = measurement_data;
 		}
 
 		--seed_array_count;

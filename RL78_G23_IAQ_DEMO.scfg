@@ -226,11 +226,10 @@
         <pinItem allocation="14" comments="" direction="IO" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="34" comments="" direction="None" id="TS25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="20" comments="" direction="O" id="P70" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="24" comments="" direction="IO" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="25" comments="" direction="O" id="CCD00" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="24" comments="" direction="O" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="25" comments="" direction="IO" id="CCD00" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="17" comments="" direction="O" id="P73" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="42" comments="" direction="O" id="P01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="2" comments="" direction="None" id="TOOL0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="27" comments="" direction="O" id="P14" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="28" comments="" direction="O" id="P13" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="26" comments="" direction="None" id="PCLBUZ1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -3397,20 +3396,20 @@
     </tool>
     <tool id="System">
         <section id="ocd">
-            <option enabled="true" id="operation" selection="useEmulate">
+            <option enabled="true" id="operation" selection="unused">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="useEmulate"/>
                 <item enabled="true" id="useUART"/>
             </option>
-            <option enabled="true" id="Emulator" selection="E2lite">
+            <option enabled="false" id="Emulator" selection="E2lite">
                 <item enabled="true" id="E2"/>
                 <item enabled="true" id="E2lite"/>
             </option>
-            <option enabled="true" id="pseudo" selection="used">
+            <option enabled="false" id="pseudo" selection="used">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
-            <option enabled="true" id="startstopfunction" selection="unused">
+            <option enabled="false" id="startstopfunction" selection="unused">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
@@ -3418,7 +3417,7 @@
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
-            <option enabled="true" id="trace" selection="unused">
+            <option enabled="false" id="trace" selection="unused">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
@@ -3429,7 +3428,7 @@
             <option enabled="true" id="securityId" selection="input">
                 <item enabled="true" id="input" input="0x00000000000000000000" value="0"/>
             </option>
-            <option enabled="true" id="authentication" selection="erase">
+            <option enabled="false" id="authentication" selection="erase">
                 <item enabled="true" id="notErase"/>
                 <item enabled="true" id="erase"/>
             </option>
