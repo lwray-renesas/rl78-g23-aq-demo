@@ -330,7 +330,7 @@ void App_rotary_processing(void)
 	{
 		int16_t l_rot_count = Hw_get_rotary_count();
 
-		if(0 < l_rot_count)
+		if(0 != l_rot_count)
 		{
 			App_signal_activity();
 			sys_state = AIR_QUALITY;
@@ -341,7 +341,7 @@ void App_rotary_processing(void)
 	{
 		int16_t l_rot_count = Hw_get_rotary_count();
 
-		if(0 > l_rot_count)
+		if(0 != l_rot_count)
 		{
 			App_signal_activity();
 			sys_state = TEMPERATURE_HUMIDITY;
