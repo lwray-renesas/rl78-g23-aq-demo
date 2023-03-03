@@ -87,4 +87,7 @@ void Hw_backlight_set(backlight_level_t const backlight_level);
  */
 bool Hw_ctsu_get_proximity_data(void);
 
+/** @brief Performs device reset on ZMOD4410*/
+void Hw_reset_sensors(void);
+
 #endif /* APP_HW_HW_H_ */

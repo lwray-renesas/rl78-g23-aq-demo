@@ -378,6 +378,21 @@ bool Hw_ctsu_get_proximity_data(void)
 }
 /* END OF FUNCTION*/
 
+void Hw_reset_sensors(void)
+{
+	volatile uint16_t timeout = 0xFFFFU;
+
+	P7_bit.no0 = 0U; /* Hold device in reset*/
+
+	while(timeout > 0U)
+	{
+		--timeout;
+	}
+
+	P7_bit.no0 = 1U; /* Release device from reset*/
+}
+/* END OF FUNCTION*/
+
 static void Setup_elcl(void)
 {
 	/****************************************************************
