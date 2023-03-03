@@ -33,7 +33,6 @@ typedef struct
 typedef enum
 {
 	SENSOR_WAITING = 0U, /**< Sensor waiting to be triggered*/
-
 	SENSOR_START_MEASURMENT,
 	SENSOR_WAIT_TO_READ,
 }sensor_read_state_t;
