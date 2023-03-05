@@ -113,7 +113,7 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 140,
+        .threshold  = 250,
         .hysteresis = 5,
     },
 };

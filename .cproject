@@ -236,6 +236,27 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="com.renesas.cdt.managedbuild.renesas.ccrl.hardwaredebug.configuration.1077866794.1360812682" name="/" resourcePath="src/smc_gen">
+						<toolChain id="com.renesas.cdt.managedbuild.renesas.ccrl.hardwaredebug.toolChain.9608638" name="Renesas CCRL Toolchain" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.hardwaredebug.toolChain" unusedChildren="">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE" id="com.renesas.cdt.managedbuild.renesas.ccrl.base.targetPlatform" isAbstract="false" name="targetPlatform" osList="win32" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.targetPlatform"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.smsasm.2131002424" name="SMS Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.smsasm.188619891">
+								<inputType id="com.renesas.cdt.managedbuild.renesas.ccrl.smsasm.inputType.1673569521" name="SMS Assembler Input" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.smsasm.inputType"/>
+							</tool>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.dsp.1594721899" name="DSP Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.dsp.1248099478"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.faa.2117322666" name="FAA Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.faa.114087420"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.common.968746874" name="Common" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.common.1228158790"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.compiler.1654264092" name="Compiler" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.compiler.1346994875">
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.optimization.2073914778" name="Level of optimization (-O)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.optimization" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.optimization.Onothing" valueType="enumerated"/>
+								<inputType id="Base.Compiler.ccrl.C.inputType.168765499" name="Compiler InputType" superClass="Base.Compiler.ccrl.C.inputType"/>
+								<inputType id="Base.Compiler.ccrl.Cpp.inputType.2065428746" name="Compiler Input CPP" superClass="Base.Compiler.ccrl.Cpp.inputType"/>
+							</tool>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.assembler.894820150" name="Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.assembler.1971300799">
+								<inputType id="Base.Assembler.ccrl.inputType.418751081" name="Assembler InputType" superClass="Base.Assembler.ccrl.inputType"/>
+							</tool>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.linker.1606545042" name="Linker" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.linker.78827634"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.converter.593239872" name="Converter" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.converter.552610865"/>
+						</toolChain>
+					</folderInfo>
 					<fileInfo id="com.renesas.cdt.managedbuild.renesas.ccrl.hardwaredebug.configuration.1077866794.1164730532" name="Config_DTC.c" rcbsApplicability="disable" resourcePath="src/smc_gen/Config_DTC/Config_DTC.c" toolsToInvoke="com.renesas.cdt.managedbuild.renesas.ccrl.base.compiler.1346994875.1542473856">
 						<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.compiler.1346994875.1542473856" name="Compiler" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.compiler.1346994875">
 							<option id="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.optimization.263350571" name="Level of optimization (-O)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.optimization" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.optimization.Onothing" valueType="enumerated"/>
