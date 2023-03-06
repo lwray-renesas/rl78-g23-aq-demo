@@ -249,7 +249,7 @@ void Int_dec_add(int_dec_t * const x, int_dec_t const * const y)
 }
 /* END OF FUNCTION*/
 
-bool Int_dec_larger_than(int_dec_t * const x, int_dec_t const * const y)
+bool Int_dec_larger_than(int_dec_t const * const x, int_dec_t const * const y)
 {
 	bool x_larger_than_y = false;
 

@@ -44,7 +44,8 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_AIR_QUALITY))
 		{
 			App_get_sensor_data(&gui_sensor_data);
-			Gfx_write_air_quality(&gui_sensor_data);
+			App_get_alarm_sensor_data(&gui_alarm_sensor_data);
+			Gfx_write_air_quality(&gui_sensor_data, &gui_alarm_sensor_data);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_ALARM_IAQ))

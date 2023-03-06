@@ -18,11 +18,11 @@ static bool sensor_readings_completed = false;
  */
 void Event_thread_main(void)
 {
-	/* Initialise the sensor portion of the application*/
-	App_init_sensors();
-
 	/* Performs initial offset tuning of the CTSU*/
 	App_initial_offset_tuning();
+
+	/* Initialise the sensor portion of the application*/
+	App_init_sensors();
 
 	while(1)
 	{

@@ -115,6 +115,7 @@ void App_initial_offset_tuning(void)
 		NOP();
 	}
 
+	Hw_release_zmod_reset();
 	Hw_enable_sensor_timer();
 
 	/* Delay 5seconds (use RTC) and show count down to user*/

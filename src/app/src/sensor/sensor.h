@@ -70,6 +70,6 @@ void Int_dec_add(int_dec_t * const x, int_dec_t const * const y);
  * @param y - value to compare
  * @return true if X > Y, otherwise false.
  */
-bool Int_dec_larger_than(int_dec_t * const x, int_dec_t const * const y);
+bool Int_dec_larger_than(int_dec_t const * const x, int_dec_t const * const y);
 
 #endif /* APP_SENSOR_SENSOR_H_ */

@@ -17,6 +17,7 @@
 /********** TEXT ********************/
 #define BACKGROUND_TEXT_COLOUR	COLOUR_WHITE
 #define FOREGROUND_TEXT_COLOUR	COLOUR_GREY
+#define PROBLEM_TEXT_COLOUR	COLOUR_RED
 
 /*********** TITLE ********************/
 #define TITLE_IMAGE_OFFSET_X  (22U)
@@ -97,8 +98,9 @@ static bool calibration_text = false;
 
 /** @brief Writes the temperature and humidity readings to the display.
  * @param[in] sense_data - sensor data object
+ * @param[in] sense_data - sensor data object for comparison - highlghts text as red if any paramater in sense data exceeds & this object i non-NULL.
  * @param[in] data_to_highlight - selects which data to highlight*/
-static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const sensor_data_highlight_t data_to_highlight);
+static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const volatile sensor_data_t * c_sense_data, const sensor_data_highlight_t data_to_highlight);
 /** @brief Utility function to erase text.
  * @param[in] x - x position of text to erase.
  * @param[in] y - y position of text to erase.
@@ -189,7 +191,7 @@ void Gfx_set_background_air_quality(void)
 }
 /* END OF FUNCTION*/
 
-void Gfx_write_air_quality(const volatile sensor_data_t * sense_data)
+void Gfx_write_air_quality(const volatile sensor_data_t * sense_data, const volatile sensor_data_t * c_sense_data)
 {
 	if(sense_data->zmod_calibrated)
 	{
@@ -199,7 +201,7 @@ void Gfx_write_air_quality(const volatile sensor_data_t * sense_data)
 			calibration_text = false;
 		}
 
-		Gfx_write_air_quality_text(sense_data, NONE_HIGHLIGHT);
+		Gfx_write_air_quality_text(sense_data, c_sense_data, NONE_HIGHLIGHT);
 	}
 	else
 	{
@@ -217,7 +219,7 @@ void Gfx_write_alarm(const volatile sensor_data_t * sense_data, const sensor_dat
 		calibration_text = false;
 	}
 
-	Gfx_write_air_quality_text(sense_data, data_to_highlight);
+	Gfx_write_air_quality_text(sense_data, NULL, data_to_highlight);
 }
 /* END OF FUNCTION*/
 
@@ -371,7 +373,7 @@ void Gfx_display_refresh(void)
 }
 /* END OF FUNCTION*/
 
-static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const sensor_data_highlight_t data_to_highlight)
+static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data, const volatile sensor_data_t * c_sense_data, const sensor_data_highlight_t data_to_highlight)
 {
 	static uint16_t str_nav = 0U; /* Variable used to navigate the strings*/
 	static uint16_t iaq_str_len_prev = 0U; /* Variable used to store the previously written iaq string length*/
@@ -389,14 +391,30 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 			.x0 = 53U,
 			.y0 = 67U,
 	};
-	const uint8_t * IAQ_FOREGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
-	const uint8_t * IAQ_BACKGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
 
-	const uint8_t * TVOC_FOREGROUND_COLOUR_PTR = (data_to_highlight == TVOC_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
-	const uint8_t * TVOC_BACKGROUND_COLOUR_PTR = (data_to_highlight == TVOC_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
+	const uint8_t * IAQ_FOREGROUND_COLOUR_PTR = NULL;
+	const uint8_t * IAQ_BACKGROUND_COLOUR_PTR = NULL;
+	const uint8_t * TVOC_FOREGROUND_COLOUR_PTR = NULL;
+	const uint8_t * TVOC_BACKGROUND_COLOUR_PTR = NULL;
+	const uint8_t * ECO2_FOREGROUND_COLOUR_PTR = NULL;
+	const uint8_t * ECO2_BACKGROUND_COLOUR_PTR = NULL;
 
-	const uint8_t * ECO2_FOREGROUND_COLOUR_PTR = (data_to_highlight == ECO2_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
-	const uint8_t * ECO2_BACKGROUND_COLOUR_PTR = (data_to_highlight == ECO2_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
+	/* Determine how to highlight text if applicable*/
+	if(NULL == c_sense_data)
+	{
+		IAQ_FOREGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+		IAQ_BACKGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
+		TVOC_FOREGROUND_COLOUR_PTR = (data_to_highlight == TVOC_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+		TVOC_BACKGROUND_COLOUR_PTR = (data_to_highlight == TVOC_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
+		ECO2_FOREGROUND_COLOUR_PTR = (data_to_highlight == ECO2_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+		ECO2_BACKGROUND_COLOUR_PTR = (data_to_highlight == ECO2_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
+	}
+	else
+	{
+		IAQ_FOREGROUND_COLOUR_PTR = Int_dec_larger_than((int_dec_t *)&sense_data->iaq, (int_dec_t *)&c_sense_data->iaq) ? FOREGROUND_TEXT_COLOUR : PROBLEM_TEXT_COLOUR;
+		TVOC_FOREGROUND_COLOUR_PTR = Int_dec_larger_than((int_dec_t *)&sense_data->tvoc, (int_dec_t *)&c_sense_data->tvoc) ? FOREGROUND_TEXT_COLOUR : PROBLEM_TEXT_COLOUR;
+		ECO2_FOREGROUND_COLOUR_PTR = Int_dec_larger_than((int_dec_t *)&sense_data->eco2, (int_dec_t *)&c_sense_data->eco2) ? FOREGROUND_TEXT_COLOUR : PROBLEM_TEXT_COLOUR;
+	}
 
 	status_bar.colour = Colour_lookup_iaq(sense_data->iaq);
 

@@ -36,8 +36,9 @@ void Gfx_write_temp_humid(const volatile sensor_data_t * sense_data);
 void Gfx_set_background_air_quality(void);
 
 /** @brief Writes the air quality readings to the display.
- * @param[in] sense_data - sensor data object*/
-void Gfx_write_air_quality(const volatile sensor_data_t * sense_data);
+ * @param[in] sense_data - sensor data object
+ * @param[in] c_sense_data - sensor data object for comparing to highlight text red if we currently exceed*/
+void Gfx_write_air_quality(const volatile sensor_data_t * sense_data, const volatile sensor_data_t * c_sense_data);
 
 /** @brief Writes the alarm data to the display*
  * @param[in] sense_data - sensor data object*/

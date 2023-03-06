@@ -1604,11 +1604,11 @@
                             <item id="PullupUse" input="" vlaue="0"/>
                             <item id="PullupUnuse" input="" vlaue="0"/>
                         </option>
-                        <option enabled="true" id="Output1" selection="Output1Use">
+                        <option enabled="true" id="Output1" selection="Output1Unuse">
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
                         </option>
-                        <option enabled="false" id="OutputMaxCurrentSet" selection="Max20mA">
+                        <option enabled="true" id="OutputMaxCurrentSet" selection="Max20mA">
                             <item id="Max20mA" input="" vlaue="0"/>
                             <item id="Max40mA" input="" vlaue="0"/>
                         </option>
