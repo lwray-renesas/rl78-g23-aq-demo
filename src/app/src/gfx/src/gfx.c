@@ -400,7 +400,7 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 	const uint8_t * ECO2_BACKGROUND_COLOUR_PTR = NULL;
 
 	/* Determine how to highlight text if applicable*/
-	if(NULL == c_sense_data)
+	if(NONE_HIGHLIGHT != data_to_highlight)
 	{
 		IAQ_FOREGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? BACKGROUND_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
 		IAQ_BACKGROUND_COLOUR_PTR = (data_to_highlight == IAQ_HIGHLIGHT) ? FOREGROUND_TEXT_COLOUR : BACKGROUND_TEXT_COLOUR;
@@ -411,9 +411,12 @@ static void Gfx_write_air_quality_text(const volatile sensor_data_t * sense_data
 	}
 	else
 	{
-		IAQ_FOREGROUND_COLOUR_PTR = Int_dec_larger_than((int_dec_t *)&sense_data->iaq, (int_dec_t *)&c_sense_data->iaq) ? PROBLEM_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
-		TVOC_FOREGROUND_COLOUR_PTR = Int_dec_larger_than((int_dec_t *)&sense_data->tvoc, (int_dec_t *)&c_sense_data->tvoc) ? PROBLEM_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
-		ECO2_FOREGROUND_COLOUR_PTR = Int_dec_larger_than((int_dec_t *)&sense_data->eco2, (int_dec_t *)&c_sense_data->eco2) ? PROBLEM_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+		IAQ_FOREGROUND_COLOUR_PTR = ((NULL != c_sense_data) && (Int_dec_larger_than((int_dec_t *)&sense_data->iaq, (int_dec_t *)&c_sense_data->iaq))) ? PROBLEM_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+		IAQ_BACKGROUND_COLOUR_PTR = BACKGROUND_TEXT_COLOUR;
+		TVOC_FOREGROUND_COLOUR_PTR = ((NULL != c_sense_data) && (Int_dec_larger_than((int_dec_t *)&sense_data->tvoc, (int_dec_t *)&c_sense_data->tvoc))) ? PROBLEM_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+		TVOC_BACKGROUND_COLOUR_PTR = BACKGROUND_TEXT_COLOUR;
+		ECO2_FOREGROUND_COLOUR_PTR = ((NULL != c_sense_data) && (Int_dec_larger_than((int_dec_t *)&sense_data->eco2, (int_dec_t *)&c_sense_data->eco2))) ? PROBLEM_TEXT_COLOUR : FOREGROUND_TEXT_COLOUR;
+		ECO2_BACKGROUND_COLOUR_PTR = BACKGROUND_TEXT_COLOUR;
 	}
 
 	status_bar.colour = Colour_lookup_iaq(sense_data->iaq);

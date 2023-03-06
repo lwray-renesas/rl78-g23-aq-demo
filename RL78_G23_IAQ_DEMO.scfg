@@ -223,7 +223,7 @@
         <pinItem allocation="15" comments="" direction="O" id="P63" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="21" comments="" direction="None" id="TSCAP" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="16" comments="" direction="None" id="TI03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="14" comments="" direction="O" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="14" comments="" direction="IO" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="34" comments="" direction="None" id="TS25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="20" comments="" direction="O" id="P70" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="24" comments="" direction="O" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -351,7 +351,7 @@
                         <item id="enable" input="" vlaue="0"/>
                         <item id="disable" input="" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="validedge" selection="rising">
+                    <option enabled="true" id="validedge" selection="falling">
                         <item id="falling" input="" vlaue="0"/>
                         <item id="rising" input="" vlaue="0"/>
                         <item id="both" input="" vlaue="0"/>
