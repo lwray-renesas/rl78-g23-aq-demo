@@ -224,6 +224,8 @@ void App_signal_activity(void)
 
 void App_rotary_processing(void)
 {
+	static rltos_event_flag_t l_disp_flags = 0U;
+
 	if(SET_ALARM == sys_state)
 	{
 		int16_t l_rot_count = Hw_get_rotary_count();
@@ -330,23 +332,27 @@ void App_rotary_processing(void)
 	else if(TEMPERATURE_HUMIDITY == sys_state)
 	{
 		int16_t l_rot_count = Hw_get_rotary_count();
+		l_rot_count = (l_rot_count > 0) ? l_rot_count : l_rot_count*-1;
 
-		if(0 != l_rot_count)
+		if(0 != (l_rot_count % 2))
 		{
 			App_signal_activity();
 			sys_state = AIR_QUALITY;
 			Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
+			Rltos_events_get(&gui_return_events, AIR_QUALITY_SET, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
 		}
 	}
 	else if(AIR_QUALITY == sys_state)
 	{
 		int16_t l_rot_count = Hw_get_rotary_count();
+		l_rot_count = (l_rot_count > 0) ? l_rot_count : l_rot_count*-1;
 
-		if(0 != l_rot_count)
+		if(0 != (l_rot_count % 2))
 		{
 			App_signal_activity();
 			sys_state = TEMPERATURE_HUMIDITY;
 			Rltos_events_set(&gui_events, BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
+			Rltos_events_get(&gui_return_events, TEMP_HUMID_SET, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
 		}
 	}
 	else
@@ -361,6 +367,8 @@ void App_rotary_processing(void)
  *********************************************************************/
 void App_button_click_handler(void)
 {
+	static rltos_event_flag_t l_disp_flags = 0U;
+
 	switch(sys_state)
 	{
 	case LOW_BATTERY:
@@ -395,6 +403,7 @@ void App_button_click_handler(void)
 
 		sys_state = AIR_QUALITY;
 		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
+		Rltos_events_get(&gui_return_events, AIR_QUALITY_SET, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
 	}
 	break;
 
@@ -405,6 +414,7 @@ void App_button_click_handler(void)
 		App_signal_activity();
 		sys_state = AIR_QUALITY;
 		Rltos_events_set(&gui_events, BACKGROUND_AIR_QUALITY | UPDATE_AIR_QUALITY);
+		Rltos_events_get(&gui_return_events, AIR_QUALITY_SET, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
 	}
 	break;
 

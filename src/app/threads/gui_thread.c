@@ -28,6 +28,7 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_TEMP_HUMID))
 		{
 			Gfx_set_background_temp_humid();
+			Rltos_events_set(&gui_return_events, TEMP_HUMID_SET);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_TEMP_HUMID))
@@ -39,6 +40,7 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_AIR_QUALITY))
 		{
 			Gfx_set_background_air_quality();
+			Rltos_events_set(&gui_return_events, AIR_QUALITY_SET);
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, UPDATE_AIR_QUALITY))

@@ -44,7 +44,9 @@
 /** GUI RETURN EVENTS*/
 #define DISPLAY_ASLEEP 				(0x000001UL)
 #define BACKLIGHT_TURNED_OFF		(0x000002UL)
-#define ALL_GUI_RETURN_EVENTS		(0x000003UL)
+#define AIR_QUALITY_SET				(0x000004UL)
+#define TEMP_HUMID_SET				(0x000008UL)
+#define ALL_GUI_RETURN_EVENTS		(0x00000FUL)
 
 /** Shared application events*/
 extern rltos_events_t gui_events;
