@@ -40,7 +40,7 @@
             <item id="hococlock_fihp"/>
             <item id="uncheck"/>
         </option>
-        <option enabled="true" id="hsocofrequency" selection="frq32">
+        <option enabled="true" id="hsocofrequency" selection="frq16">
             <item id="frq32"/>
             <item id="frq24"/>
             <item id="frq16"/>
@@ -94,18 +94,18 @@
             <item id="comboBox1-16"/>
         </option>
         <option enabled="true" id="focoswitcher" selection="hococlock_focoswitcher">
-            <item id="hococlock_focoswitcher" input="" value="32"/>
+            <item id="hococlock_focoswitcher" input="" value="16"/>
             <item id="mococlock_focoswitcher" input="" value="4"/>
         </option>
         <option enabled="true" id="fmainswitcher" selection="focoswitcher_fmainswitcher">
-            <item id="focoswitcher_fmainswitcher" input="" value="32"/>
+            <item id="focoswitcher_fmainswitcher" input="" value="16"/>
             <item id="hssclock_fmainswitcher" input="" value="5"/>
         </option>
         <option enabled="true" id="fihp" selection="textoutputitem">
             <item id="textoutputitem" input="" value="32"/>
         </option>
         <option enabled="true" id="fmain" selection="textoutputitem">
-            <item id="textoutputitem" input="" value="32"/>
+            <item id="textoutputitem" input="" value="16"/>
         </option>
         <option enabled="false" id="fimp" selection="textoutputitem">
             <item id="textoutputitem" input="" value="4"/>
@@ -120,11 +120,11 @@
             <item id="textoutputitem" input="" value="32.768"/>
         </option>
         <option enabled="true" id="fclkswitcher" selection="fmainswitcher_fclkswitcher">
-            <item id="fmainswitcher_fclkswitcher" input="" value="32000"/>
+            <item id="fmainswitcher_fclkswitcher" input="" value="16000"/>
             <item id="fsxlswitcher_fclkswitcher" input="" value="32.768"/>
         </option>
         <option enabled="true" id="fclk" selection="textoutputitem">
-            <item id="textoutputitem" input="" value="32000"/>
+            <item id="textoutputitem" input="" value="16000"/>
         </option>
         <option enabled="true" id="fsxlswitcher" selection="lococlock_fsxlswitcher">
             <item id="lococlock_fsxlswitcher" input="" value="32.768"/>
@@ -223,10 +223,10 @@
         <pinItem allocation="15" comments="" direction="O" id="P63" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="21" comments="" direction="None" id="TSCAP" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="16" comments="" direction="None" id="TI03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="14" comments="" direction="IO" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="14" comments="" direction="O" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="34" comments="" direction="None" id="TS25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="20" comments="" direction="O" id="P70" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="24" comments="" direction="O" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="24" comments="" direction="IO" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="25" comments="" direction="O" id="CCD00" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="17" comments="" direction="O" id="P73" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="42" comments="" direction="O" id="P01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -285,7 +285,7 @@
         <configuration apiMode="FULL_API" id="54c03558-d376-4be7-b2c6-30c98602ddcc" inuse="true" name="Config_LVD1">
             <allocatable id="LVD1">
                 <isocket id="LVD1Input" value="false"/>
-                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <isocket id="fCLK_MAX" value="3.2E7"/>
                 <option enabled="true" id="operationMode" selection="interruptMode">
                     <item id="resetMode" input="" vlaue="0"/>
@@ -317,7 +317,7 @@
                     <item id="lvd_3880" input="" vlaue="0"/>
                     <item id="lvd_4080" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="interruptVoltage" selection="lvd_2760">
+                <option enabled="true" id="interruptVoltage" selection="lvd_2600">
                     <item id="lvd_1630" input="" vlaue="0"/>
                     <item id="lvd_1740" input="" vlaue="0"/>
                     <item id="lvd_1840" input="" vlaue="0"/>
@@ -457,7 +457,7 @@
         </configuration>
         <configuration apiMode="FULL_API" id="513a9e69-14ef-43fb-b528-3be32ab28adc" inuse="true" name="Config_RTC">
             <allocatable id="RTC">
-                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <isocket id="fCLK_MAX" selection="Clock.tool_clock_fCLK_MAX" value="3.2E7"/>
                 <isocket id="clockfSXR_fSXP" selection="Clock.tool_clock_fSXR_fSXL" value="32768.0"/>
                 <isocket id="clockfIL_fSXP" selection="Clock.tool_clock_fIL_fSXL" value="32768.0"/>
@@ -554,12 +554,12 @@
         </configuration>
         <configuration apiMode="FULL_API" id="6fe8698c-14e6-4098-af88-600959ac49ff" inuse="true" name="Config_TAU0_0">
             <allocatable id="TAU00">
-                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="OperationClock" selection="CK1">
                     <item id="CK0" input="" vlaue="0"/>
                     <item id="CK1" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="FCLK16384">
+                <option enabled="true" id="ClockSource" selection="FCLK8192">
                     <item id="FCLK1" input="1" vlaue="0"/>
                     <item id="FCLK2" input="2" vlaue="0"/>
                     <item id="FCLK4" input="4" vlaue="0"/>
@@ -612,14 +612,14 @@
         </configuration>
         <configuration apiMode="FULL_API" id="2aea27f5-c358-41c1-b1eb-9bf5f2350c54" inuse="true" name="Config_TAU0_1">
             <allocatable id="TAU01">
-                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="OperationClock" selection="CK1">
                     <item id="CK0" input="" vlaue="0"/>
                     <item id="CK1" input="" vlaue="0"/>
                     <item id="CK2" input="" vlaue="0"/>
                     <item id="CK3" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="FCLK16384">
+                <option enabled="true" id="ClockSource" selection="FCLK8192">
                     <item id="FCLK1" input="1" vlaue="0"/>
                     <item id="FCLK2" input="2" vlaue="0"/>
                     <item id="FCLK4" input="4" vlaue="0"/>
@@ -676,12 +676,12 @@
         </configuration>
         <configuration apiMode="FULL_API" id="2f48033a-9985-4591-b49f-35e7978dc610" inuse="true" name="Config_TAU0_4">
             <allocatable id="TAU04">
-                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="OperationClock" selection="CK1">
                     <item id="CK0" input="" vlaue="0"/>
                     <item id="CK1" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="FCLK16384">
+                <option enabled="true" id="ClockSource" selection="FCLK8192">
                     <item id="FCLK1" input="1" vlaue="0"/>
                     <item id="FCLK2" input="2" vlaue="0"/>
                     <item id="FCLK4" input="4" vlaue="0"/>
@@ -744,12 +744,12 @@
         </configuration>
         <configuration apiMode="FULL_API" id="3501ef6c-73b1-4e66-a905-7f7b0c3e7566" inuse="true" name="Config_TAU0_5">
             <allocatable id="TAU05">
-                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="OperationClock" selection="CK1">
                     <item id="CK0" input="" vlaue="0"/>
                     <item id="CK1" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="FCLK16384">
+                <option enabled="true" id="ClockSource" selection="FCLK8192">
                     <item id="FCLK1" input="1" vlaue="0"/>
                     <item id="FCLK2" input="2" vlaue="0"/>
                     <item id="FCLK4" input="4" vlaue="0"/>
@@ -816,7 +816,7 @@
                 <osocket id="BothSetting" value="SingleTransfer"/>
                 <osocket id="RecvSetting" value="SingleTransfer"/>
                 <isocket id="vddRangeMode" selection="Clock.tool_clock_vddRangeMode" value="hsmainmode"/>
-                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <isocket id="evddRange" selection="Clock.tool_clock_evddRange" value="1.8~5.5"/>
                 <option enabled="true" id="TransClockMode" selection="internal">
                     <item id="internal" input="" vlaue="0"/>
@@ -863,7 +863,7 @@
                     <item id="Type4Item" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="Bitrate" selection="BaudrateValue">
-                    <item id="BaudrateValue" input="8000000" vlaue="1"/>
+                    <item id="BaudrateValue" input="8000000" vlaue="0"/>
                     <item id="Slection9600" input="9600" vlaue="0"/>
                     <item id="Slection19200" input="19200" vlaue="0"/>
                     <item id="Slection31250" input="31250" vlaue="0"/>
@@ -906,8 +906,8 @@
         </configuration>
         <configuration apiMode="FULL_API" id="9226f5fe-b46a-418d-a3ba-87183871e40e" inuse="true" name="Config_IICA0">
             <allocatable id="0">
-                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
-                <option enabled="true" id="clockMode" selection="fclk2">
+                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
+                <option enabled="true" id="clockMode" selection="fclk">
                     <item id="fclk" input="" vlaue="0"/>
                     <item id="fclk2" input="" vlaue="0"/>
                 </option>
@@ -1797,7 +1797,7 @@
                     </allocatable>
                 </allocatable>
                 <isocket id="fCLK_MAX" selection="Clock.tool_clock_fCLK_MAX" value="3.2E7"/>
-                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="PortModeSetting" selection="ReadPmnValues">
                     <item id="ReadPmnValues" input="" vlaue="0"/>
                     <item id="ReadDigitalOutputLevel" input="" vlaue="0"/>
@@ -1811,14 +1811,14 @@
         </configuration>
         <configuration apiMode="FULL_API" id="fa64bb64-17e6-490a-abbb-fcd234366525" inuse="true" name="Config_TAU0_3">
             <allocatable id="TAU03">
-                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="fCLK" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="OperationClock" selection="CK1">
                     <item id="CK0" input="" vlaue="0"/>
                     <item id="CK1" input="" vlaue="0"/>
                     <item id="CK2" input="" vlaue="0"/>
                     <item id="CK3" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="FCLK16384">
+                <option enabled="true" id="ClockSource" selection="FCLK8192">
                     <item id="FCLK1" input="1" vlaue="0"/>
                     <item id="FCLK2" input="2" vlaue="0"/>
                     <item id="FCLK4" input="4" vlaue="0"/>
@@ -1881,12 +1881,12 @@
         </configuration>
         <configuration apiMode="FULL_API" id="676e1864-6c8f-497b-941e-e126925ee736" inuse="true" name="Config_TAU0_2">
             <allocatable id="TAU02">
-                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="OperationClock" selection="CK1">
                     <item id="CK0" input="" vlaue="0"/>
                     <item id="CK1" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="FCLK16384">
+                <option enabled="true" id="ClockSource" selection="FCLK8192">
                     <item id="FCLK1" input="1" vlaue="0"/>
                     <item id="FCLK2" input="2" vlaue="0"/>
                     <item id="FCLK4" input="4" vlaue="0"/>
@@ -1952,7 +1952,7 @@
                 <isocket id="vddRangeMode" selection="Clock.tool_clock_vddRangeMode" value="hsmainmode"/>
                 <isocket id="evddRange" selection="Clock.tool_clock_evddRange" value="1.8~5.5"/>
                 <isocket id="fSXP" selection="Clock.tool_clock_fSXL" value="32768.0"/>
-                <isocket id="fMAIN" selection="Clock.tool_clock_fMAIN" value="3.2E7"/>
+                <isocket id="fMAIN" selection="Clock.tool_clock_fMAIN" value="1.6E7"/>
                 <option enabled="true" id="OutputClock" selection="FSXP6">
                     <item id="FMAIN0" input="" vlaue="0"/>
                     <item id="FMAIN1" input="" vlaue="0"/>
@@ -2053,7 +2053,7 @@
                     <item id="fSXP" input="" vlaue="0"/>
                     <item id="ELCL" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="fITL7">
+                <option enabled="true" id="ClockSource" selection="fITL6">
                     <item id="fITL0" input="1" vlaue="0"/>
                     <item id="fITL1" input="2" vlaue="0"/>
                     <item id="fITL2" input="4" vlaue="0"/>
@@ -2064,7 +2064,7 @@
                     <item id="fITL7" input="128" vlaue="0"/>
                 </option>
                 <option enabled="true" id="IntervalValue" selection="intervalValueText">
-                    <item id="intervalValueText" input="100" vlaue="25"/>
+                    <item id="intervalValueText" input="200" vlaue="101"/>
                 </option>
                 <option enabled="true" id="IntervalUnit" selection="ms">
                     <item id="ms" input="" vlaue="0"/>
@@ -3345,12 +3345,12 @@
         </configuration>
         <configuration apiMode="FULL_API" id="1eccd5cb-6e09-4212-8381-cdbd06466711" inuse="true" name="Config_TAU0_6">
             <allocatable id="TAU06">
-                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="3.2E7"/>
+                <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
                 <option enabled="true" id="OperationClock" selection="CK0">
                     <item id="CK0" input="" vlaue="0"/>
                     <item id="CK1" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ClockSource" selection="FCLK32768">
+                <option enabled="true" id="ClockSource" selection="FCLK16384">
                     <item id="FCLK1" input="1" vlaue="0"/>
                     <item id="FCLK2" input="2" vlaue="0"/>
                     <item id="FCLK4" input="4" vlaue="0"/>
@@ -3415,7 +3415,7 @@
             <component description="Dependency : r_bsp version(s) 1.13&#10;Dependency : r_comms_i2c version(s) 1.10&#10;The ZMOD4XXX SIS module controls the Renesas Electronics ZMOD4XXX sensors using IICA and SAU IIC driver generated by Smart Configurator." detailDescription="ZMOD4XXX Sensor Middleware" display="r_zmod4xxx" id="r_zmod4xxx1.20" version="1.20">
                 <gridItem id="RM_ZMOD4XXX_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE_NUM_MAX" selectedIndex="0"/>
-                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE" selectedIndex="2"/>
+                <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE" selectedIndex="3"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_COMMS_INSTANCE" selectedIndex="1"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_COMMS_I2C_CALLBACK" selectedIndex="Zmod4xxx_user_i2c_callback0"/>
                 <gridItem id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE" selectedIndex="1"/>

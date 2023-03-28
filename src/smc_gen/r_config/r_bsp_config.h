@@ -127,7 +127,7 @@
 /* Option byte setting(When using IAR) */
 #define BSP_CFG_OPTBYTE0_VALUE (0xEFU) /* Generated value. Do not edit this manually */
 #define BSP_CFG_OPTBYTE1_VALUE (0x3AU) /* Generated value. Do not edit this manually */
-#define BSP_CFG_OPTBYTE2_VALUE (0xE8U) /* Generated value. Do not edit this manually */
+#define BSP_CFG_OPTBYTE2_VALUE (0xE9U) /* Generated value. Do not edit this manually */
 #define BSP_CFG_OPTBYTE3_VALUE (0x04U) /* Generated value. Do not edit this manually */
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U) /* Generated value. Do not edit this manually */
@@ -1109,7 +1109,7 @@
  5                : fIH = 1MHz
  Other than above : Setting prohibited
 */
-#define BSP_CFG_HOCO_DIVIDE (0) /* Generated value. Do not edit this manually */
+#define BSP_CFG_HOCO_DIVIDE (1) /* Generated value. Do not edit this manually */
 
 /* Setting for starting the high-speed on-chip oscillator at the times of release from STOP mode
    and of transitions to SNOOZE mode

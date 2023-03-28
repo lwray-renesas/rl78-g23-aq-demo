@@ -58,7 +58,7 @@ void R_Config_LVD1_Create(void)
     LVIPR1 = 1U;
     LVIPR0 = 1U;
     LVISEN = 1U;    /*Enable of rewriting the LVIS register*/
-    LVIS = _00_LVD_MODE_INT | _15_LVD_LEVEL_276;
+    LVIS = _00_LVD_MODE_INT | _16_LVD_LEVEL_260;
     LVISEN = 0U;    /*Disable of rewriting the LVIS register*/
 
     R_Config_LVD1_Create_UserInit();

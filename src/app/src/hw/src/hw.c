@@ -29,12 +29,12 @@ uint8_t tone[8];
 
 /** lpf state object*/
 static lpf_state_t lpf0_state = {
-		.coeff = Q1616(0,6),
+		.coeff = Q1616(0,85),
 };
 
 /** lpf state object*/
 static lpf_state_t lpf1_state = {
-		.coeff = Q1616(0,6),
+		.coeff = Q1616(0,85),
 };
 
 /** median filter state object*/
@@ -349,7 +349,7 @@ void Hw_backlight_set(backlight_level_t const backlight_level)
 	{
 		P6_bit.no2 = 0U;
 		CCDE |= 0x40U;
-		CCS6 = 0x04U; /* 15mA backlight*/
+		CCS6 = 0x03U; /* 10mA backlight*/
 	}
 	break;
 

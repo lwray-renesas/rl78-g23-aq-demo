@@ -53,7 +53,7 @@ Global variables and functions
 void R_Config_TAU0_1_Create(void)
 {
     TPS0 &= _FF0F_TAU_CKM1_CLEAR;
-    TPS0 |= _00E0_TAU_CKM1_FCLK_14;
+    TPS0 |= _00D0_TAU_CKM1_FCLK_13;
     /* Stop channel 1 */
     TT0 |= _0002_TAU_CH1_STOP_TRG_ON;
     /* Mask channel 1 interrupt */

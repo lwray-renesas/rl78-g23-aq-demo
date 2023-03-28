@@ -122,7 +122,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/Config_TAU0_2}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/Config_PCLBUZ1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/rm_touch}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/../../HardwareDebug/src/smc_gen/r_ctsu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_ctsu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/Config_ITL000_ITL001}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/Config_DTC}&quot;"/>
@@ -193,7 +192,7 @@
 							</tool>
 							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.linker.78827634" name="Linker" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.linker">
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.debugMonitorValue.48804985" name="Memory area (-debug_monitor=&lt;start address&gt;-&lt;end address&gt;)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.debugMonitorValue" useByScannerDiscovery="false" value="BFE00-BFFFF" valueType="string"/>
-								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.userOptByteValue.1699786928" name="User option byte value (-user_opt_byte=&lt;value&gt;)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.userOptByteValue" useByScannerDiscovery="false" value="EF3AE8" valueType="string"/>
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.userOptByteValue.1699786928" name="User option byte value (-user_opt_byte=&lt;value&gt;)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.userOptByteValue" useByScannerDiscovery="false" value="EF3AE9" valueType="string"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.ocdbgValue.2063725232" name="On-chip debug control value (-ocdbg=&lt;value&gt;)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.ocdbgValue" useByScannerDiscovery="false" value="04" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.vectn.42289557" name="Address setting for specified area of vector table (-vectn)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.vectn" useByScannerDiscovery="false" valueType="stringList">
 									<listOptionValue builtIn="false" value=""/>
@@ -218,10 +217,13 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.autoSectionLayout.1732979720" name="Layout sections automatically (-auto_section_layout)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.autoSectionLayout" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.section.1538126554" name="Sections (-start)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.section" useByScannerDiscovery="false" value=".const,.text,IMAGE_n,FONT_n,.data,.sdata,.RLIB,.SLIB,.textf,.constf/03000,IMAGE_f,FONT_f/090000,.dataR,.bss/0F3F00,.sdataR,.sbss/0FFE20" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.inputFile.331150106" name="Relocatable files, object files and library files (-input/-library/-binary)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.inputFile" useByScannerDiscovery="false" valueType="stringList">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_zmod4xxx/lib/S3-core/iaq_2nd_gen/ccrl/lib_iaq_2nd_gen.lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_zmod4xxx/lib/S3-core/iaq_2nd_gen_ulp/ccrl/lib_iaq_2nd_gen_ulp.lib}&quot;"/>
 								</option>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.RAMarea.1724091387" name="RAM area without section (-self/-ocdtr/-ocdhpi)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.RAMarea" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.RAMarea.none" valueType="enumerated"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.show.1898052658" name="Output method (-show)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.show" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.show.all" valueType="enumerated"/>
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.changeMsgError.735737967" name="Change information and warning message to error message (-change_message=error)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.changeMsgError" useByScannerDiscovery="false" value="false" valueType="boolean"/>
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.changeMsgErrorValue.1097243722" name="Message number (all if empty) (-change_message=error=&lt;number&gt;)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.changeMsgErrorValue" useByScannerDiscovery="false" value="" valueType="string"/>
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.message.2145103335" name="Suppress to output information message (-nomessage/-message)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.linker.option.message" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="Base.Linker.ccrl.inputType.183648550" name="Linker InputType" superClass="Base.Linker.ccrl.inputType"/>
 							</tool>
 							<tool id="com.renesas.cdt.managedbuild.renesas.ccrl.base.converter.552610865" name="Converter" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.base.converter">

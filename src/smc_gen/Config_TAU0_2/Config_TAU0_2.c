@@ -53,7 +53,7 @@ Global variables and functions
 void R_Config_TAU0_2_Create(void)
 {
     TPS0 &= _FF0F_TAU_CKM1_CLEAR;
-    TPS0 |= _00E0_TAU_CKM1_FCLK_14;
+    TPS0 |= _00D0_TAU_CKM1_FCLK_13;
     /* Stop channel 2 */
     TT0 |= _0004_TAU_CH2_STOP_TRG_ON;
     /* TAU02 used as interval timer */

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ConfigurationInfoTable>
-                      
+                          
+  
+  
   
   
   
@@ -11,7 +13,9 @@
   
   
   <Version>2.2</Version>
-                      
+                          
+  
+  
   
   
   
@@ -22,7 +26,9 @@
   
   
   <McuName>R7F100GFNxFP</McuName>
-                      
+                          
+  
+  
   
   
   
@@ -33,7 +39,9 @@
   
   
   <McuGroup>RL78G23</McuGroup>
-                      
+                          
+  
+  
   
   
   
@@ -44,7 +52,9 @@
   
   
   <TemplateInfoTable>
-                                            
+                                                    
+    
+    
     
     
     
@@ -55,7 +65,9 @@
     
     
     <Comment/>
-                                            
+                                                    
+    
+    
     
     
     
@@ -66,7 +78,9 @@
     
     
     <TouchIFSetting>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -77,7 +91,9 @@
       
       
       <ID>0</ID>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -88,7 +104,9 @@
       
       
       <HintID>0</HintID>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -99,7 +117,9 @@
       
       
       <Label>Button00</Label>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -110,7 +130,9 @@
       
       
       <Type>1</Type>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -121,7 +143,9 @@
       
       
       <Direction>1</Direction>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -132,7 +156,9 @@
       
       
       <Rectangle>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -143,7 +169,9 @@
         
         
         <X>345</X>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -154,7 +182,9 @@
         
         
         <Y>180</Y>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -165,7 +195,9 @@
         
         
         <Width>50</Width>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -176,7 +208,9 @@
         
         
         <Height>50</Height>
-                                                                                      
+                                                                                                      
+      
+      
       
       
       
@@ -187,7 +221,9 @@
       
       
       </Rectangle>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -198,7 +234,9 @@
       
       
       <TsInfo>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -209,7 +247,9 @@
         
         
         <Number>25</Number>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -220,7 +260,9 @@
         
         
         <Resistance>560</Resistance>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -231,7 +273,9 @@
         
         
         <TXRX>0</TXRX>
-                                                                                      
+                                                                                                      
+      
+      
       
       
       
@@ -242,7 +286,9 @@
       
       
       </TsInfo>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -253,7 +299,9 @@
       
       
       <CFC>0</CFC>
-                                                                
+                                                                            
+    
+    
     
     
     
@@ -264,7 +312,9 @@
     
     
     </TouchIFSetting>
-                                          
+                                                  
+  
+  
   
   
   
@@ -275,7 +325,9 @@
   
   
   </TemplateInfoTable>
-                      
+                          
+  
+  
   
   
   
@@ -286,7 +338,9 @@
   
   
   <MethodInfoTable>
-                                            
+                                                    
+    
+    
     
     
     
@@ -297,7 +351,9 @@
     
     
     <MethodSetting>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -308,7 +364,9 @@
       
       
       <Name>config01</Name>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -319,7 +377,9 @@
       
       
       <TifInfo>
-                                                                                        
+                                                                                                        
+        
+        
         
         
         
@@ -330,7 +390,9 @@
         
         
         <TouchIFID>0</TouchIFID>
-                                                                                      
+                                                                                                      
+      
+      
       
       
       
@@ -341,7 +403,9 @@
       
       
       </TifInfo>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -352,7 +416,9 @@
       
       
       <EnableAutoSensing>false</EnableAutoSensing>
-                                                                  
+                                                                              
+      
+      
       
       
       
@@ -363,7 +429,9 @@
       
       
       <EnableMultipleElectrodeConnection>false</EnableMultipleElectrodeConnection>
-                                                                
+                                                                            
+    
+    
     
     
     
@@ -374,7 +442,9 @@
     
     
     </MethodSetting>
-                                          
+                                                  
+  
+  
   
   
   
@@ -385,7 +455,11 @@
   
   
   </MethodInfoTable>
-                    
+                        
+  
+
+  
+
   
 
   
@@ -409,26 +483,27 @@
       <MethodID>0</MethodID>
       <TouchIFID>0</TouchIFID>
       <TouchIFType>1</TouchIFType>
-      <Capacitance>13.069445</Capacitance>
-      <DrivePulseFrequency>2.0</DrivePulseFrequency>
-      <Threshold>70</Threshold>
-      <Hysteresis>5</Hysteresis>
-      <ScanTime>0.128</ScanTime>
+      <Capacitance>11.0625</Capacitance>
+      <DrivePulseFrequency>4.0</DrivePulseFrequency>
+      <Threshold>8799</Threshold>
+      <Hysteresis>439</Hysteresis>
+      <ScanTime>0.16</ScanTime>
       <CTSUSSDIV>0</CTSUSSDIV>
-      <CTSUSNUM>7</CTSUSNUM>
-      <CTSUSO>163</CTSUSO>
-      <CTSUSDPA>7</CTSUSDPA>
+      <CTSUSNUM>9</CTSUSNUM>
+      <CTSUSO>439</CTSUSO>
+      <CTSUSDPA>3</CTSUSDPA>
     </TunedData>
-    <Vcc>2.7</Vcc>
+    <Vcc>1.8</Vcc>
     <EnableAdvancedTuning>true</EnableAdvancedTuning>
     <AdvancedTunedData>
       <MethodID>0</MethodID>
-      <CTSUATUNE12>0</CTSUATUNE12>
+      <CTSUATUNE12>2</CTSUATUNE12>
       <CTSUPOSEL>0</CTSUPOSEL>
       <CTSUTXVSEL>0</CTSUTXVSEL>
       <OffsetTuningTarget>10.0</OffsetTuningTarget>
     </AdvancedTunedData>
     <MultiFrequencyMeasurement>
+      <CTSUSUMULTI2>45</CTSUSUMULTI2>
       <EnableAutoCorrect>true</EnableAutoCorrect>
     </MultiFrequencyMeasurement>
   </ParameterDataTable>
