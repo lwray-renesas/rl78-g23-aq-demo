@@ -54,7 +54,7 @@ extern rltos_mutex_t sensor_mutex;
 extern rltos_mutex_t alarm_sensor_mutex;
 
 /** Local sensor data structure*/
-static sensor_data_t sensor_data;
+static sensor_data_t sensor_data = {0, 0, {0,0}, {0,0}, {0,0}, false};
 /** Local alarm sensor data structure*/
 static sensor_data_t alarm_sensor_data = {0, 0, {2,50}, {3,50}, {1000,0}, false};
 /** System state variable*/
@@ -98,6 +98,12 @@ void App_init_sensors(void)
 	Rltos_mutex_lock(&sensor_mutex, RLTOS_UINT_MAX);
 	Sensor_init();
 	Rltos_mutex_release(&sensor_mutex);
+
+	Sensor_try_trigger_read();
+	while(!App_read_sensors())
+	{
+		Rltos_task_sleep(1U);
+	}
 }
 /* END OF FUNCTION*/
 

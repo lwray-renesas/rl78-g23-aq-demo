@@ -349,7 +349,7 @@ void Hw_backlight_set(backlight_level_t const backlight_level)
 	{
 		P6_bit.no2 = 0U;
 		CCDE |= 0x40U;
-		CCS6 = 0x04U; /* 15mA backlight*/
+		CCS6 = 0x03U; /* 10mA backlight*/
 	}
 	break;
 
