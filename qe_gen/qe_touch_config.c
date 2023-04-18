@@ -50,7 +50,7 @@ CTSU Related Information for [CONFIG01] configuration.
 
 const ctsu_element_cfg_t g_qe_ctsu_element_cfg_config01[] =
 {
-    { .so = 0x1B7, .snum = 0x09, .sdpa = 0x03 },
+    { .so = 0x09B, .snum = 0x07, .sdpa = 0x07 },
 };
 
 const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
@@ -60,7 +60,7 @@ const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
     .txvsel = CTSU_TXVSEL_VCC,
     .txvsel2= CTSU_TXVSEL_MODE,
 
-    .atune12= CTSU_ATUNE12_20UA,
+    .atune12= CTSU_ATUNE12_80UA,
     .md     = CTSU_MODE_SELF_MULTI_SCAN,
     .posel  = CTSU_POSEL_LOW_GPIO,
 
@@ -113,8 +113,8 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 600,
-        .hysteresis = 10,
+        .threshold  = 1000,
+        .hysteresis = 100,
     },
 };
 #endif

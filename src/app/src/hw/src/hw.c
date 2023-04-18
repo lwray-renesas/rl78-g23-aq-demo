@@ -29,24 +29,7 @@ uint8_t tone[8];
 
 /** lpf state object*/
 static lpf_state_t lpf0_state = {
-		.coeff = Q1616(0,85),
-};
-
-/** lpf state object*/
-static lpf_state_t lpf1_state = {
-		.coeff = Q1616(0,85),
-};
-
-/** median filter state object*/
-static mf_state_t mf_state;
-
-/** biquad state object*/
-static bq_state_t bq_state = {
-		.a1 = Q1616(0,36953),
-		.a2 = Q1616(0,19581),
-		.b0 = Q1616(0,39133),
-		.b1 = Q1616(0,78267),
-		.b2 = Q1616(0,39133),
+		.coeff = Q1616(0,75),
 };
 
 /** @brief Performs ELCL Setup*/
@@ -54,10 +37,8 @@ static void Setup_elcl(void);
 
 /** @brief Retrieves ctsu data & inserts data point into median filter arrays
  * @param[in] lpf - true to enable low pass filter
- * @param[in] mf - true to enable median filter
- * @param[in] bq - true to enable biquad filter
  * @return filtered data point*/
-static uint16_t Hw_ctsu_get_data_point(bool lpf, bool mf, bool bq);
+static uint16_t Hw_ctsu_get_data_point(bool lpf);
 
 /** @brief callback used for ctsu scan complete
  * @param p_args - pointer to callback argument struct.
@@ -127,7 +108,6 @@ void Hw_ctsu_start(void)
 {
 	static uint64_t l_button_status = 0ULL;
 	fsp_err_t err = FSP_SUCCESS;
-	uint16_t seed_array_count = MEDIAN_FILTER_DEPTH;
 
 	/* for ExternalTrigger */
 	err = RM_TOUCH_ScanStart(g_qe_touch_instance_config01.p_ctrl);
@@ -154,51 +134,19 @@ void Hw_ctsu_start(void)
 		err = RM_TOUCH_DataGet(g_qe_touch_instance_config01.p_ctrl, &l_button_status, NULL, NULL);
 		if ((FSP_SUCCESS == err) && (l_button_status == 0ULL))
 		{
+			uint16_t measurement_data = 0U;
+
+			/* Prime the filter*/
+			err = R_CTSU_DataGet(g_qe_ctsu_instance_config01.p_ctrl, &measurement_data);
+
+			if(FSP_SUCCESS == err)
+			{
+				lpf0_state.y_prev = measurement_data;
+			}
+
 			break;
 		}
 	}
-
-	/* Scan until the filter arrays are seeded with real world data*/
-	do
-	{
-		uint16_t measurement_data = 0U;
-		uint16_t bq_index = 0U;
-
-		while (!HW_EVENT_OCCURRED(hw_event_flags, PROXIMITY_SCAN_COMPLETE))
-		{
-			NOP();
-		}
-
-		hw_event_flags = NO_EVENT; /* Reset the event flags*/
-
-		/* Prime the filters*/
-		err = R_CTSU_DataGet(g_qe_ctsu_instance_config01.p_ctrl, &measurement_data);
-
-		if(FSP_SUCCESS == err)
-		{
-			mf_state.median_filter_array[mf_state.median_filter_index] = measurement_data;
-			bq_state.input_data[bq_index] = measurement_data;
-
-			++mf_state.median_filter_index;
-			++bq_index;
-
-			if(mf_state.median_filter_index >= MEDIAN_FILTER_DEPTH)
-			{
-				mf_state.median_filter_index = 0U;
-			}
-
-			if(bq_index >= 3U)
-			{
-				bq_index = 0U;
-			}
-
-			lpf0_state.y_prev = measurement_data;
-			lpf1_state.y_prev = measurement_data;
-		}
-
-		--seed_array_count;
-	}
-	while(seed_array_count > 0U);
 }
 /* END OF FUNCTION*/
 
@@ -365,7 +313,7 @@ bool Hw_ctsu_get_proximity_data(void)
 {
 	uint64_t proximity_status = 0ULL;
 	fsp_err_t err = FSP_SUCCESS;
-	uint16_t data_point = Hw_ctsu_get_data_point(true, true, false);
+	uint16_t data_point = Hw_ctsu_get_data_point(true);
 
 	err = R_CTSU_DataInsert(g_qe_ctsu_instance_config01.p_ctrl, &data_point);
 
@@ -427,7 +375,7 @@ static void Setup_elcl(void)
 }
 /* END OF FUNCTION*/
 
-static uint16_t Hw_ctsu_get_data_point(bool lpf, bool mf, bool bq)
+static uint16_t Hw_ctsu_get_data_point(bool lpf)
 {
 	uint16_t measurement_data = 0U;
 	fsp_err_t err = FSP_SUCCESS;
@@ -439,21 +387,6 @@ static uint16_t Hw_ctsu_get_data_point(bool lpf, bool mf, bool bq)
 		if(lpf)
 		{
 			measurement_data = Low_pass_filter(&lpf0_state, measurement_data);
-		}
-
-		if(mf)
-		{
-			measurement_data = Median_filter(&mf_state, measurement_data);
-		}
-
-		if(lpf)
-		{
-			measurement_data = Low_pass_filter(&lpf1_state, measurement_data);
-		}
-
-		if(bq)
-		{
-			measurement_data = Biquad_filter(&bq_state, measurement_data);
 		}
 	}
 

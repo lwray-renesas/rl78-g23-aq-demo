@@ -105,6 +105,14 @@ typedef struct
 	uint16_t yend;
 }ST7735S_display_constants_t;
 
+/** Used for calculating display x and y offsets*/
+typedef struct
+{
+	ST7735S_display_constants_t area; /**< x & y area of display to be updated*/
+	bool dirty_mark; /**< true for dirt marked display*/
+	bool dirty_mark_all; /**< true when entire display should be updated*/
+}ST7735S_dirty_marking;
+
 static volatile bool spi_tx_done = true;
 static const uint8_t * colour_ptr = NULL;
 static const uint8_t * bg_colour_ptr = NULL;
@@ -120,6 +128,17 @@ ST7735S_display_area_info_t current_display_info = {
 ST7735S_display_constants_t current_display_constants = {
 		.xoffset = COLS_START,
 		.yoffset = ROWS_START
+};
+
+ST7735S_dirty_marking dirty_marking = {
+		.area = {
+				.xoffset = 0U,
+				.yoffset = 0U,
+				.xend = 0U,
+				.yend = 0U
+		},
+		.dirty_mark = false,
+		.dirty_mark_all = false
 };
 
 static const uint8_t init_buf[] = {
@@ -335,6 +354,43 @@ void St7735s_set_bgcolour(const uint8_t * const bg_colour)
 
 void St7735s_set_pixel(uint16_t x, uint16_t y)
 {
+	if(!dirty_marking.dirty_mark)
+	{
+		dirty_marking.dirty_mark = true;
+		dirty_marking.area.xoffset = x;
+		dirty_marking.area.xend = x;
+		dirty_marking.area.yoffset = y;
+		dirty_marking.area.yend = y;
+	}
+	else
+	{
+		if(x < dirty_marking.area.xoffset)
+		{
+			dirty_marking.area.xoffset = x;
+		}
+		else if(x > dirty_marking.area.xend)
+		{
+			dirty_marking.area.xend = x;
+		}
+		else
+		{
+			/* Do Nothing*/
+		}
+
+		if(y < dirty_marking.area.yoffset)
+		{
+			dirty_marking.area.yoffset = y;
+		}
+		else if(y > dirty_marking.area.yend)
+		{
+			dirty_marking.area.yend = y;
+		}
+		else
+		{
+			/* Do Nothing*/
+		}
+	}
+
 #if BYTES_PER_COLOUR == 3
 	image_buffer[((y * DISPLAY_PIXEL_WIDTH) + x)*3U] = colour_ptr[0U];
 	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)*3U)+1U] = colour_ptr[1U];
@@ -348,6 +404,43 @@ void St7735s_set_pixel(uint16_t x, uint16_t y)
 
 void St7735s_set_bgpixel(uint16_t x, uint16_t y)
 {
+	if(!dirty_marking.dirty_mark)
+	{
+		dirty_marking.dirty_mark = true;
+		dirty_marking.area.xoffset = x;
+		dirty_marking.area.xend = x;
+		dirty_marking.area.yoffset = y;
+		dirty_marking.area.yend = y;
+	}
+	else
+	{
+		if(x < dirty_marking.area.xoffset)
+		{
+			dirty_marking.area.xoffset = x;
+		}
+		else if(x > dirty_marking.area.xend)
+		{
+			dirty_marking.area.xend = x;
+		}
+		else
+		{
+			/* Do Nothing*/
+		}
+
+		if(y < dirty_marking.area.yoffset)
+		{
+			dirty_marking.area.yoffset = y;
+		}
+		else if(y > dirty_marking.area.yend)
+		{
+			dirty_marking.area.yend = y;
+		}
+		else
+		{
+			/* Do Nothing*/
+		}
+	}
+
 #if BYTES_PER_COLOUR == 3
 	image_buffer[((y * DISPLAY_PIXEL_WIDTH) + x)*3U] = bg_colour_ptr[0U];
 	image_buffer[(((y * DISPLAY_PIXEL_WIDTH) + x)*3U)+1U] = bg_colour_ptr[1U];
@@ -363,16 +456,52 @@ void St7735s_refresh(void)
 {
 	static uint8_t pixel_buf[] = {5, CASET, 0x00, 0x00, 0x00, 0x00, 5, RASET, 0x00, 0x00, 0x00, 0x00};
 
-	pixel_buf[3] = current_display_constants.xoffset;
-	pixel_buf[5] = current_display_constants.xend;
-	pixel_buf[9] = current_display_constants.yoffset;
-	pixel_buf[11] = current_display_constants.yend;
+	if(dirty_marking.dirty_mark_all)
+	{
+		dirty_marking.dirty_mark_all = false;
+		dirty_marking.dirty_mark = false;
 
-	St7735s_write_cmd_sequence(pixel_buf, sizeof(pixel_buf));
+		pixel_buf[3] = current_display_constants.xoffset;
+		pixel_buf[5] = current_display_constants.xend;
+		pixel_buf[9] = current_display_constants.yoffset;
+		pixel_buf[11] = current_display_constants.yend;
 
-	St7735s_set_ram_access();
+		St7735s_write_cmd_sequence(pixel_buf, sizeof(pixel_buf));
+		St7735s_set_ram_access();
+		St7735s_write_data_buf(image_buffer, IMAGE_BUFFER_SIZE);
+	}
+	else if(dirty_marking.dirty_mark)
+	{
+		uint8_t * image_buf_nav = NULL;
 
-	St7735s_write_data_buf(image_buffer, IMAGE_BUFFER_SIZE);
+		const uint16_t y_diff = dirty_marking.area.yend-dirty_marking.area.yoffset;
+#if BYTES_PER_COLOUR == 3
+		const uint16_t x_diff = ((dirty_marking.area.xend-dirty_marking.area.xoffset)+1U)*3U;
+#else
+		const uint16_t x_diff = ((dirty_marking.area.xend-dirty_marking.area.xoffset)+1U)<<1U;
+#endif
+		dirty_marking.dirty_mark = false;
+
+		pixel_buf[3] = dirty_marking.area.xoffset + current_display_constants.xoffset;
+		pixel_buf[5] = dirty_marking.area.xend + current_display_constants.xoffset;
+		pixel_buf[9] = dirty_marking.area.yoffset + current_display_constants.yoffset;
+		pixel_buf[11] = dirty_marking.area.yend + current_display_constants.yoffset;
+
+		St7735s_write_cmd_sequence(pixel_buf, sizeof(pixel_buf));
+		St7735s_set_ram_access();
+
+#if BYTES_PER_COLOUR == 3
+		image_buf_nav = &image_buffer[((dirty_marking.area.yoffset * DISPLAY_PIXEL_WIDTH) + dirty_marking.area.xoffset)*3U];
+#else
+		image_buf_nav = &image_buffer[((dirty_marking.area.yoffset * DISPLAY_PIXEL_WIDTH) + dirty_marking.area.xoffset)<<1U];
+#endif
+
+		for(uint16_t i = 0U; i <= y_diff; ++i)
+		{
+			St7735s_write_data_buf(image_buf_nav, x_diff);
+			image_buf_nav += (DISPLAY_PIXEL_WIDTH << 1U);
+		}
+	}
 }
 /* END OF FUNCTION*/
 
@@ -380,19 +509,56 @@ void St7735s_send_image(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 {
 	uint16_t data_index = 0U;
 
+	if(!dirty_marking.dirty_mark)
+	{
+		dirty_marking.dirty_mark = true;
+		dirty_marking.area.xoffset = x;
+		dirty_marking.area.xend = (x+width);
+		dirty_marking.area.yoffset = y;
+		dirty_marking.area.yend = (y+height);
+	}
+	else
+	{
+		if(x < dirty_marking.area.xoffset)
+		{
+			dirty_marking.area.xoffset = x;
+		}
+		else if((x+width) > dirty_marking.area.xend)
+		{
+			dirty_marking.area.xend = (x+width);
+		}
+		else
+		{
+			/* Do Nothing*/
+		}
+
+		if(y < dirty_marking.area.yoffset)
+		{
+			dirty_marking.area.yoffset = y;
+		}
+		else if((y+height) > dirty_marking.area.yend)
+		{
+			dirty_marking.area.yend = (y+height);
+		}
+		else
+		{
+			/* Do Nothing*/
+		}
+	}
+
 	for(uint16_t y_pos = y; y_pos < (y+height); ++y_pos)
 	{
 		for(uint16_t x_pos = x; x_pos < (x+width); ++x_pos)
 		{
 #if BYTES_PER_COLOUR == 3
-	image_buffer[((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U] = data[data_index];
-	image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U)+1U] = data[data_index+1U];
-	image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U)+2U] = data[data_index+2U];
-	data_index += 3U;
+			image_buffer[((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U] = data[data_index];
+			image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U)+1U] = data[data_index+1U];
+			image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)*3U)+2U] = data[data_index+2U];
+			data_index += 3U;
 #else
-	image_buffer[((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)<<1U] = data[data_index];
-	image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)<<1U)+1U] = data[data_index+1U];
-	data_index += 2U;
+			image_buffer[((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)<<1U] = data[data_index];
+			image_buffer[(((y_pos * DISPLAY_PIXEL_WIDTH) + x_pos)<<1U)+1U] = data[data_index+1U];
+			data_index += 2U;
 #endif
 		}
 	}
@@ -413,6 +579,8 @@ void St7735s_fill_area_bg(uint16_t x, uint16_t y, uint16_t width, uint16_t heigh
 
 void St7735s_fill_display(void)
 {
+	dirty_marking.dirty_mark_all = true;
+
 	for(uint16_t pixel_pos = 0U; pixel_pos < IMAGE_BUFFER_SIZE; ++pixel_pos)
 	{
 		image_buffer[pixel_pos] = colour_ptr[0U];

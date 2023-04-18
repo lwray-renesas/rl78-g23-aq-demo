@@ -10,7 +10,6 @@
 
 #include "stdint.h"
 #include "stdbool.h"
-#include "rltos_task.h"
 
 /** @brief Length of display in pixels.*/
 #define DISPLAY_PIXEL_WIDTH			(160U)

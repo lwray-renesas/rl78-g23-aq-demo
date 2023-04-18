@@ -71,8 +71,8 @@ void R_Config_IICA0_Create(void)
     P6 &= 0xFCU;
     PM6 |= 0x03U;
     SMC0 = 1U;
-    IICWL0 = _15_IICA0_IICWL_VALUE;
-    IICWH0 = _14_IICA0_IICWH_VALUE;
+    IICWL0 = _06_IICA0_IICWL_VALUE;
+    IICWH0 = _05_IICA0_IICWH_VALUE;
     DFC0 = 1U;    /* digital filter on */
     IICCTL01 &= (uint8_t)~_01_IICA_fCLK_HALF;
     SVA0 = _10_IICA0_MASTERADDRESS;
