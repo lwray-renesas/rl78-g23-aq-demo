@@ -68,11 +68,6 @@ void Gui_thread_main(void)
 			Gfx_write_alarm(&gui_alarm_sensor_data, ECO2_HIGHLIGHT);
 		}
 
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, WAKEUP))
-		{
-			Gfx_display_on();
-		}
-
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKLIGHT_OFF))
 		{
 			Gfx_backlight_off();
@@ -85,11 +80,6 @@ void Gui_thread_main(void)
 			Rltos_events_set(&gui_return_events, DISPLAY_ASLEEP);
 		}
 
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, REDUCED_BACKLIGHT))
-		{
-			Gfx_reduced_backlight();
-		}
-
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_LOW_BATTERY))
 		{
 			Gfx_set_background_low_battery();
@@ -98,11 +88,6 @@ void Gui_thread_main(void)
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, WRITE_BACKGROUND))
 		{
 			Gfx_set_background_title();
-		}
-
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, NORMAL_BACKLIGHT))
-		{
-			Gfx_normal_backlight();
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, BACKGROUND_ENABLE_ALARM))
@@ -147,6 +132,21 @@ void Gui_thread_main(void)
 
 		/* Refresh the display contents*/
 		Gfx_display_refresh();
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, WAKEUP))
+		{
+			Gfx_display_on();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, REDUCED_BACKLIGHT))
+		{
+			Gfx_reduced_backlight();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, NORMAL_BACKLIGHT))
+		{
+			Gfx_normal_backlight();
+		}
 
 		/* Yield thread*/
 		Rltos_task_sleep(0U);
