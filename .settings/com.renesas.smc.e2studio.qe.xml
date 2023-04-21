@@ -46,11 +46,11 @@
     <Segment id="Clock">
         <Setting id="FSXL" value="32.768"/>
         <Setting id="EVDD" value="1.8"/>
-        <Setting id="FMAIN" value="4000.0"/>
-        <Setting id="FIMP" value="4000.0"/>
+        <Setting id="FMAIN" value="16000.0"/>
         <Setting id="VDD" value="1.8"/>
         <Setting id="FIL" value="32.768"/>
-        <Setting id="FCLK" value="4000.0"/>
+        <Setting id="FIHP" value="32000.0"/>
+        <Setting id="FCLK" value="16000.0"/>
     </Segment>
     <Segment id="Component">
         <Setting id="r_bsp" value=""/>

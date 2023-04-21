@@ -50,7 +50,7 @@ CTSU Related Information for [CONFIG01] configuration.
 
 const ctsu_element_cfg_t g_qe_ctsu_element_cfg_config01[] =
 {
-    { .so = 0x09B, .snum = 0x07, .sdpa = 0x07 },
+    { .so = 0x095, .snum = 0x07, .sdpa = 0x07 },
 };
 
 const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
@@ -113,8 +113,8 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 1000,
-        .hysteresis = 100,
+        .threshold  = 500,
+        .hysteresis = 50,
     },
 };
 #endif

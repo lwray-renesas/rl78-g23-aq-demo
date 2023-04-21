@@ -48,7 +48,7 @@ Macro definitions
 #define _F7_PMCA1_DEFAULT                       (0xF7U)    /* PMCA1 default value */
 #define _FE_PMCA12_DEFAULT                      (0xFEU)    /* PMCA12 default value */
 #define _7F_PMCA14_DEFAULT                      (0x7FU)    /* PMCA14 default value */
-#define PORT_STABLE_WAITTIME                    (3U)    /* Wait time for stable (10us) */
+#define PORT_STABLE_WAITTIME                    (13U)    /* Wait time for stable (10us) */
 
 /***********************************************************************************************************************
 Typedef definitions
