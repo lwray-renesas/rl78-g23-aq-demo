@@ -204,6 +204,20 @@ static void St7735s_write_cmd_buf(const uint8_t * const tx_buf, uint16_t tx_num)
 	{
 		Spi_send_blocking(tx_buf + 1, tx_num-1U);
 	}
+
+	/* Wait 120ms if we are going use SLPIN or SLPOUT*/
+	if((SLPOUT == *tx_buf) || (SLPIN == *tx_buf))
+	{
+		Delay_ms(120);
+	}
+	else if(SWRESET == *tx_buf)
+	{
+		Delay_ms(150U);
+	}
+	else
+	{
+		/* No delay*/
+	}
 }
 /* END OF FUNCTION*/
 
@@ -236,8 +250,6 @@ static inline void St7735s_soft_reset(void)
 	static const uint8_t swreset_cmd[] = { SWRESET };
 
 	St7735s_write_cmd_buf(swreset_cmd, sizeof(swreset_cmd));
-
-	Delay_ms(150U);
 }
 /* END OF FUNCTION*/
 
@@ -257,6 +269,8 @@ static void St7735s_write_data_buf(const uint8_t * const tx_buf, uint16_t tx_num
 void St7735s_init(const uint8_t * const init_fill_colour)
 {
 	spi_tx_done = true;
+
+	Delay_ms(5);
 
 	St7735s_soft_reset();
 
@@ -602,8 +616,6 @@ void St7735s_wake_display(void)
 {
 	static const uint8_t wake_buf[] = {SLPOUT};
 	St7735s_write_cmd_buf(wake_buf, sizeof(wake_buf));
-
-	Delay_ms(120U);
 }
 /* END OF FUNCTION*/
 

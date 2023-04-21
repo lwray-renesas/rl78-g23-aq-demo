@@ -1912,7 +1912,7 @@
           <Option>-character_set=utf8</Option>
           <Option>-g</Option>
           <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
-          <Option>-Osize</Option>
+          <Option>-Onothing</Option>
           <Option>-lang=c99</Option>
           <Option>-lang=cpp14</Option>
         </CompileOptions>
@@ -4617,6 +4617,262 @@
             <Option>-lang=cpp14</Option>
           </CompileOptions>
         </IndividualOptions>
+        <IndividualOptions Target="src\smc_gen\Config_INTC\Config_INTC.c">
+          <CompileOptions>
+            <Option>-cpu=S3</Option>
+            <Option>-c</Option>
+            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
+            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
+            <Option>-character_set=utf8</Option>
+            <Option>-lang=c99</Option>
+            <Option>-g</Option>
+            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
+            <Option>-Onothing</Option>
+            <Option>-lang=cpp14</Option>
+          </CompileOptions>
+        </IndividualOptions>
+        <IndividualOptions Target="src\smc_gen\Config_INTC\Config_INTC_user.c">
+          <CompileOptions>
+            <Option>-cpu=S3</Option>
+            <Option>-c</Option>
+            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
+            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
+            <Option>-character_set=utf8</Option>
+            <Option>-lang=c99</Option>
+            <Option>-g</Option>
+            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
+            <Option>-Onothing</Option>
+            <Option>-lang=cpp14</Option>
+          </CompileOptions>
+        </IndividualOptions>
+        <IndividualOptions Target="src\smc_gen\Config_TAU0_1\Config_TAU0_1.c">
+          <CompileOptions>
+            <Option>-cpu=S3</Option>
+            <Option>-c</Option>
+            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
+            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
+            <Option>-character_set=utf8</Option>
+            <Option>-lang=c99</Option>
+            <Option>-g</Option>
+            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
+            <Option>-Onothing</Option>
+            <Option>-lang=cpp14</Option>
+          </CompileOptions>
+        </IndividualOptions>
+        <IndividualOptions Target="src\smc_gen\Config_TAU0_1\Config_TAU0_1_user.c">
+          <CompileOptions>
+            <Option>-cpu=S3</Option>
+            <Option>-c</Option>
+            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
+            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
+            <Option>-character_set=utf8</Option>
+            <Option>-lang=c99</Option>
+            <Option>-g</Option>
+            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
+            <Option>-Onothing</Option>
+            <Option>-lang=cpp14</Option>
+          </CompileOptions>
+        </IndividualOptions>
         <IndividualOptions Target="src\smc_gen\general\r_cg_itl_common_user.c">
           <CompileOptions>
             <Option>-cpu=S3</Option>
@@ -5395,262 +5651,6 @@
             <Option>-lang=cpp14</Option>
           </CompileOptions>
         </IndividualOptions>
-        <IndividualOptions Target="src\smc_gen\Config_INTC\Config_INTC.c">
-          <CompileOptions>
-            <Option>-cpu=S3</Option>
-            <Option>-c</Option>
-            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
-            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
-            <Option>-character_set=utf8</Option>
-            <Option>-lang=c99</Option>
-            <Option>-g</Option>
-            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
-            <Option>-Onothing</Option>
-            <Option>-lang=cpp14</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="src\smc_gen\Config_INTC\Config_INTC_user.c">
-          <CompileOptions>
-            <Option>-cpu=S3</Option>
-            <Option>-c</Option>
-            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
-            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
-            <Option>-character_set=utf8</Option>
-            <Option>-lang=c99</Option>
-            <Option>-g</Option>
-            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
-            <Option>-Onothing</Option>
-            <Option>-lang=cpp14</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="src\smc_gen\Config_TAU0_1\Config_TAU0_1.c">
-          <CompileOptions>
-            <Option>-cpu=S3</Option>
-            <Option>-c</Option>
-            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
-            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
-            <Option>-character_set=utf8</Option>
-            <Option>-lang=c99</Option>
-            <Option>-g</Option>
-            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
-            <Option>-Onothing</Option>
-            <Option>-lang=cpp14</Option>
-          </CompileOptions>
-        </IndividualOptions>
-        <IndividualOptions Target="src\smc_gen\Config_TAU0_1\Config_TAU0_1_user.c">
-          <CompileOptions>
-            <Option>-cpu=S3</Option>
-            <Option>-c</Option>
-            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
-            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
-            <Option>-character_set=utf8</Option>
-            <Option>-lang=c99</Option>
-            <Option>-g</Option>
-            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
-            <Option>-Onothing</Option>
-            <Option>-lang=cpp14</Option>
-          </CompileOptions>
-        </IndividualOptions>
         <IndividualOptions Target="src\smc_gen\r_pincfg\r_ctsu_pinset.c">
           <CompileOptions>
             <Option>-cpu=S3</Option>
@@ -6227,70 +6227,6 @@
             <Option>-lang=cpp14</Option>
           </CompileOptions>
         </IndividualOptions>
-        <IndividualOptions Target="src\smc_gen\rm_touch\rm_touch.c">
-          <CompileOptions>
-            <Option>-cpu=S3</Option>
-            <Option>-c</Option>
-            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
-            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
-            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
-            <Option>-character_set=utf8</Option>
-            <Option>-lang=c99</Option>
-            <Option>-g</Option>
-            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
-            <Option>-Onothing</Option>
-            <Option>-lang=cpp14</Option>
-          </CompileOptions>
-        </IndividualOptions>
         <IndividualOptions Target="src\smc_gen\Config_PCLBUZ1\Config_PCLBUZ1.c">
           <CompileOptions>
             <Option>-cpu=S3</Option>
@@ -6356,6 +6292,70 @@
           </CompileOptions>
         </IndividualOptions>
         <IndividualOptions Target="src\smc_gen\Config_PCLBUZ1\Config_PCLBUZ1_user.c">
+          <CompileOptions>
+            <Option>-cpu=S3</Option>
+            <Option>-c</Option>
+            <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_633456566/DebugComp/RL78/RL78/Common/DR7F100GFN.DVF"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\filter"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\qe_gen"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\sensor"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\hw\src\elcl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\assert"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\draw"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\driver"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\app\src\gfx\src\display\text"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\core"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\port\RL78"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\events"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\mutex"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\rltos\rltos_kernel\semaphore"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_config"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\general"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_bsp"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_4"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_INTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_5"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_CSI00"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_3"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_RTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_IICA0"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_hs300x\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_comms_i2c_rl"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_LVD1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PORT"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_2"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_PCLBUZ1"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\rm_touch"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_ctsu"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_ITL000_ITL001"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_DTC"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\Config_TAU0_6"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\instances"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\r_zmod4xxx\inc\api"</Option>
+            <Option>-I "${ProjDirPath}\..\${ProjName}\src\smc_gen\..\..\HardwareDebug\src\smc_gen\r_ctsu"</Option>
+            <Option>-D CAP_TOUCH_SUPPORTED,QE_TOUCH_CONFIGURATION</Option>
+            <Option>-character_set=utf8</Option>
+            <Option>-lang=c99</Option>
+            <Option>-g</Option>
+            <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
+            <Option>-Onothing</Option>
+            <Option>-lang=cpp14</Option>
+          </CompileOptions>
+        </IndividualOptions>
+        <IndividualOptions Target="src\smc_gen\rm_touch\rm_touch.c">
           <CompileOptions>
             <Option>-cpu=S3</Option>
             <Option>-c</Option>

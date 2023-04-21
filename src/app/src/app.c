@@ -59,6 +59,8 @@ static sensor_data_t sensor_data = {0, 0, {0,0}, {0,0}, {0,0}, false};
 static sensor_data_t alarm_sensor_data = {0, 0, {2,50}, {3,50}, {1000,0}, false};
 /** System state variable*/
 static system_state_t sys_state = LOW_POWER;
+/** System state variable for waking up*/
+static system_state_t sys_wake_state = TEMPERATURE_HUMIDITY;
 /** Alarm setting state variable*/
 static alarm_state_t alarm_state = ECO2;
 /** signal variable used by system to symbolise user activity - default inactive on power up*/
@@ -165,8 +167,8 @@ void App_initial_offset_tuning(void)
 	}
 
 	/* Shutdown display and enter application*/
-	Rltos_events_set(&gui_events, WRITE_BACKGROUND | SLEEP | BACKLIGHT_OFF);
-	Rltos_events_get(&gui_return_events, DISPLAY_ASLEEP | BACKLIGHT_TURNED_OFF, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
+	Rltos_events_set(&gui_events, WRITE_BACKGROUND | BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID | SLEEP | BACKLIGHT_OFF);
+	Rltos_events_get(&gui_return_events, TEMP_HUMID_SET | DISPLAY_ASLEEP | BACKLIGHT_TURNED_OFF, &l_disp_flags, RLTOS_TRUE, RLTOS_TRUE, RLTOS_UINT_MAX);
 }
 /* END OF FUNCTION*/
 
@@ -496,6 +498,12 @@ void App_constant_period_handler(bool sensor_readings_completed)
 				sys_state = LOW_BATTERY;
 				Rltos_events_set(&gui_events, BACKGROUND_LOW_BATTERY | backlight_state);
 			}
+			else
+			{
+				/* Set the screen accordingly when waking up*/
+				sys_wake_state = LOW_BATTERY;
+				Rltos_events_set(&gui_events, BACKGROUND_LOW_BATTERY);
+			}
 		}
 	}
 
@@ -530,6 +538,9 @@ void App_constant_period_handler(bool sensor_readings_completed)
 			if(inactivity_counter > INACTIVITY_TIMEOUT)
 			{
 				static rltos_event_flag_t l_disp_asleep_flag = 0U;
+
+				/* Save the system state*/
+				sys_wake_state = sys_state;
 
 				/* Transition application to low power state*/
 				sys_state = LOW_POWER;
@@ -573,12 +584,12 @@ void App_constant_period_handler(bool sensor_readings_completed)
 	/* Check if readings are ready to use*/
 	if(sensor_readings_completed)
 	{
-		if(TEMPERATURE_HUMIDITY == sys_state)
+		if((TEMPERATURE_HUMIDITY == sys_state) || ((LOW_POWER == sys_state) && (TEMPERATURE_HUMIDITY == sys_wake_state)))
 		{
 			Rltos_events_set(&gui_events, UPDATE_TEMP_HUMID);
 		}
 
-		if(AIR_QUALITY == sys_state)
+		if((AIR_QUALITY == sys_state) || ((LOW_POWER == sys_state) && (AIR_QUALITY == sys_wake_state)))
 		{
 			Rltos_events_set(&gui_events, UPDATE_AIR_QUALITY);
 		}
@@ -632,21 +643,19 @@ void App_proximity_handler(void)
 
 		if(LOW_POWER == sys_state)
 		{
-			/* If we have detected an alarm or low battery during sleep - present alarm or low battery screen on wakeup otherwise temp & humidity*/
-			if(alarm_condition)
+			sys_state = sys_wake_state;
+
+			if(TEMPERATURE_HUMIDITY == sys_state)
 			{
-				sys_state = BREACH_ALARM;
-				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_BREACH_ALARM);
+				Rltos_events_set(&gui_events, WAKEUP | backlight_state | UPDATE_TEMP_HUMID);
 			}
-			else if(low_battery_flag)
+			else if(AIR_QUALITY == sys_state)
 			{
-				sys_state = LOW_BATTERY;
-				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_LOW_BATTERY);
+				Rltos_events_set(&gui_events, WAKEUP | backlight_state | UPDATE_AIR_QUALITY);
 			}
 			else
 			{
-				sys_state = TEMPERATURE_HUMIDITY;
-				Rltos_events_set(&gui_events, WAKEUP | backlight_state | WRITE_BACKGROUND | BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID);
+				Rltos_events_set(&gui_events, WAKEUP | backlight_state);
 			}
 		}
 	}
