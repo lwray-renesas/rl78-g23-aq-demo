@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : r_smc_entry.h
-* Version          : 1.0.11
-* Device(s)        : R7F100GFNxFP
+* Version          : 1.0.13
+* Device(s)        : R7F100GGNxFB
 * Description      : SMC platform header file..
 ***********************************************************************************************************************/
 
@@ -30,21 +30,23 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_LVD1.h"
 #include "Config_INTC.h"
-#include "Config_RTC.h"
-#include "Config_IICA0.h"
-#include "Config_PORT.h"
-#include "Config_PCLBUZ1.h"
 #include "Config_DTC.h"
+#include "Config_RTC.h"
+#include "Config_PCLBUZ1.h"
+#include "Config_PORT.h"
+#include "Config_IICA0.h"
 #include "Config_ITL000_ITL001.h"
 #include "Config_CSI00.h"
 #include "Config_TAU0_0.h"
 #include "Config_TAU0_1.h"
+#include "Config_TAU0_2.h"
+#include "Config_TAU0_3.h"
 #include "Config_TAU0_4.h"
 #include "Config_TAU0_5.h"
-#include "Config_TAU0_3.h"
-#include "Config_TAU0_2.h"
 #include "Config_TAU0_6.h"
+#include "Config_UARTA0.h"
 #include "r_cg_sau_common.h"
+#include "r_cg_uarta_common.h"
 #include "r_cg_tau_common.h"
 #include "r_cg_itl_common.h"
 #include "r_cg_lvd_common.h"

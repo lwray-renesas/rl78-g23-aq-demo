@@ -26,7 +26,7 @@
 *         : 22.04.2021 1.10     Added "__far" to the address of the option byte.
 *         : 04.08.2021 1.12     Added include guard.
 *         : 28.02.2022 1.20     Added macro definition for option byte(000C4H).
-
+*         : 11.11.2022 1.40     Split lines with too many characters into two lines.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -174,8 +174,10 @@
 
 #elif defined(__llvm__)
 /* R_BSP_PRAGMA_INTERRUPT */
-#define R_BSP_PRAGMA_INTERRUPT(function_name, vector)           extern void function_name(void) __attribute__((interrupt(vect=vector), used));
-#define R_BSP_PRAGMA_STATIC_INTERRUPT(function_name, vector)    static void function_name(void) __attribute__((interrupt(vect=vector), used));
+#define R_BSP_PRAGMA_INTERRUPT(function_name, vector)           extern void function_name(void) \
+                                                                __attribute__((interrupt(vect=vector), used));
+#define R_BSP_PRAGMA_STATIC_INTERRUPT(function_name, vector)    static void function_name(void) \
+                                                                __attribute__((interrupt(vect=vector), used));
 #define R_BSP_ATTRIB_INTERRUPT                                  extern
 #define R_BSP_ATTRIB_STATIC_INTERRUPT                           static
 #endif

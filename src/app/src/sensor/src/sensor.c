@@ -8,7 +8,7 @@
 #include "sensor.h"
 #include "r_cg_macrodriver.h"
 #include "r_zmod4xxx_if.h"
-#include "r_hs300x_if.h"
+#include "r_hs400x_if.h"
 #include "rltos_task.h"
 #include "hw.h"
 
@@ -24,9 +24,9 @@ static volatile sensor_callback_status_t zmod_4410_i2c_callback_status = SENSOR_
 static volatile sensor_callback_status_t  zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 static volatile rm_zmod4xxx_iaq_2nd_data_t zmod_4410_data;
 
-static volatile sensor_callback_status_t hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-static volatile sensor_callback_status_t hs300x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-static rm_hs300x_data_t hs300x_data;
+static volatile sensor_callback_status_t hs400x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+static volatile sensor_callback_status_t hs400x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+static rm_hs400x_data_t hs400x_data;
 
 static volatile sensor_read_state_t sensor_read_state = SENSOR_WAITING;
 
@@ -38,7 +38,7 @@ static void Demo_err(void);
  *********************************************************************/
 void Sensor_init(void)
 {
-	fsp_err_t err = g_hs300x_sensor0.p_api->open(g_hs300x_sensor0.p_ctrl, g_hs300x_sensor0.p_cfg);
+	fsp_err_t err = g_hs400x_sensor0.p_api->open(g_hs400x_sensor0.p_ctrl, g_hs400x_sensor0.p_cfg);
 
 	if (FSP_SUCCESS != err)
 	{
@@ -55,7 +55,7 @@ void Sensor_init(void)
 
 bool Sensor_read(sensor_data_t * const sense_data_arg)
 {
-	static rm_hs300x_raw_data_t hs300x_raw_data;
+	static rm_hs400x_raw_data_t hs400x_raw_data;
 	static rm_zmod4xxx_raw_data_t zmod_4410_raw_data;
 
 	fsp_err_t err = FSP_SUCCESS;
@@ -67,17 +67,17 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 	case SENSOR_START_MEASURMENT:
 	{
 		/**********************
-		 * HS3001
+		 * HS4001
 		 *********************/
 		/* Start measurement */
-		err = g_hs300x_sensor0.p_api->measurementStart(g_hs300x_sensor0.p_ctrl);
+		err = g_hs400x_sensor0.p_api->measurementStart(g_hs400x_sensor0.p_ctrl);
 		if (FSP_SUCCESS != err)
 		{
 			Demo_err();
 		}
 
 		/* Wait for IIC to finish*/
-		while(SENSOR_CALLBACK_STATUS_WAIT == hs300x_i2c_callback_status)
+		while(SENSOR_CALLBACK_STATUS_WAIT == hs400x_i2c_callback_status)
 		{
 			HALT();
 		}
@@ -98,7 +98,7 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 			HALT();
 		}
 
-		Hw_start_oneshot(); /* Wait for oneshot to elapse before reading HS300X*/
+		Hw_start_oneshot(); /* Wait for oneshot to elapse before reading hs400x*/
 		sensor_read_state = SENSOR_WAIT_TO_READ;
 	}
 	break;
@@ -106,20 +106,20 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 	case SENSOR_WAIT_TO_READ:
 	{
 		/* Only read and process data if the sensors are ready*/
-		if( (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status)
-				&& (SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status))
+		if((SENSOR_CALLBACK_STATUS_SUCCESS == hs400x_oneshot_callback_status)
+				&&(SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status))
 		{
-			hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+			hs400x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
 			/* Read data */
-			err = g_hs300x_sensor0.p_api->read(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data);
+			err = g_hs400x_sensor0.p_api->read(g_hs400x_sensor0.p_ctrl, &hs400x_raw_data);
 			if (FSP_SUCCESS != err)
 			{
 				Demo_err();
 			}
 
 			/* Wait for IIC to finish*/
-			while(SENSOR_CALLBACK_STATUS_WAIT == hs300x_i2c_callback_status)
+			while(SENSOR_CALLBACK_STATUS_WAIT == hs400x_i2c_callback_status)
 			{
 				HALT();
 			}
@@ -140,11 +140,11 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 			}
 
 			/* Calculate data */
-			err = g_hs300x_sensor0.p_api->dataCalculate(g_hs300x_sensor0.p_ctrl, &hs300x_raw_data, &hs300x_data);
+			err = g_hs400x_sensor0.p_api->dataCalculate(g_hs400x_sensor0.p_ctrl, &hs400x_raw_data, &hs400x_data);
 			if (FSP_SUCCESS == err)
 			{
-				sense_data_arg->temperature_int = hs300x_data.temperature.integer_part;
-				sense_data_arg->humidity_int = hs300x_data.humidity.integer_part;
+				sense_data_arg->temperature_int = hs400x_data.temperature.integer_part;
+				sense_data_arg->humidity_int = hs400x_data.humidity.integer_part;
 			}
 
 			/* TH compensation*/
@@ -174,8 +174,8 @@ bool Sensor_read(sensor_data_t * const sense_data_arg)
 			zmod_4410_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 			zmod_4410_irq_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
-			hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
-			hs300x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+			hs400x_i2c_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
+			hs400x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_WAIT;
 
 			sensor_read_state = SENSOR_WAITING;
 			readings_completed = true;
@@ -196,7 +196,7 @@ bool Sensor_stop_safe(void)
 {
 	return (SENSOR_WAITING == sensor_read_state) ||
 			((SENSOR_WAIT_TO_READ == sensor_read_state) &&
-			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status)	 &&
+			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs400x_oneshot_callback_status)	 &&
 			 (SENSOR_CALLBACK_STATUS_SUCCESS != zmod_4410_irq_callback_status));
 }
 /* END OF FUNCTION*/
@@ -205,7 +205,7 @@ bool Sensor_state_machine_ready(void)
 {
 	return (SENSOR_START_MEASURMENT == sensor_read_state) ||
 			((SENSOR_WAIT_TO_READ == sensor_read_state) &&
-			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs300x_oneshot_callback_status) &&
+			 (SENSOR_CALLBACK_STATUS_SUCCESS == hs400x_oneshot_callback_status) &&
 			 (SENSOR_CALLBACK_STATUS_SUCCESS == zmod_4410_irq_callback_status));
 }
 /* END OF FUNCTION*/
@@ -221,7 +221,7 @@ void Sensor_try_trigger_read(void)
 
 void Sensor_oneshot_callback(void)
 {
-	hs300x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
+	hs400x_oneshot_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
 }
 /* END OF FUNCTION*/
 
@@ -273,15 +273,15 @@ bool Int_dec_larger_than(int_dec_t const * const x, int_dec_t const * const y)
 }
 /* END OF FUNCTION*/
 
-void Hs300x_user_callback0(rm_hs300x_callback_args_t * p_args)
+void Hs400x_user_i2c_callback0(rm_hs400x_callback_args_t * p_args)
 {
-	if (RM_HS300X_EVENT_SUCCESS == p_args->event)
+	if (RM_HS400X_EVENT_SUCCESS == p_args->event)
 	{
-		hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
+		hs400x_i2c_callback_status = SENSOR_CALLBACK_STATUS_SUCCESS;
 	}
 	else
 	{
-		hs300x_i2c_callback_status = SENSOR_CALLBACK_STATUS_REPEAT;
+		hs400x_i2c_callback_status = SENSOR_CALLBACK_STATUS_REPEAT;
 	}
 }
 

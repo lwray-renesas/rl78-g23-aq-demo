@@ -14,7 +14,7 @@
 * following link:
 * https://www.renesas.com/disclaimer
 *
-* Copyright (C) 2022 Renesas Electronics Corporation.
+* Copyright (C) 2023 Renesas Electronics Corporation.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name    : qe_touch_define.h
@@ -27,6 +27,13 @@
 *              : 07/15/2021 1.10    Adding Diagnosis Supporting
 *              : 11/17/2021 1.20    Adding information for Initial Offset Tuning
 *              : 03/01/2022 1.30    Adding Multiple Electrode Connection Supporting
+*              : 09/05/2022 1.31    Fixing a Little
+*              : 03/23/2023 1.40    Adding 3 Frequency Judgement Supporting
+*              : 03/31/2023 1.41    Improving Traceability
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+* Touch I/F Configuration File  : RL78G23_IAQ_DEMO.tifcfg
+* Tuning Log File               : RL78G23_IAQ_DEMO_log_tuning20230712145222.log
 ***********************************************************************************************************************/
 
 #ifndef QE_TOUCH_DEFINE_H
@@ -38,7 +45,9 @@ These parameters were generated using the advanced tuning.
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define CTSU_CFG_NUM_SELF_ELEMENTS   (1)
+
+#define QE_TOUCH_MACRO_UART_TUNNING_AS_1METHOD (0)
+#define CTSU_CFG_NUM_SELF_ELEMENTS   (1 + QE_TOUCH_MACRO_UART_TUNNING_AS_1METHOD)
 #define CTSU_CFG_NUM_MUTUAL_ELEMENTS (0)
 
 #define TOUCH_CFG_MONITOR_ENABLE (1)
@@ -48,8 +57,8 @@ Macro definitions
 
 #define QE_TOUCH_MACRO_CTSU_IP_KIND (2)
 
-#define CTSU_CFG_VCC_MV           (1800)
-#define CTSU_CFG_LOW_VOLTAGE_MODE (1)
+#define CTSU_CFG_VCC_MV           (3300)
+#define CTSU_CFG_LOW_VOLTAGE_MODE (0)
 
 #define CTSU_CFG_PCLK_DIVISION (0)
 
@@ -69,6 +78,10 @@ Macro definitions
 
 #define CTSU_CFG_TARGET_VALUE_QE_SUPPORT (1)
 
+
+
+#define CTSU_CFG_TOUCH_3FREQ_JUDGE_TYPE  (0)
+#define TOUCH_CFG_3FREQ_JUDGMENT_NUM     (2)
 
 /***********************************************************************************************************************
 Button State Mask for each configuration.

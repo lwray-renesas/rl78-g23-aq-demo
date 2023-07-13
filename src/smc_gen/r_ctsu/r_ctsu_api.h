@@ -121,6 +121,12 @@ typedef enum e_ctsu_txvsel2
     CTSU_TXVSEL_VCC_PRIVATE,           ///< VCC private selected
 } ctsu_txvsel2_t;
 
+/** CTSU Power Supply Capacity Adjustment (CTSU Only) */
+typedef enum e_ctsu_atune1
+{
+    CTSU_ATUNE1_NORMAL,                ///< Normal output (40uA)
+    CTSU_ATUNE1_HIGH                   ///< High-current output (80uA)
+} ctsu_atune1_t;
 /** CTSU Power Supply Capacity Adjustment (CTSU2 Only) */
 typedef enum e_ctsu_atune12
 {
@@ -150,6 +156,27 @@ typedef enum e_ctsu_posel
     CTSU_POSEL_SAME_PULSE              ///< Same phase pulse output as transmission channel through the power setting by the TXVSEL[1:0] bits
 } ctsu_posel_t;
 
+/** CTSU Spectrum Diffusion Frequency Division Setting (CTSU Only) */
+typedef enum e_ctsu_ssdiv
+{
+    CTSU_SSDIV_4000,                   ///< 4.00 <= Base clock frequency (MHz)
+    CTSU_SSDIV_2000,                   ///< 2.00 <= Base clock frequency (MHz) < 4.00
+    CTSU_SSDIV_1330,                   ///< 1.33 <= Base clock frequency (MHz) < 2.00
+    CTSU_SSDIV_1000,                   ///< 1.00 <= Base clock frequency (MHz) < 1.33
+    CTSU_SSDIV_0800,                   ///< 0.80 <= Base clock frequency (MHz) < 1.00
+    CTSU_SSDIV_0670,                   ///< 0.67 <= Base clock frequency (MHz) < 0.80
+    CTSU_SSDIV_0570,                   ///< 0.57 <= Base clock frequency (MHz) < 0.67
+    CTSU_SSDIV_0500,                   ///< 0.50 <= Base clock frequency (MHz) < 0.57
+    CTSU_SSDIV_0440,                   ///< 0.44 <= Base clock frequency (MHz) < 0.50
+    CTSU_SSDIV_0400,                   ///< 0.40 <= Base clock frequency (MHz) < 0.44
+    CTSU_SSDIV_0360,                   ///< 0.36 <= Base clock frequency (MHz) < 0.40
+    CTSU_SSDIV_0330,                   ///< 0.33 <= Base clock frequency (MHz) < 0.36
+    CTSU_SSDIV_0310,                   ///< 0.31 <= Base clock frequency (MHz) < 0.33
+    CTSU_SSDIV_0290,                   ///< 0.29 <= Base clock frequency (MHz) < 0.31
+    CTSU_SSDIV_0270,                   ///< 0.27 <= Base clock frequency (MHz) < 0.29
+    CTSU_SSDIV_0000                    ///< 0.00 <= Base clock frequency (MHz) < 0.27
+} ctsu_ssdiv_t;
+
 /** CTSU select data type for slect data get */
 typedef enum e_ctsu_specific_data_type
 {
@@ -175,6 +202,7 @@ typedef void ctsu_ctrl_t;
 /** Element Configuration */
 typedef struct st_ctsu_element
 {
+    ctsu_ssdiv_t ssdiv;                ///< CTSU Spectrum Diffusion Frequency Division Setting (CTSU Only)
     uint16_t     so;                   ///< CTSU Sensor Offset Adjustment
     uint8_t      snum;                 ///< CTSU Measurement Count Setting
     uint8_t      sdpa;                 ///< CTSU Base Clock Setting
@@ -186,9 +214,13 @@ typedef struct st_ctsu_cfg
     ctsu_cap_t                 cap;                     ///< CTSU Scan Start Trigger Select
     ctsu_txvsel_t              txvsel;                  ///< CTSU Transmission Power Supply Select
     ctsu_txvsel2_t             txvsel2;                 ///< CTSU Transmission Power Supply Select 2 (CTSU2 Only)
+    ctsu_atune1_t              atune1;                  ///< CTSU Power Supply Capacity Adjustment (CTSU Only)
     ctsu_atune12_t             atune12;                 ///< CTSU Power Supply Capacity Adjustment (CTSU2 Only)
     ctsu_md_t                  md;                      ///< CTSU Measurement Mode Select
     ctsu_posel_t               posel;                   ///< CTSU Non-Measured Channel Output Select (CTSU2 Only)
+    uint8_t                    tsod;                    ///< TS all terminal output control for multi electrode scan
+    uint8_t                    mec_ts;                  ///< TS number used when using the MEC function
+    uint8_t                    mec_shield_ts;           ///< TS number of active shield used when using MEC function
     uint8_t                    ctsuchac0;               ///< TS00-TS07 enable mask
     uint8_t                    ctsuchac1;               ///< TS08-TS15 enable mask
     uint8_t                    ctsuchac2;               ///< TS16-TS23 enable mask

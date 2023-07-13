@@ -7,7 +7,7 @@
 
 #include "app.h"
 #include "r_smc_entry.h"
-#include "r_hs300x_if.h"
+#include "r_hs400x_if.h"
 #include "r_zmod4xxx_if.h"
 
 /** @brief 15 second inactivity timer at 1sec periodic interrupt*/

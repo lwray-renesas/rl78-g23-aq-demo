@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_RTC.h
-* Component Version: 1.2.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.4.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_RTC.
 ***********************************************************************************************************************/
 
@@ -39,7 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define RTC_WAITTIME_2CYCLE                  (81U)
+#define RTC_WAITTIME_2CYCLE                  (81U)    /* wait for 2 cycles of the operating clock */
 
 /***********************************************************************************************************************
 Typedef definitions

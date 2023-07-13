@@ -74,8 +74,8 @@
 /* SPECIFY SLAVE ADDRESS AND CALLBACK FUNCTION EACH DEVICE */
 /* For Device No.0 */
 #define COMMS_I2C_CFG_DEVICE0_BUS_CH            (g_comms_i2c_bus0_extended_cfg)
-#define COMMS_I2C_CFG_DEVICE0_SLAVE_ADDR        (0x44) /* Slave address */
-#define COMMS_I2C_CFG_DEVICE0_CALLBACK          (rm_hs300x_callback0) /* Callback function */
+#define COMMS_I2C_CFG_DEVICE0_SLAVE_ADDR        (0x54) /* Slave address */
+#define COMMS_I2C_CFG_DEVICE0_CALLBACK          (rm_hs400x_callback0) /* Callback function */
 
 /* For Device No.1 */
 #define COMMS_I2C_CFG_DEVICE1_BUS_CH            (g_comms_i2c_bus0_extended_cfg)

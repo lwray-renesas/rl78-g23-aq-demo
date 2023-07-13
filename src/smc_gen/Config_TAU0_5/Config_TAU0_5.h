@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_5.h
-* Component Version: 1.2.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.4.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_TAU0_5.
 ***********************************************************************************************************************/
 
@@ -39,7 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0043_TAU_TDR05_VALUE               (0x0043U)    /* 16-bit timer data register 05 (TDR05) */
+#define _0009_TAU_TDR05_VALUE               (0x0009U)    /* 16-bit timer data register 05 (TDR05) */
 
 /***********************************************************************************************************************
 Typedef definitions

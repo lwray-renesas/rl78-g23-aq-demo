@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_INTC.c
-* Component Version: 1.2.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.4.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_INTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -54,11 +54,21 @@ void R_Config_INTC_Create(void)
 {
     PMK0 = 1U;    /* disable INTP0 operation */
     PIF0 = 0U;    /* clear INTP0 interrupt flag */
+    PMK8 = 1U;    /* disable INTP8 operation */
+    PIF8 = 0U;    /* clear INTP8 interrupt flag */
     /* Set INTP0 low priority */
     PPR10 = 1U;
     PPR00 = 1U;
+    /* Set INTP8 low priority */
+    PPR18 = 1U;
+    PPR08 = 1U;
     EGN0 = _01_INTP0_EDGE_FALLING_SEL;
     EGP0 = _00_INTP0_EDGE_RISING_UNSEL;
+    EGN1 = _01_INTP8_EDGE_FALLING_SEL;
+    EGP1 = _00_INTP8_EDGE_RISING_UNSEL;
+    /* Set INTP8 pin */
+    PMCT7 &= 0xEFU;
+    PM7 |= 0x10U;
 
     R_Config_INTC_Create_UserInit();
 }
@@ -87,14 +97,29 @@ void R_Config_INTC_INTP0_Stop(void)
     PIF0 = 0U;    /* clear INTP0 interrupt flag */
 }
 
-/* Start user code for adding. Do not edit comment generated here */
-void R_Config_INTC_INTC0_Start(void)
+/***********************************************************************************************************************
+* Function Name: R_Config_INTC_INTP8_Start
+* Description  : This function clears INTP8 interrupt flag and enables interrupt.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_INTC_INTP8_Start(void)
 {
-	R_Config_INTC_INTP0_Start();
+    PIF8 = 0U;    /* clear INTP8 interrupt flag */
+    PMK8 = 0U;    /* enable INTP8 interrupt */
 }
 
-void R_Config_INTC_INTC0_Stop(void)
+/***********************************************************************************************************************
+* Function Name: R_Config_INTC_INTP8_Stop
+* Description  : This function disables INTP8 interrupt and clears interrupt flag.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Config_INTC_INTP8_Stop(void)
 {
-	R_Config_INTC_INTP0_Stop();
+    PMK8 = 1U;    /* disable INTP8 interrupt */
+    PIF8 = 0U;    /* clear INTP8 interrupt flag */
 }
+
+/* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

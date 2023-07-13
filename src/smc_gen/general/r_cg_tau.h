@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : r_cg_tau.h
-* Version          : 1.0.11
-* Device(s)        : R7F100GFNxFP
+* Version          : 1.0.13
+* Device(s)        : R7F100GGNxFB
 * Description      : General header file for TAU peripheral.
 ***********************************************************************************************************************/
 
@@ -258,9 +258,9 @@ Macro definitions (Register bit)
 #define _00_TAU_CH5_INPUT_TI05            (0x00U)    /* input signal of timer input pin (TI05) */
 #define _01_TAU_CH5_INPUT_ELCL            (0x01U)    /* input signal of ELCL */
 #define _02_TAU_CH5_INPUT_TI05            (0x02U)    /* input signal of timer input pin (TI05) */
-#define _03_TAU_CH5_INPUT_FIMP            (0x03U)    /* internal Medium speed oscillation colock (fIMP) */
-#define _04_TAU_CH5_INPUT_FIL             (0x04U)    /* internal low speed oscillation colock (fIL) */
-#define _05_TAU_CH5_INPUT_FSUB            (0x05U)    /* sub colock (fSUB) */
+#define _03_TAU_CH5_INPUT_FIMP            (0x03U)    /* internal middle speed oscillation clock (fIMP) */
+#define _04_TAU_CH5_INPUT_FIL             (0x04U)    /* internal low speed oscillation clock (fIL) */
+#define _05_TAU_CH5_INPUT_FSUB            (0x05U)    /* sub clock (fSUB) */
 #define _F8_TAU_CH5_INPUT_CLEAR           (0xF8U)    /* bits of TIS02 - TIS00 clear */
 
 /*

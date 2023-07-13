@@ -28,6 +28,12 @@
 *                               Changed to enable/disable for each API function.
 *         : 31.05.2022 1.30     Added the following function.
 *                                - R_BSP_SoftwareDelay
+*         : 11.11.2022 1.40     Renamed Delay time definition table from bsp_delay_time to g_bsp_delay_time.
+*                               Renamed data type from unsigned long long to uint64_t.
+*                               Added comment to #endif.
+*                               Changed the description of the return value BSP_ERROR1 of
+*                               the R_BSP_ChangeClockSetting function.
+*                               Removed description of return value BSP_ERROR3 of R_BSP_ChangeClockSetting function.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -47,7 +53,7 @@
  *************************************************/
 /* Delay time definition table */
 #if BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE == 0
-const unsigned long long bsp_delay_time[] = {
+const uint64_t g_bsp_delay_time[] = {
     1,
     1000,
     1000000
@@ -153,8 +159,8 @@ uint32_t R_BSP_GetFclkFreqHz(void)
  * @param[in] mode Clock to change settings.
  * @param[in] set_values Value to set for the specified clock.
  * @retval BSP_OK BSP_OK if the specified clock setting is changed.
- * @retval BSP_ERRPR1 When the specified clock is stopped.
- * @retval BSP_ERROR3 An unsupported state transition was specified. Refer to the user's manual.
+ * @retval BSP_ERRPR1 When the specified clock is in the setting change prohibited state.
+ * @retval            Refer to the Application Note.
  * @retval BSP_ARG_ERROR BSP_ARG_ERROR if the specified clock is incorrect.
  * @details This function changes the specified clock setting.
  * Specify one of the following for mode.
@@ -183,13 +189,13 @@ e_bsp_err_t R_BSP_ChangeClockSetting(e_clock_mode_t mode, uint8_t * set_values)
  * units of microsecond level, please note that the error becomes large.
  */
 #if BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE == 0
-e_bsp_err_t R_BSP_SoftwareDelay (uint32_t delay, e_bsp_delay_units_t units)
+e_bsp_err_t R_BSP_SoftwareDelay(uint32_t delay, e_bsp_delay_units_t units)
 {
     volatile uint32_t fclk_rate;
     volatile uint32_t delay_cycles;
     volatile uint32_t loop_cnt;
-    volatile unsigned long long loop_cnt_64;
-    volatile unsigned long long delay_cycles_64;
+    volatile uint64_t loop_cnt_64;
+    volatile uint64_t delay_cycles_64;
 
     fclk_rate = R_BSP_GetFclkFreqHz();    /* Get the current ICLK frequency. */
 
@@ -201,10 +207,10 @@ e_bsp_err_t R_BSP_SoftwareDelay (uint32_t delay, e_bsp_delay_units_t units)
      * and/or a slow ICLK we use 32 bit integers to reduce the overhead cycles of this function
      * by approximately a third and stand the best chance of achieving the requested delay.
      */
-    if ((units == BSP_DELAY_MICROSECS) &&
+    if ((BSP_DELAY_MICROSECS == units) &&
         (delay <= (0xFFFFFFFFUL / fclk_rate)))    /* Ensure (fclk_rate * delay) will not exceed 32 bits. */
     {
-        delay_cycles = ((fclk_rate * delay) / bsp_delay_time[units]);
+        delay_cycles = ((fclk_rate * delay) / g_bsp_delay_time[units]);
 
         if (delay_cycles > BSP_PRV_OVERHEAD_CYCLES)
         {
@@ -227,7 +233,7 @@ e_bsp_err_t R_BSP_SoftwareDelay (uint32_t delay, e_bsp_delay_units_t units)
     else
     {
         /* Casting is valid because it matches the type to the right side or argument. */
-        delay_cycles_64 = (((unsigned long long)fclk_rate * (unsigned long long)delay) / bsp_delay_time[units]);
+        delay_cycles_64 = (((uint64_t)fclk_rate * (uint64_t)delay) / g_bsp_delay_time[units]);
 
         if (delay_cycles_64 > BSP_PRV_OVERHEAD_CYCLES_64)
         {
@@ -255,4 +261,4 @@ e_bsp_err_t R_BSP_SoftwareDelay (uint32_t delay, e_bsp_delay_units_t units)
 
     return BSP_OK;
 } /* End of function R_BSP_SoftwareDelay() */
-#endif
+#endif /* BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE == 0 */

@@ -64,6 +64,14 @@
 *                               Added a comment about macro definition BSP_CFG_CONFIGURATOR_VERSION.
 *         : 31.05.2022 1.30     Added the following macro definition.
 *                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
+*         : 11.11.2022 1.40     Changed the initial values of the following macro definitions from 0 to 1.
+*                                - BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
+*         : 31.01.2023 1.50     Fixed typo in history.
+*         : 28.02.2023 1.60     Added the version number of Smart Configurator.
+*                               Modified the comment related to the version number of Smart Configurator.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -895,11 +903,13 @@
    2021-07 : 1010
    2021-10 : 1010
    2022-01 : 1030
+   2023-04 : 1060
    If you are using the standalone version of Smart Configurator,
    set the following values.
    v1.0.1  : 1001
    v1.1.0  : 1010
    v1.3.0  : 1030
+   v1.6.0  : 1060
 */
 #define BSP_CFG_CONFIGURATOR_VERSION    (1001)
 
@@ -907,7 +917,7 @@
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_GetFclkFreqHz)
  0 : Enable API functions
@@ -919,19 +929,19 @@
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_ChangeClockSetting)
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_SoftwareDelay)
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (1)
 
 /* Parameter check enable
  0 : Disable parameter check.

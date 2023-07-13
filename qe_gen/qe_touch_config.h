@@ -14,7 +14,7 @@
 * following link:
 * https://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation.
+* Copyright (C) 2023 Renesas Electronics Corporation.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name    : qe_touch_config.h
@@ -24,6 +24,11 @@
 * History      : MM/DD/YYYY Version Description
 *              : 06/23/2020 1.00    First Release
 *              : 07/15/2021 1.10    Adding Diagnosis Supporting
+*              : 03/31/2023 1.11    Improving Traceability
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+* Touch I/F Configuration File  : RL78G23_IAQ_DEMO.tifcfg
+* Tuning Log File               : RL78G23_IAQ_DEMO_log_tuning20230712145222.log
 ***********************************************************************************************************************/
 
 #ifndef QE_TOUCH_CONFIG_H

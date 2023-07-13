@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_1.c
-* Component Version: 1.2.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.4.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_TAU0_1.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -66,7 +66,7 @@ void R_Config_TAU0_1_Create(void)
     TIS1 |= _02_TAU_CH1_INPUT_ELCL;
     TMR01 = _8000_TAU_CLOCK_SELECT_CKM1 | _1000_TAU_CLOCK_MODE_TIMN | _0000_TAU_16BITS_MODE | 
             _0000_TAU_TRIGGER_SOFTWARE | _0040_TAU_TIMN_EDGE_RISING | _0006_TAU_MODE_EVENT_COUNT;
-    TDR01 = _0001_TAU_TDR01_VALUE;
+    TDR01 = _0000_TAU_TDR01_VALUE;
     TOM0 &= (uint16_t)~_0002_TAU_CH1_SLAVE_OUTPUT;
     TOL0 &= (uint16_t)~_0002_TAU_CH1_OUTPUT_LEVEL_L;
     TO0 &= (uint16_t)~_0002_TAU_CH1_OUTPUT_VALUE_1;

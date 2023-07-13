@@ -21,7 +21,6 @@
 #ifndef CTSU_CONFIG_HEADER_FILE
 #define CTSU_CONFIG_HEADER_FILE
 
-
 /***********************************************************************************************************************
  Configuration Options
  ***********************************************************************************************************************/
@@ -41,10 +40,10 @@
 #define CTSU_CFG_SMS_SUPPORT_ENABLE         (0)
 
 /* Data storage address setting for CTSURD. Set the lower 8 bits to 00H. */
-#define CTSU_CFG_SMS_TRANSFER_ADDRESS       0xFF800
+#define CTSU_CFG_SMS_TRANSFER_ADDRESS       0xFF500
 
 /* Data storage address setting for CTSUWR. Set the lower 8 bits to 00H. */
-#define CTSU_CFG_SMS_CTSUWR_ADDRESS         0xFFB00
+#define CTSU_CFG_SMS_CTSUWR_ADDRESS         0xFF800
 
 /* Interrupt priority level */
 #define CTSU_CFG_INTCTSUWR_PRIORITY_LEVEL   (2)
@@ -62,7 +61,11 @@
 #define CTSU_CFG_NUM_MUTUAL_ELEMENTS        (0)
 #define CTSU_CFG_LOW_VOLTAGE_MODE           (0)
 #define CTSU_CFG_PCLK_DIVISION              (0)
+#if (defined(BSP_MCU_GROUP_RL78G22) || defined(BSP_MCU_GROUP_RL78G23))
 #define CTSU_CFG_TSCAP_PORT                 (0x0300)
+#else
+#define CTSU_CFG_TSCAP_PORT                 (0x0002)
+#endif
 #define CTSU_CFG_VCC_MV                     (5000)
 #define CTSU_CFG_NUM_SUMULTI                (3)
 #define CTSU_CFG_SUMULTI0                   (0x3F)
@@ -76,6 +79,49 @@
 #endif
 
  #if (CTSU_CFG_DIAG_SUPPORT_ENABLE == 1)
+#if  (defined(BSP_MCU_GROUP_RL78G16))
+#if (CTSU_CFG_LOW_VOLTAGE_MODE == 0)
+#define CTSU_CFG_DIAG_CCO_HIGH_MAX                (54888)
+#define CTSU_CFG_DIAG_CCO_HIGH_MIN                (29062)
+#define CTSU_CFG_DIAG_CCO_LOW_MAX                 (3269)
+#define CTSU_CFG_DIAG_CCO_LOW_MIN                 (705)
+#define CTSU_CFG_DIAG_SSCG_MAX                    (21813)
+#define CTSU_CFG_DIAG_SSCG_MIN                    (11782)
+#define CTSU_CFG_DIAG_DAC1_MAX                    (20422)
+#define CTSU_CFG_DIAG_DAC2_MAX                    (21532)
+#define CTSU_CFG_DIAG_DAC3_MAX                    (23015)
+#define CTSU_CFG_DIAG_DAC4_MAX                    (25923)
+#define CTSU_CFG_DIAG_DAC5_MAX                    (32016)
+#define CTSU_CFG_DIAG_DAC6_MAX                    (45795)
+#define CTSU_CFG_DIAG_DAC1_MIN                    (12492)
+#define CTSU_CFG_DIAG_DAC2_MIN                    (14053)
+#define CTSU_CFG_DIAG_DAC3_MIN                    (15322)
+#define CTSU_CFG_DIAG_DAC4_MIN                    (18070)
+#define CTSU_CFG_DIAG_DAC5_MIN                    (23262)
+#define CTSU_CFG_DIAG_DAC6_MIN                    (33446)
+#else
+#define CTSU_CFG_DIAG_CCO_HIGH_MAX                (43910)
+#define CTSU_CFG_DIAG_CCO_HIGH_MIN                (23249)
+#define CTSU_CFG_DIAG_CCO_LOW_MAX                 (2615)
+#define CTSU_CFG_DIAG_CCO_LOW_MIN                 (564)
+#define CTSU_CFG_DIAG_SSCG_MAX                    (21813)
+#define CTSU_CFG_DIAG_SSCG_MIN                    (11782)
+#define CTSU_CFG_DIAG_DAC1_MAX                    (16599)
+#define CTSU_CFG_DIAG_DAC2_MAX                    (17226)
+#define CTSU_CFG_DIAG_DAC3_MAX                    (18412)
+#define CTSU_CFG_DIAG_DAC4_MAX                    (20738)
+#define CTSU_CFG_DIAG_DAC5_MAX                    (25613)
+#define CTSU_CFG_DIAG_DAC6_MAX                    (36636)
+#define CTSU_CFG_DIAG_DAC1_MIN                    (9994)
+#define CTSU_CFG_DIAG_DAC2_MIN                    (11242)
+#define CTSU_CFG_DIAG_DAC3_MIN                    (12258)
+#define CTSU_CFG_DIAG_DAC4_MIN                    (14456)
+#define CTSU_CFG_DIAG_DAC5_MIN                    (18610)
+#define CTSU_CFG_DIAG_DAC6_MIN                    (26757)
+#endif
+#endif
+
+#if (defined(BSP_MCU_GROUP_RL78G22) || defined(BSP_MCU_GROUP_RL78G23))
   #define CTSU_DIAG_TSCAP_RANGE_LOW                (1050)
   #define CTSU_DIAG_TSCAP_RANGE_HIGH               (1419)
 
@@ -188,6 +234,7 @@
    #define CTSU_CFG_DIAG_DAC11_12_DIFF_MAX         (1581)
  #endif
   #define CTSU_CFG_DIAG_CLOCK_RECOV_RANGE          (20)
+#endif
  #endif
 
 

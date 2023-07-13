@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_ITL000_ITL001.h
-* Component Version: 1.2.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.4.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_ITL000_ITL001.
 ***********************************************************************************************************************/
 
@@ -39,7 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0065_ITL_ITLCMP00_VALUE                   (0x0065U)    /* 16-bit compare data register */
+#define _0032_ITL_ITLCMP00_VALUE                   (0x0032U)    /* 16-bit compare data register */
 
 /***********************************************************************************************************************
 Typedef definitions

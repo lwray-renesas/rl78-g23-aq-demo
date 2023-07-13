@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_5.c
-* Component Version: 1.2.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.4.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_TAU0_5.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -65,7 +65,7 @@ void R_Config_TAU0_5_Create(void)
     /* TAU05 used as interval timer */
     TMR05 = _8000_TAU_CLOCK_SELECT_CKM1 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_TRIGGER_SOFTWARE | 
             _0000_TAU_MODE_INTERVAL_TIMER | _0000_TAU_START_INT_UNUSED;
-    TDR05 = _0043_TAU_TDR05_VALUE;
+    TDR05 = _0009_TAU_TDR05_VALUE;
     TOM0 &= (uint16_t)~_0020_TAU_CH5_SLAVE_OUTPUT;
     TOL0 &= (uint16_t)~_0020_TAU_CH5_OUTPUT_LEVEL_L;
     TO0 &= (uint16_t)~_0020_TAU_CH5_OUTPUT_VALUE_1;

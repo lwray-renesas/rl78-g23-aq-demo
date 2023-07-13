@@ -33,7 +33,27 @@
 /***********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
-#define BSP_FEATURE_CTSU_VERSION          (2)  ///< CTSU IP version
+#if (defined(BSP_MCU_GROUP_RL78G22) || defined(BSP_MCU_GROUP_RL78G23))
+#define BSP_FEATURE_CTSU_VERSION                  (2)  ///< CTSU IP version
+#else
+#define BSP_FEATURE_CTSU_VERSION                  (1)  ///< CTSU IP version
+#endif
+
+#if  (defined(BSP_MCU_GROUP_RL78G16))
+#define CTSU_CFG_MCU_PROCESS_MF3                  (1)
+
+#define CTSU_HAS_TXVSEL                           (1)
+#define BSP_FEATURE_CTSU_HAS_TRMR                 (1)
+/* For parts with CTSUCHAC2/3/4 and CTSUTRC2/3/4 registers (more than 16 TS pins) */
+#if (BSP_FEATURE_CTSU_VERSION == 2)
+#define BSP_FEATURE_CTSU_CTSUCHAC_REGISTER_COUNT  (3)
+#define BSP_FEATURE_CTSU_CTSUCHTRC_REGISTER_COUNT (3)
+#endif
+#if (BSP_FEATURE_CTSU_VERSION == 1)
+#define BSP_FEATURE_CTSU_CTSUCHAC_REGISTER_COUNT  (2)
+#define BSP_FEATURE_CTSU_CTSUCHTRC_REGISTER_COUNT (2)
+#endif
+#endif
 
 #if (BSP_FEATURE_CTSU_VERSION == 2)
  #define CTSU_CORRECTION_POINT_NUM        (12) ///< number of correction table
@@ -43,6 +63,31 @@
  #define CTSU_DIAG_LOW_CURRENT_SOURCE     (10) ///< number of low current source table at Diagnosis
 #endif
 
+#if (BSP_FEATURE_CTSU_VERSION == 1)
+/* =========================================================================================================================== */
+/* ================                                          R_CTSU1                                          ================ */
+/* =========================================================================================================================== */
+
+/* ========================================================  CTSUCR0 ========================================================= */
+ #define CTSUCR0_IOC_Pos            (3UL)       /*!< CTSUIOC (Bit 3)                                        */
+ #define CTSUCR0_IOC_Msk            (0x8UL)     /*!< CTSUIOC (Bitfield-Mask: 0x01)                          */
+/* ========================================================  CTSUCR1 ========================================================= */
+ #define CTSUCR1_MD0_Pos            (6UL)       /*!< CTSUMD0 (Bit 6)                                        */
+ #define CTSUCR1_MD0_Msk            (0x40UL)    /*!< CTSUMD0 (Bitfield-Mask: 0x01)                          */
+/* ========================================================  CTSUMCH0 ======================================================== */
+ #define CTSUMCH_MCH0_Pos           (0UL)       /*!< CTSUMCH0 (Bit 0)                                       */
+ #define CTSUMCH_MCH0_Msk           (0x1FUL)    /*!< CTSUMCH0 (Bitfield-Mask: 0x1F)                         */
+/* ========================================================  CTSUMCH1 ======================================================== */
+ #define CTSUMCH_MCH1_Pos           (0UL)       /*!< CTSUMCH1 (Bit 0)                                       */
+ #define CTSUMCH_MCH1_Msk           (0x1FUL)    /*!< CTSUMCH1 (Bitfield-Mask: 0x1F)                         */
+/* ========================================================  CTSUERRS ======================================================== */
+ #define CTSUERRS_TSOD_Pos          (2UL)       /*!< CTSUTSOD (Bit 2)                                       */
+ #define CTSUERRS_TSOD_Msk          (0x4UL)     /*!< CTSUTSOD (Bitfield-Mask: 0x01)                         */
+ #define CTSUERRS_ALMES_Pos         (13UL)      /*!< CTSUALMES (Bit 13)                                     */
+ #define CTSUERRS_ALMES_Msk         (0x2000UL)  /*!< CTSUALMES (Bitfield-Mask: 0x01)                        */
+#endif
+
+#if (BSP_FEATURE_CTSU_VERSION == 2)
 /* =========================================================================================================================== */
 /* ================                                          R_CTSU2                                          ================ */
 /* =========================================================================================================================== */
@@ -216,6 +261,7 @@
  #define CTSUSUCLKB_SUADJ3_Msk      (0xffUL)      /*!< SUADJ3 (Bitfield-Mask: 0xff)                          */
  #define CTSUSUCLKB_SUMULTI3_Pos    (8UL)         /*!< SUMULTI3 (Bit 24)                                     */
  #define CTSUSUCLKB_SUMULTI3_Msk    (0xff00UL)    /*!< SUMULTI3 (Bitfield-Mask: 0xff)                        */
+#endif
 
 /***********************************************************************************************************************
  * Typedef definitions
@@ -245,6 +291,23 @@ typedef enum e_ctsu_correction_status
     CTSU_CORRECTION_COMPLETE,          ///< Correction complete.
     CTSU_CORRECTION_ERROR              ///< Correction error.
 } ctsu_correction_status_t;
+
+#if (BSP_FEATURE_CTSU_VERSION == 1)
+ #if (CTSU_CFG_DIAG_SUPPORT_ENABLE == 1)
+
+/** CTSU Diagnosis status */
+typedef enum e_ctsu_diagnosis_status
+{
+    CTSU_DIAG_INIT,                    ///< Diagnosis initial status.
+    CTSU_DIAG_OVER_VOLTAGE,            ///< Diagnosis of over_voltage running.
+    CTSU_DIAG_CCO_HIGH,                ///< Diagnosis of oscillator 19.2uA running.
+    CTSU_DIAG_CCO_LOW,                 ///< Diagnosis of oscillator 2.4uA running.
+    CTSU_DIAG_SSCG,                    ///< Diagnosis of sscg_oscillator running.
+    CTSU_DIAG_DAC,                     ///< Diagnosis of dac running.
+    CTSU_DIAG_COMPLETE                 ///< Diagnosis complete.
+} ctsu_diagnosis_status_t;
+ #endif
+#endif
 
 #if (BSP_FEATURE_CTSU_VERSION == 2)
  #if (CTSU_CFG_DIAG_SUPPORT_ENABLE == 1)
@@ -280,14 +343,38 @@ typedef enum e_ctsu_range
 /** CTSUWR write register value */
 typedef struct st_ctsu_wr
 {
+#if (BSP_FEATURE_CTSU_VERSION == 2)
     uint32_t ctsuso;                   ///< Copy from ((sdpa << 24) | (ssdiv << 20) | (snum << 10) | so) by Open API.
+#else
+    uint16_t ctsussc;                  ///< Copy from (ssdiv << 8) by Open API.
+    uint16_t ctsuso0;                  ///< Copy from ((snum << 10) | so) by Open API.
+    uint16_t ctsuso1;                  ///< Copy from (sdpa << 8) by Open API. ICOG and RICOA is set recommend value.
+#endif
 } ctsu_ctsuwr_t;
 
 /** Scan buffer data formats (Self) */
+#if (BSP_FEATURE_CTSU_VERSION == 2)
 typedef uint16_t ctsu_self_buf_t;
+#else
+typedef struct st_ctsu_self_buf
+{
+    uint16_t sen;                      ///< Sensor counter data
+    uint16_t ref;                      ///< Reference counter data (Not used)
+} ctsu_self_buf_t;
+#endif
 
 /** Scan buffer data formats (Mutual) */
+#if (BSP_FEATURE_CTSU_VERSION == 2)
 typedef uint16_t ctsu_mutual_buf_t;
+#else
+typedef struct st_ctsu_mutual_buf
+{
+    uint16_t pri_sen;                  ///< Primary sensor data
+    uint16_t pri_ref;                  ///< Primary reference data (Not used)
+    uint16_t snd_sen;                  ///< Secondary sensor data
+    uint16_t snd_ref;                  ///< Secondary reference data (Not used)
+} ctsu_mutual_buf_t;
+#endif
 
 /** Correction information */
 typedef struct st_ctsu_correction_info
@@ -295,6 +382,7 @@ typedef struct st_ctsu_correction_info
     ctsu_correction_status_t status;                               ///< Correction status
     ctsu_ctsuwr_t            ctsuwr;                               ///< Correction scan parameter
     volatile ctsu_self_buf_t scanbuf;                              ///< Correction scan buffer
+#if (BSP_FEATURE_CTSU_VERSION == 2)
  #if (CTSU_CFG_TEMP_CORRECTION_SUPPORT == 1)
     uint16_t scan_index;                                           ///< Scan point index
     uint16_t update_counter;                                       ///< Coefficient update counter
@@ -306,6 +394,13 @@ typedef struct st_ctsu_correction_info
     uint16_t range_ratio[CTSU_RANGE_NUM - 1];                      ///< Ratio between 160uA range and other ranges
     uint16_t dac_value[CTSU_CORRECTION_POINT_NUM];                 ///< Value of internal DAC measurement
     uint16_t ref_value[CTSU_RANGE_NUM][CTSU_CORRECTION_POINT_NUM]; ///< Value of reference
+#else
+    uint16_t first_val;                                            ///< 1st correction value
+    uint16_t second_val;                                           ///< 2nd correction value
+    uint32_t first_coefficient;                                    ///< 1st correction coefficient
+    uint32_t second_coefficient;                                   ///< 2nd correction coefficient
+    uint32_t ctsu_clock;                                           ///< CTSU clock [MHz]
+#endif
 } ctsu_correction_info_t;
 
 #if (BSP_FEATURE_CTSU_VERSION == 2)
@@ -326,6 +421,30 @@ typedef struct st_ctsu_corrcfc_info
     uint8_t  num_ts;                                                              ///< Number of CFC-TS for instance
     uint64_t stored_rx_bitmap;                                                    ///< Bitmap of registered CFC terminal
 } ctsu_corrcfc_info_t;
+ #endif
+#endif
+
+#if (BSP_FEATURE_CTSU_VERSION == 1)
+ #if (CTSU_CFG_DIAG_SUPPORT_ENABLE == 1)
+
+/** Correction information */
+typedef struct st_ctsu_diag_info
+{
+    volatile ctsu_diagnosis_status_t state; ///< Diagnosis state
+    ctsu_ctsuwr_t            ctsuwr;        ///< Correction scan parameter
+    uint8_t                  loop_count;    ///< Diagnosis loop counter
+    volatile ctsu_self_buf_t scanbuf;       ///< Diagnosis scan buffer
+    uint16_t                 correct_data;  ///< Diagnosis correct value
+    volatile uint8_t         icomp;         ///< Diagnosis icomp flag
+    uint16_t                 cco_high;      ///< Diagnosis cco high count
+    uint16_t                 cco_low;       ///< Diagnosis cco low count
+    uint16_t                 sscg;          ///< Diagnosis sscg count
+    uint16_t                 dac_cnt[6];    ///< Diagnosis dac count
+    uint16_t                 so0_4uc_val;   ///< Diagnosis dac value
+    uint16_t                 dac_init;      ///< Diagnosis dac
+    ctsu_tuning_t            tuning;        ///< Diagnosis dac initial tuning flag
+    int32_t                  tuning_diff;   ///< Diagnosis
+} ctsu_diag_info_t;
  #endif
 #endif
 
@@ -401,6 +520,12 @@ typedef struct st_ctsu_instance_ctrl
     uint8_t * p_selected_freq_self;              ///< Frequency selected by self-capacity
     uint8_t * p_selected_freq_mutual;            ///< Frequency selected by mutual-capacity
 #endif
+#if (BSP_FEATURE_CTSU_VERSION == 1)
+ #if (CTSU_CFG_DIAG_SUPPORT_ENABLE == 1)
+    ctsu_diag_info_t * p_diag_info;              ///< pointer to diagnosis info
+ #endif
+#endif
+
 #if (BSP_FEATURE_CTSU_VERSION == 2)
     ctsu_range_t range;                            ///< According to atune12. (20uA : 0, 40uA : 1, 80uA : 2, 160uA : 3)
     uint8_t      ctsucr2;                          ///< Copy from (posel, atune1, md) by Open API. FCMODE and SDPSEL and LOAD is set by HAL driver.
@@ -423,6 +548,9 @@ typedef struct st_ctsu_instance_ctrl
     uint16_t serial_tuning_mutual_cnt;             ///< Word index into ctsuwr register array.
     uint16_t tuning_self_target_value;             ///< Target self value for initial offset tuning
     uint16_t tuning_mutual_target_value;           ///< Target mutual value for initial offset tuning
+    uint8_t                    tsod;               ///< Copy from tsod by Open API.
+    uint8_t                    mec_ts;             ///< Copy from mec_ts by Open API.
+    uint8_t                    mec_shield_ts;      ///< Copy from mec_shield_ts by Open API.
 } ctsu_instance_ctrl_t;
 
 /**********************************************************************************************************************

@@ -32,13 +32,13 @@
 #define TOUCH_CFG_PARAM_CHECKING_ENABLE   (BSP_CFG_PARAM_CHECKING_ENABLE)
 
 /* For QE monitor with emulator, set this to 0. For QE monitor with UART, set this to 1 */
-#define TOUCH_CFG_UART_MONITOR_SUPPORT    (0)
+#define TOUCH_CFG_UART_MONITOR_SUPPORT    (1)
 
 /* For QE tuning with emulator, set this to 0. For QE tuning with UART, set this to 1 */
-#define TOUCH_CFG_UART_TUNING_SUPPORT     (0)
+#define TOUCH_CFG_UART_TUNING_SUPPORT     (1)
 
 /* For QE monitor with UART channel */
-#define TOUCH_CFG_UART_NUMBER             (0)
+#define TOUCH_CFG_UART_NUMBER             (0xA0)
 
 /* The following configurations are set according to the touch interface configuration, 
  * so they are not set in Smart Configurator.

@@ -25,6 +25,9 @@
 /**********************************************************************************************************************
  * Macro definitions
  *********************************************************************************************************************/
+#if (BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE == 1)
+#error Please set BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE to "0" on Smart Configurator.
+#endif
 
 /**********************************************************************************************************************
  * Local Typedef definitions
@@ -56,7 +59,7 @@ fsp_err_t rm_zmod4xxx_delay_ms (rm_zmod4xxx_ctrl_t * const p_ctrl, uint32_t cons
     FSP_PARAMETER_NOT_USED(p_ctrl);
 
     /* Software delay */
-    R_ZMOD4XXX_SoftwareDelay(delay_ms, ZMOD4XXX_DELAY_MILLISECS);
+    R_BSP_SoftwareDelay(delay_ms, BSP_DELAY_MILLISECS);
 
     return FSP_SUCCESS;
 }

@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : r_cg_sau_common.h
-* Version          : 1.0.11
-* Device(s)        : R7F100GFNxFP
+* Version          : 1.0.13
+* Device(s)        : R7F100GGNxFB
 * Description      : Common header file for SAU peripheral.
 ***********************************************************************************************************************/
 

@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_DTC_user.c
-* Component Version: 1.1.1
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.3.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_DTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -56,5 +56,4 @@ void R_Config_DTC_Create_UserInit(void)
     /* End user code. Do not edit comment generated here */
 }
 
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+/* Start user code for adding. Do not edit comment generated here *//* End user code. Do not edit comment generated here */

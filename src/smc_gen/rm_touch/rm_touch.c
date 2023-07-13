@@ -269,6 +269,13 @@
  #endif
  #define TOUCH_TUNING_VARIABLE_SELF_TARGET_VALUE       (0x17)
  #define TOUCH_TUNING_VARIABLE_MUTUAL_TARGET_VALUE     (0x18)
+ #if (BSP_FEATURE_CTSU_VERSION == 2)
+  #if (CTSU_CFG_MULTIPLE_ELECTRODE_CONNECTION_ENABLE == 1)
+ #define TOUCH_TUNING_VARIABLE_QE_TSOD                 (0x19)
+ #define TOUCH_TUNING_VARIABLE_QE_MEC_TS               (0x1A)
+ #define TOUCH_TUNING_VARIABLE_QE_MEC_SHIELD_TS        (0x1B)
+  #endif
+ #endif
 #endif
 
 #if ((TOUCH_CFG_MONITOR_ENABLE && (TOUCH_CFG_UART_MONITOR_SUPPORT == 1)) || (TOUCH_CFG_UART_TUNING_SUPPORT == 1))
@@ -458,6 +465,13 @@ static volatile uint8_t      g_touch_tuning_qe_txvsel;
 static volatile uint8_t      g_touch_tuning_phase_run;
 static uint16_t              g_touch_tuning_self_target_value;
 static uint16_t              g_touch_tuning_mutual_target_value;
+ #if (BSP_FEATURE_CTSU_VERSION == 2)
+  #if (CTSU_CFG_MULTIPLE_ELECTRODE_CONNECTION_ENABLE == 1)
+static volatile uint8_t      g_touch_tuning_qe_tsod;
+static volatile uint8_t      g_touch_tuning_qe_mec_ts;
+static volatile uint8_t      g_touch_tuning_qe_mec_shield_ts;
+  #endif
+ #endif
 
 static volatile touch_tuning_mode_t g_touch_tuning_mode_save;
 
@@ -2978,6 +2992,27 @@ void touch_uart_callback (uint16_t event)
                     break;
                 }
 
+  #if (BSP_FEATURE_CTSU_VERSION == 2)
+   #if (CTSU_CFG_MULTIPLE_ELECTRODE_CONNECTION_ENABLE == 1)
+                case TOUCH_TUNING_VARIABLE_QE_TSOD:
+                {
+                    touch_tuning_get8((uint8_t *)&g_touch_tuning_qe_tsod, 7);
+                    break;
+                }
+
+                case TOUCH_TUNING_VARIABLE_QE_MEC_TS:
+                {
+                    touch_tuning_get8((uint8_t *)&g_touch_tuning_qe_mec_ts, 7);
+                    break;
+                }
+
+                case TOUCH_TUNING_VARIABLE_QE_MEC_SHIELD_TS :
+                {
+                    touch_tuning_get8((uint8_t *)&g_touch_tuning_qe_mec_shield_ts, 7);
+                    break;
+                }
+   #endif
+  #endif
                 default:
                 {
                     break;
@@ -3804,6 +3839,11 @@ void touch_tuning_scan_register_setting (touch_instance_ctrl_t * const p_instanc
     p_ctsu_instance_ctrl->ctsucr2  = (uint8_t) (g_touch_tuning_qe_atune & 0x02);
     p_ctsu_instance_ctrl->ctsucr2 |= (uint8_t) ((g_touch_tuning_md & 0x04) >> 2);
     p_ctsu_instance_ctrl->ctsucr2 |= (uint8_t) (g_touch_tuning_qe_posel << 4);
+  #if (CTSU_CFG_MULTIPLE_ELECTRODE_CONNECTION_ENABLE == 1)
+    p_ctsu_instance_ctrl->tsod          = g_touch_tuning_qe_tsod;
+    p_ctsu_instance_ctrl->mec_ts        = g_touch_tuning_qe_mec_ts;
+    p_ctsu_instance_ctrl->mec_shield_ts = g_touch_tuning_qe_mec_shield_ts;
+  #endif
  #endif
 
  #if (BSP_FEATURE_CTSU_VERSION == 2)
@@ -3868,6 +3908,14 @@ void touch_tuning_ts_setup (touch_instance_ctrl_t * const p_instance_ctrl)
         /* Get the number of measurable elements */
         touch_tuning_count_element(element_maska, &p_ctsu_instance_ctrl->num_elements);
         touch_tuning_count_element(element_maskb, &p_ctsu_instance_ctrl->num_elements);
+ #if (BSP_FEATURE_CTSU_VERSION == 2)
+  #if (CTSU_CFG_MULTIPLE_ELECTRODE_CONNECTION_ENABLE == 1)
+        if (1 == g_touch_tuning_qe_tsod)
+        {
+            p_ctsu_instance_ctrl->num_elements = 1;
+        }
+  #endif
+ #endif
     }
     else if (TOUCH_TUNING_SCAN_MUTUAL == g_touch_tuning_scan_mode)
     {

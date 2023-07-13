@@ -13,6 +13,7 @@
         <Setting id="P41" value="P41"/>
         <Setting id="P63" value="P63"/>
         <Setting id="P62" value="CCD06"/>
+        <Setting id="P40" value="TOOL0"/>
         <Setting id="P21" value="P21"/>
         <Setting id="P20" value="P20"/>
         <Setting id="P01" value="P01"/>
@@ -22,11 +23,16 @@
         <Setting id="P24" value="P24"/>
         <Setting id="P27" value="TS25"/>
         <Setting id="P26" value="P26"/>
+        <Setting id="P130" value="P130"/>
         <Setting id="P137" value="INTP0"/>
         <Setting id="P70" value="P70"/>
+        <Setting id="P72" value="TxDA0"/>
+        <Setting id="P71" value="RxDA0"/>
+        <Setting id="P74" value="INTP8"/>
         <Setting id="P30" value="TSCAP"/>
         <Setting id="P73" value="P73"/>
         <Setting id="P10" value="SCK00"/>
+        <Setting id="P75" value="P75"/>
         <Setting id="P31" value="TI03"/>
         <Setting id="P12" value="SO00"/>
         <Setting id="P14" value="P14"/>
@@ -34,14 +40,15 @@
         <Setting id="P16" value="CCD00"/>
         <Setting id="P15" value="PCLBUZ1"/>
         <Setting id="P17" value="CCD01"/>
+        <Setting id="P140" value="P140"/>
         <Setting id="P120" value="P120"/>
     </Segment>
     <Segment id="Device">
         <Setting id="Series" value="RL78G2x"/>
         <Setting id="Group" value="RL78G23"/>
         <Setting id="Board" value="Custom User Board"/>
-        <Setting id="PartNo" value="R7F100GFNxFP"/>
-        <Setting id="PinCount" value="44"/>
+        <Setting id="PartNo" value="R7F100GGNxFB"/>
+        <Setting id="PinCount" value="48"/>
     </Segment>
     <Segment id="Clock">
         <Setting id="FSXL" value="32.768"/>
@@ -53,22 +60,22 @@
         <Setting id="FCLK" value="16000.0"/>
     </Segment>
     <Segment id="Component">
+        <Setting id="Config_UARTA0" value="CG"/>
         <Setting id="r_bsp" value=""/>
         <Setting id="Config_RTC" value="CG"/>
         <Setting id="Config_ITL000_ITL001" value="CG"/>
-        <Setting id="r_hs300x" value=""/>
         <Setting id="r_zmod4xxx" value=""/>
         <Setting id="Config_IICA0" value="CG"/>
         <Setting id="r_comms_i2c" value=""/>
-        <Setting id="Config_TAU0_0" value="CG"/>
         <Setting id="Config_DTC" value="CG"/>
+        <Setting id="Config_TAU0_0" value="CG"/>
         <Setting id="Config_INTC" value="CG"/>
         <Setting id="Config_TAU0_1" value="CG"/>
         <Setting id="r_ctsu" value=""/>
         <Setting id="Config_LVD1" value="CG"/>
         <Setting id="Config_CSI00" value="CG"/>
-        <Setting id="Config_PORT" value="CG"/>
         <Setting id="Config_TAU0_6" value="CG"/>
+        <Setting id="Config_PORT" value="CG"/>
         <Setting id="Config_PCLBUZ1" value="CG"/>
         <Setting id="rm_touch" value=""/>
         <Setting id="Config_TAU0_4" value="CG"/>

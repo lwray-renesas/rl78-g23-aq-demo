@@ -34,7 +34,8 @@
 ;;*                               Added initialization process for RTOS.
 ;;*         : 28.02.2022 1.20     Changed to always include r_bsp_config.inc.
 ;;*                               Added RAMSAR register setting.
-;;
+;;*         : 31.01.2023 1.50     Added code for C++ project.
+;;*                               Added code for RAM initialization table.
 ;;***********************************************************************************************************************/
 
 $INCLUDE (r_bsp_config.inc)
@@ -45,6 +46,7 @@ $ENDIF
 
     .public _start
     .public _exit
+    .public _atexit
 
 ;-----------------------------------------------------------------------------
 ; external declaration of symbol for stack area
@@ -141,6 +143,59 @@ $ENDIF
     ;--------------------------------------------------
     CALL    !!_bsp_init_system
 
+$IFDEF __USE_RAM_INIT_TABLE
+    ;--------------------------------------------------
+    ; initializing RAM
+    ;--------------------------------------------------
+    MOVW    AX,#LOWW(STARTOF(.ram_init_table))
+    BR      $.L5_RAM_INIT_TABLE
+.L1_RAM_INIT_TABLE:
+    PUSH    AX      ;table pointer
+    MOVW    HL,AX
+    MOV     ES,#HIGHW(STARTOF(.ram_init_table))
+    MOVW    AX,ES:[HL+6]    ;dst
+    MOVW    DE,AX
+    MOVW    AX,ES:[HL+4]    ;size
+    ADDW    AX,DE
+    MOVW    BC,AX           ;end
+    MOV     A,ES:[HL+2]     ;high(src)
+    CMP     A,#0xF
+    BZ      $.L3_RAM_INIT_TABLE_CLEAR
+
+    PUSH    AX
+    MOVW    AX,ES:[HL]      ;loww(src)
+    MOVW    HL,AX
+    POP     AX
+    MOV     ES,A
+    BR      $.L3_RAM_INIT_TABLE_COPY
+
+.L2_RAM_INIT_TABLE_COPY:
+    MOV     A,ES:[HL]
+    INCW    HL
+    MOV     [DE],A
+    INCW    DE
+.L3_RAM_INIT_TABLE_COPY:
+    MOVW    AX,DE
+    CMPW    AX,BC
+    BC      $.L2_RAM_INIT_TABLE_COPY
+    BR      $.L4_RAM_INIT_TABLE
+
+.L2_RAM_INIT_TABLE_CLEAR:
+    MOV     [DE],#0
+    INCW    DE
+.L3_RAM_INIT_TABLE_CLEAR:
+    MOVW    AX,DE
+    CMPW    AX,BC
+    BC      $.L2_RAM_INIT_TABLE_CLEAR
+
+.L4_RAM_INIT_TABLE:
+    POP     AX          ;table pointer
+    ADDW    AX,#8
+.L5_RAM_INIT_TABLE:
+    CMPW    AX,#LOWW(STARTOF(.ram_init_table)+SIZEOF(.ram_init_table))
+    BC      $.L1_RAM_INIT_TABLE
+
+$ELSE    ; __USE_RAM_INIT_TABLE
     ;--------------------------------------------------
     ; initializing BSS
     ;--------------------------------------------------
@@ -242,6 +297,26 @@ $ENDIF
 ;   CMPW    AX,#LOWW(STARTOF(.text) + SIZEOF(.text))
 ;   BNZ $.L1_TEXT
 
+$ENDIF    ; __USE_RAM_INIT_TABLE
+
+    ;--------------------------------------------------
+    ; call global constructor (_peace_global_ctor_0)
+    ;--------------------------------------------------
+    MOVW    BC,#LOWW(SIZEOF(.init_array))
+    BR      $.L2_INIT
+.L1_INIT:
+    DECW    BC
+    DECW    BC
+    MOV     ES,#HIGHW(STARTOF(.init_array))
+    MOVW    AX,ES:LOWW(STARTOF(.init_array))[BC]
+    MOV     CS,#0x00
+    PUSH    BC
+    CALL    AX
+    POP     BC
+.L2_INIT:
+    CLRW    AX
+    CMPW    AX,BC
+    BNZ     $.L1_INIT
 
     ;--------------------------------------------------
     ; hardware initialization
@@ -308,6 +383,12 @@ _exit:
     BR  $_exit
 
 ;-----------------------------------------------------------------------------
+;   atexit (only ret)
+;-----------------------------------------------------------------------------
+_atexit:
+    RET
+
+;-----------------------------------------------------------------------------
 ;   section
 ;-----------------------------------------------------------------------------
 $IF (__RENESAS_VERSION__ >= 0x01010000)
@@ -334,3 +415,5 @@ $ENDIF
 ;.L_section_bssf:
 .SECTION .sbss, SBSS
 .L_section_sbss:
+.SECTION .init_array, CONSTF
+.L_section_init_array:

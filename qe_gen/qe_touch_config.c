@@ -14,7 +14,7 @@
 * following link:
 * https://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation.
+* Copyright (C) 2023 Renesas Electronics Corporation.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name    : qe_touch_config.c
@@ -25,6 +25,13 @@
 *              : 06/23/2020 1.00    First Release
 *              : 07/15/2021 1.10    Adding Diagnosis Supporting
 *              : 11/13/2021 1.20    Adding information for Initial Offset Tuning
+*              : 03/16/2022 1.30    Adding Multiple Electrode Connection Supporting
+*              : 03/31/2023 1.31    Improving Traceability
+*              : 04/18/2023 1.40    Adding 3 Frequency Judgement Supporting
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+* Touch I/F Configuration File  : RL78G23_IAQ_DEMO.tifcfg
+* Tuning Log File               : RL78G23_IAQ_DEMO_log_tuning20230712145222.log
 ***********************************************************************************************************************/
 
 #include "qe_touch_config.h"
@@ -50,7 +57,7 @@ CTSU Related Information for [CONFIG01] configuration.
 
 const ctsu_element_cfg_t g_qe_ctsu_element_cfg_config01[] =
 {
-    { .so = 0x095, .snum = 0x07, .sdpa = 0x07 },
+    { .ssdiv = CTSU_SSDIV_4000, .so = 0x127, .snum = 0x0B, .sdpa = 0x03 },
 };
 
 const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
@@ -110,12 +117,15 @@ Touch Related Information for [CONFIG01] configuration.
 #if (QE_TOUCH_CONFIG01_NUM_BUTTONS != 0)
 const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
 {
+
+
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 500,
-        .hysteresis = 50,
+        .threshold  = 100,
+        .hysteresis = 10,
     },
+
 };
 #endif
 
@@ -123,7 +133,10 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
 #if (QE_TOUCH_CONFIG01_NUM_SLIDERS != 0)
 const touch_slider_cfg_t g_qe_touch_slider_cfg_config01[] =
 {
+
+
     NULL
+
 };
 #endif
 
@@ -131,7 +144,10 @@ const touch_slider_cfg_t g_qe_touch_slider_cfg_config01[] =
 #if (QE_TOUCH_CONFIG01_NUM_WHEELS != 0)
 const touch_wheel_cfg_t g_qe_touch_wheel_cfg_config01[] =
 {
+
+
     NULL
+
 };
 #endif
 
@@ -149,7 +165,7 @@ const touch_cfg_t g_qe_touch_cfg_config01 =
 
     .on_freq     = 1,
     .off_freq    = 1,
-    .drift_freq  = 64,
+    .drift_freq  = 96,
     .cancel_freq = 0,
 
     .p_ctsu_instance = &g_qe_ctsu_instance_config01,

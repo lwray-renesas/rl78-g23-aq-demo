@@ -25,7 +25,6 @@
  **********************************************************************************************************************/
 #include "rm_zmod4xxx.h"
 #include "r_zmod4xxx_rl_config.h"
-#include "src\rm_zmod4xxx\rm_zmod4xxx_common.h"
 #if RM_ZMOD4XXX_CFG_IRQ_ENABLE
 #endif
 

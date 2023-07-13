@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_LVD1.h
-* Component Version: 1.1.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.3.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_LVD1.
 ***********************************************************************************************************************/
 
@@ -39,7 +39,8 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define LVD1_STABILIZATION_WAITTIME                  (666U)
+#define LVD1_STABILIZATION_WAITTIME        (666U)    /* wait for 500 us as default,
+                                                         please change the waiting time value according to the system */
 
 /***********************************************************************************************************************
 Typedef definitions

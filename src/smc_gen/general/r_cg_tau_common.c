@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : r_cg_tau_common.c
-* Version          : 1.0.11
-* Device(s)        : R7F100GFNxFP
+* Version          : 1.0.13
+* Device(s)        : R7F100GGNxFB
 * Description      : None
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -30,10 +30,10 @@ Includes
 #include "r_cg_userdefine.h"
 #include "Config_TAU0_0.h"
 #include "Config_TAU0_1.h"
+#include "Config_TAU0_2.h"
+#include "Config_TAU0_3.h"
 #include "Config_TAU0_4.h"
 #include "Config_TAU0_5.h"
-#include "Config_TAU0_3.h"
-#include "Config_TAU0_2.h"
 #include "Config_TAU0_6.h"
 #include "r_cg_tau_common.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -63,10 +63,10 @@ void R_TAU0_Create(void)
     /* Set TAU0 settings */
     R_Config_TAU0_0_Create();
     R_Config_TAU0_1_Create();
+    R_Config_TAU0_2_Create();
+    R_Config_TAU0_3_Create();
     R_Config_TAU0_4_Create();
     R_Config_TAU0_5_Create();
-    R_Config_TAU0_3_Create();
-    R_Config_TAU0_2_Create();
     R_Config_TAU0_6_Create();
 }
 

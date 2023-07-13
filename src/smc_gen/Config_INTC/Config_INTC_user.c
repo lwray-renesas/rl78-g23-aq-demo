@@ -14,13 +14,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_INTC_user.c
-* Component Version: 1.2.0
-* Device(s)        : R7F100GFNxFP
+* Component Version: 1.4.0
+* Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_INTC.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
@@ -36,6 +36,7 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_Config_INTC_intp0_interrupt(vect=INTP0)
+#pragma interrupt r_Config_INTC_intp8_interrupt(vect=INTP8)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -68,6 +69,18 @@ static void __near r_Config_INTC_intp0_interrupt(void)
 {
     /* Start user code for r_Config_INTC_intp0_interrupt. Do not edit comment generated here */
 	rm_zmod4xxx_irq_callback0();
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_INTC_intp8_interrupt
+* Description  : This function is INTP8 interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void __near r_Config_INTC_intp8_interrupt(void)
+{
+    /* Start user code for r_Config_INTC_intp8_interrupt. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

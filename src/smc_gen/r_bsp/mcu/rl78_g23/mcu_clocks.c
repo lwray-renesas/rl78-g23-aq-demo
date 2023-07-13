@@ -31,7 +31,10 @@
 *         : 28.02.2022 1.20     Added the following function.
 *                               - change_clock_setting
 *                               Changed to enable/disable for each API function.
-
+*         : 11.11.2022 1.40     Changed attention of get_fclk_freq_hz function.
+*                               Changed comment about error in change_clock_setting function.
+*                               Changed the error condition when HIOCLK is specified as
+*                               an argument of the change_clock_setting function.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -473,7 +476,8 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
  * Arguments    : none
  * Return value : CPU/peripheral hardware clock(fCLK) frequency specified by the r_bsp.
  * Attention    : Error if 0Hz is returned.
- *                When fCLK is a high-speed on-chip oscillator, 0Hz is returned
+ *                When fCLK is a high-speed on-chip oscillator or
+ *                middle-speed on-chip oscillator, 0Hz is returned 
  *                when the value of the register to which it refers is out of the allowable range.
 **************************************************/
 #if BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE == 0
@@ -565,9 +569,11 @@ uint32_t get_fclk_freq_hz(void)
  * Arguments    : Clock to change setting.
  *              : Value to set for the specified clock.
  * Return value : BSP_OK if the specified clock setting is changed.
- *                BSP_ERROR1 When the specified clock is stopped.
+ *                BSP_ERROR1 When HIOCLK is specified,
+ *                           when high-speed on-chip oscillator clock is not supplied to fCLK.
+ *                           When the specified clock is oscillating(excluding HIOCLK).
  *                BSP_ARG_ERROR An invalid argument was input.
- * Attention    : Stop the specified clock before calling this function.
+ * Attention    : 
 **************************************************/
 #if BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE == 0
 e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
@@ -578,7 +584,7 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
     {
         case HIOCLK:
 
-            if (0U == HIOSTOP)
+            if ((1U == HIOSTOP) || (1U == CLS) || (1U == MCS) || (1U == MCS1))
             {
                 status = BSP_ERROR1;
             }
