@@ -39,9 +39,6 @@ Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_Config_TAU0_0_interrupt(vect=INTTM00)
 /* Start user code for pragma. Do not edit comment generated here */
-#pragma inline_asm Inc_rotary_counter
-/** @brief inline assembly function to increment rotary counter*/
-static void Inc_rotary_counter(void);
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -73,21 +70,14 @@ void R_Config_TAU0_0_Create_UserInit(void)
 static void __near r_Config_TAU0_0_interrupt(void)
 {
     /* Start user code for r_Config_TAU0_0_interrupt. Do not edit comment generated here */
-	Inc_rotary_counter();
+    TS0 |= _0001_TAU_CH0_START_TRG_ON;
+    TMIF00 = 0U;    /* clear INTTM00 interrupt flag */
+    TS0 |= _0002_TAU_CH1_START_TRG_ON;
+    TMIF01 = 0U;    /* clear INTTM01 interrupt flag */
+    ++rotary_count;
+    hw_event_flags |= ROTARY_COUNT_UPDATED;
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-static void Inc_rotary_counter(void)
-{
-	SET1 !0x1B2.0 /* restart TS00*/
-	SET1 !0x1B2.1 /* restart TS01*/
-
-	CLR1 !0xFFE1.6 /* clear TMIF00 interrupt flag */
-	CLR1 !0xFFE2.5 /* clear TMIF01 interrupt flag */
-
-	INCW !_rotary_count /* Increment counter*/
-
-	SET1 !_hw_event_flags.2 /* Signal rotary count updated event*/
-}
 /* End user code. Do not edit comment generated here */

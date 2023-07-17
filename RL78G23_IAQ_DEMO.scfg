@@ -243,7 +243,7 @@
         <pinItem allocation="9" comments="" direction="None" id="TxDA0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="4" comments="" direction="O" id="P63" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="5" comments="" direction="None" id="TI03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="3" comments="" direction="IO" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="3" comments="" direction="O" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="25" comments="" direction="None" id="TS25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="11" comments="" direction="O" id="P70" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="15" comments="" direction="IO" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -1981,7 +1981,7 @@
                     <item id="both" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="CountValue" selection="CountValue">
-                    <item id="CountValue" input="1" vlaue="0"/>
+                    <item id="CountValue" input="2" vlaue="1"/>
                 </option>
                 <option enabled="true" id="InterruptEnable" selection="enable">
                     <item id="enable" input="" vlaue="0"/>
@@ -2045,7 +2045,7 @@
                     <item id="both" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="CountValue" selection="CountValue">
-                    <item id="CountValue" input="1" vlaue="0"/>
+                    <item id="CountValue" input="2" vlaue="1"/>
                 </option>
                 <option enabled="true" id="InterruptEnable" selection="enable">
                     <item id="enable" input="" vlaue="0"/>

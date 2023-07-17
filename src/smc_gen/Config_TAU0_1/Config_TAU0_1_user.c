@@ -39,15 +39,13 @@ Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_Config_TAU0_1_interrupt(vect=INTTM01)
 /* Start user code for pragma. Do not edit comment generated here */
-#pragma inline_asm Dec_rotary_counter
-/** @brief inline assembly function to decrement rotary counter*/
-static void Dec_rotary_counter(void);
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+extern volatile int16_t rotary_count;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -72,21 +70,14 @@ void R_Config_TAU0_1_Create_UserInit(void)
 static void __near r_Config_TAU0_1_interrupt(void)
 {
     /* Start user code for r_Config_TAU0_1_interrupt. Do not edit comment generated here */
-	Dec_rotary_counter();
+    TS0 |= _0002_TAU_CH1_START_TRG_ON;
+    TMIF01 = 0U;    /* clear INTTM01 interrupt flag */
+    TS0 |= _0001_TAU_CH0_START_TRG_ON;
+    TMIF00 = 0U;    /* clear INTTM00 interrupt flag */
+    --rotary_count;
+    hw_event_flags |= ROTARY_COUNT_UPDATED;
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-static void Dec_rotary_counter(void)
-{
-	SET1 !0x1B2.0 /* restart TS00*/
-	SET1 !0x1B2.1 /* restart TS01*/
-
-	CLR1 !0xFFE1.6 /* clear TMIF00 interrupt flag */
-	CLR1 !0xFFE2.5 /* clear TMIF01 interrupt flag */
-
-	DECW !_rotary_count /* Decrement counter*/
-
-	SET1 !_hw_event_flags.2 /* Signal rotary count updated event*/
-}
 /* End user code. Do not edit comment generated here */
