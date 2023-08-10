@@ -136,7 +136,7 @@
 #define BSP_CFG_OPTBYTE0_VALUE (0xEFU) /* Generated value. Do not edit this manually */
 #define BSP_CFG_OPTBYTE1_VALUE (0x3AU) /* Generated value. Do not edit this manually */
 #define BSP_CFG_OPTBYTE2_VALUE (0xA9U) /* Generated value. Do not edit this manually */
-#define BSP_CFG_OPTBYTE3_VALUE (0x84U) /* Generated value. Do not edit this manually */
+#define BSP_CFG_OPTBYTE3_VALUE (0x04U) /* Generated value. Do not edit this manually */
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U) /* Generated value. Do not edit this manually */
 #define BSP_CFG_SECUID1_VALUE (0x00U) /* Generated value. Do not edit this manually */
