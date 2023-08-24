@@ -31,7 +31,7 @@
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * Touch I/F Configuration File  : RL78G23_IAQ_DEMO.tifcfg
-* Tuning Log File               : RL78G23_IAQ_DEMO_log_tuning20230712145222.log
+* Tuning Log File               : RL78G23_IAQ_DEMO_log_tuning20230824121855.log
 ***********************************************************************************************************************/
 
 #include "qe_touch_config.h"
@@ -57,7 +57,7 @@ CTSU Related Information for [CONFIG01] configuration.
 
 const ctsu_element_cfg_t g_qe_ctsu_element_cfg_config01[] =
 {
-    { .ssdiv = CTSU_SSDIV_4000, .so = 0x127, .snum = 0x0B, .sdpa = 0x03 },
+    { .ssdiv = CTSU_SSDIV_4000, .so = 0x12B, .snum = 0x0F, .sdpa = 0x03 },
 };
 
 const ctsu_cfg_t g_qe_ctsu_cfg_config01 =
@@ -122,8 +122,8 @@ const touch_button_cfg_t g_qe_touch_button_cfg_config01[] =
     /* button00 */
     {
         .elem_index = 0,
-        .threshold  = 200,
-        .hysteresis = 10,
+        .threshold  = 300,
+        .hysteresis = 20,
     },
 
 };
@@ -165,7 +165,7 @@ const touch_cfg_t g_qe_touch_cfg_config01 =
 
     .on_freq     = 1,
     .off_freq    = 1,
-    .drift_freq  = 96,
+    .drift_freq  = 50,
     .cancel_freq = 0,
 
     .p_ctsu_instance = &g_qe_ctsu_instance_config01,

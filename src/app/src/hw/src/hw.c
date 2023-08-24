@@ -29,7 +29,7 @@ uint8_t tone[8];
 
 /** lpf state object*/
 static lpf_state_t lpf0_state = {
-		.coeff = Q1616(0,75),
+		.coeff = Q1616(0,5),
 };
 
 /** @brief Performs ELCL Setup*/

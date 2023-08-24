@@ -40,18 +40,18 @@
       <MethodID>0</MethodID>
       <TouchIFID>0</TouchIFID>
       <TouchIFType>1</TouchIFType>
-      <Capacitance>10.298611</Capacitance>
+      <Capacitance>10.430555</Capacitance>
       <DrivePulseFrequency>4.0</DrivePulseFrequency>
-      <Threshold>155</Threshold>
-      <Hysteresis>7</Hysteresis>
-      <ScanTime>0.192</ScanTime>
+      <Threshold>406</Threshold>
+      <Hysteresis>20</Hysteresis>
+      <ScanTime>0.256</ScanTime>
       <CTSUSSDIV>0</CTSUSSDIV>
-      <CTSUSNUM>11</CTSUSNUM>
-      <CTSUSO>295</CTSUSO>
+      <CTSUSNUM>15</CTSUSNUM>
+      <CTSUSO>299</CTSUSO>
       <CTSUSDPA>3</CTSUSDPA>
     </TunedData>
     <TargetConnection>1</TargetConnection>
-    <LogFileName>RL78G23_IAQ_DEMO_log_tuning20230712145222.log</LogFileName>
+    <LogFileName>RL78G23_IAQ_DEMO_log_tuning20230824121855.log</LogFileName>
     <Vcc>1.8</Vcc>
     <EnableAdvancedTuning>true</EnableAdvancedTuning>
     <AdvancedTunedData>

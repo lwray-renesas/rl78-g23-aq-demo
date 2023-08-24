@@ -72,6 +72,11 @@ void main(void)
 #ifdef TOUCH_CFG_UART_TUNING_SUPPORT
     qe_touch_main();
 #else
+
+    /* Disable UART input buffer*/
+    PDIDIS7_bit.no1 = 1U;
+    PDIDIS7_bit.no2 = 1U;
+
 	/* Initialise RLTOS hardware requirements*/
 	Rltos_port_start_tick_timer = R_Config_TAU0_2_Start;
 	Rltos_port_stop_tick_timer = R_Config_TAU0_2_Stop;

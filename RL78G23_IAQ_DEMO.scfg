@@ -243,7 +243,7 @@
         <pinItem allocation="9" comments="" direction="None" id="TxDA0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="4" comments="" direction="O" id="P63" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="5" comments="" direction="None" id="TI03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="3" comments="" direction="IO" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="3" comments="" direction="O" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="25" comments="" direction="None" id="TS25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="11" comments="" direction="O" id="P70" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="15" comments="" direction="O" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -3050,7 +3050,7 @@
                             <item id="TTLbufferUse" input="" vlaue="0"/>
                             <item id="TTLbufferUnuse" input="" vlaue="0"/>
                         </option>
-                        <option enabled="true" id="Inputbuffer" selection="InputbufferUse">
+                        <option enabled="true" id="Inputbuffer" selection="InputbufferUnuse">
                             <item id="InputbufferUse" input="" vlaue="0"/>
                             <item id="InputbufferUnuse" input="" vlaue="0"/>
                         </option>
@@ -3073,7 +3073,7 @@
                             <item id="PullupUse" input="" vlaue="0"/>
                             <item id="PullupUnuse" input="" vlaue="0"/>
                         </option>
-                        <option enabled="true" id="Inputbuffer" selection="InputbufferUse">
+                        <option enabled="true" id="Inputbuffer" selection="InputbufferUnuse">
                             <item id="InputbufferUse" input="" vlaue="0"/>
                             <item id="InputbufferUnuse" input="" vlaue="0"/>
                         </option>
@@ -3624,7 +3624,7 @@
                     <item id="inture" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="baudrateSetting" selection="input">
-                    <item id="input" input="153600" vlaue="104"/>
+                    <item id="input" input="115200" vlaue="139"/>
                     <item id="9600" input="9600" vlaue="0"/>
                     <item id="19200" input="19200" vlaue="0"/>
                     <item id="38400" input="38400" vlaue="0"/>

@@ -39,7 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _68_UARTA_OUTPUT_BAUDRATE             (0x68U)
+#define _8B_UARTA_OUTPUT_BAUDRATE             (0x8BU)
 #define UARTA0_WAIT_1_CLOCK_CYCLE             (1U)    /* wait for 1 cycle as default,
                                                          please change the waiting time value according to the system */
 

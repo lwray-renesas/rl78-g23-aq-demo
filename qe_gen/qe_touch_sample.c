@@ -106,7 +106,7 @@ void qe_touch_main(void)
 	/* Initialise LPF coefficients*/
 	for(uint16_t i = 0U; i < TOUCH_CFG_NUM_BUTTONS; ++i)
 	{
-		lpf0_state[i].coeff = Q1616(0,50);
+		lpf0_state[i].coeff = Q1616(0,5);
 		lpf1_state[i].coeff = Q1616(0,90);
 	}
 
