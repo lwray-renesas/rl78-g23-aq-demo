@@ -305,8 +305,9 @@ void Gfx_display_offset_tuning(void)
 	(void)Text_put_str(BACKGROUND_X_START, BACKGROUND_Y_START, "1. Put Me Down\n2. Click Button", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 #endif
 
-	(void)Text_put_str(TITLE_IMAGE_OFFSET_X, TITLE_IMAGE_OFFSET_Y, "1. Turn CW\n2. Turn CCW\n3. Click Button\n4. Put Me Down", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-
+#if 1
+	(void)Text_put_str(BACKGROUND_X_START, TITLE_IMAGE_OFFSET_Y, "1. Turn CW\n2. Turn CCW\n3. Click Button\n4. Put Me Down", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+#endif
 }
 /* END OF FUNCTION*/
 
