@@ -74,8 +74,14 @@ void Gfx_set_backgound_enable_alarm_on(void);
 /** @brief Sets the display to breached Alarm Message*/
 void Gfx_set_backgound_breach_alarm(void);
 
-/** @brief displays offset tuning message*/
-void Gfx_display_offset_tuning(void);
+/** @brief displays offset tuning message - encoder clockwise*/
+void Gfx_display_offset_tuning_cw(void);
+
+/** @brief displays offset tuning message - encoder counter clockwise*/
+void Gfx_display_offset_tuning_ccw(void);
+
+/** @brief displays offset tuning message - click button*/
+void Gfx_display_offset_tuning_click(void);
 
 /** @brief displays count down from 5 (contains static variable)*/
 void Gfx_display_countdown(void);

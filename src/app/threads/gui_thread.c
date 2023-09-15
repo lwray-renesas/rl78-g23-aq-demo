@@ -110,9 +110,19 @@ void Gui_thread_main(void)
 			Gfx_set_backgound_breach_alarm();
 		}
 
-		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_OFFSET_TUNING))
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_OFFSET_TUNING_CW))
 		{
-			Gfx_display_offset_tuning();
+			Gfx_display_offset_tuning_cw();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_OFFSET_TUNING_CCW))
+		{
+			Gfx_display_offset_tuning_ccw();
+		}
+
+		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_OFFSET_TUNING_CLICK))
+		{
+			Gfx_display_offset_tuning_click();
 		}
 
 		if(EVENTS_EXACT_OCCURED(gui_rx_flags, DISPLAY_COUNTDOWN))

@@ -298,16 +298,24 @@ void Gfx_set_backgound_breach_alarm(void)
 }
 /* END OF FUNCTION*/
 
-void Gfx_display_offset_tuning(void)
+void Gfx_display_offset_tuning_cw(void)
 {
-#if 0
-	(void)Text_put_str(TITLE_IMAGE_OFFSET_X, TITLE_IMAGE_OFFSET_Y, "CTSU Tuning", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-	(void)Text_put_str(BACKGROUND_X_START, BACKGROUND_Y_START, "1. Put Me Down\n2. Click Button", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-#endif
+	Erase_background();
+	(void)Text_put_str(BACKGROUND_X_START, BACKGROUND_Y_START, "1. Turn Encoder\nClockwise", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
 
-#if 1
-	(void)Text_put_str(BACKGROUND_X_START, TITLE_IMAGE_OFFSET_Y, "1. Turn CW\n2. Turn CCW\n3. Click Button\n4. Put Me Down", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
-#endif
+void Gfx_display_offset_tuning_ccw(void)
+{
+	Erase_background();
+	(void)Text_put_str(BACKGROUND_X_START, BACKGROUND_Y_START, "2. Turn Encoder\nAnti Clockwise", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
+}
+/* END OF FUNCTION*/
+
+void Gfx_display_offset_tuning_click(void)
+{
+	Erase_background();
+	(void)Text_put_str(BACKGROUND_X_START, BACKGROUND_Y_START, "3. Click Button", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 }
 /* END OF FUNCTION*/
 
@@ -320,6 +328,7 @@ void Gfx_display_countdown(void)
 	case 5U:
 	{
 		Erase_display();
+		(void)Text_put_str(TITLE_IMAGE_OFFSET_X, TITLE_IMAGE_OFFSET_Y, "Put Me Down!", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 		(void)Text_put_str(15U, BACKGROUND_Y_START, "Countdown: 5", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 		--countdown_state;
 	}
@@ -361,7 +370,7 @@ void Gfx_display_countdown(void)
 
 void Gfx_display_tuning_elipse(void)
 {
-	Erase_background();
+	Erase_display();
 	(void)Text_put_str(40U, BACKGROUND_Y_START, "Tuning...", FOREGROUND_TEXT_COLOUR, BACKGROUND_TEXT_COLOUR);
 }
 /* END OF FUNCTION*/

@@ -115,9 +115,9 @@ void App_initial_offset_tuning(void)
 	static rltos_event_flag_t l_disp_flags = 0U;
 
 	/* Set initial offset tuning screen "CTSU Tuning\n Click button and put me down!"*/
-	Rltos_events_set(&gui_events, WAKEUP | backlight_state | DISPLAY_OFFSET_TUNING);
+	Rltos_events_set(&gui_events, WAKEUP | backlight_state | DISPLAY_OFFSET_TUNING_CW);
+	Rltos_task_sleep(0U);
 
-#if 1
 	/* Wait for user to turn encoder clockwise*/
 	do
 	{
@@ -126,7 +126,10 @@ void App_initial_offset_tuning(void)
 			NOP();
 		}
 	}
-	while(Hw_get_rotary_count() > 0);
+	while(Hw_get_rotary_count() <= 0);
+
+	Rltos_events_set(&gui_events, WAKEUP | backlight_state | DISPLAY_OFFSET_TUNING_CCW);
+	Rltos_task_sleep(0U);
 
 	/* Wait for user to turn encoder counter clockwise*/
 	do
@@ -136,8 +139,10 @@ void App_initial_offset_tuning(void)
 			NOP();
 		}
 	}
-	while(Hw_get_rotary_count() < 0);
-#endif
+	while(Hw_get_rotary_count() >= 0);
+
+	Rltos_events_set(&gui_events, WAKEUP | backlight_state | DISPLAY_OFFSET_TUNING_CLICK);
+	Rltos_task_sleep(0U);
 
 	/* Wait for user to click*/
 	while(!HW_EVENT_OCCURRED(Get_hw_events(), BUTTON_CLICK))
@@ -176,10 +181,8 @@ void App_initial_offset_tuning(void)
 	Rltos_events_set(&gui_events, DISPLAY_SUCCESS);
 	Rltos_task_sleep(0U);
 
-#if 1
 	/* Turn on alarm LED for test*/
 	Hw_trigger_alarm();
-#endif
 
 	/* Delay 2seconds (use RTC)*/
 	while(delay_count < 2U)
@@ -190,13 +193,12 @@ void App_initial_offset_tuning(void)
 			NOP();
 		}
 
-#if 1
-		/* Turn off alarm for test after 1 second*/
-		Hw_stop_alarm();
-#endif
-
 		++delay_count;
 	}
+
+		/* Turn off alarm for test*/
+		Hw_stop_alarm();
+		Hw_alarm_led_off();
 
 	/* Shutdown display and enter application*/
 	Rltos_events_set(&gui_events, WRITE_BACKGROUND | BACKGROUND_TEMP_HUMID | UPDATE_TEMP_HUMID | SLEEP | BACKLIGHT_OFF);
