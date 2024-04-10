@@ -81,5 +81,910 @@
         <Setting id="Config_TAU0_5" value="CG"/>
         <Setting id="Config_TAU0_2" value="CG"/>
         <Setting id="Config_TAU0_3" value="CG"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.uart" id="Config_UARTA0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="rxPriority" value="Level3"/>
+            <Setting id="paritySetting" value="none"/>
+            <Setting id="rxErrorPriority" value="Level3"/>
+            <Setting id="dataLength" value="8bits"/>
+            <Setting id="Mode" value="both"/>
+            <Setting id="transmitMode" value="interrupt"/>
+            <Setting id="elcClockValue" value="32000"/>
+            <Setting id="baudrateSetting" value="115200"/>
+            <Setting id="Operation" value="fsel0"/>
+            <Setting id="rxErrorCallback" value="enable"/>
+            <Setting id="receiveErrorOccur" value="intur"/>
+            <Setting id="stopBitSetting" value="1bit"/>
+            <Setting id="clockSource" value="fihp"/>
+            <Setting id="rxCallback" value="enable"/>
+            <Setting id="directionSetting" value="lsb"/>
+            <Setting id="txPriority" value="Level3"/>
+            <Setting id="txCallback" value="enable"/>
+            <Setting id="dataLevelSetting" value="normal"/>
+        </Segment>
+        <Segment component="r_bsp1.60" id="r_bsp" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+            <Setting id="BSP_CFG_PARAM_CHECKING_ENABLE" value="1"/>
+            <Setting id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" value="my_sw_warmstart_prec_function"/>
+            <Setting id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" value="1"/>
+            <Setting id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" value="1"/>
+            <Setting id="BSP_CFG_WDT_REFRESH_ENABLE" value="0"/>
+            <Setting id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE" value="0"/>
+            <Setting id="BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION" value="my_sw_wdt_refresh_init_function"/>
+            <Setting id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE" value="0"/>
+            <Setting id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" value="0"/>
+            <Setting id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE" value="0"/>
+            <Setting id="BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION" value="my_sw_wdt_refresh_setting_function"/>
+            <Setting id="BSP_CFG_CHIP_STATE_CTRL_GUARD" value="0"/>
+            <Setting id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" value="1"/>
+            <Setting id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE" value="0"/>
+            <Setting id="BSP_CFG_STARTUP_DISABLE" value="0"/>
+            <Setting id="BSP_CFG_PORT_FUNCTION_GUARD" value="0"/>
+            <Setting id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" value="my_sw_warmstart_postc_function"/>
+            <Setting id="BSP_CFG_CONFIGURATOR_SELECT" value="1"/>
+            <Setting id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" value="0"/>
+            <Setting id="BSP_CFG_RAM_GUARD_FUNC" value="0"/>
+            <Setting id="BSP_CFG_INT_FUNCTION_GUARD" value="0"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.rtc" id="Config_RTC" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="alarminit" value="uncheck"/>
+            <Setting id="saturday" value="uncheck"/>
+            <Setting id="period" value="per1s"/>
+            <Setting id="hourmode" value="12hour"/>
+            <Setting id="thursday" value="uncheck"/>
+            <Setting id="enable1hzout" value="uncheck"/>
+            <Setting id="alarminittime" value="12,0"/>
+            <Setting id="alarmint" value="uncheck"/>
+            <Setting id="priority" value="Level3"/>
+            <Setting id="clocksource" value="lowspeedclock"/>
+            <Setting id="setinitvalue" value="uncheck"/>
+            <Setting id="sunday" value="uncheck"/>
+            <Setting id="inittime" value="12,0,0"/>
+            <Setting id="tuesday" value="uncheck"/>
+            <Setting id="constperiodint" value="check"/>
+            <Setting id="initdate" value="2000,1,1"/>
+            <Setting id="wednesday" value="uncheck"/>
+            <Setting id="friday" value="uncheck"/>
+            <Setting id="alarmdetect" value="uncheck"/>
+            <Setting id="monday" value="uncheck"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" id="Config_ITL000_ITL001" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="IntervalUnit" value="ms"/>
+            <Setting id="PriorityITL" value="Level3"/>
+            <Setting id="FilterMode" value="16bitCountMode"/>
+            <Setting id="ClockSource" value="fITL6"/>
+            <Setting id="IntervalValue" value="100"/>
+            <Setting id="OperationClock0" value="fSXP"/>
+            <Setting id="ITLInterruptEnable" value="disable"/>
+        </Segment>
+        <Segment component="r_zmod4xxx1.21" id="r_zmod4xxx" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.iicmaster" id="Config_IICA0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="digital" value="enable"/>
+            <Setting id="errorCallback" value="enable"/>
+            <Setting id="address" value="16"/>
+            <Setting id="timeFalling" value="0"/>
+            <Setting id="transferClock" value="400000"/>
+            <Setting id="timeRising" value="0"/>
+            <Setting id="setSignalTime" value="disable"/>
+            <Setting id="Interrupt" value="Level1"/>
+            <Setting id="clockMode" value="fclk"/>
+            <Setting id="operationMode" value="fastmode"/>
+            <Setting id="rxCallback" value="enable"/>
+            <Setting id="txCallback" value="enable"/>
+            <Setting id="enhanceCallback" value="disable"/>
+        </Segment>
+        <Segment component="r_comms_i2c1.11" id="r_comms_i2c" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc" id="Config_DTC" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="actsrc22" value="ctsuwr_itm33"/>
+            <Setting id="actsrc23" value="ctsurd_itm34"/>
+            <Setting id="actsrc20" value="tau07_itm30"/>
+            <Setting id="actsrc21" value="rtc_itm31"/>
+            <Setting id="actsrc0" value="tau06_itm29"/>
+            <Setting id="actsrc1" value="uart0tr_itm12"/>
+            <Setting id="actsrc6" value="ad_itm10"/>
+            <Setting id="chain19" value="Disable"/>
+            <Setting id="actsrc7" value="uart0re_itm11"/>
+            <Setting id="chain18" value="Disable"/>
+            <Setting id="actsrc8" value="uart0tr_itm12"/>
+            <Setting id="actsrc9" value="uart1re_itm13"/>
+            <Setting id="actsrc2" value="intp2_itmx3"/>
+            <Setting id="actsrc3" value="intp3_itmx4"/>
+            <Setting id="BaseValue" value="0xFFD00"/>
+            <Setting id="actsrc4" value="intp4_itmx5"/>
+            <Setting id="actsrc5" value="intp5_itmx6"/>
+            <Setting id="chain11" value="Disable"/>
+            <Setting id="chain10" value="Disable"/>
+            <Setting id="chain13" value="Disable"/>
+            <Setting id="chain12" value="Disable"/>
+            <Setting id="chain15" value="Disable"/>
+            <Setting id="chain14" value="Disable"/>
+            <Setting id="chain17" value="Disable"/>
+            <Setting id="chain16" value="Disable"/>
+            <Setting id="slavechannel22" value="Enable"/>
+            <Setting id="slavechannel23" value="Enable"/>
+            <Setting id="slavechannel20" value="Disable"/>
+            <Setting id="chain20" value="Disable"/>
+            <Setting id="slavechannel21" value="Disable"/>
+            <Setting id="chain8" value="Disable"/>
+            <Setting id="chain7" value="Disable"/>
+            <Setting id="chain6" value="Disable"/>
+            <Setting id="chain5" value="Disable"/>
+            <Setting id="chain4" value="Disable"/>
+            <Setting id="chain3" value="Disable"/>
+            <Setting id="chain2" value="Disable"/>
+            <Setting id="chain1" value="Disable"/>
+            <Setting id="slavechannel19" value="Disable"/>
+            <Setting id="chain22" value="Disable"/>
+            <Setting id="chain21" value="Disable"/>
+            <Setting id="slavechannel15" value="Disable"/>
+            <Setting id="slavechannel16" value="Disable"/>
+            <Setting id="slavechannel17" value="Disable"/>
+            <Setting id="chain9" value="Disable"/>
+            <Setting id="slavechannel18" value="Disable"/>
+            <Setting id="slavechannel11" value="Disable"/>
+            <Setting id="slavechannel12" value="Disable"/>
+            <Setting id="slavechannel13" value="Disable"/>
+            <Setting id="slavechannel14" value="Disable"/>
+            <Setting id="slavechannel3" value="Disable"/>
+            <Setting id="slavechannel2" value="Disable"/>
+            <Setting id="slavechannel1" value="Enable"/>
+            <Setting id="slavechannel0" value="Enable"/>
+            <Setting id="slavechannel10" value="Disable"/>
+            <Setting id="chain0" value="Disable"/>
+            <Setting id="slavechannel7" value="Disable"/>
+            <Setting id="slavechannel6" value="Disable"/>
+            <Setting id="slavechannel5" value="Disable"/>
+            <Setting id="slavechannel4" value="Disable"/>
+            <Setting id="slavechannel9" value="Disable"/>
+            <Setting id="slavechannel8" value="Disable"/>
+            <Setting id="actsrc15" value="tau02_itm25"/>
+            <Setting id="actsrc16" value="tau03_itm26"/>
+            <Setting id="actsrc13" value="tau00_itm23"/>
+            <Setting id="actsrc14" value="tau01_itm24"/>
+            <Setting id="actsrc11" value="uart2re_itm15"/>
+            <Setting id="actsrc12" value="uart2tr_itm16"/>
+            <Setting id="actsrc10" value="uart1tr_itm14"/>
+            <Setting id="actsrc19" value="tau06_itm29"/>
+            <Setting id="actsrc17" value="tau04_itm27"/>
+            <Setting id="actsrc18" value="tau05_itm28"/>
+            <Segment id="DTCD6">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD5">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD8">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD7">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD2">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD1">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressIncremented"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD4">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD3">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD20">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD9">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD18">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD19">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD10">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD21">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD11">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD22">
+                <Setting id="transferBlockSize" value="2"/>
+                <Setting id="transferDataSizeSetting" value="16bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD0">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0xE000"/>
+                <Setting id="destinationAddress" value="0xFFA6"/>
+                <Setting id="areaSetting" value="areaSettingSourceSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="repeat"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressIncremented"/>
+                <Setting id="transferCount" value="8"/>
+            </Segment>
+            <Segment id="DTCD12">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD23">
+                <Setting id="transferBlockSize" value="2"/>
+                <Setting id="transferDataSizeSetting" value="16bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD13">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD14">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD15">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD16">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+            <Segment id="DTCD17">
+                <Setting id="transferBlockSize" value="1"/>
+                <Setting id="transferDataSizeSetting" value="8bits"/>
+                <Setting id="sourceAddress" value="0x0000"/>
+                <Setting id="destinationAddress" value="0x0000"/>
+                <Setting id="areaSetting" value="areaSettingDestinationSide"/>
+                <Setting id="destinationAddressSel" value="destinationAddressFixed"/>
+                <Setting id="transMd" value="normal"/>
+                <Setting id="interruptSetting" value="Disable"/>
+                <Setting id="sourceAddressSel" value="sourceAddressFixed"/>
+                <Setting id="transferCount" value="1"/>
+            </Segment>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount" id="Config_TAU0_0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="EdgeSelect" value="rising"/>
+            <Setting id="InterruptEnable" value="enable"/>
+            <Setting id="InputSrc" value="Elc"/>
+            <Setting id="EnNoise" value="disable"/>
+            <Setting id="CountValue" value="2"/>
+            <Setting id="Priority" value="Level0"/>
+            <Setting id="OperationClock" value="CK1"/>
+            <Setting id="ClockSource" value="FCLK8192"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" id="Config_INTC" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Segment id="INTP9">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="disable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP0">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="enable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP2">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="disable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP1">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="disable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP4">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="disable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP3">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="disable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP6">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="disable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP5">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="disable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+            <Segment id="INTP8">
+                <Setting id="validedge" value="falling"/>
+                <Setting id="enableINTP" value="enable"/>
+                <Setting id="intpPriority" value="Level3"/>
+            </Segment>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount" id="Config_TAU0_1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="EdgeSelect" value="rising"/>
+            <Setting id="InterruptEnable" value="enable"/>
+            <Setting id="InputSrc" value="Elc"/>
+            <Setting id="EnNoise" value="disable"/>
+            <Setting id="CountValue" value="2"/>
+            <Setting id="ModeSetting" value="16bits"/>
+            <Setting id="Priority" value="Level0"/>
+            <Setting id="OperationClock" value="CK1"/>
+            <Setting id="ClockSource" value="FCLK8192"/>
+        </Segment>
+        <Segment component="r_ctsu1.40" id="r_ctsu" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.lvd" id="Config_LVD1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="operationMode" value="interruptMode"/>
+            <Setting id="interruptVoltage" value="lvd_2600"/>
+            <Setting id="resetVoltage" value="lvd_2250"/>
+            <Setting id="priority" value="Level3"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.csi" id="Config_CSI00" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="TransEnd" value="Enable"/>
+            <Setting id="ModeSetting" value="TransMode"/>
+            <Setting id="Prescaler" value="FCLK0"/>
+            <Setting id="TransDir" value="MSB"/>
+            <Setting id="OperationClock" value="CK0"/>
+            <Setting id="DataLength" value="8Bits"/>
+            <Setting id="TransferMode" value="Single"/>
+            <Setting id="RecvError" value="Enable"/>
+            <Setting id="datatiming" value="Type4Item"/>
+            <Setting id="TransClockMode" value="internal"/>
+            <Setting id="Bitrate" value="8000000"/>
+            <Setting id="INTPriority" value="Level1"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" id="Config_TAU0_6" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="InterruptEnable" value="enable"/>
+            <Setting id="IntervalUnit16bits" value="ms"/>
+            <Setting id="Priority" value="Level3"/>
+            <Setting id="FilterMode" value="16bitCountMode"/>
+            <Setting id="OperationClock" value="CK0"/>
+            <Setting id="StartInt" value="enable"/>
+            <Setting id="IntervalValue16bits" value="65"/>
+            <Setting id="ClockSource" value="FCLK16384"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.port" id="Config_PORT" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="PortModeSetting" value="ReadPmnValues"/>
+            <Segment id="PORT0_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT3_Chan">
+                <Segment id="P30">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P31">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT6_Chan">
+                <Segment id="P61">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P60">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P63">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Output1" value="Output1Use"/>
+                </Segment>
+                <Segment id="P62">
+                    <Setting id="UseStatus" value="OutputCurrent"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT12_Chan">
+                <Segment id="P122">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P121">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P124">
+                    <Setting id="UseStatus" value="Unuse"/>
+                </Segment>
+                <Segment id="P123">
+                    <Setting id="UseStatus" value="Unuse"/>
+                </Segment>
+                <Segment id="P120">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Use"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT14_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT0_Chan">
+                <Segment id="P01">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P00">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT6_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT1_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT7_Chan">
+                <Segment id="P70">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Use"/>
+                    <Setting id="OutputMaxCurrentSet" value="Max20mA"/>
+                </Segment>
+                <Segment id="P72">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P71">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P74">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P73">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Use"/>
+                </Segment>
+                <Segment id="P75">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT2_Chan">
+                <Segment id="P23">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P22">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P25">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P24">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P27">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P26">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P21">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P20">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT4_Chan">
+                <Segment id="P41">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Use"/>
+                </Segment>
+                <Segment id="P40">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT5_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT13_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT12_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT4_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT13_Chan">
+                <Segment id="P137">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                </Segment>
+                <Segment id="P130">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT3_Check">
+                <Setting id="PortnEnable" value="Disable"/>
+            </Segment>
+            <Segment id="PORT1_Chan">
+                <Segment id="P12">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P11">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P14">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P13">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Use"/>
+                </Segment>
+                <Segment id="P16">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="OutputCurrent"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P15">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P17">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="OutputCurrent"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="OutputMaxCurrentSet" value="Max20mA"/>
+                </Segment>
+                <Segment id="P10">
+                    <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="Inputbuffer" value="InputbufferUnuse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT5_Chan">
+                <Segment id="P50">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="Nch" value="NchUnuse"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Inputbuffer" value="InputbufferUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P51">
+                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="OutputCurrentSet" value="Hiz"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="OutputMaxCurrentSet" value="Max20mA"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT14_Chan">
+                <Segment id="P147">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+                <Segment id="P146">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Use"/>
+                </Segment>
+                <Segment id="P140">
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
+                </Segment>
+            </Segment>
+            <Segment id="PORT7_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+            <Segment id="PORT2_Check">
+                <Setting id="PortnEnable" value="Enable"/>
+            </Segment>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.pclbuz" id="Config_PCLBUZ1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="OutputClock" value="FSXP6"/>
+        </Segment>
+        <Segment component="rm_touch1.40" id="rm_touch" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" id="Config_TAU0_4" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="InterruptEnable" value="disable"/>
+            <Setting id="IntervalUnit16bits" value="count"/>
+            <Setting id="Priority" value="Level3"/>
+            <Setting id="FilterMode" value="16bitCountMode"/>
+            <Setting id="OperationClock" value="CK1"/>
+            <Setting id="StartInt" value="disable"/>
+            <Setting id="IntervalValue16bits" value="1"/>
+            <Setting id="ClockSource" value="FCLK8192"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" id="Config_TAU0_5" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="InterruptEnable" value="enable"/>
+            <Setting id="IntervalUnit16bits" value="ms"/>
+            <Setting id="Priority" value="Level3"/>
+            <Setting id="FilterMode" value="16bitCountMode"/>
+            <Setting id="OperationClock" value="CK1"/>
+            <Setting id="StartInt" value="disable"/>
+            <Setting id="IntervalValue16bits" value="5"/>
+            <Setting id="ClockSource" value="FCLK8192"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" id="Config_TAU0_2" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="InterruptEnable" value="disable"/>
+            <Setting id="IntervalUnit16bits" value="ms"/>
+            <Setting id="Priority" value="Level3"/>
+            <Setting id="FilterMode" value="16bitCountMode"/>
+            <Setting id="OperationClock" value="CK1"/>
+            <Setting id="StartInt" value="disable"/>
+            <Setting id="IntervalValue16bits" value="50"/>
+            <Setting id="ClockSource" value="FCLK8192"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.delaycount" id="Config_TAU0_3" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="EdgeSelect" value="rising"/>
+            <Setting id="InterruptEnable" value="enable"/>
+            <Setting id="StartTrg" value="disable"/>
+            <Setting id="EnNoise" value="enable"/>
+            <Setting id="CountValue" value="100"/>
+            <Setting id="ModeSetting" value="16bits"/>
+            <Setting id="Priority" value="Level3"/>
+            <Setting id="OperationClock" value="CK1"/>
+            <Setting id="Unit" value="ms"/>
+            <Setting id="ClockSource" value="FCLK8192"/>
+        </Segment>
     </Segment>
 </QE>

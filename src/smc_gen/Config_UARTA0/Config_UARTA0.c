@@ -148,6 +148,7 @@ MD_STATUS R_Config_UARTA0_Send(uint8_t * const tx_buf, uint16_t tx_num)
     }
     else
     {
+        ISSMA0 = 1U;
         gp_uarta0_tx_address = tx_buf;
         g_uarta0_tx_count = tx_num;
         /* Disable UARTA0 interrupt operation */

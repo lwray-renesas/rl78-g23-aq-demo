@@ -243,10 +243,10 @@
         <pinItem allocation="9" comments="" direction="None" id="TxDA0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="4" comments="" direction="O" id="P63" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="5" comments="" direction="None" id="TI03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="3" comments="" direction="O" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="3" comments="" direction="IO" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="25" comments="" direction="None" id="TS25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="11" comments="" direction="O" id="P70" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="15" comments="" direction="O" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="15" comments="" direction="IO" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="16" comments="" direction="O" id="CCD00" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="8" comments="" direction="O" id="P73" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="6" comments="" direction="O" id="P75" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -1776,7 +1776,7 @@
                     <item id="lvd_itm39" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="This software component provides configurations for DTC to perform data transfers." detailDescription="" display="Data Transfer Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc" version="1.3.0"/>
+            <component description="This software component provides configurations for DTC to perform data transfers." detailDescription="" display="Data Transfer Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc" version="1.3.1"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="DTC" display="DTC" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc.dtcd0" type="DTC">
                 <context/>
             </allocator>

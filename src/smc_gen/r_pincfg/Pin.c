@@ -18,41 +18,88 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : Config_TAU0_3.h
-* Component Version: 1.4.1
+* File Name        : Pin.c
+* Version          : 1.0.0
 * Device(s)        : R7F100GGNxFB
-* Description      : This file implements device driver for Config_TAU0_3.
+* Description      : This file implements SMC pin code generation.
 ***********************************************************************************************************************/
-
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_tau.h"
-
-#ifndef CFG_Config_TAU0_3_H
-#define CFG_Config_TAU0_3_H
-
-/***********************************************************************************************************************
-Macro definitions (Register bit)
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Macro definitions
-***********************************************************************************************************************/
-#define _00C2_TAU_TDR03_VALUE               (0x00C2U)    /* 16-bit timer data register 03 (TDR03) */
-
-/***********************************************************************************************************************
-Typedef definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Global functions
-***********************************************************************************************************************/
-void R_Config_TAU0_3_Create(void);
-void R_Config_TAU0_3_Start(void);
-void R_Config_TAU0_3_Stop(void);
-void R_Config_TAU0_3_Set_SoftwareTriggerOn(void);
-void R_Config_TAU0_3_Create_UserInit(void);
-/* Start user code for function. Do not edit comment generated here */
+#include "r_cg_macrodriver.h"
+#include "r_cg_userdefine.h"
+/* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#endif
+
+/***********************************************************************************************************************
+Pragma directive
+***********************************************************************************************************************/
+/* Start user code for pragma. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+Global variables and functions
+***********************************************************************************************************************/
+/* Start user code for global. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+* Function Name: R_Pins_Create
+* Description  : This function initializes Smart Configurator pins
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_Pins_Create(void)
+{
+    /* Set CCD00 pin */
+    PMCE1 &= 0xBFU;
+    CCDE |= 0x01U;
+    P1 &= 0xBFU;
+    PM1 &= 0xBFU;
+
+    /* Set CCD01 pin */
+    PMCE1 &= 0x7FU;
+    CCDE |= 0x02U;
+    PTDC &= 0xFBU;
+    P1 &= 0x7FU;
+    PM1 &= 0x7FU;
+
+    /* Set CCD06 pin */
+    CCDE |= 0x40U;
+    P6 &= 0xFBU;
+    PM6 &= 0xFBU;
+
+    /* Set INTP0 pin */
+    /* No register setting has been required for pin */
+
+    /* Set INTP8 pin */
+    PMCT7 &= 0xEFU;
+    PM7 |= 0x10U;
+
+    /* Set PCLBUZ1 pin */
+    POM1 &= 0xDFU;
+    PMCE1 &= 0xDFU;
+    P1 &= 0xDFU;
+    PM1 &= 0xDFU;
+
+    /* Set RxDA0 pin */
+    PMCT7 &= 0xFDU;
+    PM7 |= 0x02U;
+
+    /* Set TS25 pin */
+    PMCA2 &= 0x7FU;
+    PMCT2 |= 0x80U;
+    PM2 |= 0x80U;
+
+    /* Set TSCAP pin */
+    PMCT3 |= 0x01U;
+    PM3 |= 0x01U;
+
+    /* Set TxDA0 pin */
+    PMCT7 &= 0xFBU;
+    PFOE1 |= 0x10U;
+    P7 |= 0x04U;
+    PM7 &= 0xFBU;
+
+}
+

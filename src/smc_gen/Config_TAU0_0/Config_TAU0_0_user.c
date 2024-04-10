@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_0_user.c
-* Component Version: 1.4.0
+* Component Version: 1.4.1
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_TAU0_0.
 ***********************************************************************************************************************/
@@ -58,6 +58,7 @@ void R_Config_TAU0_0_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
 	NFEN1_bit.no0 = 1U;
+    TDR00 = 0U;
     /* End user code. Do not edit comment generated here */
 }
 

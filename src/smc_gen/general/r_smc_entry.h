@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : r_smc_entry.h
-* Version          : 1.0.13
+* Version          : 1.0.20
 * Device(s)        : R7F100GGNxFB
 * Description      : SMC platform header file..
 ***********************************************************************************************************************/
@@ -45,6 +45,7 @@ Includes
 #include "Config_TAU0_5.h"
 #include "Config_TAU0_6.h"
 #include "Config_UARTA0.h"
+#include "Pin.h"
 #include "r_cg_sau_common.h"
 #include "r_cg_uarta_common.h"
 #include "r_cg_tau_common.h"
