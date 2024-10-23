@@ -72,6 +72,7 @@
 *         : 31.01.2023 1.50     Fixed typo in history.
 *         : 28.02.2023 1.60     Added the version number of Smart Configurator.
 *                               Modified the comment related to the version number of Smart Configurator.
+*         : 30.11.2023 1.62     Adjusted indentation of macro definitions.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1194,10 +1195,10 @@
    my_sw_warmstart_postc_function just after the initialization of the C runtime environment by bsp_init_hardware.
 */
 #define BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED    (0)
-#define BSP_CFG_USER_WARM_START_PRE_C_FUNCTION     my_sw_warmstart_prec_function
+#define BSP_CFG_USER_WARM_START_PRE_C_FUNCTION                my_sw_warmstart_prec_function
 
 #define BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED    (0)
-#define BSP_CFG_USER_WARM_START_POST_C_FUNCTION    my_sw_warmstart_postc_function
+#define BSP_CFG_USER_WARM_START_POST_C_FUNCTION                my_sw_warmstart_postc_function
 
 /* If the user sets the window open period of watchdog timer to 50%,
    set the following macro definition(BSP_CFG_WDT_REFRESH_ENABLE) to 2

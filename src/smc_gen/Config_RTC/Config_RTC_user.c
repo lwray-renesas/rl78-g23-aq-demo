@@ -14,12 +14,12 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2024 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_RTC_user.c
-* Component Version: 1.4.0
+* Component Version: 1.5.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_RTC.
 ***********************************************************************************************************************/
@@ -43,6 +43,7 @@ Pragma directive
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
+extern volatile uint8_t g_rtc_interrupt_flag;
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -79,6 +80,7 @@ static void r_Config_RTC_callback_constperiod(void)
 ***********************************************************************************************************************/
 static void __near r_Config_RTC_interrupt(void)
 {
+    g_rtc_interrupt_flag = 1U;
     if (1U == RIFG)
     {
         /* clear RIFG */

@@ -14,12 +14,12 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2024 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : Config_UARTA0.c
-* Component Version: 1.5.0
+* Component Version: 1.7.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_UARTA0.
 ***********************************************************************************************************************/
@@ -216,3 +216,4 @@ void R_Config_UARTA0_Loopback_Disable(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+

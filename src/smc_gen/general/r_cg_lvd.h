@@ -14,12 +14,12 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021, 2023 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2021, 2024 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : r_cg_lvd.h
-* Version          : 1.0.20
+* Version          : 1.0.40
 * Device(s)        : R7F100GGNxFB
 * Description      : General header file for LVD peripheral.
 ***********************************************************************************************************************/
