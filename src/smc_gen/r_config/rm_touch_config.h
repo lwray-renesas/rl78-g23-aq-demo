@@ -51,4 +51,6 @@
 #define TOUCH_CFG_NUM_WHEELS              (0)
 #endif
 
+#define TOUCH_CFG_CHATTERING_SUPPRESSION_TYPE (0)
+
 #endif /* TOUCH_CONFIG_HEADER_FILE */

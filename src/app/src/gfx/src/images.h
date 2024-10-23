@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 
-#pragma section const IMAGE
+#pragma section IMAGE
 
 static const uint8_t COLOUR_BLACK[] = {0x00, 0x00};
 static const uint8_t COLOUR_GREY[] = {0x52, 0x8A};

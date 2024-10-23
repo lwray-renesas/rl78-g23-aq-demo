@@ -63,6 +63,7 @@
         <Setting id="r_bsp" value=""/>
         <Setting id="Config_RTC" value="CG"/>
         <Setting id="Config_ITL000_ITL001" value="CG"/>
+        <Setting id="r_hs400x" value=""/>
         <Setting id="r_zmod4xxx" value=""/>
         <Setting id="Config_IICA0" value="CG"/>
         <Setting id="r_comms_i2c" value=""/>
@@ -101,7 +102,7 @@
             <Setting id="txCallback" value="enable"/>
             <Setting id="dataLevelSetting" value="normal"/>
         </Segment>
-        <Segment component="r_bsp1.60" id="r_bsp" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+        <Segment component="r_bsp1.70" id="r_bsp" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
             <Setting id="BSP_CFG_PARAM_CHECKING_ENABLE" value="1"/>
             <Setting id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" value="my_sw_warmstart_prec_function"/>
             <Setting id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" value="1"/>
@@ -155,7 +156,38 @@
             <Setting id="OperationClock0" value="fSXP"/>
             <Setting id="ITLInterruptEnable" value="disable"/>
         </Segment>
-        <Segment component="r_zmod4xxx1.21" id="r_zmod4xxx" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="r_hs400x1.02" id="r_hs400x" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+            <Setting id="RM_HS400X_CFG_DEVICE0_TEMPERATURE_RESOLUTION" value="RM_HS400X_TEMPERATURE_RESOLUTION_14BIT"/>
+            <Setting id="RM_HS400X_CFG_DEVICE1_TEMPERATURE_RESOLUTION" value="RM_HS400X_TEMPERATURE_RESOLUTION_14BIT"/>
+            <Setting id="RM_HS400X_CFG_DEVICE0_PERIODIC_MEASUREMENT_FREQUENCY" value="RM_HS400X_PERIODIC_MEASUREMENT_FREQUENCY_1HZ"/>
+            <Setting id="RM_HS400X_CFG_DEVICE1_HUMIDITY_RESOLUTION" value="RM_HS400X_HUMIDITY_RESOLUTION_14BIT"/>
+            <Setting id="RM_HS400X_CFG_DEVICE1_CALLBACK" value="hs400x_user_i2c_callback1"/>
+            <Setting id="RM_HS400X_CFG_DEVICE1_COMMS_INSTANCE" value="g_comms_i2c_device1"/>
+            <Setting id="RM_HS400X_CFG_DEVICE_NUM_MAX" value="1"/>
+            <Setting id="RM_HS400X_CFG_DEVICE1_PERIODIC_MEASUREMENT_FREQUENCY" value="RM_HS400X_PERIODIC_MEASUREMENT_FREQUENCY_1HZ"/>
+            <Setting id="RM_HS400X_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
+            <Setting id="RM_HS400X_CFG_DATA_BOTH_HUMIDITY_TEMPERATURE" value="1"/>
+            <Setting id="RM_HS400X_CFG_DEVICE0_HUMIDITY_RESOLUTION" value="RM_HS400X_HUMIDITY_RESOLUTION_14BIT"/>
+            <Setting id="RM_HS400X_CFG_DEVICE0_COMMS_INSTANCE" value="g_comms_i2c_device0"/>
+            <Setting id="RM_HS400X_CFG_MEASUREMENT_TYPE" value="2"/>
+            <Setting id="RM_HS400X_CFG_DEVICE0_CALLBACK" value="Hs400x_user_i2c_callback0"/>
+        </Segment>
+        <Segment component="r_zmod4xxx1.22" id="r_zmod4xxx" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_NUMBER" value="_INTP0"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_ENABLE" value="1"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE0_OPERATION_MODE" value="8"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE_NUM_MAX" value="1"/>
+            <Setting id="RM_ZMOD4XXX_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE1_OPERATION_MODE" value="1"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE0_COMMS_INSTANCE" value="g_comms_i2c_device1"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE1_IRQ_NUMBER" value="_INTP0"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE1_COMMS_INSTANCE" value="g_comms_i2c_device1"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE0_IRQ_CALLBACK" value="Zmod4xxx_user_irq_callback0"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE1_IRQ_ENABLE" value="0"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE1_IRQ_CALLBACK" value="zmod4xxx_user_irq_callback1"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE0_COMMS_I2C_CALLBACK" value="Zmod4xxx_user_i2c_callback0"/>
+            <Setting id="RM_ZMOD4XXX_CFG_DEVICE1_COMMS_I2C_CALLBACK" value="zmod4xxx_user_i2c_callback1"/>
+        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.iicmaster" id="Config_IICA0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="digital" value="enable"/>
             <Setting id="errorCallback" value="enable"/>
@@ -171,7 +203,36 @@
             <Setting id="txCallback" value="enable"/>
             <Setting id="enhanceCallback" value="disable"/>
         </Segment>
-        <Segment component="r_comms_i2c1.11" id="r_comms_i2c" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="r_comms_i2c1.11" id="r_comms_i2c" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+            <Setting id="COMMS_I2C_CFG_DEVICE4_SLAVE_ADDR" value="0x00"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE0_BUS_CH" value="g_comms_i2c_bus0_extended_cfg"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE0_SLAVE_ADDR" value="0x54"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE1_BUS_CH" value="g_comms_i2c_bus0_extended_cfg"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE1_CALLBACK" value="rm_zmod4xxx_callback0"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE_NUM_MAX" value="2"/>
+            <Setting id="COMMS_I2C_CFG_BUS4_COMPONENT" value="Config_IIC00"/>
+            <Setting id="COMMS_I2C_CFG_BUS1_COMPONENT" value="Config_IIC00"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE3_SLAVE_ADDR" value="0x00"/>
+            <Setting id="COMMS_I2C_CFG_BUS4_DRIVER_TYPE" value="COMMS_DRIVER_NONE"/>
+            <Setting id="COMMS_I2C_CFG_BUS3_DRIVER_TYPE" value="COMMS_DRIVER_NONE"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE2_SLAVE_ADDR" value="0x00"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE3_CALLBACK" value="comms_i2c_user_callback3"/>
+            <Setting id="COMMS_I2C_CFG_BUS0_DRIVER_TYPE" value="COMMS_DRIVER_I2C"/>
+            <Setting id="COMMS_I2C_CFG_BUS2_DRIVER_TYPE" value="COMMS_DRIVER_NONE"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE0_CALLBACK" value="rm_hs400x_callback0"/>
+            <Setting id="RM_COMMS_I2C_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
+            <Setting id="COMMS_I2C_CFG_BUS1_DRIVER_TYPE" value="COMMS_DRIVER_NONE"/>
+            <Setting id="COMMS_I2C_CFG_BUS_NUM_MAX" value="1"/>
+            <Setting id="COMMS_I2C_CFG_BUS3_COMPONENT" value="Config_IIC00"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE4_BUS_CH" value="g_comms_i2c_bus0_extended_cfg"/>
+            <Setting id="COMMS_I2C_CFG_BUS2_COMPONENT" value="Config_IIC00"/>
+            <Setting id="COMMS_I2C_CFG_BUS0_COMPONENT" value="Config_IICA0"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE2_CALLBACK" value="comms_i2c_user_callback2"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE3_BUS_CH" value="g_comms_i2c_bus0_extended_cfg"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE1_SLAVE_ADDR" value="0x32"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE2_BUS_CH" value="g_comms_i2c_bus0_extended_cfg"/>
+            <Setting id="COMMS_I2C_CFG_DEVICE4_CALLBACK" value="comms_i2c_user_callback4"/>
+        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc" id="Config_DTC" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="actsrc22" value="ctsuwr_itm33"/>
             <Setting id="actsrc23" value="ctsurd_itm34"/>
@@ -602,7 +663,21 @@
             <Setting id="OperationClock" value="CK1"/>
             <Setting id="ClockSource" value="FCLK8192"/>
         </Segment>
-        <Segment component="r_ctsu1.40" id="r_ctsu" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="r_ctsu2.00" id="r_ctsu" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+            <Setting id="CTSU_CFG_DTC_USE_SC" value="1"/>
+            <Setting id="CTSU_CFG_INTCTSUFN_PRIORITY_LEVEL" value="2"/>
+            <Setting id="CTSU_CFG_INTCTSUWR_PRIORITY_LEVEL" value="2"/>
+            <Setting id="CTSU_CFG_SMS_TRANSFER_ADDRESS" value="0xFF500"/>
+            <Setting id="CTSU_CFG_SMS_ELC_INTP" value="1"/>
+            <Setting id="CTSU_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
+            <Setting id="CTSU_CFG_INTCTSURD_PRIORITY_LEVEL" value="2"/>
+            <Setting id="CTSU_CFG_SMS_EXTRIGGER_BIT" value="1"/>
+            <Setting id="CTSU_CFG_DTC_SUPPORT_ENABLE" value="1"/>
+            <Setting id="CTSU_CFG_SMS_EXTRIGGER_PORT" value="P14"/>
+            <Setting id="CTSU_CFG_AUTO_JUDGE_ENABLE" value="0"/>
+            <Setting id="CTSU_CFG_SMS_SUPPORT_ENABLE" value="0"/>
+            <Setting id="CTSU_CFG_SMS_CTSUWR_ADDRESS" value="0xFF800"/>
+        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.lvd" id="Config_LVD1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="operationMode" value="interruptMode"/>
             <Setting id="interruptVoltage" value="lvd_2600"/>
@@ -943,7 +1018,13 @@
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.pclbuz" id="Config_PCLBUZ1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="OutputClock" value="FSXP6"/>
         </Segment>
-        <Segment component="rm_touch1.40" id="rm_touch" source="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        <Segment component="rm_touch2.00" id="rm_touch" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+            <Setting id="TOUCH_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
+            <Setting id="TOUCH_CFG_UART_TUNING_SUPPORT" value="1"/>
+            <Setting id="TOUCH_CFG_UART_NUMBER" value="0xA0"/>
+            <Setting id="TOUCH_CFG_UART_MONITOR_SUPPORT" value="1"/>
+            <Setting id="TOUCH_CFG_CHATTERING_SUPPRESSION_TYPE" value="0"/>
+        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" id="Config_TAU0_4" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="InterruptEnable" value="disable"/>
             <Setting id="IntervalUnit16bits" value="count"/>

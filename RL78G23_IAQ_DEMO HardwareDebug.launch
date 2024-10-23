@@ -23,14 +23,14 @@
     <stringAttribute key="com.renesas.cdt.core.secondGDBExe" value="green_dsp-elf-gdb"/>
     <booleanAttribute key="com.renesas.cdt.core.secondGDBSupport" value="false"/>
     <intAttribute key="com.renesas.cdt.core.secondGdbPortNumber" value="61237"/>
-    <stringAttribute key="com.renesas.cdt.core.serverParam" value="-g E2LITE  -t R7F100GGN -uConnectionTimeout= 30 -umFreq= &quot;0&quot; -usFreq= &quot;0&quot; -umClock= &quot;1&quot; -w &quot;0&quot; -usupplyVoltage= &quot;0&quot; -ucommMethod= &quot;0&quot; -uSelfCodeSet= 0 -usecurityID= &quot;00000000000000000000&quot; -usecurityIdSize &quot;10&quot; -upermitFlash= 1 -uuseWideVoltageMode= 1 -ueraseRom= 1 -uresetOnReload= 1 -ustopTimerEmu= 0 -ustopSerialEmu= 0 -umaskInternalResetSignal= 0 -umaskTargetResetSignal= 0 -n 0 -uverifyOnWritingMemory= 1 -uAllowRRMDMM= 0 -uRelayBreak= 0"/>
+    <stringAttribute key="com.renesas.cdt.core.serverParam" value="-g E2LITE  -t R7F100GGN -uConnectionTimeout= 30 -umFreq= &quot;0&quot; -usFreq= &quot;0&quot; -umClock= &quot;1&quot; -w &quot;1&quot; -usupplyVoltage= &quot;0&quot; -ucommMethod= &quot;0&quot; -uSelfCodeSet= 0 -usecurityID= &quot;00000000000000000000&quot; -usecurityIdSize &quot;10&quot; -upermitFlash= 1 -uuseWideVoltageMode= 1 -ueraseRom= 1 -uresetOnReload= 1 -ustopTimerEmu= 0 -ustopSerialEmu= 0 -umaskInternalResetSignal= 0 -umaskTargetResetSignal= 0 -n 0 -uverifyOnWritingMemory= 1 -uAllowRRMDMM= 1 -uRelayBreak= 0"/>
     <booleanAttribute key="com.renesas.cdt.core.setResume" value="true"/>
     <booleanAttribute key="com.renesas.cdt.core.setStopAt" value="true"/>
     <booleanAttribute key="com.renesas.cdt.core.startServer" value="true"/>
     <stringAttribute key="com.renesas.cdt.core.stopAt" value="main"/>
     <stringAttribute key="com.renesas.cdt.core.targetDevice" value="R7F100GGN"/>
     <booleanAttribute key="com.renesas.cdt.core.useRemoteTarget" value="true"/>
-    <stringAttribute key="com.renesas.cdt.debug.ioview.dsf.registerSelection0" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;selectedRegisterList ioFilePath=&quot;C:\Users\a5126135\.eclipse\com.renesas.platform_1631769940\DebugComp\RL78\IoFiles\R7F100GGN.sfrx&quot;/&gt;&#13;&#10;"/>
+    <stringAttribute key="com.renesas.cdt.debug.ioview.dsf.registerSelection0" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;selectedRegisterList ioFilePath=&quot;C:\Users\a5126135\.eclipse\com.renesas.platform_1502687221\DebugComp\RL78\IoFiles\R7F100GGN.sfrx&quot;/&gt;&#13;&#10;"/>
     <stringAttribute key="com.renesas.cdt.launch.dsf.IO_MAP" value="${support_area_loc}"/>
     <booleanAttribute key="com.renesas.cdt.launch.dsf.USE_DEFAULT_IO_MAP" value="true"/>
     <listAttribute key="com.renesas.cdt.launch.dsf.coreSettings">
@@ -46,8 +46,8 @@
     <stringAttribute key="com.renesas.cdt.launch.dsf.launchSeqType" value="com.renesas.cdt.launch.dsf.launchSequence.e2GdbServer"/>
     <stringAttribute key="com.renesas.cdt.launch.dsf.serverPath" value="${renesas.support.targetLoc:rl78-debug}\e2-server-gdb"/>
     <booleanAttribute key="com.renesas.hardwaredebug.e1rl78-uRelayBreak=" value="false"/>
-    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.allowRRMDMM" value="false"/>
-    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.e1_pwr" value="false"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.allowRRMDMM" value="true"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.e1_pwr" value="true"/>
     <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.enable.hot.plug" value="false"/>
     <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.eraseFlash" value="true"/>
     <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.functional.safety" value="false"/>
@@ -77,7 +77,7 @@
     <intAttribute key="org.eclipse.cdt.debug.gdbjtag.core.delay" value="0"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.doHalt" value="false"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.doReset" value="false"/>
-    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageFileName" value="C:\Users\a5126135\Dev\Temporary\G23_IAQ_DEMO\RL78G23_IAQ_DEMO\HardwareDebug\RL78G23_IAQ_DEMO.x"/>
+    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageFileName" value="C:\Users\a5126135\Documents\BizzDev\Wow Demo\Repo\rl78-g23-aq-demo\HardwareDebug\RL78G23_IAQ_DEMO.x"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageOffset" value="0"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.initCommands" value=""/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.loadImage" value="true"/>
@@ -88,7 +88,7 @@
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setResume" value="false"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setStopAt" value="true"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.stopAt" value="main"/>
-    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.symbolsFileName" value="C:\Users\a5126135\Dev\Temporary\G23_IAQ_DEMO\RL78G23_IAQ_DEMO\HardwareDebug\RL78G23_IAQ_DEMO.x"/>
+    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.symbolsFileName" value="C:\Users\a5126135\Documents\BizzDev\Wow Demo\Repo\rl78-g23-aq-demo\HardwareDebug\RL78G23_IAQ_DEMO.x"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.symbolsOffset" value="0"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useFileForImage" value="false"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useFileForSymbols" value="false"/>

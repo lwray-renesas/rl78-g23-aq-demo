@@ -13,7 +13,7 @@
 * this software. By using this software, you agree to the additional terms and conditions found by accessing the
 * following link:
 * http://www.renesas.com/disclaimer
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
 ************************************************************************************************************************/
 
 /*******************************************************************************************************************//**
@@ -31,6 +31,9 @@
 /***********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
+#if (CTSU_CFG_AUTO_JUDGE_ENABLE == 1)
+#define TOUCH_AUTO_JUDGE_MONITOR   (1)
+#endif
 
 /***********************************************************************************************************************
  * Typedef definitions
@@ -128,6 +131,15 @@ typedef struct
     uint8_t    num_drift;              ///< Copy from config by Open API.
 } touch_pad_info_t;
 
+/** Information of touch button judge(CTSU2) */
+typedef struct st_touch_mm_info
+{
+    uint8_t  id;
+    uint8_t  mm_index;
+    uint16_t mm_result[CTSU_MAJORITY_MODE_ELEMENTS];
+    uint8_t  majority_mode;
+} touch_mm_info_t;
+
 /** TOUCH private control block. DO NOT MODIFY. Initialization occurs when RM_TOUCH_Open() is called. */
 typedef struct st_touch_instance_ctrl
 {
@@ -139,7 +151,9 @@ typedef struct st_touch_instance_ctrl
     touch_pad_info_t        pinfo;                ///< Information of pad.
     touch_cfg_t const     * p_touch_cfg;          ///< Pointer to initial configurations.
     ctsu_instance_t const * p_ctsu_instance;      ///< Pointer to CTSU instance.
+    touch_mm_info_t       * p_touch_mm_info;      ///< Pointer to information of touch button judge
 } touch_instance_ctrl_t;
+
 
 /**********************************************************************************************************************
  * Exported global variables
@@ -175,7 +189,11 @@ fsp_err_t RM_TOUCH_SensitivityRatioGet(touch_ctrl_t * const       p_ctrl,
                                        touch_sensitivity_info_t * p_touch_sensitivity_info);
 fsp_err_t RM_TOUCH_ThresholdAdjust(touch_ctrl_t * const p_ctrl, touch_sensitivity_info_t * p_touch_sensitivity_info);
 fsp_err_t RM_TOUCH_DriftControl(touch_ctrl_t * const p_ctrl, uint16_t input_drift_freq);
-
+fsp_err_t RM_TOUCH_MonitorAddressGet (touch_ctrl_t * const p_ctrl,
+                                        uint8_t ** pp_monitor_buf,
+                                        uint8_t ** pp_monitor_id,
+                                        uint16_t ** pp_monitor_size);
+                                        
 #endif                                 // RM_TOUCH_H
 
 /*******************************************************************************************************************//**
