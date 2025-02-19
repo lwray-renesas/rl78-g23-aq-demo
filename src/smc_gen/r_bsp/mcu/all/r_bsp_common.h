@@ -44,6 +44,7 @@
 *                               Removed ADCLK from the clock mode comment.
 *                               Removed ADCLK from e_clock_mode_t.
 *         : 07.06.2024 1.70     Added RL78/F25 resource to clock mode comment.
+*         : 06.11.2024 1.80     Added RL78/F22 resource to clock mode comment.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -76,14 +77,14 @@
  * n = this clock may not be available depending on the number of terminals. 
  * RL78 MCU supported clocks
  *
- * Clock  G23 F24 F23 G15 G22 G16 G24 F25
- * ------ --- --- --- --- --- --- --- ---
- * HIOCLK  X   X   X   X   X   X   X   X
- * SYSCLK  Xm  X   X   Xn  Xm  Xn  Xm  X
- * SXCLK   Xm  Xn  Xn      Xm  Xn  Xm  X
+ * Clock  G23 F24 F23 G15 G22 G16 G24 F25 F22
+ * ------ --- --- --- --- --- --- --- --- ---
+ * HIOCLK  X   X   X   X   X   X   X   X   X
+ * SYSCLK  Xm  X   X   Xn  Xm  Xn  Xm  X   X
+ * SXCLK   Xm  Xn  Xn      Xm  Xn  Xm  X   Xn
  * MIOCLK  X               X       X
- * LOCLK   X   X   X       X       X   X
- * PLLCLK      X   X               X   X
+ * LOCLK   X   X   X       X       X   X   X
+ * PLLCLK      X   X               X   X   X
 */
 typedef enum
 {

@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_PORT.c
-* Component Version: 1.5.0
+* Component Version: 1.6.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_PORT.
 ***********************************************************************************************************************/
@@ -81,8 +81,8 @@ void R_Config_PORT_Create(void)
     POM1 = _00_POMn5_NCH_OFF | _00_POMn4_NCH_OFF | _00_POMn3_NCH_OFF | _00_POMn2_NCH_OFF | _00_POMn1_NCH_OFF | 
            _00_POMn0_NCH_OFF;
     PMCA1 = _F7_PMCA1_DEFAULT | _00_PMCAn3_DIGITAL_ON;
-    PMCE1 = _00_PMCEn7_DIGITAL_ON | _00_PMCEn6_DIGITAL_ON | _00_PMCEn5_NOT_USE | _00_PMCEn4_DIGITAL_ON | 
-            _00_PMCEn3_DIGITAL_ON | _00_PMCEn2_NOT_USE | _00_PMCEn1_NOT_USE | _00_PMCEn0_NOT_USE;
+    PMCE1 = _00_PMCEn7_DIGITAL_ON | _00_PMCEn6_DIGITAL_ON | _00_PMCEn5_DIGITAL_ON | _00_PMCEn4_DIGITAL_ON | 
+            _00_PMCEn3_DIGITAL_ON | _00_PMCEn2_DIGITAL_ON | _00_PMCEn1_DIGITAL_ON | _00_PMCEn0_DIGITAL_ON;
     PM1 = _00_PMn7_MODE_OUTPUT | _00_PMn6_MODE_OUTPUT | _20_PMn5_NOT_USE | _00_PMn4_MODE_OUTPUT | 
           _00_PMn3_MODE_OUTPUT | _04_PMn2_NOT_USE | _02_PMn1_NOT_USE | _01_PMn0_NOT_USE;
     /* Set PORT2 registers */
@@ -101,7 +101,7 @@ void R_Config_PORT_Create(void)
     PDIDIS5 = _01_PDIDISn0_INPUT_BUFFER_OFF;
     /* Set PORT6 registers */
     P6 = _08_Pn3_OUTPUT_1 | _00_Pn2_OUTPUT_0 | _00_Pn1_OUTPUT_0 | _00_Pn0_OUTPUT_0;
-    PMCE6 = _00_PMCEn1_NOT_USE | _00_PMCEn0_NOT_USE;
+    PMCE6 = _00_PMCEn1_DIGITAL_ON | _00_PMCEn0_DIGITAL_ON;
     PM6 =  _F0_PM6_DEFAULT | _00_PMn3_MODE_OUTPUT | _00_PMn2_MODE_OUTPUT | _02_PMn1_NOT_USE | _01_PMn0_NOT_USE;
     /* Set PORT7 registers */
     P7 = _00_Pn5_OUTPUT_0 | _00_Pn4_OUTPUT_0 | _08_Pn3_OUTPUT_1 | _00_Pn2_OUTPUT_0 | _00_Pn1_OUTPUT_0 | 

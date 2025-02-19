@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_UARTA0.c
-* Component Version: 1.7.0
+* Component Version: 1.8.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_UARTA0.
 ***********************************************************************************************************************/
@@ -72,7 +72,7 @@ void R_Config_UARTA0_Create(void)
     ASIMA01 = _00_UARTA_PARITY_NONE | _18_UARTA_TRANSFER_LENGTH_8 | _00_UARTA_STOP_BIT_1 | _02_UARTA_DIRECTION_LSB | 
               _00_UARTA_DATA_NORMAL;
     ASIMA00 = _02_UARTA_BUFFER_EMPTY | _01_UARTA_INTUR_OCCUR;
-    UTA0CK = _00_UARTA_CLKA0_OUTPUT_DISABLE | _20_UARTA_FSEL_SELECT_FIHP | _00_UARTA0_SELECT_FSEL;
+    UTA0CK = _20_UARTA_FSEL_SELECT_FIHP | _00_UARTA0_SELECT_FSEL;
     /* Set TxDA0 pin */
     PMCT7 &= 0xFBU;
     PFOE1 |= 0x10U;
@@ -100,6 +100,7 @@ void R_Config_UARTA0_Start(void)
     UTMK0 = 0U;    /* enable INTUT0 interrupt */
     URMK0 = 0U;    /* enable INTUR0 interrupt */
     UARTAEN0 = 1U;
+    UTA0CK &= (uint8_t)~_80_UARTA_CLKA0_OUTPUT_ENABLE;
     TXEA0 = 1U;
 
     /* Wait for the period of at least one cycle of the UARTA operation clock */
@@ -125,6 +126,7 @@ void R_Config_UARTA0_Stop(void)
     URIF0 = 0U;    /* clear INTUR0 interrupt flag */
     TXEA0 = 0U;
     RXEA0 = 0U;
+    UTA0CK &= (uint8_t)~_80_UARTA_CLKA0_OUTPUT_ENABLE;
     UARTAEN0 = 0U;
 }
 

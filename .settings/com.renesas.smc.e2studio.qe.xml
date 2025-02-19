@@ -96,13 +96,14 @@
             <Setting id="receiveErrorOccur" value="intur"/>
             <Setting id="stopBitSetting" value="1bit"/>
             <Setting id="clockSource" value="fihp"/>
+            <Setting id="TxDA0PinOutputSetting" value="enable"/>
             <Setting id="rxCallback" value="enable"/>
             <Setting id="directionSetting" value="lsb"/>
             <Setting id="txPriority" value="Level3"/>
             <Setting id="txCallback" value="enable"/>
             <Setting id="dataLevelSetting" value="normal"/>
         </Segment>
-        <Segment component="r_bsp1.70" id="r_bsp" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
+        <Segment component="r_bsp1.80" id="r_bsp" source="com.renesas.smc.tools.swcomponent.rl78.sis.source">
             <Setting id="BSP_CFG_PARAM_CHECKING_ENABLE" value="1"/>
             <Setting id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" value="my_sw_warmstart_prec_function"/>
             <Setting id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" value="1"/>
@@ -687,15 +688,17 @@
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.csi" id="Config_CSI00" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="TransEnd" value="Enable"/>
             <Setting id="ModeSetting" value="TransMode"/>
-            <Setting id="Prescaler" value="FCLK0"/>
-            <Setting id="TransDir" value="MSB"/>
             <Setting id="OperationClock" value="CK0"/>
-            <Setting id="DataLength" value="8Bits"/>
             <Setting id="TransferMode" value="Single"/>
             <Setting id="RecvError" value="Enable"/>
-            <Setting id="datatiming" value="Type4Item"/>
             <Setting id="TransClockMode" value="internal"/>
             <Setting id="Bitrate" value="8000000"/>
+            <Setting id="SOmnOutput" value="Disable"/>
+            <Setting id="SCKmnOutput" value="Disable"/>
+            <Setting id="Prescaler" value="FCLK0"/>
+            <Setting id="TransDir" value="MSB"/>
+            <Setting id="DataLength" value="8Bits"/>
+            <Setting id="datatiming" value="Type4Item"/>
             <Setting id="INTPriority" value="Level1"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" id="Config_TAU0_6" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
@@ -730,11 +733,13 @@
                     <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="OutputCurrentSet" value="Hiz"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P60">
                     <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="OutputCurrentSet" value="Hiz"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P63">
                     <Setting id="UseStatus" value="Out"/>
@@ -781,6 +786,7 @@
                     <Setting id="UseStatus" value="Out"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P00">
                     <Setting id="UseStatus" value="Unuse"/>
@@ -915,6 +921,7 @@
                     <Setting id="Inputbuffer" value="InputbufferUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P11">
                     <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
@@ -923,6 +930,7 @@
                     <Setting id="Inputbuffer" value="InputbufferUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P14">
                     <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
@@ -931,6 +939,7 @@
                     <Setting id="Inputbuffer" value="InputbufferUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P13">
                     <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
@@ -939,6 +948,7 @@
                     <Setting id="Inputbuffer" value="InputbufferUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Use"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P16">
                     <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
@@ -946,6 +956,7 @@
                     <Setting id="OutputCurrentSet" value="Hiz"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P15">
                     <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
@@ -954,6 +965,7 @@
                     <Setting id="Inputbuffer" value="InputbufferUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P17">
                     <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
@@ -964,6 +976,7 @@
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="OutputMaxCurrentSet" value="Max20mA"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P10">
                     <Setting id="TTLbuffer" value="TTLbufferUnuse"/>
@@ -972,6 +985,7 @@
                     <Setting id="Inputbuffer" value="InputbufferUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
             </Segment>
             <Segment id="PORT5_Chan">
@@ -982,6 +996,7 @@
                     <Setting id="Inputbuffer" value="InputbufferUse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
                 <Segment id="P51">
                     <Setting id="UseStatus" value="Unuse"/>
@@ -989,6 +1004,7 @@
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="OutputMaxCurrentSet" value="Max20mA"/>
+                    <Setting id="outputELCL" value="outputELCLUnuse"/>
                 </Segment>
             </Segment>
             <Segment id="PORT14_Chan">

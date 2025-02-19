@@ -243,7 +243,7 @@
         <pinItem allocation="9" comments="" direction="None" id="TxDA0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="4" comments="" direction="O" id="P63" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="5" comments="" direction="None" id="TI03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="3" comments="" direction="O" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="3" comments="" direction="IO" id="CCD06" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="25" comments="" direction="None" id="TS25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="11" comments="" direction="O" id="P70" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="15" comments="" direction="O" id="CCD01" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -322,7 +322,7 @@
                     <item id="lvd_4080" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The voltage detector is a function that compares the supply voltage with the detection voltage, and generates internal interrupt signal or internal reset signal." detailDescription="" display="Voltage Detector" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.lvd" version="1.4.0"/>
+            <component description="The voltage detector is a function that compares the supply voltage with the detection voltage, and generates internal interrupt signal or internal reset signal." detailDescription="" display="Voltage Detector" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.lvd" version="1.5.0"/>
             <allocator channelLevel0="1" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Voltage detection 1" display="LVD1" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.lvd.g23lvd1" type="">
                 <context/>
             </allocator>
@@ -484,7 +484,7 @@
                     </option>
                 </allocatable>
             </allocatable>
-            <component description="The interrupt controller (INTC) is a function that sets request such as external pin interrupts." detailDescription="" display="Interrupt Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" version="1.5.0"/>
+            <component description="The interrupt controller (INTC) is a function that sets request such as external pin interrupts." detailDescription="" display="Interrupt Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" version="1.6.0"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Interrupt Controller" display="INTC" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" type="">
                 <context/>
             </allocator>
@@ -1749,7 +1749,7 @@
                     <item id="lvd_itm39" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="This software component provides configurations for DTC to perform data transfers." detailDescription="" display="Data Transfer Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc" version="1.4.0"/>
+            <component description="This software component provides configurations for DTC to perform data transfers." detailDescription="" display="Data Transfer Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc" version="1.5.0"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="DTC" display="DTC" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.dtc.dtcd0" type="DTC">
                 <context/>
             </allocator>
@@ -1804,7 +1804,7 @@
                     <item id="32bitCountMode" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.5.0"/>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.6.0"/>
             <allocator channelLevel0="000" channelLevel1="2" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="32 bit interval timer channel 0 and channel 1" display="ITL000_ITL001" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.itl00" type="ITL">
                 <context>
                     <option enabled="true" id="FilterMode" selection="16bitCountMode">
@@ -1908,7 +1908,7 @@
                     <item id="Level3" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The real-time clock (RTC) is function that provides information about the present time and date and can generate wake-up signals (interrupts, alarms)." detailDescription="" display="Real-Time Clock" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.rtc" version="1.5.0"/>
+            <component description="The real-time clock (RTC) is function that provides information about the present time and date and can generate wake-up signals (interrupts, alarms)." detailDescription="" display="Real-Time Clock" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.rtc" version="1.6.0"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Real-time Clock" display="RTC" id="com.renesas.smc.tools.swcomponent.codegenerator.rtc.rl78g23.rtc" type="RTC">
                 <context/>
             </allocator>
@@ -1966,7 +1966,7 @@
                     <item id="Level3" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The external event count function is timer that generate interrupt when a specific number of valid input edges are detected." detailDescription="" display="External Event Counter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount" version="1.5.0"/>
+            <component description="The external event count function is timer that generate interrupt when a specific number of valid input edges are detected." detailDescription="" display="External Event Counter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="0" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 0" display="TAU0_0" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount.g23.tau00" type="TAU">
                 <context/>
             </allocator>
@@ -2030,7 +2030,7 @@
                     <item id="Level3" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The external event count function is timer that generate interrupt when a specific number of valid input edges are detected." detailDescription="" display="External Event Counter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount" version="1.5.0"/>
+            <component description="The external event count function is timer that generate interrupt when a specific number of valid input edges are detected." detailDescription="" display="External Event Counter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="1" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 1" display="TAU0_1" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.extevtcount.g23.tau01" type="TAU">
                 <context/>
             </allocator>
@@ -2091,7 +2091,7 @@
                     <item id="32bitCountMode" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.5.0"/>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="2" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 2" display="TAU0_2" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.tau02" type="TAU">
                 <context>
                     <option enabled="true" id="FilterMode" selection="16bitCountMode">
@@ -2168,7 +2168,7 @@
                     <item id="Level3" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The delay count function is a timer that starts counting at the valid edge of the input signal and generates an interrupt after an arbitrary delay period." detailDescription="" display="Delay Counter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.delaycount" version="1.5.0"/>
+            <component description="The delay count function is a timer that starts counting at the valid edge of the input signal and generates an interrupt after an arbitrary delay period." detailDescription="" display="Delay Counter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.delaycount" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="3" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 3" display="TAU0_3" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.delaycount.tau03" type="TAU">
                 <context/>
             </allocator>
@@ -2229,7 +2229,7 @@
                     <item id="32bitCountMode" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.5.0"/>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="4" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 4" display="TAU0_4" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.tau04" type="TAU">
                 <context>
                     <option enabled="true" id="FilterMode" selection="16bitCountMode">
@@ -2297,7 +2297,7 @@
                     <item id="32bitCountMode" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.5.0"/>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="5" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 5" display="TAU0_5" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.tau05" type="TAU">
                 <context>
                     <option enabled="true" id="FilterMode" selection="16bitCountMode">
@@ -2365,7 +2365,7 @@
                     <item id="32bitCountMode" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.5.0"/>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="6" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 6" display="TAU0_6" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.g23.tau06" type="TAU">
                 <context>
                     <option enabled="true" id="FilterMode" selection="16bitCountMode">
@@ -2403,7 +2403,7 @@
                     <item id="FSXP7" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The clock output controller is intended for clock output for supply to peripheral ICs. Buzzer output is a function to output a square wave of buzzer frequency." detailDescription="" display="Clock Output /Buzzer Output Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.pclbuz" version="1.5.0"/>
+            <component description="The clock output controller is intended for clock output for supply to peripheral ICs. Buzzer output is a function to output a square wave of buzzer frequency." detailDescription="" display="Clock Output /Buzzer Output Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.pclbuz" version="1.6.0"/>
             <allocator channelLevel0="1" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="PCLBUZ1 clock output/buzzer output controller" display="PCLBUZ1" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.comparator.pclbuz1" type="">
                 <context/>
             </allocator>
@@ -2459,6 +2459,10 @@
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
                         </option>
+                        <option enabled="true" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
+                        </option>
                     </allocatable>
                 </allocatable>
                 <allocatable id="PORT1_Check">
@@ -2494,6 +2498,10 @@
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
                         </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
+                        </option>
                     </allocatable>
                     <allocatable id="P11">
                         <option enabled="true" id="UseStatus" selection="Unuse">
@@ -2521,6 +2529,10 @@
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
                         </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
+                        </option>
                     </allocatable>
                     <allocatable id="P12">
                         <option enabled="true" id="UseStatus" selection="Unuse">
@@ -2543,6 +2555,10 @@
                         <option enabled="false" id="Output1" selection="Output1Unuse">
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
                         </option>
                     </allocatable>
                     <allocatable id="P13">
@@ -2571,6 +2587,10 @@
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
                         </option>
+                        <option enabled="true" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
+                        </option>
                     </allocatable>
                     <allocatable id="P14">
                         <option enabled="true" id="UseStatus" selection="Out">
@@ -2597,6 +2617,10 @@
                         <option enabled="true" id="Output1" selection="Output1Unuse">
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
                         </option>
                     </allocatable>
                     <allocatable id="P15">
@@ -2625,6 +2649,10 @@
                             <item id="Output1Use" input="" vlaue="0"/>
                             <item id="Output1Unuse" input="" vlaue="0"/>
                         </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
+                        </option>
                     </allocatable>
                     <allocatable id="P16">
                         <option enabled="true" id="UseStatus" selection="OutputCurrent">
@@ -2650,6 +2678,10 @@
                             <item id="2mA" input="" vlaue="0"/>
                             <item id="5mA" input="" vlaue="0"/>
                             <item id="10mA" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
                         </option>
                     </allocatable>
                     <allocatable id="P17">
@@ -2688,6 +2720,10 @@
                         <option enabled="false" id="OutputMaxCurrentSet" selection="Max20mA">
                             <item id="Max20mA" input="" vlaue="0"/>
                             <item id="Max40mA" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
                         </option>
                     </allocatable>
                 </allocatable>
@@ -2871,6 +2907,10 @@
                             <item id="5mA" input="" vlaue="0"/>
                             <item id="10mA" input="" vlaue="0"/>
                         </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
+                        </option>
                     </allocatable>
                     <allocatable id="P51">
                         <option enabled="true" id="UseStatus" selection="Unuse">
@@ -2896,6 +2936,10 @@
                         <option enabled="false" id="OutputMaxCurrentSet" selection="Max20mA">
                             <item id="Max20mA" input="" vlaue="0"/>
                             <item id="Max40mA" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
                         </option>
                     </allocatable>
                 </allocatable>
@@ -2924,6 +2968,10 @@
                             <item id="10mA" input="" vlaue="0"/>
                             <item id="15mA" input="" vlaue="0"/>
                         </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
+                        </option>
                     </allocatable>
                     <allocatable id="P61">
                         <option enabled="true" id="UseStatus" selection="Unuse">
@@ -2942,6 +2990,10 @@
                             <item id="5mA" input="" vlaue="0"/>
                             <item id="10mA" input="" vlaue="0"/>
                             <item id="15mA" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="outputELCL" selection="outputELCLUnuse">
+                            <item id="outputELCLUse" input="" vlaue="0"/>
+                            <item id="outputELCLUnuse" input="" vlaue="0"/>
                         </option>
                     </allocatable>
                     <allocatable id="P62">
@@ -3274,7 +3326,7 @@
                     <item id="ReadDigitalOutputLevel" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The ports is function that config each pin to be used as general input/output pin or input/output function of internal IP." detailDescription="" display="Ports" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.port" version="1.5.0"/>
+            <component description="The ports is function that config each pin to be used as general input/output pin or input/output function of internal IP." detailDescription="" display="Ports" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.port" version="1.6.0"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Input output configuration of PORT" display="PORT" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.port.rl78g23.PORT" type="">
                 <context/>
             </allocator>
@@ -3342,6 +3394,14 @@
                     <item id="Slection153600" input="153600" vlaue="0"/>
                     <item id="Slection312500" input="312500" vlaue="0"/>
                 </option>
+                <option enabled="true" id="SCKmnOutput" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="SOmnOutput" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
                 <option enabled="true" id="INTPriority" selection="Level1">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
@@ -3362,7 +3422,7 @@
                     <item id="BothMode" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="SPI (CSI) is communication function that three-wire serial data transfer with clock synchronous." detailDescription="" display="SPI (CSI) Communication" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.csi" version="1.5.0"/>
+            <component description="SPI (CSI) is communication function that three-wire serial data transfer with clock synchronous." detailDescription="" display="SPI (CSI) Communication" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.csi" version="1.6.0"/>
             <allocator channelLevel0="0" channelLevel1="0" channelLevel2="00" channelLevel3="" channelLevel4="" channelLevel5="" description="SAU channel 0, CSI channel 00" display="CSI00" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.csi.csi00" type="CSI">
                 <context>
                     <option enabled="true" id="ModeSetting" selection="TransMode">
@@ -3429,7 +3489,7 @@
                     <item id="enable" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="This is a clocked communication function (Master mode) to communicate with two or more devices by using two lines: serial clock (SCL) and serial data (SDA)." detailDescription="" display="IIC Communication (Master mode)" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.iicmaster" version="1.6.0"/>
+            <component description="This is a clocked communication function (Master mode) to communicate with two or more devices by using two lines: serial clock (SCL) and serial data (SDA)." detailDescription="" display="IIC Communication (Master mode)" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.iicmaster" version="1.7.0"/>
             <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="IIC Communication (Master mode)" display="IICA0" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.iicamaster.iica0" type="IICAmaster">
                 <context/>
             </allocator>
@@ -3503,6 +3563,10 @@
                 <option enabled="false" id="elcClockValue" selection="input">
                     <item id="input" input="32000" vlaue="0"/>
                 </option>
+                <option enabled="true" id="TxDA0PinOutputSetting" selection="enable">
+                    <item id="disable" input="" vlaue="0"/>
+                    <item id="enable" input="" vlaue="0"/>
+                </option>
                 <option enabled="true" id="dataLength" selection="8bits">
                     <item id="5bits" input="" vlaue="0"/>
                     <item id="7bits" input="" vlaue="0"/>
@@ -3574,7 +3638,7 @@
                     <item id="disable" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The universal asynchronous receiver/transmitter(UART) interface supports serial communication." detailDescription="" display="UART Communication" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.uart" version="1.7.0"/>
+            <component description="The universal asynchronous receiver/transmitter(UART) interface supports serial communication." detailDescription="" display="UART Communication" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.uart" version="1.8.0"/>
             <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="UART Communication" display="UARTA0" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.uart.allocator01" type="UARTA">
                 <context>
                     <option enabled="true" id="Mode" selection="both">
@@ -3585,33 +3649,6 @@
                 </context>
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_bsp">
-            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages. - v1.70" display="r_bsp" id="r_bsp1.70" version="1.70">
-                <gridItem id="BSP_CFG_STARTUP_DISABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_RAM_GUARD_FUNC" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_PORT_FUNCTION_GUARD" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_INT_FUNCTION_GUARD" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_CHIP_STATE_CTRL_GUARD" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_CONFIGURATOR_SELECT" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" selectedIndex="my_sw_warmstart_prec_function"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" selectedIndex="my_sw_warmstart_postc_function"/>
-                <gridItem id="BSP_CFG_WDT_REFRESH_ENABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION" selectedIndex="my_sw_wdt_refresh_init_function"/>
-                <gridItem id="BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION" selectedIndex="my_sw_wdt_refresh_setting_function"/>
-            </component>
-            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
-            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
         </configuration>
         <configuration inuse="true" name="r_ctsu">
             <component description="Dependency : r_bsp version(s) 1.70&#10;The CTSU module is a CTSU driver for the Capacitive Sensing Unit. The CTSU module is configured assuming access via the Touch middleware layer, but can also be accessed from the user application." detailDescription="Capacitive Sensing Unit driver." display="r_ctsu" id="r_ctsu2.00" version="2.00">
@@ -3726,6 +3763,33 @@
                 <gridItem id="RM_HS400X_CFG_DEVICE1_HUMIDITY_RESOLUTION" selectedIndex="3"/>
                 <gridItem id="RM_HS400X_CFG_DEVICE1_PERIODIC_MEASUREMENT_FREQUENCY" selectedIndex="1"/>
                 <gridItem id="RM_HS400X_CFG_DEVICE1_CALLBACK" selectedIndex="hs400x_user_i2c_callback1"/>
+            </component>
+            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+            <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_bsp">
+            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages. - v1.80" display="r_bsp" id="r_bsp1.80" version="1.80">
+                <gridItem id="BSP_CFG_STARTUP_DISABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_RAM_GUARD_FUNC" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_PORT_FUNCTION_GUARD" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INT_FUNCTION_GUARD" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_CHIP_STATE_CTRL_GUARD" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_CONFIGURATOR_SELECT" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" selectedIndex="my_sw_warmstart_prec_function"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" selectedIndex="my_sw_warmstart_postc_function"/>
+                <gridItem id="BSP_CFG_WDT_REFRESH_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION" selectedIndex="my_sw_wdt_refresh_init_function"/>
+                <gridItem id="BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION" selectedIndex="my_sw_wdt_refresh_setting_function"/>
             </component>
             <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
             <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>

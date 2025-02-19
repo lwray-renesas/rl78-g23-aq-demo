@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_DTC.h
-* Component Version: 1.4.0
+* Component Version: 1.5.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_DTC.
 ***********************************************************************************************************************/
@@ -88,6 +88,6 @@ void R_Config_DTC_Create_UserInit(void);
  * @param dst - pointer to destination
  * @param cnt - number of bytes to transmit
  */
- void Start_dtc1(__near const uint8_t * src, __near uint8_t * dst, uint16_t cnt);
+ void Start_dtc1(uint8_t * src, uint8_t * dst, uint16_t cnt);
 /* End user code. Do not edit comment generated here */
 #endif

@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_DTC.c
-* Component Version: 1.4.0
+* Component Version: 1.5.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_DTC.
 ***********************************************************************************************************************/
@@ -206,7 +206,7 @@ void R_DTCD23_Stop(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 
-void Start_dtc1(__near const uint8_t * src, __near uint8_t * dst, uint16_t cnt)
+void Start_dtc1(uint8_t * src, uint8_t * dst, uint16_t cnt)
 {
 	dtc_controldata_1.dtbls = 1U;
 	dtc_controldata_1.dtcct = (cnt > 255U) ? 0U : (uint8_t)cnt;

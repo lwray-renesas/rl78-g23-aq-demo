@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_ITL000_ITL001.h
-* Component Version: 1.5.0
+* Component Version: 1.6.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_ITL000_ITL001.
 ***********************************************************************************************************************/
@@ -48,12 +48,12 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_Config_ITL000_ITL001_Create(void);
-void R_Config_ITL000_ITL001_Start(void);
-void R_Config_ITL000_ITL001_Stop(void);
-void R_Config_ITL000_ITL001_Set_OperationMode(void);
-void R_Config_ITL000_ITL001_Callback_Shared_Interrupt(void);
-void R_Config_ITL000_ITL001_Create_UserInit(void);
+void R_Config_ITL000_ITL001_Create (void);
+void R_Config_ITL000_ITL001_Start (void);
+void R_Config_ITL000_ITL001_Stop (void);
+void R_Config_ITL000_ITL001_Set_OperationMode (void);
+void R_Config_ITL000_ITL001_Callback_Shared_Interrupt (void);
+void R_Config_ITL000_ITL001_Create_UserInit (void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

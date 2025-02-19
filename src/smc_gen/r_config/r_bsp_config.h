@@ -913,7 +913,7 @@
    v1.3.0  : 1030
    v1.6.0  : 1060
 */
-#define BSP_CFG_CONFIGURATOR_VERSION    (1110) /* Generated value. Do not edit this manually */
+#define BSP_CFG_CONFIGURATOR_VERSION    (1120) /* Generated value. Do not edit this manually */
 
 /* API function disable(R_BSP_StartClock, R_BSP_StopClock)
  0 : Enable API functions

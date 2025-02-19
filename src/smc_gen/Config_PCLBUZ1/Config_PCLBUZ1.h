@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_PCLBUZ1.h
-* Component Version: 1.5.0
+* Component Version: 1.6.0
 * Device(s)        : R7F100GGNxFB
 * Description      : This file implements device driver for Config_PCLBUZ1.
 ***********************************************************************************************************************/
